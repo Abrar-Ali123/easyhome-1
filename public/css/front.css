@@ -1,0 +1,294 @@
+:root {
+    --primary-color: #fff; /* اللون الأساسي للخلفية العامة */
+    --primary-color-dark: #091716; /* اللون الأساسي للخلفية العامة في الوضع الداكن */
+    --highlight-color: #fff6e0; /* اللون المميز لإبراز العناصر */
+    --secondary-color: #003e37; /* لون النصوص والخلفيات الأخرى */
+    --accent-color: #bb9339; /* اللون المميز للتأكيد */
+}
+
+html, body {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    background-color: var(--primary-color);
+    color: var(--secondary-color);
+    transition: background-color 0.3s, color 0.3s;
+}
+
+body.dark-theme {
+    background-color: var(--primary-color-dark);
+    color: var(--highlight-color);
+}
+
+/* خلفية وتفاصيل الهيدر في الوضع الفاتح والداكن */
+header {
+    background-color: var(--highlight-color);
+    color: var(--secondary-color);
+    text-align: center;
+    height: 100px;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+body.dark-theme header {
+    background-color: var(--secondary-color);
+    color: var(--highlight-color);
+}
+
+header img {
+    height: 40px;
+}
+
+header nav {
+    background-color: transparent;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 16px;
+    height: 100%;
+}
+
+header nav a {
+    color: inherit;
+    text-decoration: none;
+    font-weight: 500;
+    transition: color 0.3s;
+}
+
+body.dark-theme header nav a {
+    color: var(--highlight-color);
+}
+
+header nav a:hover {
+    color: var(--accent-color);
+}
+
+body.dark-theme header nav a:hover {
+    color: var(--accent-color);
+}
+
+.content {
+    flex: 1;
+    padding: 20px;
+}
+
+/* خلفية وتفاصيل الفوتر في الوضع الفاتح والداكن */
+footer {
+    background-color: var(--highlight-color);
+    color: var(--secondary-color);
+    text-align: center;
+    padding: 10px 0;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+body.dark-theme footer {
+    background-color: var(--secondary-color);
+    color: var(--highlight-color);
+}
+
+/* خلفية وتفاصيل شريط التنقل في الوضع الفاتح والداكن */
+nav {
+    background-color: var(--highlight-color);
+    width: 100%;
+    margin-bottom: 50px;
+    transition: background-color 0.3s;
+}
+
+header nav.scrolled {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 10%;
+    width: 100%;
+    padding: 1%;
+    background-color: var(--secondary-color);
+    color: var(--highlight-color); /* لون الأيقونات في الوضع الداكن */
+    z-index: 1000;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+body.dark-theme nav {
+    background-color: var(--secondary-color);
+}
+
+nav > div {
+    max-width: 1280px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin: 0 auto;
+    padding: 16px;
+}
+
+nav img {
+    width: 80px;
+    height: 80px;
+}
+
+nav button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    padding: 8px;
+    font-size: 14px;
+    color: var(--secondary-color); /* لون الأيقونات في الوضع الفاتح */
+    border-radius: 8px;
+    background-color: transparent;
+    border: none;
+    transition: background-color 0.3s;
+}
+
+body.dark-theme nav button {
+    color: var(--highlight-color); /* لون الأيقونات في الوضع الداكن */
+}
+
+nav button:hover {
+    background-color: var(--primary-color);
+}
+
+body.dark-theme nav button:hover {
+    background-color: var(--primary-color-dark);
+}
+
+nav button:focus {
+    outline: 2px solid #e5e7eb;
+}
+
+nav button svg {
+    width: 20px;
+    height: 20px;
+}
+
+#navbar-default {
+    display: none;
+    width: 100%;
+}
+
+@media (min-width: 768px) {
+    #navbar-default {
+        display: block;
+        width: auto;
+    }
+}
+
+nav ul {
+    font-weight: 500;
+    display: flex;
+    flex-direction: column;
+    padding: 16px;
+    margin-top: 16px;
+    border: 1px solid #e5e7eb;
+    border-radius: 8px;
+    background-color: var(--primary-color);
+    position: relative; /* تأكد من أن nav يكون مرجعًا لz-index */
+    list-style: none; /* إزالة النقاط */
+    transition: background-color 0.3s;
+}
+
+body.dark-theme nav ul {
+    background-color: var(--primary-color-dark);
+}
+
+@media (min-width: 768px) {
+    nav ul {
+        flex-direction: row;
+        padding: 0;
+        margin-top: 0;
+        border: none;
+        background-color: transparent;
+    }
+}
+
+nav ul li {
+    margin: 8px 0;
+}
+
+@media (min-width: 768px) {
+    nav ul li {
+        margin: 0 8px;
+    }
+}
+
+nav ul li a {
+    padding: 8px 12px;
+    color: var(--secondary-color);
+    border-radius: 8px;
+    text-decoration: none;
+    display: block;
+    transition: color 0.3s ease;
+}
+
+body.dark-theme nav ul li a {
+    color: var(--highlight-color);
+}
+
+nav ul li a:hover {
+    color: var(--accent-color);
+}
+
+body.dark-theme nav ul li a:hover {
+    color: var(--accent-color);
+}
+
+nav ul li:last-child {
+    display: flex;
+    gap: 16px;
+}
+
+nav ul li:last-child a {
+    color: var(--secondary-color);
+}
+
+body.dark-theme nav ul li:last-child a {
+    color: var(--highlight-color);
+}
+
+nav ul li:last-child a:hover {
+    color: var(--accent-color);
+}
+
+body.dark-theme nav ul li:last-child a:hover {
+    color: var(--accent-color);
+}
+
+@media (max-width: 768px) {
+    #navbar-default {
+        display: none;
+    }
+    #navbar-default.show {
+        display: block;
+    }
+}
+.toggle-theme-btn {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background: var(--secondary-color-light);
+    color: var(--primary-color-light);
+    border: none;
+    padding: 12px 25px;
+    font-size: 1.1em;
+    cursor: pointer;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    transition: background 0.3s ease, color 0.3s ease;
+}
+
+.toggle-theme-btn:hover {
+    background: var(--accent-color);
+}
+
+body.dark-mode .toggle-theme-btn {
+    background: var(--secondary-color-dark);
+    color: var(--primary-color-dark);
+}
+
+
+

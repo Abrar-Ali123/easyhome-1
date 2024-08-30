@@ -51,11 +51,12 @@
                 <td>{{ $product->area }}</td>
                 <td>{{ $product->price }}</td>
             <td>
-            <img src="{{ url('easyhome/storage/app/public/' . $product->image) }}" alt="Product Image">
+            <img src="{{ url('/storage/app/public/' . $product->image) }}" alt="Product Image">
 
                 </td>
                 <td>
                     <a href="{{ route('products.edit', $product) }}" class="btn"><i class="fas fa-edit"></i></a>
+                    <a href="{{route('products.show',$product)}}">show</a>
                     <form action="{{ route('products.destroy', $product) }}" method="POST" style="display:inline;">
                         @csrf
                         @method('DELETE')

@@ -20,7 +20,7 @@
     <meta charset="UTF-8">
 
 
-     <link href="{{ asset('easyhome/css/front.css') }}" rel="stylesheet">
+     <link href="{{ asset('/css/front.css') }}" rel="stylesheet">
 
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>صفحة المثال</title>
@@ -31,7 +31,7 @@
         <nav>
             <div>
                 <a href="#">
-                    <img src="image/1.png" alt="Logo" />
+                    <img src="/images/9.png" alt="Logo" />
                 </a>
                 <button type="button" aria-controls="navbar-default" aria-expanded="false">
                     <span class="sr-only">افتح القائمة</span>
@@ -128,7 +128,7 @@
                 <div class="card-header">{{ __('Login') }}</div>
 
                 <div class="card-body">
-                    <form method="POST" action="{{ route('Abrar') }}">
+                    <form method="POST" action="{{ Route('login') }}">
                         @csrf
 
                         <div class="row mb-3">
@@ -183,7 +183,7 @@
                                     </a>
                                 @endif
 
-                                <a class="btn btn-link" href="{{ route('register.r') }}">
+                                <a class="btn btn-link" href="{{ route('register') }}">
             {{ __('Don\'t have an account? Register here') }}
         </a>
                             </div>

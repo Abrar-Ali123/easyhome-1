@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>عرض العقارات</title>
 
-     <link href="{{ asset('easyhome/css/app.css') }}" rel="stylesheet">
+     <link href="{{ asset('/css/app.css') }}" rel="stylesheet">
 <!-- Add these to the head section of your main layout file -->
 <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/css/select2.min.css" rel="stylesheet" />
 <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/js/select2.min.js"></script>
@@ -51,7 +51,7 @@
     <!-- شريط جانبي -->
     <div class="sidebar">
     <div class="company-logo">
-        <img src="image/1.png" alt="Company Logo">
+        <img src="/images/9.png" alt="Company Logo">
     </div>
     <div>
             <a  onclick="toggleTheme()" id="themeIcon">☀️</a>

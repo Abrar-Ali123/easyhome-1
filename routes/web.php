@@ -32,7 +32,7 @@ Route::get('/1', function () {
 });
 
 Route::get('/2', function () {
-    return view('proprty');
+    return view('pproprty');
 });
 
 Route::get('/login', function () {

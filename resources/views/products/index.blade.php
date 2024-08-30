@@ -4,8 +4,8 @@
 
 @section('content')
 
-<button class="btn" onclick="location.href='{{ route('products.create') }}'">إنشاء عقار جديد</button>
-
+'<button class="btn" onclick="location.href='{{ route('products.create') }}'">إنشاء عقار جديد</button>
+'
 <!-- شريط البحث والفرز -->
 <div class="row mb-3 search_part">
     <!-- أضف المزيد من حقول البحث هنا إذا لزم الأمر -->
@@ -73,8 +73,8 @@
     <div class="row">
         @foreach ($products as $product)
         <div class="col-md-4 mb-3">
-            <div class="ca<div class="card">
-    <img src="{{ url('easyhome/storage/app/public/' . $product->image) }}" alt="Product Image" class="card-img-top" style="height: 200px; object-fit: cover;">
+            <div class="card">
+    <img src="{{ url('storage/app/public/' . $product->image) }}" alt="Product Image" class="card-img-top" style="height: 200px; object-fit: cover;">
     <div class="card-body">
         <h5 class="card-title">{{ $product->title }}</h5>
         <div class="property-info">

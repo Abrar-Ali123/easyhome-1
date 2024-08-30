@@ -80,7 +80,7 @@ overflow-x: hidden
 <nav class="navbar-transparent fixed w-full z-50">
     <div class="max-w-screen-xl flex items-center justify-between mx-auto p-4">
         <a href="#" class="flex items-center space-x-3 rtl:space-x-reverse">
-            <img src="{{ asset('easyhome/public/images/9.png') }}" class="w-20 h-20" />
+            <img src="{{ asset('/images/9.png') }}" class="w-20 h-20" />
         </a>
         <button data-collapse-toggle="navbar-default" type="button"
             class="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600"
@@ -307,7 +307,7 @@ overflow-x: hidden
         document.getElementById('popup').style.display = 'flex';
     });
 
-    document.querySelector('.popup-content .close').addEventListener('click', function() {
+    document.querySelector('.popup-content.close').addEventListener('click', function() {
         document.getElementById('popup').style.display = 'none';
     });
 

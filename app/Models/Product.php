@@ -69,4 +69,10 @@ class Product extends Model
     {
         return self::CATEGORY_ICONS[$this->category] ?? 'fa-question';
     }
+
+    // داخل Product.php
+    public function comments()
+    {
+        return $this->hasMany(Comment::class);
+    }
 }

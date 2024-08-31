@@ -1,9 +1,30 @@
 <?php
 
 use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\CommentController;
+use App\Http\Controllers\LikeController;
+use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\ReplyController;
 use Illuminate\Support\Facades\Route;
+
+Route::middleware(['web', 'auth.custom'])->group(function () {
+
+    Route::post('/comments/{product}', [CommentController::class, 'store'])->name('comments.store');
+    Route::post('/comments/{comment}/toggle-visibility', [CommentController::class, 'toggleVisibility']);
+    Route::post('/replies/{comment}', [ReplyController::class, 'store']);
+    Route::post('/likes', [LikeController::class, 'store'])->name('likes.store');
+});
+
+Route::resource('orders', OrderController::class);
+
+Route::post('comments/{product}', [CommentController::class, 'store'])->name('comments.store');
+Route::post('comments/{comment}/toggle-visibility', [CommentController::class, 'toggleVisibility'])->name('comments.toggleVisibility');
+
+Route::post('replies/{comment}', [ReplyController::class, 'store'])->name('replies.store');
+
+Route::post('likes', [LikeController::class, 'store'])->name('likes.store');
 
 Route::get('/login', [LoginController::class, 'showLoginForm'])->name('Abrar');
 Route::post('/login', [App\Http\Controllers\Auth\LoginController::class, 'login']);

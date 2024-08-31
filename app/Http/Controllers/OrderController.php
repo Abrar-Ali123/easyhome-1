@@ -7,30 +7,34 @@ use Illuminate\Http\Request;
 
 class OrderController extends Controller
 {
-    // عرض جميع الطلبات
+    // عرض الطلبات
     public function index()
     {
-        $orders = Order::with('user', 'product')->get();
+        $orders = Order::all();
 
         return view('orders.index', compact('orders'));
     }
 
     // إنشاء طلب جديد
-    public function store(Request $request)
+    public function create()
     {
-        $order = new Order();
-        $order->user_id = $request->user_id;
-        $order->product_id = $request->product_id;
-        $order->save();
-
-        return redirect()->route('orders.index');
+        return view('orders.create');
     }
 
-    // عرض طلب محدد
-    public function show($id)
+    // حفظ الطلب الجديد
+    public function store(Request $request)
     {
-        $order = Order::with('user', 'product')->findOrFail($id);
+        $request->validate([
+            'description' => 'required|string|max:255',
+            'status' => 'required|string',
+        ]);
 
-        return view('orders.show', compact('order'));
+        Order::create([
+            'user_id' => auth()->id(),
+            'description' => $request->description,
+            'status' => $request->status,
+        ]);
+
+        return redirect()->route('orders.index')->with('success', 'Order created successfully.');
     }
 }

@@ -100,8 +100,11 @@ class ProductController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function show(Product $product)
+    // داخل ProductController.php
+    public function show($id)
     {
+        $product = Product::with('comments.likes')->findOrFail($id);
+
         return view('products.show', compact('product'));
     }
 

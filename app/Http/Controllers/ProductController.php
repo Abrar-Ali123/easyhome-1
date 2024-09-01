@@ -13,6 +13,13 @@ class ProductController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
+    public function single()
+    {
+        $products = Product::all();
+
+        return view('single', compact('products'));
+    }
     public function index()
     {
         $products = Product::all();

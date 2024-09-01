@@ -331,10 +331,12 @@
         <header class="header">
             <h1>عرض العقارات</h1>
         </header>
+    @foreach($products as $product)
+            <section class="property-main">
+                <img src="{{ url('/storage/app/public/' . $product->image) }}" alt="صورة العقار الرئيسية">
+            </section>
+    @endforeach
 
-        <section class="property-main">
-            <img src="{{ url('/storage/app/public/' . $product->image) }}" alt="صورة العقار الرئيسية">
-        </section>
 
         <section class="property-gallery">
             <img src="https://via.placeholder.com/800x400" alt="صورة العقار المصغرة 1">

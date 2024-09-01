@@ -443,6 +443,38 @@
         referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
     </section>
 
+    <div class="product-actions">
+    <button id="request-product" class="action-btn">اطلب المنتج</button>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    $(document).ready(function() {
+        // طلب المنتج باستخدام AJAX
+        $('#request-product').on('click', function() {
+            $.ajax({
+                type: 'POST',
+                url: '{{ route('orders.store', ['product' => $product->id]) }}',
+                data: {
+                    _token: '{{ csrf_token() }}'
+                },
+                success: function(response) {
+                    alert('تم طلب المنتج بنجاح');
+                },
+                error: function(xhr) {
+                    if (xhr.status === 401) {
+                        document.getElementById('popup').style.display = 'flex'; // يظهر نافذة تسجيل الدخول إذا لم يكن المستخدم مسجلاً دخوله
+                    } else {
+                        alert('حدث خطأ أثناء طلب المنتج.');
+                    }
+                }
+            });
+        });
+    });
+</script>
+
+
+
     <section class="like-section">
         <button>
             <i class="fas fa-thumbs-up icon"></i> أعجبني

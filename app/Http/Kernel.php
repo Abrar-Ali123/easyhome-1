@@ -59,4 +59,10 @@ class Kernel extends HttpKernel
         'auth.custom' => \App\Http\Middleware\Auth::class, // أضف هذا السطر
 
     ];
+
+    // في ملف Kernel.php
+    protected $routeMiddleware = [
+        // ...
+        'auth.custom' => \App\Http\Middleware\AuthCustom::class,
+    ];
 }

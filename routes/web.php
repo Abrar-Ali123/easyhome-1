@@ -12,6 +12,8 @@ use Illuminate\Support\Facades\Route;
 Route::middleware(['web', 'auth.custom'])->group(function () {
 
     Route::post('/comments/{product}', [CommentController::class, 'store'])->name('comments.store');
+    Route::get('/comments/{product}', [CommentController::class, 'index'])->name('comments.index');
+
     Route::post('/comments/{comment}/toggle-visibility', [CommentController::class, 'toggleVisibility']);
     Route::post('/replies/{comment}', [ReplyController::class, 'store']);
     Route::post('/likes', [LikeController::class, 'store'])->name('likes.store');

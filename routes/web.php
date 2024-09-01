@@ -68,9 +68,12 @@ Route::get('/products/{product}/edit', [ProductController::class, 'edit'])->name
 Route::put('/products/{product}', [ProductController::class, 'update'])->name('products.update');
 Route::delete('/products/{product}', [ProductController::class, 'destroy'])->name('products.destroy');
 
-Route::get('/single', function () {
-    return view('single');
-});
+
+Route::get('/single', [ProductController::class, 'single'])->name('single');
+
+//Route::get('/single', function () {
+//    return view('single');
+//});
 
 Route::post('/products/{id}/order', [OrderController::class, 'placeOrder'])->middleware('auth')->name('products.order');
 

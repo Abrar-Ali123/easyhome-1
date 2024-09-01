@@ -118,14 +118,68 @@ overflow-x: hidden
                     <a href="#"
                         class="block py-2 px-3 text-white rounded md:bg-transparent md:text-white md:p-0 dark:text-white md:dark:text-white hover:text-[#d4af37] md:hover:text-[#d4af37] dark:hover:text-[#d4af37]">طلب استثمار</a>
                 </li>
+                <li>
+                    <a href="{{route('login')}}"
+                       class="block py-2 px-3 text-white rounded md:bg-transparent md:text-white md:p-0 dark:text-white md:dark:text-white hover:text-[#d4af37] md:hover:text-[#d4af37] dark:hover:text-[#d4af37]">التسجيل/تسجيل الدخول</a>
+                </li>
                 <li class="flex space-x-4 rtl:space-x-reverse mr-4 ml-4">
                     <a href="#" class="text-white hover:text-[#d4af37]">
                         <i class="fas fa-heart mr-4 ml-4"></i>
                     </a>
 
-                    <a  id="openPopup" class="text-white hover:text-[#d4af37] mr-4 ml-4">
-    <i class="fas fa-user mr-4 ml-4"></i>
-</a>
+
+
+                    <!-- HTML for Dropdown Menu -->
+                    <div class="dropdown" onmouseleave="hideDropdown()">
+                        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" onclick="toggleDropdown()" aria-haspopup="true" aria-expanded="false">
+                            <i class="fas fa-user mr-4 ml-4 text-white"></i>
+                        </button>
+                        <div class="dropdown-menu" id="dropdownMenu" aria-labelledby="dropdownMenuButton" style="display: none;">
+                            <a class="dropdown-item" href="{{route('login')}}">تسجيل الدخول </a>
+                            <a class="dropdown-item" href="{{route('register')}}">التسجيل</a>
+                            <a class="dropdown-item" href="{{route('logout')}}">تسجيل الخروج</a>
+
+                        </div>
+                    </div>
+
+                    <!-- JavaScript for Toggle Functionality -->
+                    <script>
+                        function toggleDropdown() {
+                            const dropdownMenu = document.getElementById('dropdownMenu');
+                            dropdownMenu.style.display = dropdownMenu.style.display === 'block' ? 'none' : 'block';
+                        }
+
+                        function hideDropdown() {
+                            document.getElementById('dropdownMenu').style.display = 'none';
+                        }
+                    </script>
+
+                    <!-- CSS for Basic Styling (Optional) -->
+                    <style>
+		                .dropdown-menu {
+			                position: absolute;
+			                background-color: #fff;
+			                border: 1px solid #ccc;
+			                border-radius: 4px;
+			                width: 200px;
+			                box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+		                }
+		                .dropdown-item {
+			                padding: 10px;
+			                text-align: right;
+			                color: #333;
+			                text-decoration: none;
+			                display: block;
+		                }
+		                .dropdown-item:hover {
+			                background-color: #f0f0f0;
+		                }
+                    </style>
+
+
+                    {{--                    <a  id="openPopup" class="text-white hover:text-[#d4af37] mr-4 ml-4">--}}
+{{--    <i class="fas fa-user mr-4 ml-4"></i>--}}
+{{--</a>--}}
 
                 </li>
             </ul>
@@ -465,7 +519,7 @@ overflow-x: hidden
                 </div>
                 <div class="absolute inset-x-0 bottom-0 text-white transition-all duration-300 transform translate-y-full group-hover:translate-y-0" style="background-color: rgba(0, 62, 55, 0.85);">
                     <div class="p-4">
-                        <h3 class="text-lg font-semibold">{{ $product->title }}</h3>
+                       <a href="{{route('single')}}"><h3 class="text-lg font-semibold">{{ $product->title }}</h3></a>
                     </div>
                     <div class="p-4">
                         <div class="flex items-center mb-2">
@@ -736,6 +790,7 @@ overflow-x: hidden
                 <li><a href="#" class="text-gray-400 hover:text-white">من نحن</a></li>
                 <li><a href="#" class="text-gray-400 hover:text-white">اطلب عقارك</a></li>
                 <li><a href="#" class="text-gray-400 hover:text-white">طلب استثمار</a></li>
+                <li><a href="{{route('login')}}" class="text-gray-400 hover:text-white">التسجيل/تسجيل الدخول</a></li>
             </ul>
         </div>
         <div>

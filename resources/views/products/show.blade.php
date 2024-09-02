@@ -24,38 +24,47 @@
         border-color: var(--accent-color-dark);
     }
 
-    .property-main img {
-        width: 100%;
-        border-radius: 12px;
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    }
+    .property-display {
+    display: flex;
+    justify-content: center; /* لتوسيط الصور أفقياً في الصفحة */
+    align-items: center; /* لتوسيط الصور عمودياً إذا كانت الحاوية طويلة */
+    gap: 10px; /* المسافة بين الصورة الرئيسية والصور المصغرة */
+    margin: 0 auto; /* لضمان أن القسم بالكامل في المنتصف */
+    max-width: 800px; /* تحديد عرض مناسب لقسم العرض */
+}
 
-    .property-gallery {
-        display: flex;
-        justify-content: center;
-        gap: 10px;
-        margin: 20px 0;
-    }
+.property-main img {
+    max-width: 300px; /* حجم الصورة الرئيسية */
+    height: auto;
+    border-radius: 12px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
 
-    .property-gallery img {
-        width: 60px;
-        height: 40px;
-        border-radius: 8px;
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-        cursor: pointer;
-        transition: transform 0.3s ease;
-    }
+.property-gallery {
+    display: flex;
+    flex-direction: column; /* الصور المصغرة ستظهر في عمود */
+    gap: 10px; /* المسافة بين الصور المصغرة */
+}
 
-    .property-gallery img:hover {
-        transform: scale(1.1);
-    }
+.property-gallery img {
+    width: 60px; /* حجم الصور المصغرة */
+    height: 40px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    cursor: pointer;
+    transition: transform 0.3s ease;
+}
+
+.property-gallery img:hover {
+    transform: scale(1.1);
+}
+
 
     .property-info {
         padding: 30px;
         background: var(--primary-color-light);
         border-radius: 12px;
         box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-        margin-bottom: 30px;
         transition: background 0.3s, color 0.3s;
     }
 
@@ -377,23 +386,25 @@
         <h2>{{ $product->title }}</h2>
     </header>
 
-    <section class="property-main">
-        <img src="{{ url('/storage/app/public/' . $product->image) }}" alt="صورة العقار الرئيسية">
-    </section>
+    <section class="property-display">
+        <div class="property-main">
+            <img src="{{ url('/storage/app/public/' . $product->image) }}" alt="صورة العقار الرئيسية">
+        </div>
 
-    <section class="property-gallery">
-        @if($product->images)
-            @php
-                $images = json_decode($product->images, true);
-            @endphp
-            @foreach($images as $image)
-                <a href="{{ url('/storage/app/public/' . $image) }}" class="glightbox">
-                    <img src="{{ url('/storage/app/public/' . $image) }}" alt="صورة العقار">
-                </a>
-            @endforeach
-        @else
-            <p>لا توجد صور مرفوعة.</p>
-        @endif
+        <div class="property-gallery">
+            @if($product->images)
+                @php
+                    $images = json_decode($product->images, true);
+                @endphp
+                @foreach($images as $image)
+                    <a href="{{ url('/storage/app/public/' . $image) }}" class="glightbox">
+                        <img src="{{ url('/storage/app/public/' . $image) }}" alt="صورة العقار">
+                    </a>
+                @endforeach
+            @else
+                <p>لا توجد صور مرفوعة.</p>
+            @endif
+        </div>
     </section>
 
     <section class="property-info">
@@ -444,36 +455,34 @@
     </section>
 
     <div class="product-actions">
-    <button id="request-product" class="action-btn">اطلب المنتج</button>
-</div>
+        <button id="request-product" class="action-btn">اطلب المنتج</button>
+    </div>
 
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script>
-    $(document).ready(function() {
-        // طلب المنتج باستخدام AJAX
-        $('#request-product').on('click', function() {
-            $.ajax({
-                type: 'POST',
-                url: '{{ route('orders.store', ['product' => $product->id]) }}',
-                data: {
-                    _token: '{{ csrf_token() }}'
-                },
-                success: function(response) {
-                    alert('تم طلب المنتج بنجاح');
-                },
-                error: function(xhr) {
-                    if (xhr.status === 401) {
-                        document.getElementById('popup').style.display = 'flex'; // يظهر نافذة تسجيل الدخول إذا لم يكن المستخدم مسجلاً دخوله
-                    } else {
-                        alert('حدث خطأ أثناء طلب المنتج.');
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            // طلب المنتج باستخدام AJAX
+            $('#request-product').on('click', function() {
+                $.ajax({
+                    type: 'POST',
+                    url: '{{ route('orders.store', ['product' => $product->id]) }}',
+                    data: {
+                        _token: '{{ csrf_token() }}'
+                    },
+                    success: function(response) {
+                        alert('تم طلب المنتج بنجاح');
+                    },
+                    error: function(xhr) {
+                        if (xhr.status === 401) {
+                            document.getElementById('popup').style.display = 'flex'; // يظهر نافذة تسجيل الدخول إذا لم يكن المستخدم مسجلاً دخوله
+                        } else {
+                            alert('حدث خطأ أثناء طلب المنتج.');
+                        }
                     }
-                }
+                });
             });
         });
-    });
-</script>
-
-
+    </script>
 
     <section class="like-section">
         <button>
@@ -483,11 +492,8 @@
     </section>
 
     <section class="comment-section">
-    @include('comments', ['product' => $product])
-
+        @include('comments', ['product' => $product])
     </section>
 </div>
-
-@include('parts.login_popup')
 
 @endsection

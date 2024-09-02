@@ -1,14 +1,13 @@
 <!DOCTYPE html>
 <html lang="ar">
 <head>
-
 <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ config('app.name', 'Laravel') }}</title>
+    <title>{{ config('app.name', 'لارافيل') }}</title>
 
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.bunny.net">
@@ -26,13 +25,14 @@
     <title>صفحة المثال</title>
 </head>
 <body>
+@include('parts.login_popup')
 
     <header>
         <nav>
             <div>
-                <a href="#">
-                    <img src="/images/9.png" alt="Logo" />
-                </a>
+            <a href="#" class="flex items-center space-x-3 rtl:space-x-reverse">
+            <img src="{{ asset('/images/9.png') }}" class="w-20 h-20" />
+        </a>
                 <button type="button" aria-controls="navbar-default" aria-expanded="false">
                     <span class="sr-only">افتح القائمة</span>
                     <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 17 14">
@@ -46,12 +46,33 @@
                         <li><a href="#">من نحن</a></li>
                         <li><a href="#">اطلب عقارك</a></li>
                         <li><a href="#">طلب استثمار</a></li>
+
                         <li>
-                             <a id="openPopup"><i class="fas fa-user"></i></a>
+                            @guest
+                                <a id="openPopup"><i class="fas fa-user"></i></a>
+                            @else
+                                <a href="#" id="userMenuToggle" style="display: flex; align-items: center;">
+                                    <img src="{{ Auth::user()->avatar }}" alt="صورة المستخدم" style="width: 30px; height: 30px; border-radius: 50%; margin-right: 5px;">
+                                    <span>{{ Auth::user()->name }}</span>
+                                </a>
+                                <ul id="userMenu" class="dropdown-menu" style="display: none; position: absolute; background-color: white; list-style: none; padding: 10px; box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);">
+                                    <li>
+                                        <a class="dropdown-item" href="#">الملف الشخصي</a>
+                                    </li>
+                                    <li>
+                                        <a class="dropdown-item" href="{{ route('logout') }}"
+                                           onclick="event.preventDefault();
+                                                     document.getElementById('logout-form').submit();">
+                                            تسجيل الخروج
+                                        </a>
+                                    </li>
+                                </ul>
+                                <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                                    @csrf
+                                </form>
+                            @endguest
                         </li>
-                        <li>
-                            <a href="#"><i class="fas fa-heart"></i></a>
-                         </li>
+
                         <li>
                              <a class="toggle-theme-btn" onclick="toggleTheme()" id="themeIcon">☀️</a>
                         </li>
@@ -68,8 +89,6 @@
     <footer>
         © 2024 جميع الحقوق محفوظة
     </footer>
-
-
 
     <script>
     document.addEventListener('DOMContentLoaded', function() {
@@ -92,14 +111,6 @@
             }
         }
 
-        function toggleLanguage() {
-            const currentLang = document.documentElement.getAttribute('lang');
-            const newLang = currentLang === 'ar' ? 'en' : 'ar';
-            document.documentElement.setAttribute('lang', newLang);
-            document.documentElement.setAttribute('dir', newLang === 'ar' ? 'rtl' : 'ltr');
-            document.getElementById('langButton').textContent = newLang === 'ar' ? 'English' : 'العربية';
-        }
-
         document.addEventListener('scroll', function() {
             const nav = document.querySelector('header nav');
             if (window.scrollY > 50) {
@@ -108,94 +119,10 @@
                 nav.classList.remove('scrolled');
             }
         });
-
-
-
     });
     </script>
 
 
-<!-- نافذة تسجيل الدخول المنبثقة -->
-<div id="popup">
-    <div class="popup-content">
-        <div class="container">
-
-    <div class="row justify-content-center">
-        <div class="col-md-8">
-            <div class="card">
-            <span class="close">&times;</span>
-
-                <div class="card-header">{{ __('Login') }}</div>
-
-                <div class="card-body">
-                    <form method="POST" action="{{ Route('login') }}">
-                        @csrf
-
-                        <div class="row mb-3">
-                            <label for="email" class="col-md-4 col-form-label text-md-end">{{ __('Email Address') }}</label>
-
-                            <div class="col-md-6">
-                                <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus>
-
-                                @error('email')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                            </div>
-                        </div>
-
-                        <div class="row mb-3">
-                            <label for="password" class="col-md-4 col-form-label text-md-end">{{ __('Password') }}</label>
-
-                            <div class="col-md-6">
-                                <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="current-password">
-
-                                @error('password')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                            </div>
-                        </div>
-
-                        <div class="row mb-3">
-                            <div class="col-md-6 offset-md-4">
-                                <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" name="remember" id="remember" {{ old('remember') ? 'checked' : '' }}>
-
-                                    <label class="form-check-label" for="remember">
-                                        {{ __('Remember Me') }}
-                                    </label>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="row mb-0">
-                            <div class="col-md-8 offset-md-4">
-                                <button type="submit" class="btn btn-primary">
-                                    {{ __('Login') }}
-                                </button>
-
-                                @if (Route::has('password.request'))
-                                    <a class="btn btn-link" href="{{ route('password.request') }}">
-                                        {{ __('Forgot Your Password?') }}
-                                    </a>
-                                @endif
-
-                                <a class="btn btn-link" href="{{ route('register') }}">
-            {{ __('Don\'t have an account? Register here') }}
-        </a>
-                            </div>
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-    </div>
-</div>
 
 <style>
 /* نافذة تسجيل الدخول المنبثقة */
@@ -213,10 +140,9 @@
 }
 
 .popup-content {
-      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     width: 100%;
-     position: relative;
-
+    position: relative;
 }
 
 .popup-content .close {
@@ -286,11 +212,11 @@
 
 <script>
 document.addEventListener('DOMContentLoaded', function() {
-    document.getElementById('openPopup').addEventListener('click', function() {
+    document.getElementById('openPopup')?.addEventListener('click', function() {
         document.getElementById('popup').style.display = 'flex';
     });
 
-    document.querySelector('.popup-content .close').addEventListener('click', function() {
+    document.querySelector('.popup-content .close')?.addEventListener('click', function() {
         document.getElementById('popup').style.display = 'none';
     });
 
@@ -299,14 +225,19 @@ document.addEventListener('DOMContentLoaded', function() {
             document.getElementById('popup').style.display = 'none';
         }
     });
+
+    // عرض قائمة المستخدم عند تسجيل الدخول
+    document.getElementById('userMenuToggle')?.addEventListener('click', function(event) {
+        event.preventDefault();
+        const userMenu = document.getElementById('userMenu');
+        if (userMenu.style.display === 'none') {
+            userMenu.style.display = 'block';
+        } else {
+            userMenu.style.display = 'none';
+        }
+    });
 });
-
-
-
-
 </script>
-
-
 
 <!-- إضافة روابط JS -->
 <script src="https://cdn.jsdelivr.net/npm/glightbox/dist/js/glightbox.min.js"></script>
@@ -326,14 +257,6 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 </script>
-
-
-
-
-
-
-
-
 
 </body>
 </html>

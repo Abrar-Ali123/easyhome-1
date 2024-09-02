@@ -2,6 +2,20 @@
 <html lang="rtl">
 
 <head>
+<meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- CSRF Token -->
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+
+    <title>{{ config('app.name', 'Laravel') }}</title>
+
+    <!-- Fonts -->
+    <link rel="dns-prefetch" href="//fonts.bunny.net">
+    <link href="https://fonts.bunny.net/css?family=Nunito" rel="stylesheet">
+
+    <!-- Scripts -->
+
     <meta charset="UTF-8">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 
@@ -60,6 +74,52 @@ overflow-x: hidden
         padding-right: 1.25em;
     }
 
+
+    .values-section {
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-wrap: wrap;
+            padding: 20px;
+            text-align: center;
+            margin-top: -50px;
+            z-index: 2;
+            background: #fff;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            padding: 20px;
+            flex: 1 1 calc(25% - 20px);
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            margin-left: 20px;
+            margin-right: 20px;
+        }
+        .values-section h2 {
+            width: 100%;
+            color: #1c92d2;
+            margin-bottom: 20px;
+            font-size: 2em;
+        }
+        .value-box {
+            background: #fff;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 10px;
+            flex: 1 1 calc(25% - 20px);
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        .value-box i {
+            font-size: 2em;
+            margin-bottom: 10px;
+            color: #1c92d2;
+        }
+        .value-box p {
+            margin: 0;
+            font-size: 1.1em;
+            color: #333;
+        }
+
     </style>
 </head>
 
@@ -77,7 +137,13 @@ overflow-x: hidden
   sting Headers -->
 
 <!-- Navbar -->
+
+
+
+
+
 <nav class="navbar-transparent fixed w-full z-50">
+
     <div class="max-w-screen-xl flex items-center justify-between mx-auto p-4">
         <a href="#" class="flex items-center space-x-3 rtl:space-x-reverse">
             <img src="{{ asset('/images/9.png') }}" class="w-20 h-20" />
@@ -93,8 +159,12 @@ overflow-x: hidden
             </svg>
         </button>
         <div class="hidden w-full md:block md:w-auto" id="navbar-default">
-            <ul
-                class="font-medium flex flex-col p-4 md:p-0 mt-4 border border-gray-100 rounded-lg bg-gray-50 md:flex-row md:space-x-8 rtl:space-x-reverse md:mt-0 md:border-0 md:bg-transparent dark:bg-gray-800 md:dark:bg-gray-900 dark:border-gray-700">
+            <ul class="font-medium flex flex-col p-4 md:p-0 mt-4 border border-gray-100 rounded-lg bg-gray-50 md:flex-row md:space-x-8 rtl:space-x-reverse md:mt-0 md:border-0 md:bg-transparent dark:bg-gray-800 md:dark:bg-gray-900 dark:border-gray-700">
+
+
+
+
+
 
                 <li>
                     <a href="#"
@@ -141,6 +211,9 @@ overflow-x: hidden
 
                         </div>
                     </div>
+
+
+
 
                     <!-- JavaScript for Toggle Functionality -->
                     <script>
@@ -391,8 +464,8 @@ overflow-x: hidden
     <br><br>
 <br><br>
 
-    <div class="absolute top-3/4 left-1/2 transform -translate-x-1/2 translate-y-16 w-3/4 bg-white p-6 rounded-lg shadow-lg">
-        <h2 class="text-2xl font-bold mb-4 text-center">ابحث عن عقار</h2>
+<div class="absolute top-3/4 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-full max-w-md bg-white p-6 rounded-lg shadow-lg">
+<h2 class="text-2xl font-bold mb-4 text-center">ابحث عن عقار</h2>
         <p class="text-center mb-4">نساعدك علي إيجاد منزل أحلامك</p>
         <div class="mb-4">
             <input type="text" placeholder="ابحث عن عقار..." class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent">
@@ -448,51 +521,26 @@ overflow-x: hidden
 <br>
 <br><br>
 
-
-<section class="relative z-0 mb-12 pt-16 mb-4">
-    <div class="m-8"> <!-- تغيير الهامش هنا ليكون متساوي من جميع الجهات -->
-        <h2 class="text-2xl font-bold text-center">قيمنا</h2>
-        <div class="flex justify-center items-center gap-4 m-4"> <!-- استخدام gap بدلاً من space-x -->
-
-            <div class="border max-w-sm bg-primary rounded-lg shadow-white-all p-4 text-center"> <!-- إزالة الهوامش هنا -->
-                <div class="flex justify-center">
-                    <i class="fas fa-award text-4xl text-white-500"></i>
-                </div>
-                <div class="mt-2">
-                    <h3 class="text-lg font-semibold">التزام</h3>
-                </div>
-            </div>
-
-            <div class="max-w-sm bg-primary rounded-lg shadow-white-all p-4 text-center"> <!-- إزالة الهوامش هنا -->
-                <div class="flex justify-center">
-                    <i class="fas fa-lightbulb text-4xl text-white-500"></i>
-                </div>
-                <div class="mt-2">
-                    <h3 class="text-lg font-semibold">إبداع</h3>
-                </div>
-            </div>
-
-            <div class="max-w-sm bg-primary rounded-lg shadow-white-all p-4 text-center"> <!-- إزالة الهوامش هنا -->
-                <div class="flex justify-center">
-                    <i class="fas fa-headset text-4xl text-white-500"></i>
-                </div>
-                <div class="mt-2">
-                    <h3 class="text-lg font-semibold">خدمة العملاء</h3>
-                </div>
-            </div>
-
-            <div class="max-w-sm bg-primary rounded-lg shadow-white-all p-4 text-center"> <!-- إزالة الهوامش هنا -->
-                <div class="flex justify-center">
-                    <i class="fas fa-users text-4xl text-white-500"></i>
-                </div>
-                <div class="mt-2">
-                    <h3 class="text-lg font-semibold">التعاون</h3>
-                </div>
-            </div>
-
+<div class="values-section" id="values">
+        <h2>قيمنا</h2>
+        <div class="value-box">
+            <i class="fas fa-balance-scale"></i>
+            <p>النزاهة</p>
+        </div>
+        <div class="value-box">
+            <i class="fas fa-lightbulb"></i>
+            <p>الابتكار</p>
+        </div>
+        <div class="value-box">
+            <i class="fas fa-gem"></i>
+            <p>الجودة</p>
+        </div>
+        <div class="value-box">
+            <i class="fas fa-handshake"></i>
+            <p>الالتزام</p>
         </div>
     </div>
-</section>
+
 
 <section class="mt-8 px-4">
     <h2 class="text-2xl font-bold mb-4 text-center">عقارات مميزة</h2>

@@ -137,7 +137,17 @@ overflow-x: hidden
                         <div class="dropdown-menu" id="dropdownMenu" aria-labelledby="dropdownMenuButton" style="display: none;">
                             <a class="dropdown-item" href="{{route('login')}}">تسجيل الدخول </a>
                             <a class="dropdown-item" href="{{route('register')}}">التسجيل</a>
-                            <a class="dropdown-item" href="{{route('logout')}}">تسجيل الخروج</a>
+                            <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                                <a class="dropdown-item" href="{{ route('logout') }}"
+                                   onclick="event.preventDefault();
+                                                     document.getElementById('logout-form').submit();">
+                                    {{ __('تسجيل الخروج') }}
+                                </a>
+
+                                <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                                    @csrf
+                                </form>
+                            </div>
 
                         </div>
                     </div>
@@ -373,128 +383,238 @@ overflow-x: hidden
 </script>
 
 
-<section class="mb-12">
-<header id="header" class="relative w-full h-screen mb-32">
-    <video class="absolute top-0 left-0 w-full h-full object-cover" autoplay muted loop>
-        <source src="{{ asset('images/4.mp4') }}" type="video/mp4">
-        Your browser does not support the video tag.
-    </video>
-    <div class="absolute bottom-12 right-0 p-8">
-    <div class="text-right text-white">
-        <h1 class="text-4xl md:text-4xl font-bold mb-4"> ايزي هوم حيث الحلول العقارية المبتكرة      </h1>
-        <p class="text-xl md:text-2xl">اكتشف أفضل العقارات بأفضل الأسعار</p>
-    </div>
-</div>
+{{--<section class="mb-12">--}}
+{{--<header id="header" class="relative w-full h-screen mb-32">--}}
+{{--    <video class="absolute top-0 left-0 w-full h-full object-cover" autoplay muted loop>--}}
+{{--        <source src="{{ asset('images/4.mp4') }}" type="video/mp4">--}}
+{{--        Your browser does not support the video tag.--}}
+{{--    </video>--}}
+{{--    <div class="absolute bottom-12 right-0 p-8">--}}
+{{--    <div class="text-right text-white">--}}
+{{--        <h1 class="text-4xl md:text-4xl font-bold mb-4"> ايزي هوم حيث الحلول العقارية المبتكرة      </h1>--}}
+{{--        <p class="text-xl md:text-2xl">اكتشف أفضل العقارات بأفضل الأسعار</p>--}}
+{{--    </div>--}}
+{{--</div>--}}
 
-</div>
+{{--</div>--}}
 
-    <br><br>
-<br><br>
+{{--    <br><br>--}}
+{{--<br><br>--}}
 
-    <div class="absolute top-3/4 left-1/2 transform -translate-x-1/2 translate-y-16 w-3/4 bg-white p-6 rounded-lg shadow-lg">
-        <h2 class="text-2xl font-bold mb-4 text-center">ابحث عن عقار</h2>
-        <p class="text-center mb-4">نساعدك علي إيجاد منزل أحلامك</p>
-        <div class="mb-4">
-            <input type="text" placeholder="ابحث عن عقار..." class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent">
-        </div>
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
-            <select class="p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent">
-                <option value="">نوع العقار</option>
-                <option value="شقة">شقة</option>
-                <option value="فيلا">فيلا</option>
-                <option value="روف">روف</option>
-                <option value="دور">دور</option>
-                <option value="استثمار">استثمار</option>
-            </select>
-            <select class="p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent">
-                <option value="">السعر</option>
-                <option value="0-50000">0 - 50,000 ريال</option>
-                <option value="50000-100000">50,000 - 100,000 ريال</option>
-                <option value="100000-200000">100,000 - 200,000 ريال</option>
-            </select>
-            <select class="p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent">
-                <option value="">عدد الغرف</option>
-                <option value="1">1 غرفة</option>
-                <option value="2">2 غرف</option>
-                <option value="3">3 غرف</option>
-                <option value="4">4 غرف</option>
-            </select>
-        </div>
-        <div class="grid grid-cols-2 md:grid-cols-3 gap-4 mb-4">
-            <button class="bg-primary text-white px-4 py-2 rounded-lg flex items-center justify-center hover:bg-opacity-90 transition duration-300">
-                <i class="fas fa-home mr-2 text-primary mr-4 ml-4"></i> <span class="ml-2 ">شقة</span>
-            </button>
-            <button class="bg-primary text-white px-4 py-2 rounded-lg flex items-center justify-center hover:bg-opacity-90 transition duration-300">
-                <i class="fas fa-warehouse mr-2 text-primary mr-4 ml-4"></i> <span class="ml-2">فيلا</span>
-            </button>
-            <button class="bg-primary text-white px-4 py-2 rounded-lg flex items-center justify-center hover:bg-opacity-90 transition duration-300">
-                <i class="fas fa-building mr-2 text-primary mr-4 ml-4"></i> <span class="ml-2">روف</span>
-            </button>
-            <button class="bg-primary text-white px-4 py-2 rounded-lg flex items-center justify-center hover:bg-opacity-90 transition duration-300">
-                <i class="fas fa-layer-group mr-2 text-primary mr-4 ml-4"></i> <span class="ml-2">دور</span>
-            </button>
-            <button class="bg-primary text-white px-4 py-2 rounded-lg flex items-center justify-center hover:bg-opacity-90 transition duration-300">
-                <i class="fas fa-business-time mr-2 text-primary mr-4 ml-4"></i> <span class="ml-2">استثمار</span>
-            </button>
-            <button class="bg-primary text-white px-4 py-2 rounded-lg flex items-center justify-center hover:bg-opacity-90 transition duration-300">
-                <i class="fas fa-search"></i>
-            </button>
-        </div>
-    </div>
-</header>
+{{--    <div class="absolute top-3/4 left-1/2 transform -translate-x-1/2 translate-y-16 w-3/4 bg-white p-6 rounded-lg shadow-lg">--}}
+{{--        <h2 class="text-2xl font-bold mb-4 text-center">ابحث عن عقار</h2>--}}
+{{--        <p class="text-center mb-4">نساعدك علي إيجاد منزل أحلامك</p>--}}
+{{--        <div class="mb-4">--}}
+{{--            <input type="text" placeholder="ابحث عن عقار..." class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent">--}}
+{{--        </div>--}}
+{{--        <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">--}}
+{{--            <select class="p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent">--}}
+{{--                <option value="">نوع العقار</option>--}}
+{{--                <option value="شقة">شقة</option>--}}
+{{--                <option value="فيلا">فيلا</option>--}}
+{{--                <option value="روف">روف</option>--}}
+{{--                <option value="دور">دور</option>--}}
+{{--                <option value="استثمار">استثمار</option>--}}
+{{--            </select>--}}
+{{--            <select class="p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent">--}}
+{{--                <option value="">السعر</option>--}}
+{{--                <option value="0-50000">0 - 50,000 ريال</option>--}}
+{{--                <option value="50000-100000">50,000 - 100,000 ريال</option>--}}
+{{--                <option value="100000-200000">100,000 - 200,000 ريال</option>--}}
+{{--            </select>--}}
+{{--            <select class="p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent">--}}
+{{--                <option value="">عدد الغرف</option>--}}
+{{--                <option value="1">1 غرفة</option>--}}
+{{--                <option value="2">2 غرف</option>--}}
+{{--                <option value="3">3 غرف</option>--}}
+{{--                <option value="4">4 غرف</option>--}}
+{{--            </select>--}}
+{{--        </div>--}}
+{{--        <div class="grid grid-cols-2 md:grid-cols-3 gap-4 mb-4">--}}
+{{--            <button class="bg-primary text-white px-4 py-2 rounded-lg flex items-center justify-center hover:bg-opacity-90 transition duration-300">--}}
+{{--                <i class="fas fa-home mr-2 text-primary mr-4 ml-4"></i> <span class="ml-2 ">شقة</span>--}}
+{{--            </button>--}}
+{{--            <button class="bg-primary text-white px-4 py-2 rounded-lg flex items-center justify-center hover:bg-opacity-90 transition duration-300">--}}
+{{--                <i class="fas fa-warehouse mr-2 text-primary mr-4 ml-4"></i> <span class="ml-2">فيلا</span>--}}
+{{--            </button>--}}
+{{--            <button class="bg-primary text-white px-4 py-2 rounded-lg flex items-center justify-center hover:bg-opacity-90 transition duration-300">--}}
+{{--                <i class="fas fa-building mr-2 text-primary mr-4 ml-4"></i> <span class="ml-2">روف</span>--}}
+{{--            </button>--}}
+{{--            <button class="bg-primary text-white px-4 py-2 rounded-lg flex items-center justify-center hover:bg-opacity-90 transition duration-300">--}}
+{{--                <i class="fas fa-layer-group mr-2 text-primary mr-4 ml-4"></i> <span class="ml-2">دور</span>--}}
+{{--            </button>--}}
+{{--            <button class="bg-primary text-white px-4 py-2 rounded-lg flex items-center justify-center hover:bg-opacity-90 transition duration-300">--}}
+{{--                <i class="fas fa-business-time mr-2 text-primary mr-4 ml-4"></i> <span class="ml-2">استثمار</span>--}}
+{{--            </button>--}}
+{{--            <button class="bg-primary text-white px-4 py-2 rounded-lg flex items-center justify-center hover:bg-opacity-90 transition duration-300">--}}
+{{--                <i class="fas fa-search"></i>--}}
+{{--            </button>--}}
+{{--        </div>--}}
+{{--    </div>--}}
+{{--</header>--}}
 
-</section>
+{{--</section>--}}
 
-<br>
-<br><br>
+{{--<br>--}}
+{{--<br><br>--}}
 
 
-<section class="relative z-0 mb-12 pt-16 mb-4">
-    <div class="m-8"> <!-- تغيير الهامش هنا ليكون متساوي من جميع الجهات -->
-        <h2 class="text-2xl font-bold text-center">قيمنا</h2>
-        <div class="flex justify-center items-center gap-4 m-4"> <!-- استخدام gap بدلاً من space-x -->
+{{--<section class="relative z-0 mb-12 pt-16 mb-4">--}}
+{{--    <div class="m-8"> <!-- تغيير الهامش هنا ليكون متساوي من جميع الجهات -->--}}
+{{--        <h2 class="text-2xl font-bold text-center ">قيمنا</h2>--}}
+{{--        <div class="flex justify-center items-center gap-4 m-4"> <!-- استخدام gap بدلاً من space-x -->--}}
 
-            <div class="border max-w-sm bg-primary rounded-lg shadow-white-all p-4 text-center"> <!-- إزالة الهوامش هنا -->
-                <div class="flex justify-center">
-                    <i class="fas fa-award text-4xl text-white-500"></i>
-                </div>
-                <div class="mt-2">
-                    <h3 class="text-lg font-semibold">التزام</h3>
+{{--            <div class="border max-w-sm bg-primary rounded-lg shadow-white-all p-4 text-center"> <!-- إزالة الهوامش هنا -->--}}
+{{--                <div class="flex justify-center">--}}
+{{--                    <i class="fas fa-award text-4xl text-white-500"></i>--}}
+{{--                </div>--}}
+{{--                <div class="mt-2">--}}
+{{--                    <h3 class="text-lg font-semibold">التزام</h3>--}}
+{{--                </div>--}}
+{{--            </div>--}}
+
+{{--            <div class="max-w-sm bg-primary rounded-lg shadow-white-all p-4 text-center"> <!-- إزالة الهوامش هنا -->--}}
+{{--                <div class="flex justify-center">--}}
+{{--                    <i class="fas fa-lightbulb text-4xl text-white-500"></i>--}}
+{{--                </div>--}}
+{{--                <div class="mt-2">--}}
+{{--                    <h3 class="text-lg font-semibold">إبداع</h3>--}}
+{{--                </div>--}}
+{{--            </div>--}}
+
+{{--            <div class="max-w-sm bg-primary rounded-lg shadow-white-all p-4 text-center"> <!-- إزالة الهوامش هنا -->--}}
+{{--                <div class="flex justify-center">--}}
+{{--                    <i class="fas fa-headset text-4xl text-white-500"></i>--}}
+{{--                </div>--}}
+{{--                <div class="mt-2">--}}
+{{--                    <h3 class="text-lg font-semibold">خدمة العملاء</h3>--}}
+{{--                </div>--}}
+{{--            </div>--}}
+
+{{--            <div class="max-w-sm bg-primary rounded-lg shadow-white-all p-4 text-center"> <!-- إزالة الهوامش هنا -->--}}
+{{--                <div class="flex justify-center">--}}
+{{--                    <i class="fas fa-users text-4xl text-white-500"></i>--}}
+{{--                </div>--}}
+{{--                <div class="mt-2">--}}
+{{--                    <h3 class="text-lg font-semibold">التعاون</h3>--}}
+{{--                </div>--}}
+{{--            </div>--}}
+
+{{--        </div>--}}
+{{--    </div>--}}
+{{--</section>--}}
+
+
+    <section class="mb-12">
+        <header id="header" class="relative w-full h-screen mb-32">
+            <video class="absolute top-0 left-0 w-full h-full object-cover" autoplay muted loop>
+                <source src="{{ asset('images/4.mp4') }}" type="video/mp4">
+                Your browser does not support the video tag.
+            </video>
+
+            <div class="absolute bottom-12 right-0 p-4 md:p-8 max-w-3xl">
+                <div class="text-right text-white">
+                    <h1 class="text-2xl md:text-4xl font-bold mb-4">ايزي هوم حيث الحلول العقارية المبتكرة</h1>
+                    <p class="text-lg md:text-2xl">اكتشف أفضل العقارات بأفضل الأسعار</p>
                 </div>
             </div>
-
-            <div class="max-w-sm bg-primary rounded-lg shadow-white-all p-4 text-center"> <!-- إزالة الهوامش هنا -->
-                <div class="flex justify-center">
-                    <i class="fas fa-lightbulb text-4xl text-white-500"></i>
+            <div class="absolute top-3/4 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-full max-w-md bg-white p-6 rounded-lg shadow-lg ">
+                <h2 class="text-xl md:text-2xl font-bold mb-4 text-center">ابحث عن عقار</h2>
+                <p class="text-center mb-4">نساعدك علي إيجاد منزل أحلامك</p>
+                <div class="mb-4">
+                    <input type="text" placeholder="ابحث عن عقار..." class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent">
                 </div>
-                <div class="mt-2">
-                    <h3 class="text-lg font-semibold">إبداع</h3>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
+                    <select class="p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent">
+                        <option value="">نوع العقار</option>
+                        <option value="شقة">شقة</option>
+                        <option value="فيلا">فيلا</option>
+                        <option value="روف">روف</option>
+                        <option value="دور">دور</option>
+                        <option value="استثمار">استثمار</option>
+                    </select>
+                    <select class="p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent">
+                        <option value="">السعر</option>
+                        <option value="0-50000">0 - 50,000 ريال</option>
+                        <option value="50000-100000">50,000 - 100,000 ريال</option>
+                        <option value="100000-200000">100,000 - 200,000 ريال</option>
+                    </select>
+                    <select class="p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent">
+                        <option value="">عدد الغرف</option>
+                        <option value="1">1 غرفة</option>
+                        <option value="2">2 غرف</option>
+                        <option value="3">3 غرف</option>
+                        <option value="4">4 غرف</option>
+                    </select>
+                </div>
+                <div class="grid grid-cols-2 sm:grid-cols-3 gap-4">
+                    <button class="bg-primary text-white px-4 py-2 rounded-lg flex items-center justify-center hover:bg-opacity-90 transition duration-300">
+                                    <i class="fas fa-home mr-2 text-primary mr-4 ml-4"></i> <span class="ml-2 ">شقة</span>
+                                </button>
+                                <button class="bg-primary text-white px-4 py-2 rounded-lg flex items-center justify-center hover:bg-opacity-90 transition duration-300">
+                                    <i class="fas fa-warehouse mr-2 text-primary mr-4 ml-4"></i> <span class="ml-2">فيلا</span>
+                                </button>
+                                <button class="bg-primary text-white px-4 py-2 rounded-lg flex items-center justify-center hover:bg-opacity-90 transition duration-300">
+                                    <i class="fas fa-building mr-2 text-primary mr-4 ml-4"></i> <span class="ml-2">روف</span>
+                                </button>
+                                <button class="bg-primary text-white px-4 py-2 rounded-lg flex items-center justify-center hover:bg-opacity-90 transition duration-300">
+                                    <i class="fas fa-layer-group mr-2 text-primary mr-4 ml-4"></i> <span class="ml-2">دور</span>
+                                </button>
+                                <button class="bg-primary text-white px-4 py-2 rounded-lg flex items-center justify-center hover:bg-opacity-90 transition duration-300">
+                                    <i class="fas fa-business-time mr-2 text-primary mr-4 ml-4"></i> <span class="ml-2">استثمار</span>
+                                </button>
+                                <button class="bg-primary text-white px-4 py-2 rounded-lg flex items-center justify-center hover:bg-opacity-90 transition duration-300">
+                                    <i class="fas fa-search"></i>
+                                </button>
                 </div>
             </div>
+        </header>
+    </section>
 
-            <div class="max-w-sm bg-primary rounded-lg shadow-white-all p-4 text-center"> <!-- إزالة الهوامش هنا -->
-                <div class="flex justify-center">
-                    <i class="fas fa-headset text-4xl text-white-500"></i>
+    <section class="relative z-0 mb-12 pt-16">
+        <div class="container mx-auto px-4">
+            <h2 class="text-2xl font-bold text-center mb-8">قيمنا</h2>
+            <div class="flex flex-wrap justify-center items-center gap-4">
+                <div class="border bg-primary rounded-lg shadow-lg p-4 text-center max-w-sm">
+                    <div class="flex justify-center">
+                        <i class="fas fa-award text-4xl text-white-500"></i>
+                    </div>
+                    <div class="mt-2">
+                        <h3 class="text-lg font-semibold">التزام</h3>
+                    </div>
                 </div>
-                <div class="mt-2">
-                    <h3 class="text-lg font-semibold">خدمة العملاء</h3>
+
+                <div class="border bg-primary rounded-lg shadow-lg p-4 text-center max-w-sm">
+                    <div class="flex justify-center">
+                        <i class="fas fa-lightbulb text-4xl text-white-500"></i>
+                    </div>
+                    <div class="mt-2">
+                        <h3 class="text-lg font-semibold">إبداع</h3>
+                    </div>
+                </div>
+
+                <div class="border bg-primary rounded-lg shadow-lg p-4 text-center max-w-sm">
+                    <div class="flex justify-center">
+                        <i class="fas fa-headset text-4xl text-white-500"></i>
+                    </div>
+                    <div class="mt-2">
+                        <h3 class="text-lg font-semibold">خدمة العملاء</h3>
+                    </div>
+                </div>
+
+                <div class="border bg-primary rounded-lg shadow-lg p-4 text-center max-w-sm">
+                    <div class="flex justify-center">
+                        <i class="fas fa-users text-4xl text-white-500"></i>
+                    </div>
+                    <div class="mt-2">
+                        <h3 class="text-lg font-semibold">التعاون</h3>
+                    </div>
                 </div>
             </div>
-
-            <div class="max-w-sm bg-primary rounded-lg shadow-white-all p-4 text-center"> <!-- إزالة الهوامش هنا -->
-                <div class="flex justify-center">
-                    <i class="fas fa-users text-4xl text-white-500"></i>
-                </div>
-                <div class="mt-2">
-                    <h3 class="text-lg font-semibold">التعاون</h3>
-                </div>
-            </div>
-
         </div>
-    </div>
-</section>
+    </section>
 
-<section class="mt-8 px-4">
+    <section class="mt-8 px-4">
     <h2 class="text-2xl font-bold mb-4 text-center">عقارات مميزة</h2>
     <div class="max-w-screen-xl mx-auto grid grid-cols-1 sm:grid-cols-3 gap-8">
         @foreach($products as $product)

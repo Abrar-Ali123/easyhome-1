@@ -433,18 +433,37 @@
         </div>
 
         <h2>المميزات</h2>
+{{--        <div class="section-content">--}}
+{{--            @if($product->features)--}}
+{{--                @php--}}
+{{--                    $features = is_array($product->features) ? $product->features : json_decode($product->features, true);--}}
+{{--                @endphp--}}
+{{--                @foreach($features as $feature)--}}
+{{--                    <div class="feature-item">--}}
+{{--                        <i class="{{ $product->getFeatureIcon($feature) }}"></i> {{ $feature }}--}}
+{{--                    </div>--}}
+{{--                @endforeach--}}
+{{--            @endif--}}
+{{--        </div>--}}
         <div class="section-content">
-            @if($product->features)
-                @php
-                    $features = is_array($product->features) ? $product->features : json_decode($product->features, true);
-                @endphp
+            @if(!empty($product->features)) <!-- تحقق من أن $product->features ليست فارغة -->
+            @php
+                // تحقق من نوع $product->features
+                $features = is_array($product->features) ? $product->features : json_decode($product->features, true);
+            @endphp
+                <!-- تحقق مما إذا كان $features بالفعل مصفوفة بعد التحويل -->
+            @if(is_array($features))
                 @foreach($features as $feature)
                     <div class="feature-item">
                         <i class="{{ $product->getFeatureIcon($feature) }}"></i> {{ $feature }}
                     </div>
                 @endforeach
+            @else
+                <p>No valid features found.</p>
+            @endif
             @endif
         </div>
+
     </section>
 
     <section class="property-video">

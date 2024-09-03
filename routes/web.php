@@ -9,17 +9,19 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ReplyController;
 use Illuminate\Support\Facades\Route;
 
-Route::middleware(['web', 'auth.custom'])->group(function () {
+Route::middleware(['web'])->group(function () {
 
     Route::post('/comments/{product}', [CommentController::class, 'store'])->name('comments.store');
-    Route::get('/comments/{product}', [CommentController::class, 'index'])->name('comments.index');
+    Route::post('/orders/{product}', [OrderController::class, 'store'])->name('orders.store');
+    Route::put('/comments/{comment}', [CommentController::class, 'update'])->name('comments.update');
+
+    Route::put('/comments/{comment}', [CommentController::class, 'update'])->name('comments.update');
+    Route::delete('/comments/{comment}', [CommentController::class, 'destroy'])->name('comments.destroy');
 
     Route::post('/comments/{comment}/toggle-visibility', [CommentController::class, 'toggleVisibility']);
     Route::post('/replies/{comment}', [ReplyController::class, 'store']);
     Route::post('/likes', [LikeController::class, 'store'])->name('likes.store');
 });
-
-Route::resource('orders', OrderController::class);
 
 Route::post('comments/{product}', [CommentController::class, 'store'])->name('comments.store');
 Route::post('comments/{comment}/toggle-visibility', [CommentController::class, 'toggleVisibility'])->name('comments.toggleVisibility');
@@ -61,17 +63,13 @@ Route::get('/2', function () {
 Route::get('/login', function () {
     return view('login');
 });
-Route::middleware(['auth'])->group(function () {
-    Route::get('/products', [ProductController::class, 'index'])->name('products.index');
-    Route::get('/products/create', [ProductController::class, 'create'])->name('products.create');
-    Route::post('/products', [ProductController::class, 'store'])->name('products.store');
-    Route::get('/products/{product}', [ProductController::class, 'show'])->name('products.show');
-    Route::get('/products/{product}/edit', [ProductController::class, 'edit'])->name('products.edit');
-    Route::put('/products/{product}', [ProductController::class, 'update'])->name('products.update');
-    Route::delete('/products/{product}', [ProductController::class, 'destroy'])->name('products.destroy');
-
-});
-
+Route::get('/products', [ProductController::class, 'index'])->name('products.index');
+Route::get('/products/create', [ProductController::class, 'create'])->name('products.create');
+Route::post('/products', [ProductController::class, 'store'])->name('products.store');
+Route::get('/products/{product}', [ProductController::class, 'show'])->name('products.show');
+Route::get('/products/{product}/edit', [ProductController::class, 'edit'])->name('products.edit');
+Route::put('/products/{product}', [ProductController::class, 'update'])->name('products.update');
+Route::delete('/products/{product}', [ProductController::class, 'destroy'])->name('products.destroy');
 
 Route::get('/single', [ProductController::class, 'single'])->name('single');
 

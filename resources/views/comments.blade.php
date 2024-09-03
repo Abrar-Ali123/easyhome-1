@@ -11,10 +11,15 @@
                     <button class="like-btn" data-likeable-id="{{ $comment->id }}" data-likeable-type="App\Models\Comment">
                         أعجبني ({{ $comment->likes->count() }})
                     </button>
+                    @if(Auth::id() === $comment->user_id)
+                        <button class="edit-btn">تعديل</button>
+                        <button class="delete-btn">حذف</button>
+                    @endif
                 </div>
             </li>
         @endforeach
     </ul>
+
     <form id="comment-form" method="POST">
         @csrf
         <textarea name="comment" id="comment" placeholder="اكتب تعليقك هنا..." required></textarea>
@@ -24,53 +29,101 @@
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
-    $(document).ready(function() {
-        // إرسال تعليق جديد باستخدام AJAX
-        $('#comment-form').on('submit', function(e) {
-            e.preventDefault(); // منع إعادة تحميل الصفحة
-            $.ajax({
-                type: 'POST',
-                url: '{{ route('comments.store', ['product' => $product->id]) }}',
-                data: $(this).serialize(),
-                success: function(response) {
-                    if(response.comment) {
-                        let newComment = `
-                        <li class="comment-item">
-                            <img src="${response.user.profile_image_url}" alt="User Avatar" class="user-avatar">
-                            <div class="comment-content">
-                                <span class="comment-author">${response.user.name}</span>
-                                <p class="comment-text">${response.comment}</p>
-                                <button class="like-btn" data-likeable-id="${response.comment_id}" data-likeable-type="App\\Models\\Comment">
-                                    أعجبني (0)
-                                </button>
-                            </div>
-                        </li>`;
-                        $('#comments-list').append(newComment);
-                    }
-                },
-                error: function(xhr) {
-                    if (xhr.status === 401 && xhr.responseJSON.auth_required) {
-                        // استخدام النافذة من الـ layout الرئيسي
-                        document.getElementById('popup').style.display = 'flex';
-                    } else {
-                        alert('حدث خطأ أثناء إضافة التعليق.');
-                    }
+$(document).ready(function() {
+    // إرسال تعليق جديد باستخدام AJAX
+    $('#comment-form').on('submit', function(e) {
+        e.preventDefault();
+
+        $.ajax({
+            type: 'POST',
+            url: '{{ route('comments.store', ['product' => $product->id]) }}',
+            data: $(this).serialize(),
+            success: function(response) {
+                let newComment = `
+                <li class="comment-item" data-id="${response.comment_id}">
+                    <img src="${response.user.profile_image_url ?? '/path/to/default-avatar.png'}" alt="User Avatar" class="user-avatar">
+                    <div class="comment-content">
+                        <span class="comment-author">${response.user.name}</span>
+                        <p class="comment-text">${response.comment}</p>
+                        <button class="like-btn" data-likeable-id="${response.comment_id}" data-likeable-type="App\\Models\\Comment">
+                            أعجبني (0)
+                        </button>
+                        <button class="edit-btn">تعديل</button>
+                        <button class="delete-btn">حذف</button>
+                    </div>
+                </li>`;
+                $('#comments-list').append(newComment);
+                $('#comment').val('');
+            },
+            error: function(xhr) {
+                if (xhr.status === 401 && xhr.responseJSON.auth_required) {
+                    document.getElementById('popup').style.display = 'flex';
+                } else {
+                    alert('حدث خطأ أثناء إضافة التعليق.');
                 }
-            });
-        });
-
-        // إغلاق النافذة عند النقر على زر الإغلاق أو خارجها
-        document.querySelector('.popup-content .close').addEventListener('click', function() {
-            document.getElementById('popup').style.display = 'none';
-        });
-
-        window.addEventListener('click', function(event) {
-            if (event.target == document.getElementById('popup')) {
-                document.getElementById('popup').style.display = 'none';
             }
         });
     });
+
+    // تعديل التعليق باستخدام AJAX
+    $(document).on('click', '.edit-btn', function() {
+        let commentItem = $(this).closest('.comment-item');
+        let commentText = commentItem.find('.comment-text');
+        let currentText = commentText.text();
+
+        commentText.replaceWith(`<input type="text" class="edit-input" value="${currentText}">`);
+        $(this).text('حفظ').removeClass('edit-btn').addClass('save-btn');
+    });
+
+    // حفظ التعديل باستخدام AJAX
+    $(document).on('click', '.save-btn', function() {
+        let commentItem = $(this).closest('.comment-item');
+        let commentId = commentItem.data('id');
+        let newCommentText = commentItem.find('.edit-input').val();
+
+        $.ajax({
+            type: 'PUT',
+            url: `{{ url('/comments') }}/${commentId}`,
+            data: {
+                _token: '{{ csrf_token() }}',
+                comment: newCommentText
+            },
+            success: function(response) {
+                commentItem.find('.edit-input').replaceWith(`<p class="comment-text">${response.comment}</p>`);
+                commentItem.find('.save-btn').text('تعديل').removeClass('save-btn').addClass('edit-btn');
+            },
+            error: function(xhr) {
+                alert('حدث خطأ أثناء تعديل التعليق.');
+            }
+        });
+    });
+
+    // حذف التعليق باستخدام AJAX
+    $(document).on('click', '.delete-btn', function() {
+        let commentItem = $(this).closest('.comment-item');
+        let commentId = commentItem.data('id');
+
+        if (confirm('هل أنت متأكد من حذف التعليق؟')) {
+            $.ajax({
+                type: 'DELETE',
+                url: `{{ url('/comments') }}/${commentId}`,
+                data: {
+                    _token: '{{ csrf_token() }}'
+                },
+                success: function(response) {
+                    if (response.success) {
+                        commentItem.remove();
+                    }
+                },
+                error: function(xhr) {
+                    alert('حدث خطأ أثناء حذف التعليق.');
+                }
+            });
+        }
+    });
+});
 </script>
+
 
 <style>
 .comments-section {
@@ -157,6 +210,19 @@
 }
 
 .like-btn:hover {
+    text-decoration: underline;
+}
+
+.edit-btn, .delete-btn, .save-btn {
+    background: none;
+    border: none;
+    color: #ff0000;
+    cursor: pointer;
+    margin-left: 5px;
+    padding: 0;
+}
+
+.edit-btn:hover, .delete-btn:hover, .save-btn:hover {
     text-decoration: underline;
 }
 </style>

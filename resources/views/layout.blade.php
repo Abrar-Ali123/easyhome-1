@@ -3,6 +3,10 @@
 <head>
 <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
+
+<link href="https://cdn.jsdelivr.net/npm/tailwindcss/dist/tailwind.min.css" rel="stylesheet">
 
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
@@ -14,18 +18,21 @@
     <link href="https://fonts.bunny.net/css?family=Nunito" rel="stylesheet">
 
     <!-- Scripts -->
-    @vite(['resources/sass/app.scss', 'resources/js/app.js'])
 
     <meta charset="UTF-8">
 
 
-     <link href="{{ asset('/css/front.css') }}" rel="stylesheet">
+     <link href="{{ asset('css/front.css') }}" rel="stylesheet">
 
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>صفحة المثال</title>
 </head>
 <body>
 @include('parts.login_popup')
+
+
+
+
 
     <header>
         <nav>
@@ -41,6 +48,15 @@
                 </button>
                 <div id="navbar-default">
                     <ul>
+
+                    <li><!-- زر فتح النافذة المنبثقة -->
+                    <button id="filter-button" class="filter-btn icon-container">
+    <i class="fas fa-sliders-h"></i>
+</button>
+
+
+
+</li>
                         <li><a href="#">الرئيسية</a></li>
                         <li><a href="#">العقارات</a></li>
                         <li><a href="#">من نحن</a></li>
@@ -82,6 +98,104 @@
         </nav>
     </header>
 
+
+
+
+<!-- النافذة المنبثقة للبحث والفلترة -->
+<div id="filter-modal" class="modal hidden">
+    <div class="modal-content">
+        <span class="close" id="close-modal">&times;</span>
+        <h2>خيارات البحث والفرز</h2>
+        <input type="text" placeholder="ابحث عن عقار..." class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent">
+        <div class="search-filters mt-3">
+            <select class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent">
+                <option value="">نوع العقار</option>
+                <option value="شقة">شقة</option>
+                <option value="فيلا">فيلا</option>
+                <option value="روف">روف</option>
+                <option value="دور">دور</option>
+                <option value="استثمار">استثمار</option>
+            </select>
+            <!-- يمكنك إضافة المزيد من الحقول هنا -->
+        </div>
+    </div>
+</div>
+
+<!-- CSS للزر والنافذة المنبثقة -->
+<style>
+
+.filter-btn {
+
+     background: rgba(255, 255, 255, 0.5); /* خلفية شفافة */
+    padding: 10px; /* المسافة الداخلية حول الأيقونة */
+    border: none; /* إزالة الحدود الافتراضية للزر */
+    border-radius: 50%; /* جعل الخلفية دائرية */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* إضافة ظل خفيف */
+    cursor: pointer; /* مؤشر اليد عند التمرير */
+    z-index: 1000; /* لضمان بقاء الأيقونة فوق العناصر الأخرى */
+}
+
+.filter-btn i {
+    font-size: 24px; /* حجم الأيقونة */
+    color: #003e37; /* لون الأيقونة */
+}
+
+/* النافذة المنبثقة */
+.modal {
+    display: none; /* مخفية بشكل افتراضي */
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    justify-content: center;
+    align-items: center;
+    z-index: 1001;
+}
+
+.modal-content {
+    background: #ffffff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    width: 400px;
+    position: relative;
+}
+
+.modal-content .close {
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    font-size: 1.5em;
+    cursor: pointer;
+    color: #333;
+}
+</style>
+
+<!-- JavaScript للنافذة المنبثقة -->
+<script>
+// عرض النافذة المنبثقة عند الضغط على زر الفلترة
+document.getElementById('filter-button').addEventListener('click', function() {
+    document.getElementById('filter-modal').style.display = 'flex';
+});
+
+// إغلاق النافذة عند الضغط على زر الإغلاق
+document.getElementById('close-modal').addEventListener('click', function() {
+    document.getElementById('filter-modal').style.display = 'none';
+});
+
+// إغلاق النافذة عند الضغط خارج المحتوى
+window.addEventListener('click', function(event) {
+    const modal = document.getElementById('filter-modal');
+    if (event.target === modal) {
+        modal.style.display = 'none';
+    }
+});
+</script>
+
+
+
     <div class="content">
         @yield('content')
     </div>
@@ -89,40 +203,6 @@
     <footer>
         © 2024 جميع الحقوق محفوظة
     </footer>
-
-    <script>
-    document.addEventListener('DOMContentLoaded', function() {
-        const button = document.querySelector('nav button');
-        const navbar = document.getElementById('navbar-default');
-
-        button.addEventListener('click', function() {
-            const isExpanded = button.getAttribute('aria-expanded') === 'true';
-            button.setAttribute('aria-expanded', !isExpanded);
-            navbar.classList.toggle('show');
-        });
-
-        function toggleTheme() {
-            document.body.classList.toggle('dark-theme');
-            var themeIcon = document.getElementById('themeIcon');
-            if (document.body.classList.contains('dark-theme')) {
-                themeIcon.textContent = '🌙';
-            } else {
-                themeIcon.textContent = '☀️';
-            }
-        }
-
-        document.addEventListener('scroll', function() {
-            const nav = document.querySelector('header nav');
-            if (window.scrollY > 50) {
-                nav.classList.add('scrolled');
-            } else {
-                nav.classList.remove('scrolled');
-            }
-        });
-    });
-    </script>
-
-
 
 <style>
 /* نافذة تسجيل الدخول المنبثقة */
@@ -212,6 +292,48 @@
 
 <script>
 document.addEventListener('DOMContentLoaded', function() {
+    // التحكم في زر القائمة في التنقل
+    const button = document.querySelector('nav button');
+    const navbar = document.getElementById('navbar-default');
+
+    button.addEventListener('click', function() {
+        const isExpanded = button.getAttribute('aria-expanded') === 'true';
+        button.setAttribute('aria-expanded', !isExpanded);
+        navbar.classList.toggle('show');
+    });
+
+    // تبديل الوضع بين الداكن والفاتح
+    function toggleTheme() {
+        document.body.classList.toggle('dark-theme');
+        const themeIcon = document.getElementById('themeIcon');
+        if (document.body.classList.contains('dark-theme')) {
+            themeIcon.textContent = '🌙'; // تغيير الأيقونة إلى القمر في الوضع الداكن
+        } else {
+            themeIcon.textContent = '☀️'; // تغيير الأيقونة إلى الشمس في الوضع الفاتح
+        }
+    }
+
+    // ربط زر تبديل الوضع بالوظيفة
+    document.getElementById('themeIcon')?.addEventListener('click', toggleTheme);
+
+    // التحكم في القائمة المتحركة عند التمرير
+    document.addEventListener('scroll', function() {
+        const nav = document.querySelector('header nav');
+        if (window.scrollY > 50) {
+            nav.classList.add('scrolled');
+        } else {
+            nav.classList.remove('scrolled');
+        }
+    });
+
+    // عرض قائمة المستخدم عند تسجيل الدخول
+    document.getElementById('userMenuToggle')?.addEventListener('click', function(event) {
+        event.preventDefault();
+        const userMenu = document.getElementById('userMenu');
+        userMenu.style.display = userMenu.style.display === 'none' ? 'block' : 'none';
+    });
+
+    // التحكم في ظهور النافذة المنبثقة لتسجيل الدخول
     document.getElementById('openPopup')?.addEventListener('click', function() {
         document.getElementById('popup').style.display = 'flex';
     });
@@ -226,29 +348,8 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 
-    // عرض قائمة المستخدم عند تسجيل الدخول
-    document.getElementById('userMenuToggle')?.addEventListener('click', function(event) {
-        event.preventDefault();
-        const userMenu = document.getElementById('userMenu');
-        if (userMenu.style.display === 'none') {
-            userMenu.style.display = 'block';
-        } else {
-            userMenu.style.display = 'none';
-        }
-    });
-});
-</script>
-
-<!-- إضافة روابط JS -->
-<script src="https://cdn.jsdelivr.net/npm/glightbox/dist/js/glightbox.min.js"></script>
-<script>
     // تفعيل مكتبة GLightbox
     const lightbox = GLightbox();
-
-    // تبديل الوضع الداكن والفاتح
-    function toggleTheme() {
-        document.body.classList.toggle('dark-mode');
-    }
 
     // عرض الصور المصغرة في المعرض الرئيسي عند النقر عليها
     document.querySelectorAll('.property-gallery img').forEach(img => {
@@ -256,7 +357,9 @@ document.addEventListener('DOMContentLoaded', function() {
             document.querySelector('.property-main img').src = this.src;
         });
     });
+});
 </script>
+
 
 </body>
 </html>

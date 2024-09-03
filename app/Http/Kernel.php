@@ -56,13 +56,13 @@ class Kernel extends HttpKernel
      * @var array<string, class-string|string>
      */
     protected $middlewareAliases = [
-        'auth.custom' => \App\Http\Middleware\Auth::class, // أضف هذا السطر
+        'auth' => \App\Http\Middleware\Auth::class, // أضف هذا السطر
 
     ];
 
     // في ملف Kernel.php
     protected $routeMiddleware = [
         // ...
-        'auth.custom' => \App\Http\Middleware\AuthCustom::class,
+        'auth' => \App\Http\Middleware\Auth::class,
     ];
 }

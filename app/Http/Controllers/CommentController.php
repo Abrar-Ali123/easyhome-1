@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Comment;
-use App\Models\Product; // تأكد من تضمين الموديل Product
+use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -18,26 +18,46 @@ class CommentController extends Controller
 
     public function store(Request $request, Product $product)
     {
-        // تحقق إذا كان المستخدم مسجل الدخول
         if (! Auth::check()) {
-            // إرجاع استجابة تشير إلى أن المستخدم غير مسجل الدخول
             return response()->json(['auth_required' => true], 401);
         }
 
-        // معالجة التعليق
         $comment = new Comment();
         $comment->comment = $request->input('comment');
         $comment->product_id = $product->id;
-        $comment->user_id = Auth::id(); // الحصول على معرف المستخدم الحالي
+        $comment->user_id = Auth::id();
+        $comment->save();
+
+        return response()->json([
+            'comment' => $comment->comment,
+            'comment_id' => $comment->id,
+            'user' => [
+                'name' => $comment->user->name,
+                'profile_image_url' => $comment->user->profile_image_url ?? '/path/to/default-avatar.png',
+            ],
+        ], 200);
+    }
+
+    public function update(Request $request, Comment $comment)
+    {
+        if (Auth::id() !== $comment->user_id) {
+            return response()->json(['error' => 'Unauthorized'], 403);
+        }
+
+        $comment->comment = $request->input('comment');
         $comment->save();
 
         return response()->json(['comment' => $comment->comment], 200);
     }
 
-    public function toggleVisibility(Comment $comment)
+    public function destroy(Comment $comment)
     {
-        $comment->toggleVisibility();
+        if (! Auth::check() || Auth::id() !== $comment->user_id) {
+            return response()->json(['error' => 'Unauthorized'], 403);
+        }
 
-        return response()->json(['visible' => $comment->visible]);
+        $comment->delete();
+
+        return response()->json(['success' => true], 200);
     }
 }

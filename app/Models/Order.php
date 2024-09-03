@@ -13,4 +13,10 @@ class Order extends Model
     {
         return $this->belongsTo(User::class);
     }
+
+    // علاقة الطلب مع المنتج
+    public function product()
+    {
+        return $this->belongsTo(Product::class);
+    }
 }

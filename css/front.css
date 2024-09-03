@@ -26,14 +26,17 @@ body.dark-theme {
     color: var(--highlight-color);
 }
 
-/* خلفية وتفاصيل الهيدر في الوضع الفاتح والداكن */
 header {
-    background-color: var(--highlight-color);
+    background-color: transparent; /* إذا كنت تريد خلفية شفافة */
     color: var(--secondary-color);
     text-align: center;
-    height: 100px;
-    transition: background-color 0.3s, color 0.3s;
+    position: fixed; /* احتفظ بالوضع الثابت لجعل العنصر أعلى */
+    top: 0; /* ضمان وضعه في الأعلى */
+    left: 0; /* ضمان محاذاته من اليسار */
+    width: 100%; /* لتمتد بعرض الصفحة */
+    z-index: 1000; /* لضمان ظهوره فوق العناصر الأخرى */
 }
+
 
 body.dark-theme header {
     background-color: var(--secondary-color);
@@ -42,16 +45,17 @@ body.dark-theme header {
 
 header img {
     height: 40px;
+
 }
 
 header nav {
-    background-color: transparent;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 0 16px;
-    height: 100%;
-}
+
+    width: 100%;
+      color: var(--highlight-color); /* لون الأيقونات في الوضع الداكن */
+      background-color: transparent;
+      position: relative; /* أضف هذه السطر لتفعيل z-index */
+      z-index: 1000; /* يضمن أن العنصر فوق العناصر الأخرى */
+ }
 
 header nav a {
     color: inherit;
@@ -72,10 +76,7 @@ body.dark-theme header nav a:hover {
     color: var(--accent-color);
 }
 
-.content {
-    flex: 1;
-    padding: 20px;
-}
+
 
 /* خلفية وتفاصيل الفوتر في الوضع الفاتح والداكن */
 footer {
@@ -91,25 +92,15 @@ body.dark-theme footer {
     color: var(--highlight-color);
 }
 
-/* خلفية وتفاصيل شريط التنقل في الوضع الفاتح والداكن */
-nav {
-    background-color: var(--highlight-color);
-    width: 100%;
-    margin-bottom: 50px;
-    transition: background-color 0.3s;
-}
+
 
 header nav.scrolled {
     position: fixed;
     top: 0;
     left: 0;
-    height: 10%;
-    width: 100%;
-    padding: 1%;
+    color: var(--highlight-color);
     background-color: var(--secondary-color);
-    color: var(--highlight-color); /* لون الأيقونات في الوضع الداكن */
-    z-index: 1000;
-    transition: background-color 0.3s, color 0.3s;
+
 }
 
 body.dark-theme nav {
@@ -117,13 +108,15 @@ body.dark-theme nav {
 }
 
 nav > div {
-    max-width: 1280px;
+    flex: 1;
     display: flex;
     align-items: center;
     justify-content: space-between;
-    margin: 0 auto;
-    padding: 16px;
+    position: relative; /* أضف هذه السطر لتفعيل z-index */
+    z-index: 1000; /* يضمن أن العنصر فوق العناصر الأخرى */
+    background-color: transparent;
 }
+
 
 nav img {
     width: 80px;
@@ -179,6 +172,7 @@ nav button svg {
 }
 
 nav ul {
+    flex: 1;
     font-weight: 500;
     display: flex;
     flex-direction: column;
@@ -218,7 +212,9 @@ nav ul li {
 
 nav ul li a {
     padding: 8px 12px;
-    color: var(--secondary-color);
+
+
+    color: var(--highlight-color);
     border-radius: 8px;
     text-decoration: none;
     display: block;
@@ -290,5 +286,342 @@ body.dark-mode .toggle-theme-btn {
     color: var(--primary-color-dark);
 }
 
+
+.property-main {
+    display: flex;
+     margin-top: 20px;
+    justify-content: center; /* توسيط الصور المصغرة أفقيًا */
+    align-items: center; /* توسيط الصور المصغرة عموديًا */
+}
+
+.property-main1 {
+    display: flex;
+     margin-top: 20px;
+    justify-content: center; /* توسيط الصور المصغرة أفقيًا */
+    align-items: center; /* توسيط الصور المصغرة عموديًا */
+}
+.property-main1 img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 16px;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+}
+.property-main img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 16px;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+}
+
+.property-gallery {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    justify-content: center; /* توسيط الصور المصغرة أفقيًا */
+    align-items: center; /* توسيط الصور المصغرة عموديًا */
+    margin-top: 10px;
+}
+
+
+.property-gallery img {
+    width: 60px;
+    height: 40px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    cursor: pointer;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+
+
+}
+
+.property-gallery img:hover {
+    transform: scale(1.1);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+}
+
+.property-info {
+    padding: 20px;
+    background: var(--highlight-color);
+    border-radius: 16px;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.05);
+    margin-top: 20px;
+    color: var(--secondary-color);
+    transition: background 0.3s, color 0.3s;
+}
+
+body.dark-theme .property-info {
+    background:var(--secondary-color);
+    color: var(--highlight-color);
+}
+
+.property-info p {
+    margin: 15px 0;
+    line-height: 1.6;
+}
+
+.details-grid, .features-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    gap: 10px;
+    margin-top: 20px;
+}
+
+.feature-item, .detail-item {
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    background: var(--highlight-color);
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+    text-align: center;
+    transition: background 0.3s, color 0.3s;
+}
+
+body.dark-theme .feature-item, body.dark-theme .detail-item {
+    background: var(--secondary-color);
+    color: var(--highlight-color);
+}
+
+.feature-item i, .detail-item i {
+    margin-right: 10px;
+    color: var(--accent-color);;
+    font-size: 1.2em;
+}
+
+.like-section, .comment-section {
+    background: var(--primary-color);
+    padding: 20px;
+    border-radius: 16px;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.05);
+    margin-top: 20px;
+    color: var(--secondary-color);
+    transition: background 0.3s, color 0.3s;
+}
+
+body.dark-theme .like-section, body.dark-theme .comment-section {
+    background: var(--primary-color-dark);
+    color: var(--highlight-color);
+}
+
+.like-section button, .comment-form button {
+    background: #3498db;
+    color: var(--primary-color);
+    border: none;
+    padding: 10px 20px;
+    font-size: 1em;
+    cursor: pointer;
+    border-radius: 10px;
+    transition: background 0.3s ease, transform 0.2s ease;
+}
+
+body.dark-theme .like-section button, body.dark-theme .comment-form button {
+    background: var(--accent-color);
+    color: var(--primary-color-dark);
+}
+
+.like-section button:hover, .comment-form button:hover {
+    background: #2980b9;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* النسخة الأصلية */
+.prat {
+    position: relative;
+    height: 100vh;
+    color: #fff;
+    text-align: center;
+}
+
+.prat video {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transform: translate(-50%, -50%);
+    z-index: -1;
+}
+
+.values-section {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    padding: 20px;
+    text-align: center;
+    margin-top: -50px;
+    z-index: 2;
+    background: #fff;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    padding: 20px;
+    flex: 1 1 calc(25% - 20px);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    margin-left: 20px;
+    margin-right: 20px;
+}
+
+.values-section h2 {
+    width: 100%;
+    color: var(--accent-color);
+    margin-bottom: 20px;
+    font-size: 2em;
+}
+
+.value-box {
+    background: #fff;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    padding: 20px;
+    margin: 10px;
+    flex: 1 1 calc(25% - 20px);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.value-box i {
+    font-size: 2em;
+    margin-bottom: 10px;
+    color: var(--accent-color);
+}
+
+.value-box p {
+    margin: 0;
+    font-size: 1.1em;
+    color: #333;
+}
+
+/* نسخة الوضع الداكن */
+body.dark-theme .prat {
+    color: var(--highlight-color); /* تعديل اللون للنص */
+}
+
+body.dark-theme .values-section {
+    background: var(--primary-color-dark); /* لون الخلفية في الوضع الداكن */
+    border-color: var(--secondary-color); /* لون الحدود في الوضع الداكن */
+    color: var(--highlight-color); /* لون النص في الوضع الداكن */
+}
+
+body.dark-theme .values-section h2 {
+    color: var(--accent-color); /* لون العنوان في الوضع الداكن */
+}
+
+body.dark-theme .value-box {
+    background: var(--secondary-color); /* لون الخلفية في الوضع الداكن */
+    border-color: var(--highlight-color); /* لون الحدود في الوضع الداكن */
+}
+
+body.dark-theme .value-box i {
+    color: var(--accent-color); /* لون الأيقونة في الوضع الداكن */
+}
+
+body.dark-theme .value-box p {
+    color: var(--highlight-color); /* لون النص في الوضع الداكن */
+}
+
+
+.section-container {
+    position: relative;
+    width: 100%;
+    background-color: var(--primary-color);
+    transition: background-color 0.3s, color 0.3s;
+}
+
+body.dark-theme .section-container {
+    background-color: var(--primary-color-dark);
+}
+
+.section-inner {
+    position: relative;
+    height: 56vh;
+    overflow: hidden;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    background-color: var(--primary-color);
+    transition: background-color 0.3s;
+}
+
+@media (min-width: 768px) {
+    .section-inner {
+        height: 96vh; /* Adjust height for larger screens */
+    }
+}
+
+.section-image {
+    width: 50%;
+    height: 100%;
+    background-size: cover;
+    background-position: center;
+    background-image: url('/path/to/your/image.png'); /* Replace with correct image path */
+    background-color: var(--primary-color);
+}
+
+body.dark-theme .section-image {
+    background-color: var(--primary-color-dark);
+}
+
+.section-content {
+    width: 50%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    padding: 32px;
+    background-color: var(--secondary-color);
+    color: var(--highlight-color);
+    transition: background-color 0.3s, color 0.3s;
+}
+
+body.dark-theme .section-content {
+    background-color: var(--primary-color-dark);
+    color: var(--highlight-color);
+}
+
+.section-link {
+    padding: 12px 24px;
+    background-color: var(--primary-color);
+    color: var(--highlight-color);
+    font-weight: bold;
+    border-radius: 8px;
+    text-decoration: underline;
+    transition: background-color 0.2s ease, color 0.3s;
+    margin-bottom: 16px;
+    font-size: 1.5rem;
+}
+
+body.dark-theme .section-link {
+    background-color: var(--secondary-color);
+    color: var(--highlight-color);
+}
+
+.section-link:hover {
+    background-color: var(--accent-color);
+}
+
+.section-title {
+    font-size: 1.5rem;
+    margin-bottom: 16px;
+    color: var(--highlight-color);
+    transition: color 0.3s;
+}
+
+body.dark-theme .section-title {
+    color: var(--highlight-color);
+}
+
+.section-description {
+    font-size: 1.125rem;
+    margin-bottom: 32px;
+    color: var(--highlight-color);
+    transition: color 0.3s;
+}
+
+body.dark-theme .section-description {
+    color: var(--highlight-color);
+}
 
 

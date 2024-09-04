@@ -92,3 +92,6 @@ Route::prefix('dashboard')->middleware('check.employee')->group(function () {
     Route::get('/reports', [DashboardController::class, 'reports'])->name('dashboard.reports');
     // أضف مسارات أخرى هنا
 });
+
+Route::get('/orders', [OrderController::class, 'index'])->name('orders.index');
+Route::patch('/orders/{order}', [OrderController::class, 'update'])->name('orders.update');

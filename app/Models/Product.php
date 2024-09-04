@@ -19,6 +19,7 @@ class Product extends Model
         'category',
         'image', // إذا كنت تستخدم حقل واحد للصور
         'images', // إذا كنت تستخدم حقل متعدد للصور
+        'city_id',
     ];
 
     const CATEGORIES = [
@@ -74,5 +75,10 @@ class Product extends Model
     public function comments()
     {
         return $this->hasMany(Comment::class);
+    }
+
+    public function city()
+    {
+        return $this->belongsTo(City::class);
     }
 }

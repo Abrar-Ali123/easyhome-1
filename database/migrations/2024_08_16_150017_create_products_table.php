@@ -25,6 +25,10 @@ return new class extends Migration
             $table->string('category');
             $table->text('image');
             $table->text('images');
+            $table->unsignedBigInteger('city_id'); // عمود لربط المدينة
+            $table->foreign('city_id')->references('id')->on('cities')->onDelete('cascade');
+            $table->unsignedBigInteger('created_by'); // عمود لربط المستخدم
+            $table->foreign('created_by')->references('id')->on('users')->onDelete('cascade');
             $table->timestamps();
         });
     }

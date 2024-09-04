@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\CityController;
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\LikeController;
@@ -95,3 +96,6 @@ Route::prefix('dashboard')->middleware('check.employee')->group(function () {
 
 Route::get('/orders', [OrderController::class, 'index'])->name('orders.index');
 Route::patch('/orders/{order}', [OrderController::class, 'update'])->name('orders.update');
+
+// مثال على المسار في routes/web.php
+Route::resource('cities', CityController::class);

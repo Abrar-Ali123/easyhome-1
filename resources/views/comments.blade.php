@@ -1,228 +1,208 @@
-<div class="comments-section">
-    <h2>التعليقات</h2>
+<!-- resources/views/dashboard/cities/index.blade.php -->
 
-    <ul id="comments-list">
-        @foreach($product->comments as $comment)
-            <li class="comment-item" data-id="{{ $comment->id }}">
-                <img src="{{ $comment->user->profile_image_url ?? '/path/to/default-avatar.png' }}" alt="User Avatar" class="user-avatar">
-                <div class="comment-content">
-                    <span class="comment-author">{{ $comment->user->name }}</span>
-                    <p class="comment-text">{{ $comment->comment }}</p>
-                    <button class="like-btn" data-likeable-id="{{ $comment->id }}" data-likeable-type="App\Models\Comment">
-                        أعجبني ({{ $comment->likes->count() }})
-                    </button>
-                    @if(Auth::id() === $comment->user_id)
-                        <button class="edit-btn">تعديل</button>
-                        <button class="delete-btn">حذف</button>
+@extends('dashboardlayout')
+
+@section('title', 'إدارة المدن')
+
+@section('content')
+
+<!-- زر إضافة مدينة جديدة -->
+<button class="btn" id="add-city-btn">إضافة مدينة جديدة</button>
+
+<!-- شريط البحث والفرز -->
+<div class="row mb-3 search_part">
+    <div class="col-md-4">
+        <label for="search-name"><i class="fas fa-search icon"></i> اسم المدينة:</label>
+        <input type="text" id="search-name" name="name" class="form-control" placeholder="اسم المدينة">
+    </div>
+</div>
+
+<!-- عرض المدن -->
+<div class="table-responsive">
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th><i class="fas fa-city"></i> اسم المدينة</th>
+                <th><i class="fas fa-image"></i> الصورة</th>
+                <th><i class="fas fa-cog"></i> الإجراءات</th>
+            </tr>
+        </thead>
+        <tbody id="cities-list">
+            @foreach ($cities as $city)
+            <tr data-id="{{ $city->id }}">
+                <td class="city-name">{{ $city->name }}</td>
+                <td>
+                    @if ($city->image)
+                        <img src="{{ url('/storage/app/public/' . $city->image) }}" alt="City Image" style="height: 50px; object-fit: cover;">
+                    @else
+                        لا توجد صورة
                     @endif
-                </div>
-            </li>
-        @endforeach
-    </ul>
+                </td>
+                <td>
+                    <button class="btn edit-btn">تعديل</button>
+                    <button class="btn delete-btn">حذف</button>
+                </td>
+            </tr>
+            @endforeach
+        </tbody>
+    </table>
+</div>
 
-    <form id="comment-form" method="POST">
+<!-- نموذج إضافة/تعديل المدينة -->
+<div id="city-modal" style="display:none;">
+    <form id="city-form">
         @csrf
-        <textarea name="comment" id="comment" placeholder="اكتب تعليقك هنا..." required></textarea>
-        <button type="submit">إرسال</button>
+        <input type="hidden" name="id" id="city-id">
+        <div class="form-group">
+            <label for="city-name">اسم المدينة:</label>
+            <input type="text" id="city-name" name="name" class="form-control" required>
+        </div>
+        <div class="form-group">
+            <label for="city-image">الصورة:</label>
+            <input type="file" id="city-image" name="image">
+        </div>
+        <button type="submit" class="btn btn-primary">حفظ</button>
+        <button type="button" id="cancel-btn" class="btn btn-secondary">إلغاء</button>
     </form>
 </div>
 
+@endsection
+
+@section('scripts')
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
 $(document).ready(function() {
-    // إرسال تعليق جديد باستخدام AJAX
-    $('#comment-form').on('submit', function(e) {
+    // عرض نموذج إضافة/تعديل المدينة
+    $('#add-city-btn').on('click', function() {
+        $('#city-form')[0].reset();
+        $('#city-id').val('');
+        $('#city-modal').show();
+    });
+
+    // إلغاء عرض النموذج
+    $('#cancel-btn').on('click', function() {
+        $('#city-modal').hide();
+    });
+
+    // إضافة أو تعديل المدينة
+    $('#city-form').on('submit', function(e) {
         e.preventDefault();
 
+        let formData = new FormData(this);
+        let cityId = $('#city-id').val();
+        let url = cityId ? `{{ url('/cities') }}/${cityId}` : '{{ route('cities.store') }}';
+        let method = cityId ? 'PUT' : 'POST';
+
         $.ajax({
-            type: 'POST',
-            url: '{{ route('comments.store', ['product' => $product->id]) }}',
-            data: $(this).serialize(),
+            type: method,
+            url: url,
+            data: formData,
+            processData: false,
+            contentType: false,
             success: function(response) {
-                let newComment = `
-                <li class="comment-item" data-id="${response.comment_id}">
-                    <img src="${response.user.profile_image_url ?? '/path/to/default-avatar.png'}" alt="User Avatar" class="user-avatar">
-                    <div class="comment-content">
-                        <span class="comment-author">${response.user.name}</span>
-                        <p class="comment-text">${response.comment}</p>
-                        <button class="like-btn" data-likeable-id="${response.comment_id}" data-likeable-type="App\\Models\\Comment">
-                            أعجبني (0)
-                        </button>
-                        <button class="edit-btn">تعديل</button>
-                        <button class="delete-btn">حذف</button>
-                    </div>
-                </li>`;
-                $('#comments-list').append(newComment);
-                $('#comment').val('');
-            },
-            error: function(xhr) {
-                if (xhr.status === 401 && xhr.responseJSON.auth_required) {
-                    document.getElementById('popup').style.display = 'flex';
+                if (cityId) {
+                    // تعديل المدينة
+                    let cityRow = $(`tr[data-id="${cityId}"]`);
+                    cityRow.find('.city-name').text(response.name);
+                    if (response.image) {
+                        cityRow.find('img').attr('src', `{{ url('/storage/app/public/') }}/${response.image}`);
+                    }
                 } else {
-                    alert('حدث خطأ أثناء إضافة التعليق.');
+                    // إضافة مدينة جديدة
+                    let newCity = `
+                    <tr data-id="${response.id}">
+                        <td class="city-name">${response.name}</td>
+                        <td>
+                            ${response.image ? `<img src="{{ url('/storage/app/public/') }}/${response.image}" style="height: 50px; object-fit: cover;">` : 'لا توجد صورة'}
+                        </td>
+                        <td>
+                            <button class="btn edit-btn">تعديل</button>
+                            <button class="btn delete-btn">حذف</button>
+                        </td>
+                    </tr>`;
+                    $('#cities-list').append(newCity);
                 }
-            }
-        });
-    });
-
-    // تعديل التعليق باستخدام AJAX
-    $(document).on('click', '.edit-btn', function() {
-        let commentItem = $(this).closest('.comment-item');
-        let commentText = commentItem.find('.comment-text');
-        let currentText = commentText.text();
-
-        commentText.replaceWith(`<input type="text" class="edit-input" value="${currentText}">`);
-        $(this).text('حفظ').removeClass('edit-btn').addClass('save-btn');
-    });
-
-    // حفظ التعديل باستخدام AJAX
-    $(document).on('click', '.save-btn', function() {
-        let commentItem = $(this).closest('.comment-item');
-        let commentId = commentItem.data('id');
-        let newCommentText = commentItem.find('.edit-input').val();
-
-        $.ajax({
-            type: 'PUT',
-            url: `{{ url('/comments') }}/${commentId}`,
-            data: {
-                _token: '{{ csrf_token() }}',
-                comment: newCommentText
-            },
-            success: function(response) {
-                commentItem.find('.edit-input').replaceWith(`<p class="comment-text">${response.comment}</p>`);
-                commentItem.find('.save-btn').text('تعديل').removeClass('save-btn').addClass('edit-btn');
+                $('#city-modal').hide();
             },
             error: function(xhr) {
-                alert('حدث خطأ أثناء تعديل التعليق.');
+                alert('حدث خطأ أثناء معالجة الطلب.');
             }
         });
     });
 
-    // حذف التعليق باستخدام AJAX
-    $(document).on('click', '.delete-btn', function() {
-        let commentItem = $(this).closest('.comment-item');
-        let commentId = commentItem.data('id');
+    // عرض نموذج التعديل
+    $(document).on('click', '.edit-btn', function() {
+        let cityRow = $(this).closest('tr');
+        let cityId = cityRow.data('id');
+        let cityName = cityRow.find('.city-name').text();
 
-        if (confirm('هل أنت متأكد من حذف التعليق؟')) {
+        $('#city-id').val(cityId);
+        $('#city-name').val(cityName);
+        $('#city-modal').show();
+    });
+
+    // حذف المدينة
+    $(document).on('click', '.delete-btn', function() {
+        let cityRow = $(this).closest('tr');
+        let cityId = cityRow.data('id');
+
+        if (confirm('هل أنت متأكد من حذف هذه المدينة؟')) {
             $.ajax({
                 type: 'DELETE',
-                url: `{{ url('/comments') }}/${commentId}`,
+                url: `{{ url('/cities') }}/${cityId}`,
                 data: {
                     _token: '{{ csrf_token() }}'
                 },
                 success: function(response) {
                     if (response.success) {
-                        commentItem.remove();
+                        cityRow.remove();
                     }
                 },
                 error: function(xhr) {
-                    alert('حدث خطأ أثناء حذف التعليق.');
+                    alert('حدث خطأ أثناء حذف المدينة.');
                 }
             });
         }
     });
+
+    // البحث عن المدينة
+    $('#search-name').on('input', function() {
+        let searchTerm = $(this).val().toLowerCase();
+        $('#cities-list tr').each(function() {
+            let cityName = $(this).find('.city-name').text().toLowerCase();
+            $(this).toggle(cityName.indexOf(searchTerm) > -1);
+        });
+    });
 });
 </script>
+@endsection
 
-
+@section('styles')
 <style>
-.comments-section {
-    width: 100%;
-    max-width: 800px;
-    margin: 0 auto;
-    padding: 20px;
-    background: #f9f9f9;
-    border-radius: 8px;
-}
-
-#comment-form {
-    display: flex;
-    flex-direction: column;
-    margin-bottom: 20px;
-}
-
-#comment-form textarea {
-    resize: vertical;
-    min-height: 80px;
-    margin-bottom: 10px;
-    padding: 10px;
-    border-radius: 5px;
-    border: 1px solid #ddd;
-}
-
-#comment-form button {
-    align-self: flex-end;
-    padding: 8px 15px;
-    border: none;
-    background: #007bff;
-    color: #fff;
-    border-radius: 5px;
-    cursor: pointer;
-}
-
-#comment-form button:hover {
-    background: #0056b3;
-}
-
-#comments-list {
-    list-style: none;
-    padding: 0;
-}
-
-.comment-item {
-    display: flex;
-    align-items: flex-start;
-    margin-bottom: 15px;
-    padding: 10px;
+#city-modal {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
     background: #fff;
-    border-radius: 5px;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
 }
 
-.user-avatar {
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
-    margin-right: 10px;
-    object-fit: cover;
-}
-
-.comment-content {
-    flex-grow: 1;
-}
-
-.comment-author {
-    font-weight: bold;
-    margin-bottom: 5px;
+#city-modal input[type="file"] {
     display: block;
+    margin-bottom: 10px;
 }
 
-.comment-text {
-    margin: 0 0 5px 0;
+#city-modal .btn {
+    margin-right: 10px;
 }
 
-.like-btn {
-    background: none;
-    border: none;
-    color: #007bff;
-    cursor: pointer;
-    padding: 0;
-}
-
-.like-btn:hover {
-    text-decoration: underline;
-}
-
-.edit-btn, .delete-btn, .save-btn {
-    background: none;
-    border: none;
-    color: #ff0000;
-    cursor: pointer;
-    margin-left: 5px;
-    padding: 0;
-}
-
-.edit-btn:hover, .delete-btn:hover, .save-btn:hover {
-    text-decoration: underline;
+#city-modal .btn-secondary {
+    background-color: #6c757d;
+    color: #fff;
 }
 </style>
+@endsection

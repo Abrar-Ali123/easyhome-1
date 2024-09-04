@@ -60,14 +60,17 @@
     </a>
             <a  onclick="toggleTheme()" id="themeIcon">☀️</a>
          </div>
-        <a href="#">
-        <div class="icon"><i class="fas fa-home"></i></div>
-        <span>الرئيسية</span>
-    </a>
-    <a href="#">
-        <div class="icon"><i class="fas fa-tags"></i></div>
-        <span>التصنيفات</span>
-    </a>
+
+         <a href="{{ route('products.index') }}">
+    <div class="icon"><i class="fas fa-home"></i></div>
+    <span>العقارات</span>
+</a>
+<a href="{{ route('orders.index') }}">
+    <div class="icon"><i class="fas fa-tags"></i></div>
+    <span>الطلبات</span>
+</a>
+
+
     <a href="#">
         <div class="icon"><i class="fas fa-city"></i></div>
         <span>المدن</span>

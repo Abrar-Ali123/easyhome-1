@@ -56,6 +56,7 @@ class Kernel extends HttpKernel
      * @var array<string, class-string|string>
      */
     protected $middlewareAliases = [
+
         'auth' => \App\Http\Middleware\Auth::class, // أضف هذا السطر
 
     ];
@@ -63,6 +64,7 @@ class Kernel extends HttpKernel
     // في ملف Kernel.php
     protected $routeMiddleware = [
         // ...
+        'check.employee' => \App\Http\Middleware\CheckEmployeeRole::class,
         'auth' => \App\Http\Middleware\Auth::class,
     ];
 }

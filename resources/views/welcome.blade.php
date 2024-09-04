@@ -487,8 +487,7 @@ window.addEventListener('click', function(event) {
         <div class="section-content">
             <a href="#about" class="section-link">رؤيتنـــــا</a>
             <h1 class="section-title">أن نصبح الشركة الرائدة في قطاع العقارات من خلال تقديم أعلى مستويات الخدمة لعملائنا وتحقيق أقصى قيمة مضافة لهم.</h1>
-            <p class="section-description">اكتشف أفضل العقارات بأفضل الأسعار</p>
-        </div>
+         </div>
     </div>
 </section>
 

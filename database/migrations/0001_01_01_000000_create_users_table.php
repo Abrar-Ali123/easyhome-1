@@ -18,10 +18,10 @@ return new class extends Migration
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
+            $table->integer('role')->default(1);
 
             // معلومات إضافية لعميل عقاري
             $table->string('phone')->nullable(); // رقم الهاتف
-            $table->string('role')->default('client'); // دور المستخدم (مثل: عميل، مدير، إلخ)
             $table->string('license_number')->nullable(); // رقم الرخصة العقارية
             $table->text('bio')->nullable(); // وصف قصير أو سيرة ذاتية
             $table->boolean('is_supported')->default(false); // هل العميل مدعوم أم لا

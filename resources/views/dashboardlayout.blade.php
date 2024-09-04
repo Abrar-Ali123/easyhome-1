@@ -50,10 +50,14 @@
 
     <!-- شريط جانبي -->
     <div class="sidebar">
-    <div class="company-logo">
-        <img src="/images/9.png" alt="Company Logo">
-    </div>
+
     <div>
+
+    <a href="#">
+    <div class="company-logo">
+    <img src="{{ asset('/images/9.png') }}" class="w-20 h-20" />
+    </div>
+    </a>
             <a  onclick="toggleTheme()" id="themeIcon">☀️</a>
          </div>
         <a href="#">

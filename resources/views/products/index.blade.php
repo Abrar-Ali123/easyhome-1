@@ -4,16 +4,15 @@
 
 @section('content')
 
-'<button class="btn" onclick="location.href='{{ route('products.create') }}'">إنشاء عقار جديد</button>
-'
+<button class="btn" onclick="location.href='{{ route('products.create') }}'">إنشاء عقار جديد</button>
+
 <!-- شريط البحث والفرز -->
 <div class="row mb-3 search_part">
-    <!-- أضف المزيد من حقول البحث هنا إذا لزم الأمر -->
     <div class="col-md-3">
         <label for="rooms"><i class="fas fa-search icon"></i> عنوان العقار:</label>
         <input type="text" id="title" name="title" class="form-control" placeholder="عنوان العقار">
     </div>
-    <!-- حقول البحث الأخرى -->
+    <!-- أضف المزيد من حقول البحث هنا إذا لزم الأمر -->
 </div>
 
 <!-- عرض الشبكة -->
@@ -50,14 +49,13 @@
                 <td>{{ $product->bathrooms }}</td>
                 <td>{{ $product->area }}</td>
                 <td>{{ $product->price }}</td>
-            <td>
-            <img src="{{ url('/storage/app/public/' . $product->image) }}" alt="Product Image">
-
+                <td>
+                    <img src="{{ url('/storage/app/public/' . $product->image) }}" alt="Product Image" style="height: 50px; object-fit: cover;">
                 </td>
                 <td>
                     <a href="{{ route('products.edit', $product) }}" class="btn"><i class="fas fa-edit"></i></a>
-                    <a href="{{route('products.show',$product)}}">show</a>
-                    <form action="{{ route('products.destroy', $product) }}" method="POST" style="display:inline;">
+                    <a href="{{ route('products.show', $product) }}" class="btn"><i class="fas fa-eye"></i></a>
+                    <form action="{{ route('products.destroy', $product) }}" method="POST" style="display:inline;" onsubmit="return confirm('هل أنت متأكد من حذف هذا العقار؟');">
                         @csrf
                         @method('DELETE')
                         <button type="submit" class="btn"><i class="fas fa-trash"></i></button>
@@ -73,48 +71,45 @@
 <div id="gridView" class="d-none">
     <div class="row">
         @foreach ($products as $product)
-        <div class="col-md-4 mb-3">
+        <div class="col-sm-6 col-lg-4 mb-3">
             <div class="card">
-    <img src="{{ url('storage/app/public/' . $product->image) }}" alt="Product Image" class="card-img-top" style="height: 200px; object-fit: cover;">
-    <div class="card-body">
-        <h5 class="card-title">{{ $product->title }}</h5>
-        <div class="property-info">
-            <div class="info-row">
-                <div class="info-item"><i class="fas fa-city"></i> <strong>المدينة:</strong> {{ $product->location }}</div>
-                <div class="info-item"><i class="fas fa-map-marker-alt"></i> <strong>الحي:</strong> {{ $product->neighborhood ?? 'غير محدد' }}</div>
-            </div>
-            <div class="info-row">
-                <div class="info-item"><i class="fas fa-road"></i> <strong>الشارع:</strong> {{ $product->street ?? 'غير محدد' }}</div>
-                <div class="info-item"><i class="fas fa-building"></i> <strong>النوع:</strong> {{ $product->category }}</div>
-            </div>
-            <div class="info-row">
-                <div class="info-item"><i class="fas fa-tags"></i> <strong>التصنيف:</strong> {{ $product->classification ?? 'غير محدد' }}</div>
-                <div class="info-item"><i class="fas fa-bed"></i> <strong>الغرف:</strong> {{ $product->bedrooms }}</div>
-            </div>
-            <div class="info-row">
-                <div class="info-item"><i class="fas fa-bath"></i> <strong>دورات المياه:</strong> {{ $product->bathrooms }}</div>
-                <div class="info-item"><i class="fas fa-ruler-combined"></i> <strong>المساحة (م²):</strong> {{ $product->area }}</div>
-            </div>
-            <div class="info-row">
-                <div class="info-item"><i class="fas fa-dollar-sign"></i> <strong>السعر:</strong> {{ $product->price }}</div>
-            </div>
-        </div>
-        <div class="control-icons">
-            <a href="{{ route('products.edit', $product) }}"><i class="fas fa-edit"></i></a>
-            <form action="{{ route('products.destroy', $product) }}" method="POST" style="display:inline;">
-                @csrf
-                @method('DELETE')
-                <button type="submit" style="border:none; background:none;"><i class="fas fa-trash"></i></button>
-            </form>
-        </div>
-    </div>
-</div>
-
-
-
+                <img src="{{ url('storage/app/public/' . $product->image) }}" alt="Product Image" class="card-img-top" style="height: 200px; object-fit: cover;">
+                <div class="card-body">
+                    <h5 class="card-title">{{ $product->title }}</h5>
+                    <div class="property-info">
+                        <div class="info-row">
+                            <div class="info-item"><i class="fas fa-city"></i> <strong>المدينة:</strong> {{ $product->location }}</div>
+                            <div class="info-item"><i class="fas fa-map-marker-alt"></i> <strong>الحي:</strong> {{ $product->neighborhood ?? 'غير محدد' }}</div>
+                        </div>
+                        <div class="info-row">
+                            <div class="info-item"><i class="fas fa-road"></i> <strong>الشارع:</strong> {{ $product->street ?? 'غير محدد' }}</div>
+                            <div class="info-item"><i class="fas fa-building"></i> <strong>النوع:</strong> {{ $product->category }}</div>
+                        </div>
+                        <div class="info-row">
+                            <div class="info-item"><i class="fas fa-tags"></i> <strong>التصنيف:</strong> {{ $product->classification ?? 'غير محدد' }}</div>
+                            <div class="info-item"><i class="fas fa-bed"></i> <strong>الغرف:</strong> {{ $product->bedrooms }}</div>
+                        </div>
+                        <div class="info-row">
+                            <div class="info-item"><i class="fas fa-bath"></i> <strong>دورات المياه:</strong> {{ $product->bathrooms }}</div>
+                            <div class="info-item"><i class="fas fa-ruler-combined"></i> <strong>المساحة (م²):</strong> {{ $product->area }}</div>
+                        </div>
+                        <div class="info-row">
+                            <div class="info-item"><i class="fas fa-dollar-sign"></i> <strong>السعر:</strong> {{ $product->price }}</div>
+                        </div>
+                    </div>
+                    <div class="control-icons">
+                        <a href="{{ route('products.edit', $product) }}" class="btn"><i class="fas fa-edit"></i></a>
+                        <form action="{{ route('products.destroy', $product) }}" method="POST" style="display:inline;" onsubmit="return confirm('هل أنت متأكد من حذف هذا العقار؟');">
+                            @csrf
+                            @method('DELETE')
+                            <button type="submit" style="border:none; background:none;"><i class="fas fa-trash"></i></button>
+                        </form>
+                    </div>
+                </div>
             </div>
         </div>
         @endforeach
     </div>
 </div>
+
 @endsection

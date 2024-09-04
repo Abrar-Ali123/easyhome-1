@@ -527,6 +527,7 @@ body.dark-theme .value-box p {
     width: 100%;
     background-color: var(--primary-color);
     transition: background-color 0.3s, color 0.3s;
+
 }
 
 body.dark-theme .section-container {
@@ -534,21 +535,15 @@ body.dark-theme .section-container {
 }
 
 .section-inner {
-    position: relative;
-    height: 56vh;
+ height: 60%;
     overflow: hidden;
-    border-radius: 12px;
-    display: flex;
+     display: flex;
     align-items: center;
     background-color: var(--primary-color);
     transition: background-color 0.3s;
 }
 
-@media (min-width: 768px) {
-    .section-inner {
-        height: 96vh; /* Adjust height for larger screens */
-    }
-}
+
 
 .section-image {
     width: 50%;
@@ -583,14 +578,13 @@ body.dark-theme .section-content {
 
 .section-link {
     padding: 12px 24px;
-    background-color: var(--primary-color);
+    background-color: var(--accent-color);
     color: var(--highlight-color);
-    font-weight: bold;
     border-radius: 8px;
     text-decoration: underline;
     transition: background-color 0.2s ease, color 0.3s;
-    margin-bottom: 16px;
-    font-size: 1.5rem;
+    margin: 16px;
+
 }
 
 body.dark-theme .section-link {
@@ -603,7 +597,7 @@ body.dark-theme .section-link {
 }
 
 .section-title {
-    font-size: 1.5rem;
+
     margin-bottom: 16px;
     color: var(--highlight-color);
     transition: color 0.3s;
@@ -614,7 +608,7 @@ body.dark-theme .section-title {
 }
 
 .section-description {
-    font-size: 1.125rem;
+
     margin-bottom: 32px;
     color: var(--highlight-color);
     transition: color 0.3s;
@@ -623,5 +617,3 @@ body.dark-theme .section-title {
 body.dark-theme .section-description {
     color: var(--highlight-color);
 }
-
-

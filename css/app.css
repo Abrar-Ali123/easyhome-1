@@ -100,7 +100,6 @@ select:focus {
 .sidebar {
     height: 100vh;
     width: 10%; /* العرض المنكمش */
-    padding-left: 7%;
     position: fixed;
     top: 0;
     left: 0;
@@ -113,11 +112,12 @@ select:focus {
 
 .sidebar span {
     display: none; /* إخفاء النص */
+
 }
 
 .sidebar:hover span {
     display: block; /* التأكد من أن الأيقونات مرئية */
-}
+ }
 
 .dark-theme .sidebar {
     background-color: var(--primary_2-color-dark);
@@ -140,22 +140,36 @@ select:focus {
     color: var(--secondary-color-dark);
 }
 
-.sidebar a:hover {
+
+
+.sidebar a:hover,
+.sidebar a:hover i {
+    color: var(--secondary-color-dark);
     background-color: var(--accent-color-light);
+    text-decoration: none; /* إزالة الخط تحت النص */
+
+
 }
 
-.dark-theme .sidebar a:hover {
-    background-color: var(--accent-color-dark);
+.dark-theme .sidebar a:hover,
+.dark-theme .sidebar a:hover i {
+    color: var(--secondary-color-dark);
+    background-color: var(--accent-color-light);
+
 }
+
 
 .sidebar .text {
     display: none;
 }
 
 .sidebar:hover .text {
-    display: inline;
+    display: block;
     margin-left: 10px;
+    color: var(--secondary-color-dark);
+
 }
+
 
 .content {
     margin-left: 10%; /* مسافة الشريط الجانبي المنكمش */
@@ -164,6 +178,8 @@ select:focus {
 
 .sidebar:hover ~ .content {
     margin-left: 20%; /* مسافة الشريط الجانبي الموسع */
+    color: var(--secondary-color-dark);
+
 }
 
 .card img {

@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\CommentController;
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\LikeController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ProductController;
@@ -84,3 +85,10 @@ Auth::routes();
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 Route::get('/property/{product}', [ProductController::class, 'show'])->name('property.show');
+
+Route::prefix('dashboard')->middleware('check.employee')->group(function () {
+    Route::get('/', [DashboardController::class, 'index'])->name('dashboard.index');
+    Route::get('/settings', [DashboardController::class, 'settings'])->name('dashboard.settings');
+    Route::get('/reports', [DashboardController::class, 'reports'])->name('dashboard.reports');
+    // أضف مسارات أخرى هنا
+});

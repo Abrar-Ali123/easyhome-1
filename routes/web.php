@@ -47,8 +47,12 @@ Route::post('/password/reset', [App\Http\Controllers\Auth\ResetPasswordControlle
 Route::get('/password/confirm', [App\Http\Controllers\Auth\ConfirmPasswordController::class, 'showConfirmForm'])->name('password.confirm');
 Route::post('/password/confirm', [App\Http\Controllers\Auth\ConfirmPasswordController::class, 'confirm']);
 
-Route::get('/profile/{id}', [ProfileController::class, 'show'])->name('profile.show');
-Route::post('/profile/{id}', [ProfileController::class, 'update'])->name('profile.update');
+//Route::get('/profile/{id}', [ProfileController::class, 'show'])->name('profile.show');
+//Route::post('/profile/{id}', [ProfileController::class, 'update'])->name('profile.update');
+Route::get('/profile', [ProfileController::class, 'show'])->name('profile.show')->middleware('auth');
+Route::get('/profile/edit', [ProfileController::class, 'edit'])->name('profile.edit')->middleware('auth');
+
+Route::post('/profile', [ProfileController::class, 'update'])->name('profile.update')->middleware('auth');
 
 Route::get('/', function () {
     return view('welcome');
@@ -99,3 +103,5 @@ Route::patch('/orders/{order}', [OrderController::class, 'update'])->name('order
 
 // مثال على المسار في routes/web.php
 Route::resource('cities', CityController::class);
+
+Route::get('/profile/edit', [ProfileController::class, 'edit'])->name('profile.edit')->middleware('auth');

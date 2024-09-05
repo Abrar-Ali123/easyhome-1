@@ -1,4 +1,4 @@
-@extends('layout')
+@extends('dashboard.layout')
 
 @section('title', 'عرض العقارات')
 

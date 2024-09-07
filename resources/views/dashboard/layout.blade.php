@@ -71,7 +71,7 @@
 </a>
 
 
-    <a href="#">
+    <a href="{{route('cities.index')}}">
         <div class="icon"><i class="fas fa-city"></i></div>
         <span>المدن</span>
     </a>

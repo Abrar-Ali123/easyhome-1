@@ -19,6 +19,14 @@
     <form action="{{ route('products.store') }}" method="POST" enctype="multipart/form-data">
         @csrf
 
+        <div class="mb-4">
+            <label for="city_id" class="block text-sm font-medium text-gray-700">المدينة</label>
+            <select id="city_id" name="city_id" class="mt-1 block w-full" required>
+                @foreach($cities as $city)
+                    <option value="{{ $city->id }}">{{ $city->name }}</option>
+                @endforeach
+            </select>
+        </div>
         <div class="form-group">
             <label for="title">العنوان</label>
             <input type="text" name="title" id="title" class="form-control" value="{{ old('title') }}" required>

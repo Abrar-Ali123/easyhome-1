@@ -69,8 +69,10 @@ Route::get('/2', function () {
 Route::get('/login', function () {
     return view('login');
 });
+
+
 Route::get('/products', [ProductController::class, 'index'])->name('products.index');
-Route::get('/products/create', [ProductController::class, 'create'])->name('products.create');
+Route::get('/products/create', [ProductController::class, 'create'])->name('products.create')->middleware('auth');;
 Route::post('/products', [ProductController::class, 'store'])->name('products.store');
 Route::get('/products/{product}', [ProductController::class, 'show'])->name('products.show');
 Route::get('/products/{product}/edit', [ProductController::class, 'edit'])->name('products.edit');

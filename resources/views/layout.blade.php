@@ -58,7 +58,7 @@
 
 </li>
                         <li><a href="#">الرئيسية</a></li>
-                        <li><a href="#">العقارات</a></li>
+                        <li><a href="{{route('products.index')}}">العقارات</a></li>
                         <li><a href="#">من نحن</a></li>
                         <li><a href="#">اطلب عقارك</a></li>
                         <li><a href="#">طلب استثمار</a></li>
@@ -282,11 +282,11 @@ window.addEventListener('click', function(event) {
 }
 
 .google-icon::before {
-    content: url('path/to/google-icon.png'); /* استبدل path/to/google-icon.png بمسار أيقونة Google */
+    content: url("{{ asset('path/to/google-icon.png') }}");/* استبدل path/to/google-icon.png بمسار أيقونة Google */
 }
 
 .facebook-icon::before {
-    content: url('path/to/facebook-icon.png'); /* استبدل path/to/facebook-icon.png بمسار أيقونة Facebook */
+    content: url("{{asset('path/to/facebook-icon.png')}}"); /* استبدل path/to/facebook-icon.png بمسار أيقونة Facebook */
 }
 </style>
 

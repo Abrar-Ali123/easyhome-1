@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Middleware\Auth;
 use App\Models\Product;
+use App\Models\City;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
@@ -36,9 +38,9 @@ class ProductController extends Controller
     {
         // نحصل على قائمة المميزات من الموديل
         $featuresList = Product::$featuresList;
-
+        $cities = City::all();
         // نمرر قائمة المميزات إلى الـ View
-        return view('products.create', compact('featuresList'));
+        return view('products.create', compact('featuresList','cities'));
     }
 
     /**
@@ -47,12 +49,14 @@ class ProductController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
-    {
+    {        $user = \Illuminate\Support\Facades\Auth::user();
         $request->validate([
             'title' => 'required|string|max:255',
             'description' => 'required|string',
             'location' => 'required|string',
             'video' => 'required|string',
+
+            'city_id' => 'required|exists:cities,id',
 
             'price' => 'required|numeric',
             'bedrooms' => 'required|integer',
@@ -75,7 +79,7 @@ class ProductController extends Controller
 
         $product = new Product();
         $product->title = $request->title;
-
+        $product->city_id = $request->city_id;
         $product->video = $request->video;
 
         $product->description = $request->description;
@@ -86,7 +90,7 @@ class ProductController extends Controller
         $product->area = $request->area;
         $product->features = $request->features;
         $product->category = $request->category;
-
+        $product->created_by = $user->id;
         if ($request->hasFile('image')) {
             $image = $request->file('image');
             $imageName = time().'_'.$image->getClientOriginalName();

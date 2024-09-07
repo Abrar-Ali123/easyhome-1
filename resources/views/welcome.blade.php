@@ -309,6 +309,60 @@ window.addEventListener('click', function(event) {
 </section>
 
 
+{{--    <section class="mt-8 px-4">--}}
+{{--        <h2 class="text-3xl font-bold mb-8 text-center text-gray-800">عقارات مميزة</h2>--}}
+{{--        <div class="max-w-screen-xl mx-auto grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">--}}
+{{--            @foreach($products as $product)--}}
+{{--                <div class="relative group overflow-hidden rounded-lg shadow-lg bg-white">--}}
+{{--                    <!-- صورة العقار -->--}}
+{{--                    <img src="{{ url('/storage/app/public/' . $product->image) }}" alt="Property Image" class="w-full h-64 object-cover rounded-t-lg">--}}
+
+{{--                    <!-- الأيقونات التفاعلية -->--}}
+{{--                    <div class="absolute top-4 right-4 flex space-x-2">--}}
+{{--                        <div class="relative">--}}
+{{--                            <i class="far fa-heart text-white text-2xl rounded-full bg-gray-700 p-2"></i>--}}
+{{--                            <div class="absolute top-0 right-0 transform translate-x-1/2 -translate-y-1/2 bg-red-500 text-white rounded-full w-6 h-6 flex items-center justify-center text-xs font-bold">--}}
+{{--                                {{ $product->likes_count ?? 0 }}--}}
+{{--                            </div>--}}
+{{--                        </div>--}}
+{{--                        <div class="relative">--}}
+{{--                            <i class="far fa-comment text-white text-2xl rounded-full bg-gray-700 p-2"></i>--}}
+{{--                            <div class="absolute top-0 right-0 transform translate-x-1/2 -translate-y-1/2 bg-blue-500 text-white rounded-full w-6 h-6 flex items-center justify-center text-xs font-bold">--}}
+{{--                                {{ $product->comments_count ?? 0 }}--}}
+{{--                            </div>--}}
+{{--                        </div>--}}
+{{--                    </div>--}}
+
+{{--                    <!-- معلومات العقار -->--}}
+{{--                    <div class="absolute inset-x-0 bottom-0 bg-black bg-opacity-70 text-white transition-all duration-300 transform translate-y-full group-hover:translate-y-0">--}}
+{{--                        <div class="p-4">--}}
+{{--                            <a href="{{ route('single', $product->id) }}" class="text-lg font-semibold hover:underline">{{ $product->title }}</a>--}}
+{{--                            <div class="flex items-center mb-2 mt-2">--}}
+{{--                                <i class="fas fa-map-marker-alt mr-2 text-yellow-300"></i>--}}
+{{--                                <p>{{ $product->location }}</p>--}}
+{{--                            </div>--}}
+{{--                            <div class="flex items-center mb-2">--}}
+{{--                                <i class="fas fa-bed mr-2 text-green-300"></i>--}}
+{{--                                <p>{{ $product->bedrooms }} غرف </p>--}}
+{{--                                <span class="mx-2">|</span>--}}
+{{--                                <i class="fas fa-bath mr-2 text-blue-300"></i>--}}
+{{--                                <p>{{ $product->bathrooms }} حمام</p>--}}
+{{--                            </div>--}}
+{{--                            <div class="flex items-center mb-2">--}}
+{{--                                <i class="fas fa-ruler-combined mr-2 text-purple-300"></i>--}}
+{{--                                <p>{{ $product->area }} م²</p>--}}
+{{--                                <span class="mx-2">|</span>--}}
+{{--                                <i class="fas fa-money-bill-wave mr-2 text-orange-300"></i>--}}
+{{--                                <p>{{ number_format($product->price) }} ريال</p>--}}
+{{--                            </div>--}}
+{{--                        </div>--}}
+{{--                    </div>--}}
+{{--                </div>--}}
+{{--            @endforeach--}}
+{{--        </div>--}}
+{{--    </section>--}}
+
+
 {{--<section class="mt-8 px-4">--}}
 {{--    <h2 class="text-2xl font-bold mb-4 text-center">عقارات مميزة</h2>--}}
 {{--    <div class="max-w-screen-xl mx-auto grid grid-cols-1 sm:grid-cols-3 gap-8">--}}

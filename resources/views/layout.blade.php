@@ -68,12 +68,12 @@
                                 <a id="openPopup"><i class="fas fa-user"></i></a>
                             @else
                                 <a href="#" id="userMenuToggle" style="display: flex; align-items: center;">
-                                    <img src="{{ Auth::user()->avatar }}" alt="صورة المستخدم" style="width: 30px; height: 30px; border-radius: 50%; margin-right: 5px;">
+                                    <img src="{{ asset(Auth::user()->avatar) }}" alt="صورة المستخدم" style="width: 30px; height: 30px; border-radius: 50%; margin-right: 5px;">
                                     <span>{{ Auth::user()->name }}</span>
                                 </a>
                                 <ul id="userMenu" class="dropdown-menu" style="display: none; position: absolute; background-color: white; list-style: none; padding: 10px; box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);">
                                     <li>
-                                        <a class="dropdown-item" href="#">الملف الشخصي</a>
+                                        <a class="dropdown-item" href="{{route('profile.show')}}">الملف الشخصي</a>
                                     </li>
                                     <li>
                                         <a class="dropdown-item" href="{{ route('logout') }}"

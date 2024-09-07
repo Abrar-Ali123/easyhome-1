@@ -1,6 +1,6 @@
 <!-- resources/views/dashboard/cities/index.blade.php -->
 
-@extends('dashboardlayout')
+@extends('dashboard.layout')
 
 @section('title', 'إدارة المدن')
 

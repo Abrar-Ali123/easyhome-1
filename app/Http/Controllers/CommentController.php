@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Comment;
+use App\Models\City;
+
 use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -13,7 +15,7 @@ class CommentController extends Controller
     {
         $comments = Comment::all();
 
-        return view('comments.index', compact('comments'));
+        return view('comments', compact('comments'));
     }
 
     public function store(Request $request, Product $product)

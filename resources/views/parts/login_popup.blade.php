@@ -77,6 +77,10 @@
 {{--    </div>--}}
 {{--</div>--}}
 
+{{----}}
+
+
+
 
 <div id="popup" class="fixed inset-0 flex items-center justify-center z-50 hidden">
     <div class="absolute inset-0 bg-gray-900 opacity-50"></div>

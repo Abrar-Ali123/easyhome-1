@@ -70,7 +70,6 @@ Route::get('/login', function () {
     return view('login');
 });
 
-
 Route::get('/products', [ProductController::class, 'index'])->name('products.index');
 Route::get('/products/create', [ProductController::class, 'create'])->name('products.create')->middleware('auth');;
 Route::post('/products', [ProductController::class, 'store'])->name('products.store');

@@ -75,7 +75,7 @@
         <div class="icon"><i class="fas fa-city"></i></div>
         <span>المدن</span>
     </a>
-    <a href="#">
+    <a href="{{url('/')}}">
         <div class="icon"><i class="fas fa-building"></i></div>
         <span>العقارات</span>
     </a>
@@ -96,15 +96,56 @@
     <div class="avatar">
         <img src="image/7.png" alt="Avatar">
     </div>
-    <div class="dropdown">
-        <div class="dropdown-toggle">Username</div>
-        <div class="dropdown-menu">
-            <a href="#">View Profile</a>
-            <a href="#">Messages</a>
-            <a href="#">Logout</a>
+{{--    <div class="dropdown">--}}
+{{--        <div class="dropdown-toggle">Username</div>--}}
+{{--        <div class="dropdown-menu">--}}
+{{--            <a href="#">View Profile</a>--}}
+{{--            <a href="#">Messages</a>--}}
+{{--            <a href="#">Logout</a>--}}
+{{--        </div>--}}
+{{--    </div>--}}
+        <!-- Dropdown Container -->
+        <div class="dropdown">
+            <!-- Dropdown Toggle -->
+            <div class="dropdown-toggle" id="userMenuToggle" style="display: flex; align-items: center; cursor: pointer;">
+                <!-- User Image -->
+{{--                <img src="{{ asset(Auth::user()->avatar) }}" alt="صورة المستخدم" style="width: 30px; height: 30px; border-radius: 50%; margin-right: 5px;">--}}
+                <!-- User Name -->
+                <span>{{ Auth::user()->name }}</span>
+            </div>
+
+            <!-- Dropdown Menu -->
+            <div class="dropdown-menu" id="userDropdownMenu" style="display: none; position: absolute; background: #fff; border: 1px solid #ddd; border-radius: 4px; padding: 10px; min-width: 160px; box-shadow: 0px 8px 16px rgba(0,0,0,0.2);">
+                <a href="{{route('profile.show')}}" style="display: block; padding: 8px 16px; color: #333; text-decoration: none;">الملف الشخصي</a>
+                <a href="#" style="display: block; padding: 8px 16px; color: #333; text-decoration: none;">Messages</a>
+                <a href="{{route('logout')}}" style="display: block; padding: 8px 16px; color: #333; text-decoration: none;">تسجيل الخروج</a>
+
+            </div>
         </div>
-    </div>
-    <div class="icon">
+
+        <!-- Optional JavaScript to toggle the dropdown -->
+        <script>
+            document.getElementById('userMenuToggle').addEventListener('click', function() {
+                var menu = document.getElementById('userDropdownMenu');
+                if (menu.style.display === 'none' || menu.style.display === '') {
+                    menu.style.display = 'block';
+                } else {
+                    menu.style.display = 'none';
+                }
+            });
+
+            // Optional: Close dropdown if clicking outside of it
+            window.addEventListener('click', function(event) {
+                var menu = document.getElementById('userDropdownMenu');
+                if (!event.target.matches('#userMenuToggle')) {
+                    if (menu.style.display === 'block') {
+                        menu.style.display = 'none';
+                    }
+                }
+            });
+        </script>
+
+        <div class="icon">
         <i class="fas fa-bell"></i>
         <span class="badge">5</span>
     </div>

@@ -35,7 +35,7 @@
                 <td>{{ $city->name }}</td>
                 <td>
                     @if ($city->image)
-                        <img src="{{ url('storage/' . $city->image) }}" alt="City Image" style="height: 50px; object-fit: cover;">
+                        <img src="{{ asset('storage/images' . $city->image) }}" alt="City Image" style="height: 50px; object-fit: cover;">
                     @else
                         لا توجد صورة
                     @endif
@@ -48,11 +48,42 @@
                         <i class="fas fa-edit"></i>
                     </button>
 
-                    <form action="{{ route('cities.destroy', $city->id) }}" method="POST" style="display:inline;">
-                        @csrf
-                        @method('DELETE')
-                        <button type="submit" class="btn btn-danger"><i class="fas fa-trash"></i></button>
-                    </form>
+                    <!-- زر حذف المدينة -->
+
+{{--                    <form action="{{ route('cities.destroy', $city->id) }}" method="POST"  style="display:inline;">--}}
+{{--                        @csrf--}}
+{{--                        @method('DELETE')--}}
+{{--                        <button type="submit" class="btn btn-danger"><i class="fas fa-trash"></i></button>--}}
+{{--                    </form>--}}
+                    <!-- زر فتح مودال تأكيد الحذف -->
+                    <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteCityModal{{ $city->id }}">
+                        <i class="fas fa-trash"></i>
+                    </button>
+
+                    <!-- مودال تأكيد الحذف -->
+                    <div class="modal fade" id="deleteCityModal{{ $city->id }}" tabindex="-1" aria-labelledby="deleteCityModalLabel{{ $city->id }}" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="deleteCityModalLabel{{ $city->id }}">تأكيد الحذف</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    هل أنت متأكد أنك تريد حذف المدينة "{{ $city->name }}"؟
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">إلغاء</button>
+                                    <form action="{{ route('cities.destroy', $city->id) }}" method="POST">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit" class="btn btn-danger">تأكيد الحذف</button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
                 </td>
             </tr>
 

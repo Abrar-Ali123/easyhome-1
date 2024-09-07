@@ -1,4 +1,4 @@
-@extends('dashboardlayout')
+@extends('dashboard.layout')
 
 @section('title', 'عرض الطلبات')
 

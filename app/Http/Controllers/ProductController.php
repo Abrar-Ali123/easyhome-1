@@ -24,6 +24,7 @@ class ProductController extends Controller
     }
     public function index()
     {
+
         $products = Product::all();
 
         return view('products.index', compact('products'));
@@ -114,9 +115,11 @@ class ProductController extends Controller
     // داخل ProductController.php
     public function show($id)
     {
+
+        $cities = City::all();
         $product = Product::with('comments.likes')->findOrFail($id);
 
-        return view('products.show', compact('product'));
+        return view('products.show', compact('product','cities'));
     }
 
     /**

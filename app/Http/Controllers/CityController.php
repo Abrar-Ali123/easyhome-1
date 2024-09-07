@@ -112,19 +112,13 @@ class CityController extends Controller
 
         return redirect()->route('cities.index')->with('success', 'تم تعديل المدينة بنجاح');
     }
-//    public function destroy(City $city)
-//    {
-//        if ($city->image) {
-//            Storage::delete('public/'.$city->image);
-//        }
-//        $city->delete();
-//
-//        return response()->json(['success' => true]);
-//    }
-
     public function destroy(City $city)
     {
+        if ($city->image) {
+            Storage::delete('public/'.$city->image);
+        }
         $city->delete();
+
         return redirect()->route('cities.index')->with('success', 'تم حذف المدينة بنجاح');
     }
 }

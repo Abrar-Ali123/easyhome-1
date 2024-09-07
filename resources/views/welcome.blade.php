@@ -81,14 +81,7 @@
         z-index: 1000; /* تأكد من أن هذه القيمة أعلى من أي قيمة z-index أخرى */
     }
 
-    .popup-content {
-        background: #091716;
-        padding: 40px;
-        border-radius: 4px;
-        box-shadow: 0 15px 35px rgba(0,0,0,0.9);
-        position: relative;
-        width: 400px;
-    }
+
 
     .popup-content .close {
         position: absolute;

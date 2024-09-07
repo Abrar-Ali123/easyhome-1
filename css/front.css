@@ -617,3 +617,16 @@ body.dark-theme .section-title {
 body.dark-theme .section-description {
     color: var(--highlight-color);
 }
+
+
+.popup-content {
+margin-right: 5%;
+margin-left: 5%;
+
+    background-color: var(--highlight-color);
+    padding: 40px;
+    border-radius: 4px;
+    box-shadow: 0 15px 35px rgba(0,0,0,0.9);
+    position: relative;
+    width: 400px;
+}

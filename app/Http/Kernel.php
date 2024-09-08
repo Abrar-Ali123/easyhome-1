@@ -15,7 +15,6 @@ class Kernel extends HttpKernel
      */
     protected $middleware = [
         // \App\Http\Middleware\TrustHosts::class,
-
         \App\Http\Middleware\TrustProxies::class,
         \Illuminate\Http\Middleware\HandleCors::class,
         \App\Http\Middleware\PreventRequestsDuringMaintenance::class,
@@ -56,15 +55,19 @@ class Kernel extends HttpKernel
      * @var array<string, class-string|string>
      */
     protected $middlewareAliases = [
-
-        'auth' => \App\Http\Middleware\Auth::class, // أضف هذا السطر
-
+        'auth' => \App\Http\Middleware\Auth::class,
+        'check.employee' => \App\Http\Middleware\CheckEmployeeRole::class,
     ];
 
-    // في ملف Kernel.php
+    /**
+     * Route-specific middleware
+     *
+     * @var array<string, class-string|string>
+     */
     protected $routeMiddleware = [
-        // ...
-        'check.employee' => \App\Http\Middleware\CheckEmployeeRole::class,
         'auth' => \App\Http\Middleware\Auth::class,
+        'check.employee' => \App\Http\Middleware\CheckEmployeeRole::class,
+
+        // يمكنك إضافة المزيد من الميدل وير هنا إذا لزم الأمر
     ];
 }

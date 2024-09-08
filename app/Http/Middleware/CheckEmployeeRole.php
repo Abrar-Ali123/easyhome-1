@@ -23,7 +23,7 @@ class CheckEmployeeRole
         }
 
         // تحقق من كون المستخدم موظف
-        if ($user->role !== 0) { // 0 = موظف
+        if ($user->role !== 0) { // افتراض أن 0 = موظف
             return redirect('home')->withErrors('ليس لديك الصلاحيات المطلوبة للوصول إلى هذه الصفحة.');
         }
 

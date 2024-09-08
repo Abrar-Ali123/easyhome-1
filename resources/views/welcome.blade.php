@@ -1,4 +1,4 @@
-@extends('layout')
+@extends('home')
 
 @section('title', 'عرض العقارات')
 

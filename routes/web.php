@@ -7,103 +7,77 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\LikeController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\ProductRequestController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ReplyController;
 use Illuminate\Support\Facades\Route;
 
-Route::middleware(['web'])->group(function () {
+// مجموعة الراوتات للداشبورد (للموظفين) باستخدام ميدل وير auth و check.employee
 
+Route::middleware(['check.employee'])->prefix('dashboard')->group(function () {
+    Route::get('/', [DashboardController::class, 'index'])->name('dashboard.index');
+    Route::get('/settings', [DashboardController::class, 'settings'])->name('dashboard.settings');
+    Route::get('/reports', [DashboardController::class, 'reports'])->name('dashboard.reports');
+
+    // راوت لعرض الطلبات في لوحة التحكم
+    Route::get('/product-requests', [ProductRequestController::class, 'showProductRequests'])->name('dashboard.product.requests');
+
+    // راوتات المنتجات
+    Route::get('/products', [ProductController::class, 'index'])->name('products.index');
+    Route::get('/products/create', [ProductController::class, 'create'])->name('products.create');
+    Route::post('/products', [ProductController::class, 'store'])->name('products.store');
+    Route::get('/products/{product}', [ProductController::class, 'show'])->name('products.show');
+    Route::get('/products/{product}/edit', [ProductController::class, 'edit'])->name('products.edit');
+    Route::put('/products/{product}', [ProductController::class, 'update'])->name('products.update');
+    Route::delete('/products/{product}', [ProductController::class, 'destroy'])->name('products.destroy');
+
+    // راوتات الطلبات
+    Route::get('/orders', [OrderController::class, 'index'])->name('orders.index');
+    Route::patch('/orders/{order}', [OrderController::class, 'update'])->name('orders.update');
+
+    // راوتات المدن
+    Route::resource('cities', CityController::class);
+});
+
+// مجموعة الراوتات للمستخدمين العاديين باستخدام ميدل وير auth فقط
+Route::middleware(['auth'])->group(function () {
+    // راوتات الملف الشخصي
+    Route::get('/profile', [ProfileController::class, 'show'])->name('profile.show');
+    Route::get('/profile/edit', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::post('/profile', [ProfileController::class, 'update'])->name('profile.update');
+
+    // راوتات طلبات المنتجات
+    Route::get('/request-product', [ProductRequestController::class, 'showRequestForm'])->name('request.product');
+    Route::post('/request-product', [ProductRequestController::class, 'submitRequest'])->name('submit.product.request');
+
+    // راوتات التعليقات والإعجابات والردود
     Route::post('/comments/{product}', [CommentController::class, 'store'])->name('comments.store');
-    Route::post('/orders/{product}', [OrderController::class, 'store'])->name('orders.store');
-    Route::put('/comments/{comment}', [CommentController::class, 'update'])->name('comments.update');
-
     Route::put('/comments/{comment}', [CommentController::class, 'update'])->name('comments.update');
     Route::delete('/comments/{comment}', [CommentController::class, 'destroy'])->name('comments.destroy');
-
     Route::post('/comments/{comment}/toggle-visibility', [CommentController::class, 'toggleVisibility']);
     Route::post('/replies/{comment}', [ReplyController::class, 'store']);
     Route::post('/likes', [LikeController::class, 'store'])->name('likes.store');
+
+    // راوتات الطلبات
+    Route::post('/products/{id}/order', [OrderController::class, 'placeOrder'])->name('products.order');
 });
 
-Route::post('comments/{product}', [CommentController::class, 'store'])->name('comments.store');
-Route::post('comments/{comment}/toggle-visibility', [CommentController::class, 'toggleVisibility'])->name('comments.toggleVisibility');
-
-Route::post('replies/{comment}', [ReplyController::class, 'store'])->name('replies.store');
-
-Route::post('likes', [LikeController::class, 'store'])->name('likes.store');
-
-Route::get('/login', [LoginController::class, 'showLoginForm'])->name('Abrar');
-Route::post('/login', [App\Http\Controllers\Auth\LoginController::class, 'login']);
-Route::post('/logout', [App\Http\Controllers\Auth\LoginController::class, 'logout'])->name('logout');
-
+// راوتات المصادقة والتسجيل
+Route::get('/login', [LoginController::class, 'showLoginForm'])->name('login');
+Route::post('/login', [LoginController::class, 'login']);
+Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
 Route::get('/register', [App\Http\Controllers\Auth\RegisterController::class, 'showRegistrationForm'])->name('register.r');
 Route::post('/register', [App\Http\Controllers\Auth\RegisterController::class, 'register']);
-
 Route::get('/password/reset', [App\Http\Controllers\Auth\ForgotPasswordController::class, 'showLinkRequestForm'])->name('password.request');
 Route::post('/password/email', [App\Http\Controllers\Auth\ForgotPasswordController::class, 'sendResetLinkEmail'])->name('password.email');
 Route::get('/password/reset/{token}', [App\Http\Controllers\Auth\ResetPasswordController::class, 'showResetForm'])->name('password.reset');
 Route::post('/password/reset', [App\Http\Controllers\Auth\ResetPasswordController::class, 'reset'])->name('password.update');
-
 Route::get('/password/confirm', [App\Http\Controllers\Auth\ConfirmPasswordController::class, 'showConfirmForm'])->name('password.confirm');
 Route::post('/password/confirm', [App\Http\Controllers\Auth\ConfirmPasswordController::class, 'confirm']);
 
-//Route::get('/profile/{id}', [ProfileController::class, 'show'])->name('profile.show');
-//Route::post('/profile/{id}', [ProfileController::class, 'update'])->name('profile.update');
-
-
+// راوت الصفحة الرئيسية والمزيد
 Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/1', function () {
-    return view('dashboard');
-});
-
-Route::get('/2', function () {
-    return view('pproprty');
-});
-
-Route::get('/login', function () {
-    return view('login');
-});
-
-Route::get('/products', [ProductController::class, 'index'])->name('products.index');
-Route::get('/products/create', [ProductController::class, 'create'])->name('products.create')->middleware('auth');;
-Route::post('/products', [ProductController::class, 'store'])->name('products.store');
-Route::get('/products/{product}', [ProductController::class, 'show'])->name('products.show');
-Route::get('/products/{product}/edit', [ProductController::class, 'edit'])->name('products.edit');
-Route::put('/products/{product}', [ProductController::class, 'update'])->name('products.update');
-Route::delete('/products/{product}', [ProductController::class, 'destroy'])->name('products.destroy');
-
-Route::get('/single', [ProductController::class, 'single'])->name('single');
-
-//Route::get('/single', function () {
-//    return view('single');
-//});
-
-Route::post('/products/{id}/order', [OrderController::class, 'placeOrder'])->middleware('auth')->name('products.order');
-
-Auth::routes();
-
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-
-Route::get('/property/{product}', [ProductController::class, 'show'])->name('property.show');
-
-Route::prefix('dashboard')->middleware('check.employee')->group(function () {
-    Route::get('/', [DashboardController::class, 'index'])->name('dashboard.index');
-    Route::get('/settings', [DashboardController::class, 'settings'])->name('dashboard.settings');
-    Route::get('/reports', [DashboardController::class, 'reports'])->name('dashboard.reports');
-    // أضف مسارات أخرى هنا
-});
-
-Route::get('/orders', [OrderController::class, 'index'])->name('orders.index');
-Route::patch('/orders/{order}', [OrderController::class, 'update'])->name('orders.update');
-
-// مثال على المسار في routes/web.php
-Route::resource('cities', CityController::class);
-
-
-Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.show')->middleware('auth');
-Route::get('/profile/edit', [ProfileController::class, 'edit'])->name('profile.edit')->middleware('auth');
-Route::post('/profile/update', [ProfileController::class, 'update'])->name('profile.update')->middleware('auth');
-Route::put('/profile/password', [ProfileController::class, 'updatePassword'])->middleware('auth')->name('password.update');

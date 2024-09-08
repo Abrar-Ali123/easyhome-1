@@ -1,9 +1,3 @@
-/* خلفية وتفاصيل الهيدر في الوضع الفاتح والداكن */
-
-
-
-
-
 :root {
     --primary-color: #fff; /* اللون الأساسي للخلفية العامة */
     --primary-color-dark: #091716; /* اللون الأساسي للخلفية العامة في الوضع الداكن */
@@ -33,12 +27,14 @@ body.dark-theme {
 }
 
 header {
-    background-color: var(--highlight-color);
+    background-color: transparent; /* إذا كنت تريد خلفية شفافة */
     color: var(--secondary-color);
     text-align: center;
-    height: 100px;
-    transition: background-color 0.3s, color 0.3s;
-    top:0;
+    position: fixed; /* احتفظ بالوضع الثابت لجعل العنصر أعلى */
+    top: 0; /* ضمان وضعه في الأعلى */
+    left: 0; /* ضمان محاذاته من اليسار */
+    width: 100%; /* لتمتد بعرض الصفحة */
+    z-index: 1000; /* لضمان ظهوره فوق العناصر الأخرى */
 }
 
 
@@ -55,7 +51,8 @@ header img {
 header nav {
 
     width: 100%;
-       background-color: transparent;
+      color: var(--highlight-color); /* لون الأيقونات في الوضع الداكن */
+      background-color: transparent;
       position: relative; /* أضف هذه السطر لتفعيل z-index */
       z-index: 1000; /* يضمن أن العنصر فوق العناصر الأخرى */
  }
@@ -85,13 +82,11 @@ body.dark-theme header nav a:hover {
 footer {
     background-color: var(--highlight-color);
     color: var(--secondary-color);
-
     text-align: center;
-      bottom: 0; /* للتأكد من وجوده في الأسفل */
-    width: 100%; /* ليملأ الفوتر عرض الصفحة */
-    padding: 10px 0; /* إضافة تباعد أعلى وأسفل النص */
-    margin-top: 5%;
- }
+    padding: 10px 0;
+    transition: background-color 0.3s, color 0.3s;
+    bottom: 0;
+}
 
 
 body.dark-theme footer {
@@ -99,139 +94,6 @@ body.dark-theme footer {
     color: var(--highlight-color);
 }
 
-
-
-
-/* تصميم النموذج */
-form {
-    max-width: 800px;
-    margin: 0 auto;
-    padding: 20px;
-    background-color: var(--primary-color);
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    transition: background-color 0.3s, box-shadow 0.3s;
-}
-
-body.dark-theme form {
-    background-color: var(--secondary-color);
-    color: var(--highlight-color);
-}
-
-/* عنوان النموذج */
-form h1,
-form h2,
-form h3 {
-    color: var(--secondary-color);
-    text-align: center;
-    margin-bottom: 20px;
-    font-weight: 600;
-}
-
-body.dark-theme form h1,
-body.dark-theme form h2,
-body.dark-theme form h3 {
-    color: var(--highlight-color);
-}
-
-/* تصميم الحقول */
-form label {
-    font-weight: 500;
-    color: var(--secondary-color);
-    margin-bottom: 8px;
-    display: block;
-}
-
-body.dark-theme form label {
-    color: var(--highlight-color);
-}
-
-form input[type="text"],
-form input[type="email"],
-form input[type="password"],
-form input[type="number"],
-form select,
-form textarea {
-    width: 100%;
-    padding: 12px 15px;
-    border: 1px solid #ddd;
-    border-radius: 5px;
-    background-color: #f8f9fa;
-    font-size: 16px;
-    transition: border-color 0.3s ease, background-color 0.3s ease;
-}
-
-body.dark-theme form input,
-body.dark-theme form select,
-body.dark-theme form textarea {
-    background-color: var(--primary-color-dark);
-    border-color: var(--highlight-color);
-    color: var(--highlight-color);
-}
-
-/* الحقول عند التركيز */
-form input:focus,
-form select:focus,
-form textarea:focus {
-    border-color: var(--accent-color);
-    outline: none;
-}
-
-/* تصميم الأزرار */
-form button {
-    width: 100%;
-    padding: 12px;
-    font-size: 18px;
-    background-color: var(--secondary-color);
-    color: var(--highlight-color);
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s ease, transform 0.2s ease;
-}
-
-body.dark-theme form button {
-    background-color: var(--highlight-color);
-    color: var(--secondary-color);
-}
-
-/* الأزرار عند التمرير */
-form button:hover {
-    background-color: var(--accent-color);
-    transform: translateY(-2px);
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-}
-
-/* رسائل التنبيه */
-form .alert {
-    padding: 15px;
-    border-radius: 5px;
-    margin-bottom: 20px;
-    text-align: center;
-    transition: background-color 0.3s, color 0.3s;
-}
-
-.alert-success {
-    background-color: #d4edda;
-    color: #155724;
-    border: 1px solid #c3e6cb;
-}
-
-.alert-error {
-    background-color: #f8d7da;
-    color: #721c24;
-    border: 1px solid #f5c6cb;
-}
-
-body.dark-theme .alert-success {
-    background-color: var(--secondary-color);
-    color: var(--highlight-color);
-}
-
-body.dark-theme .alert-error {
-    background-color: var(--primary-color-dark);
-    color: var(--highlight-color);
-}
 
 
 header nav.scrolled {
@@ -354,7 +216,8 @@ nav ul li a {
     padding: 8px 12px;
 
 
-     border-radius: 8px;
+    color: var(--highlight-color);
+    border-radius: 8px;
     text-decoration: none;
     display: block;
     transition: color 0.3s ease;

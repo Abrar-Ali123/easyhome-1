@@ -2,28 +2,25 @@
 <html lang="ar">
 <head>
 <meta charset="utf-8">
+
+
+        <link href="{{ asset('css/front.css') }}" rel="stylesheet">
+
+
+
+
+
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-
-
 <link href="https://cdn.jsdelivr.net/npm/tailwindcss/dist/tailwind.min.css" rel="stylesheet">
 
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
-
     <title>{{ config('app.name', 'لارافيل') }}</title>
-
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.bunny.net">
     <link href="https://fonts.bunny.net/css?family=Nunito" rel="stylesheet">
-
     <!-- Scripts -->
-
-    <meta charset="UTF-8">
-
-
-     <link href="{{ asset('css/front.css') }}" rel="stylesheet">
-
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>صفحة المثال</title>
 </head>
@@ -58,7 +55,7 @@
 
 </li>
                         <li><a href="#">الرئيسية</a></li>
-                        <li><a href="{{route('products.index')}}">العقارات</a></li>
+                        <li><a href="#">العقارات</a></li>
                         <li><a href="#">من نحن</a></li>
                         <li><a href="#">اطلب عقارك</a></li>
                         <li><a href="#">طلب استثمار</a></li>
@@ -68,12 +65,12 @@
                                 <a id="openPopup"><i class="fas fa-user"></i></a>
                             @else
                                 <a href="#" id="userMenuToggle" style="display: flex; align-items: center;">
-                                    <img src="{{ asset(Auth::user()->avatar) }}" alt="صورة المستخدم" style="width: 30px; height: 30px; border-radius: 50%; margin-right: 5px;">
+                                    <img src="{{ Auth::user()->avatar }}" alt="صورة المستخدم" style="width: 30px; height: 30px; border-radius: 50%; margin-right: 5px;">
                                     <span>{{ Auth::user()->name }}</span>
                                 </a>
                                 <ul id="userMenu" class="dropdown-menu" style="display: none; position: absolute; background-color: white; list-style: none; padding: 10px; box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);">
                                     <li>
-                                        <a class="dropdown-item" href="{{route('profile.show')}}">الملف الشخصي</a>
+                                        <a class="dropdown-item" href="#">الملف الشخصي</a>
                                     </li>
                                     <li>
                                         <a class="dropdown-item" href="{{ route('logout') }}"
@@ -123,6 +120,8 @@
 
 <!-- CSS للزر والنافذة المنبثقة -->
 <style>
+
+
 
 .filter-btn {
 
@@ -282,11 +281,11 @@ window.addEventListener('click', function(event) {
 }
 
 .google-icon::before {
-    content: url("{{ asset('path/to/google-icon.png') }}");/* استبدل path/to/google-icon.png بمسار أيقونة Google */
+    content: url('path/to/google-icon.png'); /* استبدل path/to/google-icon.png بمسار أيقونة Google */
 }
 
 .facebook-icon::before {
-    content: url("{{asset('path/to/facebook-icon.png')}}"); /* استبدل path/to/facebook-icon.png بمسار أيقونة Facebook */
+    content: url('path/to/facebook-icon.png'); /* استبدل path/to/facebook-icon.png بمسار أيقونة Facebook */
 }
 </style>
 

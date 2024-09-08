@@ -49,10 +49,7 @@ Route::post('/password/confirm', [App\Http\Controllers\Auth\ConfirmPasswordContr
 
 //Route::get('/profile/{id}', [ProfileController::class, 'show'])->name('profile.show');
 //Route::post('/profile/{id}', [ProfileController::class, 'update'])->name('profile.update');
-Route::get('/profile', [ProfileController::class, 'show'])->name('profile.show')->middleware('auth');
-Route::get('/profile/edit', [ProfileController::class, 'edit'])->name('profile.edit')->middleware('auth');
 
-Route::post('/profile', [ProfileController::class, 'update'])->name('profile.update')->middleware('auth');
 
 Route::get('/', function () {
     return view('welcome');
@@ -105,4 +102,8 @@ Route::patch('/orders/{order}', [OrderController::class, 'update'])->name('order
 // مثال على المسار في routes/web.php
 Route::resource('cities', CityController::class);
 
+
+Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.show')->middleware('auth');
 Route::get('/profile/edit', [ProfileController::class, 'edit'])->name('profile.edit')->middleware('auth');
+Route::post('/profile/update', [ProfileController::class, 'update'])->name('profile.update')->middleware('auth');
+Route::put('/profile/password', [ProfileController::class, 'updatePassword'])->middleware('auth')->name('password.update');

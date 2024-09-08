@@ -151,6 +151,7 @@
 
     <section class="profile-info text-center">
         <h2>{{ $user->name }}</h2>
+
         <p><span class="label ">البريد الإلكتروني:</span><br> <span class="value ">{{ $user->email }}</span></p><hr>
 
         <p><span class="label">الهاتف:</span> <br><span class="value ">{{ $user->phone }}</span></p><hr>
@@ -176,6 +177,8 @@
                 @endif
             </span>
         </p>
+
+
         <a href="{{ route('profile.edit') }}" class="edit-button">تعديل الملف الشخصي</a>
         <a href="{{ route('profile.edit') }}" class="edit-button">تعديل الملف الشخصي</a>
 

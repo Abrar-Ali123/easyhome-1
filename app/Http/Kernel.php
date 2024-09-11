@@ -66,7 +66,10 @@ class Kernel extends HttpKernel
      */
     protected $routeMiddleware = [
         'auth' => \App\Http\Middleware\Auth::class,
+        'Auth_user' => \App\Http\Middleware\Auth::class,
+
         'check.employee' => \App\Http\Middleware\CheckEmployeeRole::class,
+        'pop' => \App\Http\Middleware\pop::class,
 
         // يمكنك إضافة المزيد من الميدل وير هنا إذا لزم الأمر
     ];

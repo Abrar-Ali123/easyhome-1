@@ -11,45 +11,17 @@ class Order extends Model
 
     protected $fillable = [
         'user_id',
-        'product_id',
-        'status', // حالة الطلب
+        'status',
+        'updated_by',
     ];
 
-    /**
-     * حالة الطلبات المتاحة.
-     *
-     * @var array
-     */
-    public static $statuses = [
-        'pending' => 'قيد الانتظار',
-        'processing' => 'قيد المعالجة',
-        'completed' => 'مكتمل',
-        'canceled' => 'ملغى',
-    ];
-
-    /**
-     * الحصول على اسم الحالة.
-     *
-     * @return string
-     */
-    public function getStatusNameAttribute()
-    {
-        return self::$statuses[$this->status] ?? 'غير معروف';
-    }
-
-    /**
-     * العلاقة مع المستخدم.
-     */
     public function user()
     {
         return $this->belongsTo(User::class);
     }
 
-    /**
-     * العلاقة مع المنتج.
-     */
-    public function product()
+    public function updatedBy()
     {
-        return $this->belongsTo(Product::class);
+        return $this->belongsTo(User::class, 'updated_by');
     }
 }

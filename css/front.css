@@ -39,6 +39,8 @@ header {
     height: 100px;
     transition: background-color 0.3s, color 0.3s;
     top:0;
+margin-bottom: 5%;
+
 }
 
 
@@ -101,115 +103,6 @@ body.dark-theme footer {
 
 
 
-
-/* تصميم النموذج */
-form {
-    max-width: 800px;
-    margin: 0 auto;
-    padding: 20px;
-    background-color: var(--primary-color);
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    transition: background-color 0.3s, box-shadow 0.3s;
-}
-
-body.dark-theme form {
-    background-color: var(--secondary-color);
-    color: var(--highlight-color);
-}
-
-/* عنوان النموذج */
-form h1,
-form h2,
-form h3 {
-    color: var(--secondary-color);
-    text-align: center;
-    margin-bottom: 20px;
-    font-weight: 600;
-}
-
-body.dark-theme form h1,
-body.dark-theme form h2,
-body.dark-theme form h3 {
-    color: var(--highlight-color);
-}
-
-/* تصميم الحقول */
-form label {
-    font-weight: 500;
-    color: var(--secondary-color);
-    margin-bottom: 8px;
-    display: block;
-}
-
-body.dark-theme form label {
-    color: var(--highlight-color);
-}
-
-form input[type="text"],
-form input[type="email"],
-form input[type="password"],
-form input[type="number"],
-form select,
-form textarea {
-    width: 100%;
-    padding: 12px 15px;
-    border: 1px solid #ddd;
-    border-radius: 5px;
-    background-color: #f8f9fa;
-    font-size: 16px;
-    transition: border-color 0.3s ease, background-color 0.3s ease;
-}
-
-body.dark-theme form input,
-body.dark-theme form select,
-body.dark-theme form textarea {
-    background-color: var(--primary-color-dark);
-    border-color: var(--highlight-color);
-    color: var(--highlight-color);
-}
-
-/* الحقول عند التركيز */
-form input:focus,
-form select:focus,
-form textarea:focus {
-    border-color: var(--accent-color);
-    outline: none;
-}
-
-/* تصميم الأزرار */
-form button {
-    width: 100%;
-    padding: 12px;
-    font-size: 18px;
-    background-color: var(--secondary-color);
-    color: var(--highlight-color);
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s ease, transform 0.2s ease;
-}
-
-body.dark-theme form button {
-    background-color: var(--highlight-color);
-    color: var(--secondary-color);
-}
-
-/* الأزرار عند التمرير */
-form button:hover {
-    background-color: var(--accent-color);
-    transform: translateY(-2px);
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-}
-
-/* رسائل التنبيه */
-form .alert {
-    padding: 15px;
-    border-radius: 5px;
-    margin-bottom: 20px;
-    text-align: center;
-    transition: background-color 0.3s, color 0.3s;
-}
 
 .alert-success {
     background-color: #d4edda;
@@ -768,4 +661,214 @@ margin-left: 5%;
     box-shadow: 0 15px 35px rgba(0,0,0,0.9);
     position: relative;
     width: 400px;
+}
+
+
+
+
+.content {
+
+margin: 5%;
+
+}
+
+
+#comment-form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 20px;
+    padding: 10px; /* إضافة تباعد داخلي لضبط المسافات */
+    background-color: var(--primary-color);
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+#comment-form textarea {
+    resize: vertical;
+    min-height: 100px;
+    padding: 10px;
+    border-radius: 8px;
+    border: 1px solid #ddd;
+    background: var(--primary-color);
+    color: var(--secondary-color);
+    transition: background-color 0.3s, color 0.3s, border-color 0.3s;
+    font-family: 'Nunito', sans-serif;
+    box-sizing: border-box; /* التأكد من حساب الحدود والتباعد الداخلي */
+    width: 100%; /* ضبط العرض ليملأ الحاوية */
+}
+
+body.dark-theme #comment-form textarea {
+    background: var(--primary-color-dark);
+    color: var(--highlight-color);
+    border-color: var(--highlight-color);
+}
+
+#comment-form button {
+    align-self: flex-end;
+    padding: 10px 20px;
+    border: none;
+    background: var(--accent-color);
+    color: var(--highlight-color);
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    font-weight: bold;
+}
+
+#comments-list {
+    list-style: none;
+    padding: 0;
+    margin: 20px 0; /* إضافة تباعد أعلى وأسفل القائمة */
+}
+
+.comment-item {
+    display: flex;
+    align-items: flex-start;
+    margin-bottom: 15px;
+    padding: 15px;
+     border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05); /* ظل خفيف للتعليقات */
+    transition: background-color 0.3s, color 0.3s;
+}
+
+body.dark-theme .comment-item {
+    background: var(--secondary-color);
+    color: var(--highlight-color);
+}
+
+.user-avatar {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    margin-right: 15px;
+    object-fit: cover;
+    border: 2px solid var(--accent-color); /* حدود حول الصورة الشخصية */
+}
+
+.comment-content {
+    flex-grow: 1;
+}
+
+.comment-author {
+    font-weight: bold;
+    margin-bottom: 5px;
+    display: block;
+    color: var(--secondary-color);
+}
+
+body.dark-theme .comment-author {
+    color: var(--highlight-color);
+}
+
+.comment-text {
+    margin: 5px 0;
+    font-size: 14px;
+    line-height: 1.6;
+    color: var(--secondary-color);
+}
+
+body.dark-theme .comment-text {
+    color: var(--highlight-color);
+}
+
+.like-btn {
+    background: none;
+    border: none;
+    color: var(--accent-color);
+    cursor: pointer;
+    padding: 0;
+    font-size: 14px;
+    transition: color 0.3s;
+    display: flex;
+    align-items: center;
+    gap: 5px; /* تباعد بين الأيقونة والنص */
+}
+
+body.dark-theme .like-btn {
+    color: var(--highlight-color);
+}
+
+.like-btn:hover {
+    color: var(--secondary-color);
+}
+
+
+
+/* التأكد من أن كل شيء يبقى داخل الفورم */
+form {
+    max-width: 800px; /* أقصى عرض للفورم */
+    margin: 0 auto; /* مركزة الفورم في الوسط */
+    padding: 20px; /* التباعد الداخلي للفورم */
+    background-color: var(--primary-color); /* لون الخلفية */
+    border-radius: 10px; /* حواف مستديرة */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* ظل خفيف */
+    transition: background-color 0.3s, box-shadow 0.3s; /* انتقال سلس للألوان */
+    box-sizing: border-box; /* لحساب الحدود والتباعد الداخلي */
+    overflow: hidden; /* منع العناصر من الخروج خارج حدود الفورم */
+}
+
+body.dark-theme form {
+    background-color: var(--secondary-color); /* لون الخلفية في الوضع الداكن */
+    color: var(--highlight-color); /* لون النص في الوضع الداكن */
+}
+
+form * {
+    box-sizing: border-box; /* التأكد من حساب الحدود والتباعد الداخلي لكل العناصر */
+}
+
+form input[type="text"],
+form input[type="email"],
+form input[type="password"],
+form input[type="number"],
+form select,
+form textarea {
+    width: 100%; /* عرض الحقول لتملأ الفورم */
+    padding: 12px 15px; /* تباعد داخلي */
+    margin-bottom: 10px; /* تباعد بين الحقول */
+    border: 1px solid #ddd; /* حدود خفيفة */
+    border-radius: 5px; /* حواف مستديرة للحقول */
+    background-color: #f8f9fa; /* لون خلفية الحقول */
+    font-size: 16px; /* حجم الخط */
+    transition: border-color 0.3s ease, background-color 0.3s ease; /* انتقال سلس للألوان */
+}
+
+body.dark-theme form input,
+body.dark-theme form select,
+body.dark-theme form textarea {
+    background-color: var(--primary-color-dark); /* لون الخلفية في الوضع الداكن */
+    border-color: var(--highlight-color); /* لون الحدود في الوضع الداكن */
+    color: var(--highlight-color); /* لون النص في الوضع الداكن */
+}
+
+/* الحقول عند التركيز */
+form input:focus,
+form select:focus,
+form textarea:focus {
+    border-color: var(--accent-color); /* تغيير لون الحدود عند التركيز */
+    outline: none; /* إزالة الحدود الافتراضية */
+}
+
+/* تصميم الأزرار */
+form button {
+    width: 100%; /* عرض الزر ليملأ الفورم */
+    padding: 12px; /* تباعد داخلي للزر */
+    font-size: 18px; /* حجم الخط للزر */
+    background-color: var(--secondary-color); /* لون خلفية الزر */
+    color: var(--highlight-color); /* لون النص للزر */
+    border: none; /* إزالة الحدود الافتراضية */
+    border-radius: 5px; /* حواف مستديرة للزر */
+    cursor: pointer; /* مؤشر اليد عند التمرير */
+    transition: background-color 0.3s ease, transform 0.2s ease; /* انتقال سلس للألوان والحركة */
+}
+
+body.dark-theme form button {
+    background-color: var(--highlight-color); /* لون الزر في الوضع الداكن */
+    color: var(--secondary-color); /* لون النص للزر في الوضع الداكن */
+}
+
+form button:hover {
+    background-color: var(--accent-color); /* تغيير لون الزر عند التمرير */
+    transform: translateY(-2px); /* حركة خفيفة للأعلى عند التمرير */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* ظل خفيف عند التمرير */
 }

@@ -55,7 +55,7 @@
                         <li><a href="#">الرئيسية</a></li>
                         <li><a href="#">العقارات</a></li>
                         <li><a href="#">من نحن</a></li>
-                        <li><a href="#">اطلب عقارك</a></li>
+                        <li><a href="{{ route('submit.product.request') }}">اطلب عقارك</a></li>
                         <li><a href="#">طلب استثمار</a></li>
 
                         <li>
@@ -355,6 +355,36 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 </script>
 
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    // دالة لعرض نافذة تسجيل الدخول المنبثقة
+    function showLoginPopup() {
+        var popup = document.getElementById('popup');
+        popup.classList.remove('hidden');
+        popup.style.display = 'flex'; // التأكد من عرض النافذة كفليكس
+    }
+
+    // فحص كل الروابط المحمية
+    document.querySelectorAll('a').forEach(function(link) {
+        link.addEventListener('click', function(event) {
+            event.preventDefault(); // منع السلوك الافتراضي للنقر على الرابط
+
+            // التحقق من حالة تسجيل الدخول من خلال طلب AJAX إلى `/auth/check`
+            fetch('/auth/check')
+                .then(response => response.json())
+                .then(data => {
+                    if (data.auth_required) {
+                        showLoginPopup(); // عرض النافذة المنبثقة لتسجيل الدخول
+                    } else {
+                        // إذا كان المستخدم مسجلاً الدخول، تابع فتح الرابط
+                        window.location.href = link.getAttribute('href');
+                    }
+                })
+                .catch(error => console.error('Error:', error));
+        });
+    });
+});
+</script>
 
 </body>
 </html>

@@ -1,5 +1,4 @@
-@extends('layouts.dashboard') <!-- الامتداد من Layout الخاص بالـ Dashboard -->
-
+@extends('layouts.dashboard')
 @section('content')
 <div class="container">
     <h1>عرض طلبات المنتجات</h1>

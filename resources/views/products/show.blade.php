@@ -11,7 +11,7 @@
 <!-- إضافة محتوى الصفحة -->
 <div class="container my-4">
     <header class="text-center mb-4">
-        <h2>{{ $product->title }}</h2>
+        <h1>{{ $product->title }}</h1>
     </header>
 
     <section class="property-main1 d-flex justify-content-center align-items-center" style="flex-wrap: wrap; gap: 20px;">

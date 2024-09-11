@@ -3,126 +3,234 @@
 namespace App\Http\Controllers;
 
 use App\Models\City;
-use App\Models\ProductRequest;
-use App\ProductConstants;
+use App\Models\Product;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth; // لضمان الحصول على التصنيفات
+use Illuminate\Support\Facades\Storage;
 
-class ProductRequestController extends Controller
+class ProductController extends Controller
 {
     /**
-     * عرض قائمة طلبات المنتجات.
+     * عرض قائمة المنتجات.
      *
      * @return \Illuminate\Http\Response
      */
+    public function single()
+    {
+        $products = Product::all();
+
+        return view('single', compact('products'));
+    }
+
     public function index()
     {
-        $productRequests = ProductRequest::with(['user', 'city'])->get(); // الحصول على الطلبات مع العلاقات
 
-        return view('product_requests.index', compact('productRequests'));
+        $products = Product::all();
+
+        return view('products.index', compact('products'));
     }
 
     /**
-     * عرض نموذج إنشاء طلب منتج جديد.
+     * عرض نموذج إنشاء منتج جديد.
      *
      * @return \Illuminate\Http\Response
      */
     public function create()
     {
-        $cities = City::all(); // الحصول على قائمة المدن
-        $categories = ProductConstants::CATEGORIES; // الحصول على التصنيفات من الـ ProductConstants
+        // نحصل على قائمة المميزات من الموديل
+        $featuresList = Product::$featuresList;
+        $cities = City::all();
 
-        return view('product_requests.create', compact('cities', 'categories'));
+        // نمرر قائمة المميزات إلى الـ View
+        return view('products.create', compact('featuresList', 'cities'));
     }
 
     /**
-     * تخزين طلب منتج جديد.
+     * تخزين منتج جديد.
      *
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
     {
-        $user = Auth::user();
+        $user = \Illuminate\Support\Facades\Auth::user();
         $request->validate([
-            'city' => 'required|exists:cities,id',
-            'neighborhoods' => 'required|string',
-            'category' => 'required|string|in:'.implode(',', array_keys(ProductConstants::CATEGORIES)),
+            'title' => 'required|string|max:255',
             'description' => 'required|string',
+            'location' => 'required|string',
+            'video' => 'required|string',
+
+            'city_id' => 'required|exists:cities,id',
+
+            'price' => 'required|numeric',
+            'bedrooms' => 'required|integer',
+            'bathrooms' => 'required|integer',
+            'area' => 'required|integer',
+            'features' => 'nullable|string',
+            'category' => 'required|string',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'images.*' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
         ]);
 
-        ProductRequest::create([
-            'user_id' => $user->id,
-            'city_id' => $request->city,
-            'neighborhoods' => $request->neighborhoods,
-            'category' => $request->category,
-            'description' => $request->description,
-        ]);
+        $images = [];
+        if ($request->hasfile('images')) {
+            foreach ($request->file('images') as $image) {
+                $name = time().'_'.$image->getClientOriginalName();
+                $path = $image->storeAs('public/images', $name); // حفظ في storage/app/public/images
+                $images[] = str_replace('public/', '', $path); // احفظ المسار الجزئي فقط
+            }
+        }
 
-        return redirect()->route('product_requests.index')
-            ->with('success', 'تم إرسال طلب المنتج بنجاح.');
+        $product = new Product();
+        $product->title = $request->title;
+        $product->city_id = $request->city_id;
+        $product->video = $request->video;
+
+        $product->description = $request->description;
+        $product->location = $request->location;
+        $product->price = $request->price;
+        $product->bedrooms = $request->bedrooms;
+        $product->bathrooms = $request->bathrooms;
+        $product->area = $request->area;
+        $product->features = $request->features;
+        $product->category = $request->category;
+        $product->created_by = $user->id;
+        if ($request->hasFile('image')) {
+            $image = $request->file('image');
+            $imageName = time().'_'.$image->getClientOriginalName();
+            $path = $image->storeAs('public/images', $imageName); // حفظ في storage/app/public/images
+            $product->image = str_replace('public/', '', $path); // احفظ المسار الجزئي فقط
+        }
+
+        $product->images = json_encode($images);
+
+        $product->save();
+
+        return redirect()->route('products.index')
+            ->with('success', 'Product created successfully.');
     }
 
     /**
-     * عرض تفاصيل طلب منتج محدد.
+     * عرض تفاصيل منتج محدد.
      *
      * @return \Illuminate\Http\Response
      */
+    // داخل ProductController.php
     public function show($id)
     {
-        $productRequest = ProductRequest::with(['user', 'city'])->findOrFail($id);
 
-        return view('product_requests.show', compact('productRequest'));
+        $cities = City::all();
+        $product = Product::with('comments.likes')->findOrFail($id);
+
+        return view('products.show', compact('product', 'cities'));
     }
 
     /**
-     * عرض نموذج تعديل طلب منتج.
+     * عرض نموذج تعديل منتج.
      *
      * @return \Illuminate\Http\Response
      */
     public function edit($id)
     {
-        $productRequest = ProductRequest::findOrFail($id);
-        $cities = City::all();
-        $categories = ProductConstants::CATEGORIES; // الحصول على التصنيفات لتعديلها
+        $product = Product::findOrFail($id);
 
-        return view('product_requests.edit', compact('productRequest', 'cities', 'categories'));
+        $featuresList = [
+            'مرآب' => 'fas fa-car',
+            'مسبح' => 'fas fa-swimming-pool',
+            'حديقة' => 'fas fa-tree',
+            'أمن' => 'fas fa-shield-alt',
+        ];
+
+        return view('products.edit', compact('product', 'featuresList'));
     }
 
     /**
-     * تحديث طلب منتج محدد.
+     * تحديث منتج محدد.
      *
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, ProductRequest $productRequest)
+    public function update(Request $request, Product $product)
     {
         $request->validate([
-            'city' => 'required|exists:cities,id',
-            'neighborhoods' => 'required|string',
-            'category' => 'required|string|in:'.implode(',', array_keys(ProductConstants::CATEGORIES)),
+            'title' => 'required|string|max:255',
             'description' => 'required|string',
+            'location' => 'required|string',
+            'video' => 'required|string',
+
+            'price' => 'required|numeric',
+            'bedrooms' => 'required|integer',
+            'bathrooms' => 'required|integer',
+            'area' => 'required|integer',
+            'features' => 'nullable|string',
+            'category' => 'required|string',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'images.*' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
         ]);
 
-        $productRequest->update([
-            'city_id' => $request->city,
-            'neighborhoods' => $request->neighborhoods,
-            'category' => $request->category,
-            'description' => $request->description,
-        ]);
+        $images = json_decode($product->images, true) ?? [];
+        if ($request->hasfile('images')) {
+            foreach ($request->file('images') as $image) {
+                $name = time().'_'.$image->getClientOriginalName();
+                $path = $image->storeAs('public/images', $name); // حفظ في storage/app/public/images
+                $images[] = str_replace('public/', '', $path); // احفظ المسار الجزئي فقط
+            }
+        }
 
-        return redirect()->route('product_requests.index')
-            ->with('success', 'تم تحديث طلب المنتج بنجاح.');
+        $product->title = $request->title;
+        $product->description = $request->description;
+
+        $product->video = $request->video;
+
+        $product->location = $request->location;
+        $product->price = $request->price;
+        $product->bedrooms = $request->bedrooms;
+        $product->bathrooms = $request->bathrooms;
+        $product->area = $request->area;
+        $product->features = $request->features;
+        $product->category = $request->category;
+
+        if ($request->hasFile('image')) {
+            // حذف الصورة القديمة إذا كانت موجودة
+            if ($product->image && Storage::exists('public/'.str_replace('storage/', '', $product->image))) {
+                Storage::delete('public/'.str_replace('storage/', '', $product->image));
+            }
+
+            $image = $request->file('image');
+            $imageName = time().'_'.$image->getClientOriginalName();
+            $path = $image->storeAs('public/images', $imageName); // حفظ في storage/app/public/images
+            $product->image = str_replace('public/', '', $path); // احفظ المسار الجزئي فقط
+        }
+
+        $product->images = json_encode($images);
+
+        $product->save();
+
+        return redirect()->route('products.index')
+            ->with('success', 'Product updated successfully.');
     }
 
     /**
-     * حذف طلب منتج محدد.
+     * حذف منتج محدد.
      *
      * @return \Illuminate\Http\Response
      */
-    public function destroy(ProductRequest $productRequest)
+    public function destroy(Product $product)
     {
-        $productRequest->delete();
+        // حذف الصورة الرئيسية إذا كانت موجودة
+        if ($product->image && Storage::exists('public/'.str_replace('storage/', '', $product->image))) {
+            Storage::delete('public/'.str_replace('storage/', '', $product->image));
+        }
 
-        return redirect()->route('product_requests.index')
-            ->with('success', 'تم حذف طلب المنتج بنجاح.');
+        // حذف الصور الإضافية
+        $images = json_decode($product->images, true) ?? [];
+        foreach ($images as $image) {
+            $imagePath = str_replace('storage/', '', $image);
+            if (Storage::exists('public/'.$imagePath)) {
+                Storage::delete('public/'.$imagePath);
+            }
+        }
+
+        $product->delete();
+
+        return redirect()->route('products.index')
+            ->with('success', 'Product deleted successfully.');
     }
 }

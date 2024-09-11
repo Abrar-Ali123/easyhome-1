@@ -5,6 +5,7 @@
 
 
         <link href="{{ asset('css/front.css') }}" rel="stylesheet">
+        <script src="{{ asset('js/site.js') }}"></script>
 
 
 
@@ -12,7 +13,6 @@
 
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-<link href="https://cdn.jsdelivr.net/npm/tailwindcss/dist/tailwind.min.css" rel="stylesheet">
 
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
@@ -80,9 +80,10 @@
                                         </a>
                                     </li>
                                 </ul>
-                                <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
-                                    @csrf
-                                </form>
+                                <form id="logout-form" action="{{ route('logout') }}" method="POST" class="logout-form d-none">
+    @csrf
+</form>
+
                             @endguest
                         </li>
 
@@ -121,6 +122,19 @@
 <!-- CSS للزر والنافذة المنبثقة -->
 <style>
 
+
+.logout-form {
+    display: none; /* لإبقاء النموذج مخفيًا بشكل افتراضي */
+    position: fixed; /* تثبيت النموذج في مكان محدد في الصفحة */
+    top: 50%; /* تحديد موضع النموذج في منتصف الشاشة */
+    left: 50%;
+    transform: translate(-50%, -50%); /* تحريك النموذج ليكون في مركز الصفحة */
+    background-color: #fff; /* خلفية بيضاء للنموذج */
+    padding: 20px; /* حواف داخلية للنموذج */
+    border-radius: 8px; /* زوايا مستديرة للنموذج */
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* إضافة ظل خفيف للنموذج */
+    z-index: 1000; /* ضمان بقاء النموذج فوق باقي العناصر */
+}
 
 
 .filter-btn {
@@ -191,6 +205,9 @@ window.addEventListener('click', function(event) {
         modal.style.display = 'none';
     }
 });
+
+
+
 </script>
 
 
@@ -290,6 +307,62 @@ window.addEventListener('click', function(event) {
 </style>
 
 <script>
+document.addEventListener('DOMContentLoaded', function () {
+    // دالة لعرض نافذة تسجيل الدخول المنبثقة
+    function showLoginPopup() {
+        var popup = document.getElementById('popup');
+        popup.classList.remove('hidden');
+    }
+
+    // إعداد جلوبال لـ AJAX للتعامل مع الاستجابات بحالة 401 (غير مصرح)
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+        },
+        statusCode: {
+            401: function (response) {
+                if (response.responseJSON && response.responseJSON.auth_required) {
+                    showLoginPopup(); // عرض النافذة المنبثقة لتسجيل الدخول
+                }
+            }
+        }
+    });
+
+    // تحويل الروابط المحمية لإرسال طلبات عبر AJAX
+    document.addEventListener('click', function(event) {
+        var target = event.target;
+        // التحقق من أن الرابط يتبع لـ Anchor tag
+        if (target.tagName === 'A' && target.closest('a')) {
+            var url = target.getAttribute('href');
+            // التحقق من وجود URL وإذا كان الرابط يتبع الروابط المحمية
+            if (url && url.startsWith('/')) {
+                event.preventDefault(); // منع السلوك الافتراضي للرابط
+                $.ajax({
+                    url: url,
+                    method: 'GET',
+                    success: function(data) {
+                        console.log(data); // التعامل مع البيانات عند النجاح
+                    },
+                    error: function(response) {
+                        if (response.status === 401 && response.responseJSON && response.responseJSON.auth_required) {
+                            showLoginPopup(); // عرض النافذة المنبثقة لتسجيل الدخول
+                        }
+                    }
+                });
+            }
+        }
+    });
+
+    // دالة لتبديل ظهور واختفاء النافذة المنبثقة
+    window.togglePopup = function() {
+        var popup = document.getElementById('popup');
+        popup.classList.toggle('hidden');
+    };
+});
+
+
+
+
 document.addEventListener('DOMContentLoaded', function() {
     // التحكم في زر القائمة في التنقل
     const button = document.querySelector('nav button');

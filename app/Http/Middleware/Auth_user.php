@@ -1,13 +1,16 @@
 <?php
 
+// App\Http\Middleware\Auth1.php
+
 // App\Http\Middleware\Auth.php
 
 namespace App\Http\Middleware;
 
 use Closure;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
-class Auth
+class Auth_user
 {
     public function handle(Request $request, Closure $next)
     {

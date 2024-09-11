@@ -5,16 +5,7 @@
 @section('content')
 <!-- Font Awesome CDN -->
 
-
-
 <!-- الزر لفتح النافذة المنبثقة -->
-
-
-
-
-
-
-
 <div class="prat">
         <video autoplay muted loop>
         <source src="{{ asset('images/4.mp4') }}" type="video/mp4">
@@ -248,6 +239,11 @@ window.addEventListener('click', function(event) {
     }
 });
 
+
+
+
+
+
 </script>
 
 
@@ -256,7 +252,7 @@ window.addEventListener('click', function(event) {
 
 
     <section class="mt-8 px-4">
-    <h2 class="text-2xl font-bold mb-4 text-center">عقارات مميزة</h2>
+    <h2 class="text-2xl font-bold mb-4 text-center">العقارات</h2>
     <div class="max-w-screen-xl mx-auto grid grid-cols-1 sm:grid-cols-3 gap-8">
         @foreach($products as $product)
             <div class="relative group overflow-hidden rounded-lg shadow-lg">
@@ -265,9 +261,26 @@ window.addEventListener('click', function(event) {
                 <div class="absolute top-4 right-4">
                     <div class="relative">
                         <i class="far fa-heart text-white text-2xl rounded-full"></i>
-                        <div class="absolute top-0 right-0 transform translate-x-1/2 -translate-y-1/2 bg-primary text-white rounded-full w-6 h-6 flex items-center justify-center text-xs font-bold">
-                            {{ $product->likes_count ?? 0 }} <!-- عدد الإعجابات (يمكن أن تكون صفر إذا لم يتم تقديمها) -->
-                        </div>
+                   <!-- زر إضافة إلى المفضلة -->
+@auth
+    <!-- إذا كان المستخدم مسجل دخول -->
+    <button class="favorite-btn {{ auth()->user()->favorites->contains('product_id', $product->id) ? 'added' : '' }}"
+            data-product-id="{{ $product->id }}"
+            onclick="toggleFavorite(this)">
+        <i class="fas fa-heart"></i>
+        <span>{{ auth()->user()->favorites->contains('product_id', $product->id) ? 'مضاف إلى المفضلة' : 'إضافة إلى المفضلة' }}</span>
+    </button>
+@endauth
+
+@guest
+    <!-- إذا لم يكن المستخدم مسجل دخول -->
+    <button class="favorite-btn"
+            onclick="showLoginPopup()">
+        <i class="fas fa-heart"></i>
+        <span>إضافة إلى المفضلة</span>
+    </button>
+@endguest
+
                     </div>
                 </div>
                 <div class="absolute top-4 left-4">
@@ -280,7 +293,11 @@ window.addEventListener('click', function(event) {
                 </div>
                 <div class="absolute inset-x-0 bottom-0 text-white transition-all duration-300 transform translate-y-full group-hover:translate-y-0" style="background-color: rgba(0, 62, 55, 0.85);">
                     <div class="p-4">
-                       <a href="{{route('single')}}"><h3 class="text-lg font-semibold">{{ $product->title }}</h3></a>
+      <a class="protected-link" href="{{ route('products.show', ['product' => $product->id]) }}">
+
+    <h3 class="text-lg font-semibold">{{ $product->title }}</h3>
+</a>
+
                     </div>
                     <div class="p-4">
                         <div class="flex items-center mb-2">

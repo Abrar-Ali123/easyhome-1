@@ -18,8 +18,7 @@
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.bunny.net">
     <link href="https://fonts.bunny.net/css?family=Nunito" rel="stylesheet">
-    <!-- Scripts -->
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>صفحة المثال</title>
 </head>
 <body>
@@ -27,7 +26,128 @@
 
 
 
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // التحكم في زر القائمة في التنقل
+    const button = document.querySelector('nav button');
+    const navbar = document.getElementById('navbar-default');
 
+    button.addEventListener('click', function() {
+        const isExpanded = button.getAttribute('aria-expanded') === 'true';
+        button.setAttribute('aria-expanded', !isExpanded);
+        navbar.classList.toggle('show');
+    });
+
+    // تبديل الوضع بين الداكن والفاتح
+    function toggleTheme() {
+        document.body.classList.toggle('dark-theme');
+        const themeIcon = document.getElementById('themeIcon');
+        if (document.body.classList.contains('dark-theme')) {
+            themeIcon.textContent = '🌙'; // تغيير الأيقونة إلى القمر في الوضع الداكن
+        } else {
+            themeIcon.textContent = '☀️'; // تغيير الأيقونة إلى الشمس في الوضع الفاتح
+        }
+    }
+
+    // ربط زر تبديل الوضع بالوظيفة
+    document.getElementById('themeIcon')?.addEventListener('click', toggleTheme);
+
+    // التحكم في القائمة المتحركة عند التمرير
+    document.addEventListener('scroll', function() {
+        const nav = document.querySelector('header nav');
+        if (window.scrollY > 50) {
+            nav.classList.add('scrolled');
+        } else {
+            nav.classList.remove('scrolled');
+        }
+    });
+
+    // عرض قائمة المستخدم عند تسجيل الدخول
+    document.getElementById('userMenuToggle')?.addEventListener('click', function(event) {
+        event.preventDefault();
+        const userMenu = document.getElementById('userMenu');
+        userMenu.style.display = userMenu.style.display === 'none' ? 'block' : 'none';
+    });
+
+    // التحكم في ظهور النافذة المنبثقة لتسجيل الدخول
+    document.getElementById('openPopup')?.addEventListener('click', function() {
+        document.getElementById('popup').style.display = 'flex';
+    });
+
+    document.querySelector('.popup-content .close')?.addEventListener('click', function() {
+        document.getElementById('popup').style.display = 'none';
+    });
+
+    window.addEventListener('click', function(event) {
+        if (event.target == document.getElementById('popup')) {
+            document.getElementById('popup').style.display = 'none';
+        }
+    });
+
+    // تفعيل مكتبة GLightbox
+    const lightbox = GLightbox();
+
+    // عرض الصور المصغرة في المعرض الرئيسي عند النقر عليها
+    document.querySelectorAll('.property-gallery img').forEach(img => {
+        img.addEventListener('click', function () {
+            document.querySelector('.property-main img').src = this.src;
+        });
+    });
+});
+</script>
+
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    // دالة لعرض نافذة تسجيل الدخول المنبثقة
+    function showLoginPopup() {
+        var popup = document.getElementById('popup');
+        popup.classList.remove('hidden');
+        popup.style.display = 'flex'; // التأكد من عرض النافذة كفليكس
+    }
+
+    // فحص كل الروابط المحمية
+    document.querySelectorAll('a').forEach(function(link) {
+        link.addEventListener('click', function(event) {
+            event.preventDefault(); // منع السلوك الافتراضي للنقر على الرابط
+
+            // التحقق من حالة تسجيل الدخول من خلال طلب AJAX إلى `/auth/check`
+            fetch('/auth/check')
+                .then(response => response.json())
+                .then(data => {
+                    if (data.auth_required) {
+                        showLoginPopup(); // عرض النافذة المنبثقة لتسجيل الدخول
+                    } else {
+                        // إذا كان المستخدم مسجلاً الدخول، تابع فتح الرابط
+                        window.location.href = link.getAttribute('href');
+                    }
+                })
+                .catch(error => console.error('Error:', error));
+        });
+    });
+});
+</script>
+
+
+<!-- JavaScript للنافذة المنبثقة -->
+<script>
+// عرض النافذة المنبثقة عند الضغط على زر الفلترة
+document.getElementById('filter-button').addEventListener('click', function() {
+    document.getElementById('filter-modal').style.display = 'flex';
+});
+
+// إغلاق النافذة عند الضغط على زر الإغلاق
+document.getElementById('close-modal').addEventListener('click', function() {
+    document.getElementById('filter-modal').style.display = 'none';
+});
+
+// إغلاق النافذة عند الضغط خارج المحتوى
+window.addEventListener('click', function(event) {
+    const modal = document.getElementById('filter-modal');
+    if (event.target === modal) {
+        modal.style.display = 'none';
+    }
+});
+</script>
 
     <header>
         <nav>
@@ -168,29 +288,6 @@
 }
 </style>
 
-<!-- JavaScript للنافذة المنبثقة -->
-<script>
-// عرض النافذة المنبثقة عند الضغط على زر الفلترة
-document.getElementById('filter-button').addEventListener('click', function() {
-    document.getElementById('filter-modal').style.display = 'flex';
-});
-
-// إغلاق النافذة عند الضغط على زر الإغلاق
-document.getElementById('close-modal').addEventListener('click', function() {
-    document.getElementById('filter-modal').style.display = 'none';
-});
-
-// إغلاق النافذة عند الضغط خارج المحتوى
-window.addEventListener('click', function(event) {
-    const modal = document.getElementById('filter-modal');
-    if (event.target === modal) {
-        modal.style.display = 'none';
-    }
-});
-</script>
-
-
-
     <div class="content">
         @yield('content')
     </div>
@@ -285,106 +382,89 @@ window.addEventListener('click', function(event) {
 }
 </style>
 
-<script>
-document.addEventListener('DOMContentLoaded', function() {
-    // التحكم في زر القائمة في التنقل
-    const button = document.querySelector('nav button');
-    const navbar = document.getElementById('navbar-default');
 
-    button.addEventListener('click', function() {
-        const isExpanded = button.getAttribute('aria-expanded') === 'true';
-        button.setAttribute('aria-expanded', !isExpanded);
-        navbar.classList.toggle('show');
-    });
 
-    // تبديل الوضع بين الداكن والفاتح
-    function toggleTheme() {
-        document.body.classList.toggle('dark-theme');
-        const themeIcon = document.getElementById('themeIcon');
-        if (document.body.classList.contains('dark-theme')) {
-            themeIcon.textContent = '🌙'; // تغيير الأيقونة إلى القمر في الوضع الداكن
-        } else {
-            themeIcon.textContent = '☀️'; // تغيير الأيقونة إلى الشمس في الوضع الفاتح
+    <style>
+        /* تصميم النافذة المنبثقة */
+        .modal {
+            display: none; /* إخفاء النافذة افتراضيًا */
+            position: fixed;
+            z-index: 1;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5); /* خلفية مظللة */
         }
+        .modal-content {
+            background-color: #fefefe;
+            margin: 15% auto;
+            padding: 20px;
+            border: 1px solid #888;
+            width: 80%;
+            max-width: 400px;
+            text-align: center;
+        }
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+        }
+        .close:hover,
+        .close:focus {
+            color: black;
+            text-decoration: none;
+            cursor: pointer;
+        }
+    </style>
+
+    <div id="messageModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <p id="message"></p>
+        </div>
+    </div>
+
+
+    <script>
+    function toggleLoginPopup() {
+        const loginPopup = document.getElementById('loginPopup');
+        loginPopup.classList.toggle('hidden');
     }
 
-    // ربط زر تبديل الوضع بالوظيفة
-    document.getElementById('themeIcon')?.addEventListener('click', toggleTheme);
+    document.querySelectorAll('a').forEach(link => {
+        if (link.href.includes('/home/')) {
+            link.addEventListener('click', function(event) {
+                event.preventDefault();
 
-    // التحكم في القائمة المتحركة عند التمرير
-    document.addEventListener('scroll', function() {
-        const nav = document.querySelector('header nav');
-        if (window.scrollY > 50) {
-            nav.classList.add('scrolled');
-        } else {
-            nav.classList.remove('scrolled');
-        }
-    });
-
-    // عرض قائمة المستخدم عند تسجيل الدخول
-    document.getElementById('userMenuToggle')?.addEventListener('click', function(event) {
-        event.preventDefault();
-        const userMenu = document.getElementById('userMenu');
-        userMenu.style.display = userMenu.style.display === 'none' ? 'block' : 'none';
-    });
-
-    // التحكم في ظهور النافذة المنبثقة لتسجيل الدخول
-    document.getElementById('openPopup')?.addEventListener('click', function() {
-        document.getElementById('popup').style.display = 'flex';
-    });
-
-    document.querySelector('.popup-content .close')?.addEventListener('click', function() {
-        document.getElementById('popup').style.display = 'none';
-    });
-
-    window.addEventListener('click', function(event) {
-        if (event.target == document.getElementById('popup')) {
-            document.getElementById('popup').style.display = 'none';
-        }
-    });
-
-    // تفعيل مكتبة GLightbox
-    const lightbox = GLightbox();
-
-    // عرض الصور المصغرة في المعرض الرئيسي عند النقر عليها
-    document.querySelectorAll('.property-gallery img').forEach(img => {
-        img.addEventListener('click', function () {
-            document.querySelector('.property-main img').src = this.src;
-        });
-    });
-});
-</script>
-
-<script>
-document.addEventListener('DOMContentLoaded', function () {
-    // دالة لعرض نافذة تسجيل الدخول المنبثقة
-    function showLoginPopup() {
-        var popup = document.getElementById('popup');
-        popup.classList.remove('hidden');
-        popup.style.display = 'flex'; // التأكد من عرض النافذة كفليكس
-    }
-
-    // فحص كل الروابط المحمية
-    document.querySelectorAll('a').forEach(function(link) {
-        link.addEventListener('click', function(event) {
-            event.preventDefault(); // منع السلوك الافتراضي للنقر على الرابط
-
-            // التحقق من حالة تسجيل الدخول من خلال طلب AJAX إلى `/auth/check`
-            fetch('/auth/check')
-                .then(response => response.json())
-                .then(data => {
-                    if (data.auth_required) {
-                        showLoginPopup(); // عرض النافذة المنبثقة لتسجيل الدخول
+                fetch(link.href, {
+                    method: 'GET',
+                    credentials: 'same-origin'
+                })
+                .then(response => {
+                    if (response.status === 403) {
+                        // عرض نافذة تسجيل الدخول فقط إذا كانت الاستجابة 403
+                        toggleLoginPopup();
+                    } else if (response.ok) {
+                        // تنفيذ الإجراء المناسب للمستخدم المسجل (مثل الانتقال إلى الرابط)
+                        window.location.href = link.href; // أو أي إجراء آخر مناسب
                     } else {
-                        // إذا كان المستخدم مسجلاً الدخول، تابع فتح الرابط
-                        window.location.href = link.getAttribute('href');
+                        console.error('An error occurred.');
                     }
                 })
-                .catch(error => console.error('Error:', error));
-        });
+                .catch(error => {
+                    console.error('Error:', error);
+                    console.error('A network error occurred.');
+                });
+            });
+        }
     });
-});
 </script>
+
+
+
+
 
 </body>
 </html>

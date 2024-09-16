@@ -1,7 +1,5 @@
 @extends('home')
-
 @section('title', 'عرض العقارات')
-
 @section('content')
 <!-- Font Awesome CDN -->
 
@@ -203,48 +201,16 @@
 
 </style>
 
-<!-- JavaScript للنافذة المنبثقة -->
-<script>
-    document.getElementById('openPopup').addEventListener('click', function() {
-        document.getElementById('popup').style.display = 'flex';
-    });
+<div id="loginPopup" style="display: none;">
+    <!-- محتوى نافذة تسجيل الدخول -->
+    <form action="/login" method="POST">
+        @csrf
+        <input type="email" name="email" placeholder="البريد الإلكتروني" required>
+        <input type="password" name="password" placeholder="كلمة المرور" required>
+        <button type="submit">تسجيل الدخول</button>
+    </form>
+</div>
 
-    document.querySelector('.popup-content.close').addEventListener('click', function() {
-        document.getElementById('popup').style.display = 'none';
-    });
-
-    window.addEventListener('click', function(event) {
-        if (event.target == document.getElementById('popup')) {
-            document.getElementById('popup').style.display = 'none';
-        }
-    });
-
-
-
-    // عرض النافذة المنبثقة عند الضغط على الزر
-document.getElementById('filter-button').addEventListener('click', function() {
-    document.getElementById('filter-modal').style.display = 'block';
-});
-
-// إغلاق النافذة عند الضغط على زر الإغلاق
-document.getElementById('close-modal').addEventListener('click', function() {
-    document.getElementById('filter-modal').style.display = 'none';
-});
-
-// إغلاق النافذة عند الضغط خارج المحتوى
-window.addEventListener('click', function(event) {
-    const modal = document.getElementById('filter-modal');
-    if (event.target === modal) {
-        modal.style.display = 'none';
-    }
-});
-
-
-
-
-
-
-</script>
 
 
 
@@ -262,24 +228,8 @@ window.addEventListener('click', function(event) {
                     <div class="relative">
                         <i class="far fa-heart text-white text-2xl rounded-full"></i>
                    <!-- زر إضافة إلى المفضلة -->
-@auth
-    <!-- إذا كان المستخدم مسجل دخول -->
-    <button class="favorite-btn {{ auth()->user()->favorites->contains('product_id', $product->id) ? 'added' : '' }}"
-            data-product-id="{{ $product->id }}"
-            onclick="toggleFavorite(this)">
-        <i class="fas fa-heart"></i>
-        <span>{{ auth()->user()->favorites->contains('product_id', $product->id) ? 'مضاف إلى المفضلة' : 'إضافة إلى المفضلة' }}</span>
-    </button>
-@endauth
 
-@guest
-    <!-- إذا لم يكن المستخدم مسجل دخول -->
-    <button class="favorite-btn"
-            onclick="showLoginPopup()">
-        <i class="fas fa-heart"></i>
-        <span>إضافة إلى المفضلة</span>
-    </button>
-@endguest
+
 
                     </div>
                 </div>

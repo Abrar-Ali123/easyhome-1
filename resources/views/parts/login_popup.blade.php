@@ -1,48 +1,206 @@
 <!-- resources/views/parts/login-popup.blade.php -->
-<div id="popup" class="fixed inset-0 flex items-center justify-center z-50 hidden">
-    <div class="absolute inset-0 bg-gray-900 opacity-50"></div>
-    <div class="bg-white rounded-lg shadow-lg p-6 w-full max-w-md z-10 relative">
-        <button class="absolute top-3 right-3 text-gray-600 hover:text-gray-800" onclick="togglePopup()">&times;</button>
-        <h2 class="text-2xl font-bold text-center mb-6">تسجيل الدخول</h2>
+<div id="loginPopup" class="popup-overlay hidden">
+    <div class="overlay"></div>
+    <div class="popup-content">
+        <button class="close-button" onclick="togglePopup()">&times;</button>
+        <h2 class="popup-title">تسجيل الدخول</h2>
         <form method="POST" action="{{ route('login') }}">
             @csrf
-            <div class="mb-4">
-                <label for="email" class="block text-gray-700 text-sm font-bold mb-2 text-right">البريد الإلكتروني</label>
-                <input id="email" type="email" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 text-center leading-tight focus:outline-none focus:shadow-outline @error('email') border-red-500 @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus>
+            <div class="form-group">
+                <label for="email" class="label">البريد الإلكتروني</label>
+                <input id="email" type="email" class="input @error('email') error-input @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus>
                 @error('email')
-                <p class="text-red-500 text-xs italic mt-2 text-right">{{ $message }}</p>
+                <p class="error-message">{{ $message }}</p>
                 @enderror
             </div>
-            <div class="mb-4">
-                <label for="password" class="block text-gray-700 text-sm font-bold mb-2 text-right">كلمة المرور</label>
-                <input id="password" type="password" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 text-center leading-tight focus:outline-none focus:shadow-outline @error('password') border-red-500 @enderror" name="password" required autocomplete="current-password">
+            <div class="form-group">
+                <label for="password" class="label">كلمة المرور</label>
+                <input id="password" type="password" class="input @error('password') error-input @enderror" name="password" required autocomplete="current-password">
                 @error('password')
-                <p class="text-red-500 text-xs italic mt-2 text-right">{{ $message }}</p>
+                <p class="error-message">{{ $message }}</p>
                 @enderror
             </div>
-            <div class="flex items-center justify-between mb-4">
-                <div class="flex items-center">
-                    <input class="form-check-input h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded" type="checkbox" name="remember" id="remember" {{ old('remember') ? 'checked' : '' }}>
-                    <label class="ml-2 block text-sm text-gray-900" for="remember">
-                        تذكرني
-                    </label>
+            <div class="form-group remember-group">
+                <div class="checkbox-group">
+                    <input class="checkbox" type="checkbox" name="remember" id="remember" {{ old('remember') ? 'checked' : '' }}>
+                    <label class="checkbox-label" for="remember">تذكرني</label>
                 </div>
                 @if (Route::has('password.request'))
-                    <a class="inline-block align-baseline font-bold text-sm text-blue-500 hover:text-blue-800" href="{{ route('password.request') }}">
-                        نسيت كلمة المرور؟
-                    </a>
+                    <a class="forgot-link" href="{{ route('password.request') }}">نسيت كلمة المرور؟</a>
                 @endif
             </div>
-            <div class="mb-4">
-                <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded w-full focus:outline-none focus:shadow-outline">
-                    تسجيل الدخول
-                </button>
+            <div class="form-group">
+                <button type="submit" class="submit-button">تسجيل الدخول</button>
             </div>
             <div class="text-center">
-                <a class="text-blue-500 hover:text-blue-800 text-sm" href="{{ route('register') }}">
-                    ليس لديك حساب؟ سجل هنا
-                </a>
+                <a class="register-link" href="{{ route('register') }}">ليس لديك حساب؟ سجل هنا</a>
             </div>
         </form>
     </div>
 </div>
+
+<style>
+    .popup-overlay {
+        position: fixed;
+        inset: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        z-index: 50;
+    }
+
+    .overlay {
+        position: absolute;
+        inset: 0;
+     }
+
+    .popup-content {
+        background-color: white;
+        border-radius: 0.5rem;
+        box-shadow: 0 1rem 2rem rgba(0, 0, 0, 0.15);
+        padding: 1.5rem;
+        width: 100%;
+        max-width: 28rem;
+        z-index: 10;
+        position: relative;
+    }
+
+    .close-button {
+        position: absolute;
+        top: 0.75rem;
+        right: 0.75rem;
+        color: #4b5563;
+        cursor: pointer;
+    }
+
+    .close-button:hover {
+        color: #1f2937;
+    }
+
+    .popup-title {
+        font-size: 1.5rem;
+        font-weight: bold;
+        text-align: center;
+        margin-bottom: 1.5rem;
+    }
+
+    .form-group {
+        margin-bottom: 1rem;
+    }
+
+    .label {
+        display: block;
+        color: #374151;
+        font-size: 0.875rem;
+        font-weight: bold;
+        margin-bottom: 0.5rem;
+        text-align: right;
+    }
+
+    .input {
+        box-shadow: 0 0 0 1px #d1d5db;
+        border-radius: 0.25rem;
+        width: 100%;
+        padding: 0.5rem 0.75rem;
+        color: #374151;
+        text-align: center;
+        outline: none;
+    }
+
+    .input:focus {
+        box-shadow: 0 0 0 2px #2563eb;
+    }
+
+    .error-input {
+        border-color: #ef4444;
+    }
+
+    .error-message {
+        color: #ef4444;
+        font-size: 0.75rem;
+        text-align: right;
+        margin-top: 0.5rem;
+    }
+
+    .remember-group {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
+
+    .checkbox-group {
+        display: flex;
+        align-items: center;
+    }
+
+    .checkbox {
+        height: 1rem;
+        width: 1rem;
+        text-color: #2563eb;
+        border-color: #d1d5db;
+    }
+
+    .checkbox-label {
+        margin-left: 0.5rem;
+        color: #1f2937;
+        font-size: 0.875rem;
+    }
+
+    .forgot-link {
+        color: #2563eb;
+        font-weight: bold;
+        font-size: 0.875rem;
+        text-align: right;
+    }
+
+    .forgot-link:hover {
+        color: #1e3a8a;
+    }
+
+    .submit-button {
+        background-color: #2563eb;
+        color: white;
+        font-weight: bold;
+        padding: 0.5rem 1rem;
+        border-radius: 0.25rem;
+        width: 100%;
+        cursor: pointer;
+        border: none;
+    }
+
+    .submit-button:hover {
+        background-color: #1e40af;
+    }
+
+    .text-center {
+        text-align: center;
+    }
+
+    .register-link {
+        color: #2563eb;
+        font-size: 0.875rem;
+    }
+
+    .register-link:hover {
+        color: #1e3a8a;
+    }
+
+    .hidden {
+        display: none;
+    }
+</style>
+
+<script>
+    // دالة لإظهار وإخفاء النافذة المنبثقة باستخدام زر الإغلاق فقط
+    function togglePopup() {
+        var popup = document.getElementById('loginPopup');
+        popup.classList.toggle('hidden'); // تبديل بين إظهار وإخفاء النافذة فقط عند النقر على زر الإغلاق
+    }
+
+    // التحقق من وجود أخطاء في النموذج وعرض النافذة إذا كانت هناك أخطاء
+    document.addEventListener('DOMContentLoaded', function() {
+        @if ($errors->any())
+            togglePopup(true); // إظهار النافذة إذا كانت هناك أخطاء
+        @endif
+    });
+</script>

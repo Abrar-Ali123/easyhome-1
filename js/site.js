@@ -1,60 +1,25 @@
-document.addEventListener('DOMContentLoaded', function () {
-    // دالة لعرض نافذة تسجيل الدخول المنبثقة
-    function showLoginPopup() {
-        var popup = document.getElementById('popup');
-        if (popup) {
-            popup.classList.remove('hidden'); // إزالة الكلاس hidden لعرض النافذة
-            popup.style.display = 'flex'; // التأكد من عرض النافذة كفليكس
-        } else {
-            console.error('العنصر #popup غير موجود في DOM.');
-        }
-    }
+// حفظ الـ fetch الأصلي في متغير
+const originalFetch = window.fetch;
 
-    // إعداد جلوبال لـ AJAX للتعامل مع الاستجابات بحالة 401 (غير مصرح)
-    $.ajaxSetup({
-        headers: {
-            'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
-        },
-        statusCode: {
-            401: function (response) {
-                if (response.responseJSON && response.responseJSON.auth_required) {
-                    showLoginPopup(); // عرض النافذة المنبثقة لتسجيل الدخول
-                }
+// إعادة تعريف fetch للتعامل مع الأخطاء عبر جميع الروابط
+window.fetch = function(url, options) {
+    return originalFetch(url, options)
+        .then(response => {
+            // إذا كان هناك خطأ 403 (ليس مصرح له)
+            if (response.status === 403) {
+                return response.json().then(data => {
+                    // عرض رسالة الخطأ أو التعامل معها
+                    alert(data.error); // يمكنك تعديل هذا حسب حاجتك، مثل عرض الرسالة في عنصر HTML معين
+                    // يمكن أيضاً رفض الـ Promise لتجنب استمرار المعالجة في أماكن أخرى
+                    return Promise.reject(data);
+                });
             }
-        }
-    });
-
-    // تحويل الروابط المحمية لإرسال طلبات عبر Fetch API
-    document.addEventListener('click', function(event) {
-        var target = event.target.closest('a'); // إيجاد الرابط الأقرب من العنصر
-        if (target && target.getAttribute('href') && target.getAttribute('href').startsWith('/')) {
-            event.preventDefault(); // منع السلوك الافتراضي للنقر على الرابط
-            fetch(target.getAttribute('href'), {
-                method: 'GET',
-                headers: {
-                    'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
-                },
-            })
-            .then(response => {
-                if (response.status === 401) {
-                    return response.json().then(data => {
-                        if (data.auth_required) {
-                            showLoginPopup(); // عرض النافذة المنبثقة لتسجيل الدخول
-                        }
-                    });
-                } else {
-                    return response.json(); // في حالة النجاح، يمكن معالجة البيانات هنا
-                }
-            })
-            .catch(error => {
-                console.error('Error:', error); // معالجة أي أخطاء في الطلب
-            });
-        }
-    });
-
-    // دالة لتبديل ظهور واختفاء النافذة المنبثقة
-    window.togglePopup = function() {
-        var popup = document.getElementById('popup');
-        popup.classList.toggle('hidden');
-    };
-});
+            // تمرير الاستجابة العادية إذا لم يكن هناك خطأ
+            return response;
+        })
+        .catch(error => {
+            // معالجة الأخطاء العامة، مثل مشاكل الاتصال أو مشاكل في الـ Fetch نفسه
+            console.error('Fetch error:', error);
+            // يمكنك عرض رسالة عامة للمستخدم أو التعامل مع الأخطاء بشكل مخصص
+        });
+};

@@ -36,12 +36,14 @@ Route::middleware(['check.employee' => \App\Http\Middleware\CheckEmployeeRole::c
 
 });
 
-Route::middleware(['Auth_user' => \App\Http\Middleware\Auth_user::class])->group(function () {
+Route::middleware(['Auth_user' => \App\Http\Middleware\Auth_user::class])->prefix('home')->group(function () {
     Route::get('/products/{product}', [ProductController::class, 'show'])->name('products.show');
     Route::post('/orders/store/{product}', [OrderController::class, 'store'])->name('orders.store');
 
     Route::post('/products/{id}/order', [OrderController::class, 'placeOrder'])->name('products.order');
+
     Route::get('/request-product', [ProductRequestController::class, 'showRequestForm'])->name('request.product.form');
+
     Route::post('/request-product', [ProductRequestController::class, 'submitRequest'])->name('submit.product.request');
     Route::post('/comments/{product}', [CommentController::class, 'store'])->name('comments.store');
     Route::put('/comments/{comment}', [CommentController::class, 'update'])->name('comments.update');

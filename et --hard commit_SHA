@@ -1,0 +1,33 @@
+[33m7dafa85[m[33m ([m[1;36mHEAD -> [m[1;32mmain[m[33m, [m[1;31morigin/main[m[33m)[m HEAD@{0}: checkout: moving from new-branch to main
+[33m0d1795f[m[33m ([m[1;32mnew-branch[m[33m)[m HEAD@{1}: commit: update
+[33mf984ad8[m[33m ([m[1;31morigin/new-branch[m[33m, [m[1;32mmaster[m[33m, [m[1;32mbackup-branch[m[33m)[m HEAD@{2}: checkout: moving from backup-branch to new-branch
+[33mf984ad8[m[33m ([m[1;31morigin/new-branch[m[33m, [m[1;32mmaster[m[33m, [m[1;32mbackup-branch[m[33m)[m HEAD@{3}: checkout: moving from master to backup-branch
+[33mf984ad8[m[33m ([m[1;31morigin/new-branch[m[33m, [m[1;32mmaster[m[33m, [m[1;32mbackup-branch[m[33m)[m HEAD@{4}: commit: update
+[33m5089ce9[m HEAD@{5}: commit: update
+[33m399d820[m HEAD@{6}: pull origin master: Fast-forward
+[33m008ce7d[m HEAD@{7}: reset: moving to HEAD
+[33m008ce7d[m HEAD@{8}: checkout: moving from master to master
+[33m008ce7d[m HEAD@{9}: pull origin master: Fast-forward
+[33me355ca3[m HEAD@{10}: reset: moving to HEAD
+[33me355ca3[m HEAD@{11}: checkout: moving from master to master
+[33me355ca3[m HEAD@{12}: commit: update
+[33m7228272[m HEAD@{13}: commit: Initial commit to the new repository
+[33m9c30656[m HEAD@{14}: checkout: moving from master to master
+[33m9c30656[m HEAD@{15}: commit: Initial commit to the new repository
+[33m5a2b165[m HEAD@{16}: commit: Your commit message
+[33m7b4cb27[m HEAD@{17}: commit: update
+[33m4f38507[m HEAD@{18}: commit: update
+[33m01666e2[m HEAD@{19}: commit: update
+[33med406ff[m HEAD@{20}: commit: Your commit message
+[33mc7aed0d[m HEAD@{21}: commit: Your commit message
+[33m4aec56a[m HEAD@{22}: commit (merge): تعديلات
+[33md2f7fc1[m HEAD@{23}: commit: تعديلات
+[33m0bf1c1d[m HEAD@{24}: pull origin master: Merge made by the 'recursive' strategy.
+[33m35709c2[m HEAD@{25}: commit: حفظ التغييرات قبل الدمج
+[33m3542226[m HEAD@{26}: commit: Initial commit
+[33m11c9f81[m HEAD@{27}: pull origin master: Merge made by the 'recursive' strategy.
+[33mf0f7e35[m HEAD@{28}: commit: حفظ التغييرات قبل الجلب
+[33mcc0a942[m HEAD@{29}: commit: رسالة توضح التغييرات
+[33m46195e8[m HEAD@{30}: commit: correct links
+[33m69e8e9e[m HEAD@{31}: commit: correct links
+[33maeeec40[m HEAD@{32}: clone: from https://github.com/Abrar-Ali123/easyhome.git

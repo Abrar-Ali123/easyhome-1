@@ -143,8 +143,7 @@ body.dark-theme nav button {
     color: var(--highlight-color); /* لون الأيقونات في الوضع الداكن */
 }
 
-nav button:hover {
- }
+
 
 body.dark-theme nav button:hover {
     background-color: var(--primary-color-dark);
@@ -881,6 +880,18 @@ margin-left: 5%;
     border-radius: 0.5rem;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
+
+/* تعديل شكل الصورة على شاشات الجوال */
+@media (max-width: 768px) {
+    .image {
+        max-width: 100%; /* اجعل العرض 100% للشاشة الصغيرة */
+        border-radius: 0; /* إزالة الحواف الدائرية */
+        box-shadow: none; /* إزالة الظل */
+    }
+}
+
+
+
 
 /* الوضع الداكن */
 @media (prefers-color-scheme: dark) {

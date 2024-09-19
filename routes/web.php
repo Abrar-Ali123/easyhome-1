@@ -14,7 +14,6 @@ use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProductRequestController;
 use App\Http\Controllers\ProfileController;
-use App\Http\Controllers\ReplyController;
 use Illuminate\Support\Facades\Route;
 
 // إضافة هذا المسار في ملف routes/web.php
@@ -25,42 +24,45 @@ Route::get('/', function () {
 });
 
 Route::middleware(['check.employee' => \App\Http\Middleware\CheckEmployeeRole::class])->prefix('dashboard')->group(function () {
+    Route::get('/products', [ProductController::class, 'index'])->name('products.index');
+    Route::get('/products/create', [ProductController::class, 'create'])->name('products.create');
+    Route::post('/products', [ProductController::class, 'store'])->name('products.store');
+    Route::get('/products/{product}', [ProductController::class, 'show'])->name('dashboard.products.show');
+    Route::get('/products/{product}/edit', [ProductController::class, 'edit'])->name('products.edit');
+    Route::put('/products/{product}', [ProductController::class, 'update'])->name('products.update');
+    Route::delete('/products/{product}', [ProductController::class, 'destroy'])->name('products.destroy');
+
     Route::get('/', [DashboardController::class, 'index'])->name('dashboard.index');
     Route::get('/reports', [DashboardController::class, 'reports'])->name('dashboard.reports');
     Route::get('/product-requests', [ProductRequestController::class, 'showProductRequests'])->name('dashboard.product.requests');
-
     Route::get('/orders', [OrderController::class, 'index'])->name('orders.index');
     Route::post('/orders/update', [OrderController::class, 'update'])->name('orders.update'); // لا يتطلب معرف الطلب في المسار
-
     Route::resource('cities', CityController::class);
-
 });
 
 Route::middleware(['Auth_user' => \App\Http\Middleware\Auth_user::class])->prefix('home')->group(function () {
-    Route::get('/products/{product}', [ProductController::class, 'show'])->name('products.show');
     Route::post('/orders/store/{product}', [OrderController::class, 'store'])->name('orders.store');
-
-    Route::post('/products/{id}/order', [OrderController::class, 'placeOrder'])->name('products.order');
-
     Route::get('/request-product', [ProductRequestController::class, 'showRequestForm'])->name('request.product.form');
-
     Route::post('/request-product', [ProductRequestController::class, 'submitRequest'])->name('submit.product.request');
-    Route::post('/comments/{product}', [CommentController::class, 'store'])->name('comments.store');
-    Route::put('/comments/{comment}', [CommentController::class, 'update'])->name('comments.update');
-    Route::delete('/comments/{comment}', [CommentController::class, 'destroy'])->name('comments.destroy');
-    Route::post('/comments/{comment}/toggle-visibility', [CommentController::class, 'toggleVisibility']);
-    Route::post('/replies/{comment}', [ReplyController::class, 'store']);
     Route::post('/likes', [LikeController::class, 'store'])->name('likes.store');
     Route::get('/profile', [ProfileController::class, 'show'])->name('profile.show');
     Route::get('/profile/edit', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::post('/profile', [ProfileController::class, 'update'])->name('profile.update');
+
+    Route::post('/products/{id}/order', [OrderController::class, 'placeOrder'])->name('products.order');
+
+    Route::get('/products/{product}/comments', [CommentController::class, 'index'])->name('comments.index');
+    Route::post('/products/{product}/comments', [CommentController::class, 'store'])->name('comments.store');
+    Route::put('/comments/{comment}', [CommentController::class, 'update'])->name('comments.update');
+    Route::delete('/comments/{comment}', [CommentController::class, 'destroy'])->name('comments.destroy');
+    Route::post('/comments/{comment}/reply', [CommentController::class, 'reply'])->name('comments.reply');
 
 });
 
 Route::get('/login', [LoginController::class, 'showLoginForm'])->name('login');
 Route::post('/login', [LoginController::class, 'login']);
 Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
-Route::get('/register', [RegisterController::class, 'showRegistrationForm'])->name('register.r');
+Route::get('/register', [RegisterController::class, 'showRegistrationForm'])->name('register');
 Route::post('/register', [RegisterController::class, 'register']);
 Route::get('/password/reset', [ForgotPasswordController::class, 'showLinkRequestForm'])->name('password.request');
 Route::post('/password/email', [ForgotPasswordController::class, 'sendResetLinkEmail'])->name('password.email');
@@ -80,3 +82,5 @@ Route::get('/2', function () {
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('/products1', [ProductController::class, 'index1'])->name('products.index1');
+Route::get('/products/{product}', [ProductController::class, 'show'])->name('products.show');

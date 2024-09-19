@@ -872,3 +872,200 @@ form button:hover {
     transform: translateY(-2px); /* حركة خفيفة للأعلى عند التمرير */
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* ظل خفيف عند التمرير */
 }
+
+
+
+
+:root {
+    --primary-color: #fff; /* اللون الأساسي للخلفية العامة */
+    --primary-color-dark: #091716; /* اللون الأساسي للخلفية العامة في الوضع الداكن */
+    --highlight-color: #fff6e0; /* اللون المميز لإبراز العناصر */
+    --secondary-color: #003e37; /* لون النصوص والخلفيات الأخرى */
+    --accent-color: #bb9339; /* اللون المميز للتأكيد */
+}
+
+/* تصميم الفوتر */
+.site-footer {
+    background-color: var(--secondary-color); /* استخدام لون الخلفية المحدد */
+    color: var(--primary-color); /* استخدام لون النص المحدد */
+    padding: 20px;
+    text-align: center;
+    font-size: 14px;
+}
+
+.footer-top {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    padding: 10px 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.3); /* استخدام تدرج لون معتم */
+}
+
+.footer-logo img {
+    height: 50px; /* حجم الشعار */
+}
+
+.footer-info {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    color: var(--primary-color); /* لون النص */
+}
+
+.footer-links {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 15px;
+    padding: 15px 0;
+}
+
+.footer-links a {
+    color: var(--primary-color); /* لون الروابط */
+    text-decoration: none;
+    font-size: 14px;
+}
+
+.footer-social {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    padding: 15px 0;
+}
+
+.footer-social a {
+    color: var(--primary-color); /* لون الأيقونات */
+    font-size: 20px;
+    text-decoration: none;
+}
+
+.footer-bottom {
+    margin-top: 10px;
+}
+
+.footer-bottom p {
+    margin: 5px 0;
+    font-size: 12px;
+}
+
+/* نافذة تسجيل الدخول المنبثقة */
+#popup {
+    display: none; /* مخفية في البداية */
+    position: fixed;
+    z-index: 1000; /* فوق كل شيء */
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5); /* خلفية شفافة */
+    justify-content: center;
+    align-items: center;
+}
+
+.popup-content {
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    background-color: var(--primary-color); /* لون الخلفية */
+    color: var(--secondary-color); /* لون النص */
+    width: 100%;
+    position: relative;
+}
+
+.popup-content .close {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    font-size: 20px;
+    cursor: pointer;
+}
+
+.inputBox {
+    position: relative;
+    margin: 10px 0;
+}
+
+.inputBox input {
+    width: 100%;
+    padding: 10px;
+    background: none;
+    border: none;
+    border-bottom: 1px solid var(--secondary-color); /* لون الخط السفلي */
+    outline: none;
+}
+
+.inputBox label {
+    position: absolute;
+    top: 10px;
+    left: 0;
+    pointer-events: none;
+    transition: 0.5s;
+}
+
+.inputBox input:focus ~ label,
+.inputBox input:valid ~ label {
+    top: -20px;
+    left: 0;
+    color: var(--accent-color); /* لون مميز عند التركيز */
+    font-size: 12px;
+}
+
+.inputBox i {
+    position: absolute;
+    top: 10px;
+    right: 0;
+}
+
+.links {
+    display: flex;
+    justify-content: space-between;
+    margin: 10px 0;
+}
+
+.social-login {
+    display: flex;
+    justify-content: space-around;
+    margin-top: 10px;
+}
+
+.google-icon::before {
+    content: url('path/to/google-icon.png'); /* استبدل path/to/google-icon.png بمسار أيقونة Google */
+}
+
+.facebook-icon::before {
+    content: url('path/to/facebook-icon.png'); /* استبدل path/to/facebook-icon.png بمسار أيقونة Facebook */
+}
+
+/* تصميم النافذة المنبثقة */
+.modal {
+    display: none; /* إخفاء النافذة افتراضيًا */
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5); /* خلفية مظللة */
+}
+
+.modal-content {
+    background-color: var(--primary-color); /* لون خلفية النافذة */
+    margin: 15% auto;
+    padding: 20px;
+    border: 1px solid var(--secondary-color); /* حدود ملونة */
+    width: 80%;
+    max-width: 400px;
+    text-align: center;
+}
+
+.close {
+    color: var(--highlight-color); /* لون زر الإغلاق */
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+    color: var(--secondary-color); /* لون عند التفاعل */
+    text-decoration: none;
+    cursor: pointer;
+}

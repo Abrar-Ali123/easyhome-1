@@ -104,12 +104,7 @@
         </div>
     </section>
 
-    <section class="like-section text-center my-4">
-        <button>
-            <i class="fas fa-thumbs-up icon"></i> أعجبني
-        </button>
-        <p class="like-count">الإعجابات: 25</p>
-    </section>
+
 
     <section class="comment-section">
         @include('comments', ['product' => $product])

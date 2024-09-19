@@ -3,63 +3,74 @@
 namespace App\Http\Controllers;
 
 use App\Models\Comment;
-use App\Models\City;
-
 use App\Models\Product;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 
 class CommentController extends Controller
 {
-    public function index()
+    // عرض جميع التعليقات
+    public function index(Product $product)
     {
-        $comments = Comment::all();
+        $comments = $product->comments()->where('visible', true)->with('replies')->latest()->get();
 
-        return view('comments', compact('comments'));
+        return response()->json($comments);
     }
 
+    // إضافة تعليق جديد
     public function store(Request $request, Product $product)
     {
-        if (! Auth::check()) {
-            return response()->json(['auth_required' => true], 401);
-        }
+        $request->validate([
+            'comment' => 'required|string',
+        ]);
 
-        $comment = new Comment();
-        $comment->comment = $request->input('comment');
-        $comment->product_id = $product->id;
-        $comment->user_id = Auth::id();
-        $comment->save();
+        $comment = $product->comments()->create([
+            'user_id' => auth()->id(),
+            'comment' => $request->comment,
+        ]);
 
-        return response()->json([
-            'comment' => $comment->comment,
-            'comment_id' => $comment->id,
-            'user' => [
-                'name' => $comment->user->name,
-                'profile_image_url' => $comment->user->profile_image_url ?? '/path/to/default-avatar.png',
-            ],
-        ], 200);
+        return response()->json($comment);
     }
 
+    // تعديل تعليق
     public function update(Request $request, Comment $comment)
     {
-        if (Auth::id() !== $comment->user_id) {
-            return response()->json(['error' => 'Unauthorized'], 403);
+        if ($comment->user_id != auth()->id()) {
+            return response()->json(['message' => 'Unauthorized'], 403);
         }
 
-        $comment->comment = $request->input('comment');
-        $comment->save();
+        $request->validate([
+            'comment' => 'required|string',
+        ]);
 
-        return response()->json(['comment' => $comment->comment], 200);
+        $comment->update(['comment' => $request->comment]);
+
+        return response()->json($comment);
     }
 
+    // حذف تعليق
     public function destroy(Comment $comment)
     {
-        if (! Auth::check() || Auth::id() !== $comment->user_id) {
-            return response()->json(['error' => 'Unauthorized'], 403);
+        if ($comment->user_id != auth()->id()) {
+            return response()->json(['message' => 'Unauthorized'], 403);
         }
 
         $comment->delete();
 
-        return response()->json(['success' => true], 200);
+        return response()->json(['message' => 'Comment deleted']);
+    }
+
+    // إضافة رد على تعليق
+    public function reply(Request $request, Comment $comment)
+    {
+        $request->validate([
+            'comment' => 'required|string',
+        ]);
+
+        $reply = $comment->replies()->create([
+            'user_id' => auth()->id(),
+            'comment' => $request->comment,
+        ]);
+
+        return response()->json($reply);
     }
 }

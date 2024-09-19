@@ -9,6 +9,55 @@ use Illuminate\Support\Facades\Storage;
 
 class ProductController extends Controller
 {
+    public function index1(Request $request)
+    {
+        $query = Product::query();
+
+        // البحث حسب الكلمات المفتاحية
+        if ($request->has('search')) {
+            $search = $request->input('search');
+            $query->where(function ($q) use ($search) {
+                $q->where('title', 'like', "%{$search}%")
+                    ->orWhere('description', 'like', "%{$search}%")
+                    ->orWhere('category', 'like', "%{$search}%")
+                    ->orWhere('features', 'like', "%{$search}%");
+            });
+        }
+
+        // الفلترة حسب المدينة
+        if ($request->has('city_id') && ! empty($request->input('city_id'))) {
+            $query->where('city_id', $request->input('city_id'));
+        }
+
+        // الفلترة حسب السعر
+        if ($request->has('min_price') && $request->has('max_price')) {
+            $query->whereBetween('price', [$request->input('min_price'), $request->input('max_price')]);
+        }
+
+        // الفلترة حسب عدد الغرف
+        if ($request->has('bedrooms')) {
+            $query->where('bedrooms', $request->input('bedrooms'));
+        }
+
+        // الفلترة حسب عدد الحمامات
+        if ($request->has('bathrooms')) {
+            $query->where('bathrooms', $request->input('bathrooms'));
+        }
+
+        // الفلترة حسب المساحة
+        if ($request->has('min_area') && $request->has('max_area')) {
+            $query->whereBetween('area', [$request->input('min_area'), $request->input('max_area')]);
+        }
+
+        // إحضار النتائج مع التصفح
+        $products = $query->paginate(9);
+
+        // إحضار قائمة المدن للفلترة
+        $cities = City::all();
+
+        return view('product', compact('products', 'cities'));
+    }
+
     /**
      * عرض قائمة المنتجات.
      *

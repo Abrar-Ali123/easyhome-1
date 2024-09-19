@@ -69,12 +69,12 @@
         position: absolute;
         top: 0.75rem;
         right: 0.75rem;
-        color: #4b5563;
+        color: #091716;
         cursor: pointer;
     }
 
     .close-button:hover {
-        color: #1f2937;
+        color: #091716;
     }
 
     .popup-title {
@@ -90,7 +90,7 @@
 
     .label {
         display: block;
-        color: #374151;
+        color: #091716;
         font-size: 0.875rem;
         font-weight: bold;
         margin-bottom: 0.5rem;
@@ -98,7 +98,7 @@
     }
 
     .input {
-        box-shadow: 0 0 0 1px #d1d5db;
+        box-shadow: 0 0 0 1px #091716;
         border-radius: 0.25rem;
         width: 100%;
         padding: 0.5rem 0.75rem;
@@ -108,15 +108,15 @@
     }
 
     .input:focus {
-        box-shadow: 0 0 0 2px #2563eb;
+        box-shadow: 0 0 0 2px #091716;
     }
 
     .error-input {
-        border-color: #ef4444;
+        border-color: #091716;
     }
 
     .error-message {
-        color: #ef4444;
+        color: #091716;
         font-size: 0.75rem;
         text-align: right;
         margin-top: 0.5rem;
@@ -137,7 +137,7 @@
         height: 1rem;
         width: 1rem;
         text-color: #2563eb;
-        border-color: #d1d5db;
+        border-color: #091716;
     }
 
     .checkbox-label {
@@ -147,18 +147,18 @@
     }
 
     .forgot-link {
-        color: #2563eb;
+        color: #091716;
         font-weight: bold;
         font-size: 0.875rem;
         text-align: right;
     }
 
     .forgot-link:hover {
-        color: #1e3a8a;
+        color: #091716;
     }
 
     .submit-button {
-        background-color: #2563eb;
+        background-color: #091716;
         color: white;
         font-weight: bold;
         padding: 0.5rem 1rem;
@@ -169,7 +169,7 @@
     }
 
     .submit-button:hover {
-        background-color: #1e40af;
+        background-color: #091716;
     }
 
     .text-center {
@@ -177,7 +177,7 @@
     }
 
     .register-link {
-        color: #2563eb;
+        color: #091716;
         font-size: 0.875rem;
     }
 

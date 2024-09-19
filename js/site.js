@@ -1,25 +1,60 @@
-// حفظ الـ fetch الأصلي في متغير
-const originalFetch = window.fetch;
 
-// إعادة تعريف fetch للتعامل مع الأخطاء عبر جميع الروابط
-window.fetch = function(url, options) {
-    return originalFetch(url, options)
-        .then(response => {
-            // إذا كان هناك خطأ 403 (ليس مصرح له)
-            if (response.status === 403) {
-                return response.json().then(data => {
-                    // عرض رسالة الخطأ أو التعامل معها
-                    alert(data.error); // يمكنك تعديل هذا حسب حاجتك، مثل عرض الرسالة في عنصر HTML معين
-                    // يمكن أيضاً رفض الـ Promise لتجنب استمرار المعالجة في أماكن أخرى
-                    return Promise.reject(data);
-                });
-            }
-            // تمرير الاستجابة العادية إذا لم يكن هناك خطأ
-            return response;
-        })
-        .catch(error => {
-            // معالجة الأخطاء العامة، مثل مشاكل الاتصال أو مشاكل في الـ Fetch نفسه
-            console.error('Fetch error:', error);
-            // يمكنك عرض رسالة عامة للمستخدم أو التعامل مع الأخطاء بشكل مخصص
+
+
+
+document.addEventListener('DOMContentLoaded', function() {
+    // التحكم في زر القائمة في التنقل
+    const button = document.querySelector('nav button');
+    const navbar = document.getElementById('navbar-default');
+
+    button.addEventListener('click', function() {
+        const isExpanded = button.getAttribute('aria-expanded') === 'true';
+        button.setAttribute('aria-expanded', !isExpanded);
+        navbar.classList.toggle('show');
+    });
+
+    // تبديل الوضع بين الداكن والفاتح
+    function toggleTheme() {
+        document.body.classList.toggle('dark-theme');
+        const themeIcon = document.getElementById('themeIcon');
+        if (document.body.classList.contains('dark-theme')) {
+            themeIcon.textContent = '🌙'; // تغيير الأيقونة إلى القمر في الوضع الداكن
+        } else {
+            themeIcon.textContent = '☀️'; // تغيير الأيقونة إلى الشمس في الوضع الفاتح
+        }
+    }
+
+    // ربط زر تبديل الوضع بالوظيفة
+    document.getElementById('themeIcon')?.addEventListener('click', toggleTheme);
+
+    // التحكم في القائمة المتحركة عند التمرير
+    document.addEventListener('scroll', function() {
+        const nav = document.querySelector('header nav');
+        if (window.scrollY > 50) {
+            nav.classList.add('scrolled');
+        } else {
+            nav.classList.remove('scrolled');
+        }
+    });
+
+    // عرض قائمة المستخدم عند تسجيل الدخول
+    document.getElementById('userMenuToggle')?.addEventListener('click', function(event) {
+        event.preventDefault();
+        const userMenu = document.getElementById('userMenu');
+        userMenu.style.display = userMenu.style.display === 'none' ? 'block' : 'none';
+    });
+
+
+    // تفعيل مكتبة GLightbox
+    const lightbox = GLightbox();
+
+    // عرض الصور المصغرة في المعرض الرئيسي عند النقر عليها
+    document.querySelectorAll('.property-gallery img').forEach(img => {
+        img.addEventListener('click', function () {
+            document.querySelector('.property-main img').src = this.src;
         });
-};
+    });
+});
+
+
+

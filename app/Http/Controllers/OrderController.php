@@ -41,4 +41,21 @@ class OrderController extends Controller
             'updated_by' => $order->updatedBy->name ?? 'غير محدد',
         ]);
     }
+
+    public function placeOrder(Request $request, $id)
+    {
+        $product = Product::find($id);
+
+        if (! $product) {
+            return redirect()->back()->with('error', 'المنتج غير موجود.');
+        }
+
+        $order = Order::create([
+            'user_id' => Auth::id(),
+            'product_id' => $product->id,
+            'status' => 'معلق',
+        ]);
+
+        return redirect()->back()->with('success', 'تم طلب المنتج بنجاح.');
+    }
 }

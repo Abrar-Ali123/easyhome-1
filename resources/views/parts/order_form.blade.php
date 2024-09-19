@@ -1,4 +1,4 @@
-<form action="{{ route('orders.store', ['product' => $product->id]) }}" method="POST">
+<form action="{{ route('products.order', $product->id) }}" method="POST">
     @csrf
-    <button type="submit" class="btn btn-success">طلب المنتج</button>
+    <button type="submit">اطلب المنتج</button>
 </form>

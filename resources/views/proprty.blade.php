@@ -3,160 +3,90 @@
 @section('title', 'عرض العقارات')
 
 @section('content')
+<section class="mt-8 px-4">
+    <h2 class="text-2xl font-bold mb-4 text-center">البحث والفلترة</h2>
 
-<script>
-    function toggleView(view) {
-        const tableView = document.getElementById('tableView');
-        const gridView = document.getElementById('gridView');
-        if (view === 'table') {
-            tableView.style.display = 'table';
-            gridView.style.display = 'none';
-        } else {
-            tableView.style.display = 'none';
-            gridView.style.display = 'grid';
-        }
-    }
+    <form method="GET" action="{{ route('products.index1') }}">
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+            <!-- البحث بالكلمة -->
+            <input type="text" name="search" class="form-input w-full" placeholder="ابحث عن عقار" value="{{ request()->input('search') }}">
 
-    // اجعل عرض الجدول هو الافتراضي
-    document.addEventListener('DOMContentLoaded', function() {
-        toggleView('table');
-    });
+            <!-- الفلترة بالمدينة -->
+            <select name="city_id" class="form-select w-full">
+                <option value="">اختر المدينة</option>
+                @foreach($cities as $city)
+                    <option value="{{ $city->id }}" {{ request()->input('city_id') == $city->id ? 'selected' : '' }}>
+                        {{ $city->name }}
+                    </option>
+                @endforeach
+            </select>
 
-    function updateNeighborhoods() {
-        const city = document.getElementById('city').value;
-        const neighborhoodSelect = document.getElementById('neighborhood');
-        const neighborhoods = {
-            'الرياض': ['حي العليا', 'حي النخيل', 'حي السويدي'],
-            'جدة': ['حي الحمراء', 'حي النسيم', 'حي الشاطئ'],
-            'مكة': ['حي الشوقية', 'حي النسيم', 'حي العزيزية'],
-        };
-
-        neighborhoodSelect.innerHTML = '<option value="">اختر الحي</option>';
-        if (city in neighborhoods) {
-            neighborhoods[city].forEach(function(neighborhood) {
-                let option = document.createElement('option');
-                option.value = neighborhood;
-                option.text = neighborhood;
-                neighborhoodSelect.add(option);
-            });
-        }
-    }
-
-    function updateStreets() {
-        const neighborhood = document.getElementById('neighborhood').value;
-        const streetSelect = document.getElementById('street');
-        const streets = {
-            'حي العليا': ['شارع التحلية', 'شارع الثلاثين'],
-            'حي النخيل': ['شارع الملك عبد الله', 'شارع النخيل'],
-            'حي السويدي': ['شارع السويدي العام', 'شارع عائشة بنت أبي بكر'],
-            'حي الحمراء': ['شارع فلسطين', 'شارع الحمراء'],
-            'حي النسيم': ['شارع النسيم', 'شارع الأمير ماجد'],
-            'حي الشاطئ': ['شارع الأمير فيصل بن فهد', 'شارع الشاطئ'],
-            'حي الشوقية': ['شارع عبد الله عريف', 'شارع الشوقية'],
-            'حي العزيزية': ['شارع العزيزية', 'شارع المسجد الحرام'],
-        };
-
-        streetSelect.innerHTML = '<option value="">اختر الشارع</option>';
-        if (neighborhood in streets) {
-            streets[neighborhood].forEach(function(street) {
-                let option = document.createElement('option');
-                option.value = street;
-                option.text = street;
-                streetSelect.add(option);
-            });
-        }
-    }
-</script>
-
-<h2>عرض العقارات</h2>
-
-<!-- زر انشاء عقار جديد -->
-<button class="btn btn-new" onclick="location.href='#'">إنشاء عقار جديد</button>
-
-<!-- شريط البحث والفرز -->
-<div class="search-sort-container">
-    <!-- البحث والفرز هنا كما هو موضح سابقاً -->
-</div>
-
-<!-- عرض الشبكة -->
-<div class="view-toggle">
-    <button onclick="toggleView('table')"><i class="fas fa-table"></i></button>
-    <button onclick="toggleView('grid')"><i class="fas fa-th"></i></button>
-</div>
-
-<!-- عرض الجدول -->
-<div id="tableView" class="property-view">
-    <table>
-        <thead>
-            <tr>
-                <th>المدينة</th>
-                <th>الحي</th>
-                <th>الشارع</th>
-                <th>النوع</th>
-                <th>التصنيف</th>
-                <th>الغرف</th>
-                <th>دورات المياه</th>
-                <th>المساحة (م²)</th>
-                <th>السعر</th>
-                <th>الصورة</th>
-                <th>التحكم</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr>
-                <td>الرياض</td>
-                <td>حي العليا</td>
-                <td>شارع التحلية</td>
-                <td>سكني</td>
-                <td>شقة</td>
-                <td>3</td>
-                <td>2</td>
-                <td>120</td>
-                <td>500,000</td>
-                <td><img src="{{ asset('images/5.png') }}" alt="عقار" class="property-image-table"></td>
-                <td>
-                    <button onclick="editProperty(this)"><i class="fas fa-edit"></i></button>
-                    <button onclick="deleteProperty(this)"><i class="fas fa-trash"></i></button>
-                </td>
-            </tr>
-            <!-- أضف المزيد من البيانات هنا -->
-        </tbody>
-    </table>
-</div>
-
-<!-- عرض الشبكة -->
-<div id="gridView" class="property-view">
-    <div class="grid-item">
-        <div class="property-image-container">
-            <img src="{{ asset('images/5.png') }}" alt="عقار" class="property-image-grid">
-            <div class="like-info">
-                <i class="far fa-heart"></i>
-                <div class="count">2</div>
+            <!-- الفلترة بالسعر -->
+            <div class="flex">
+                <input type="number" name="min_price" class="form-input w-full" placeholder="أقل سعر" value="{{ request()->input('min_price') }}">
+                <input type="number" name="max_price" class="form-input w-full" placeholder="أعلى سعر" value="{{ request()->input('max_price') }}">
             </div>
-            <div class="comment-info">
-                <i class="far fa-comment"></i>
-                <div class="count">20</div>
+
+            <!-- الفلترة بعدد الغرف -->
+            <input type="number" name="bedrooms" class="form-input w-full" placeholder="عدد الغرف" value="{{ request()->input('bedrooms') }}">
+
+            <!-- الفلترة بعدد الحمامات -->
+            <input type="number" name="bathrooms" class="form-input w-full" placeholder="عدد الحمامات" value="{{ request()->input('bathrooms') }}">
+
+            <!-- الفلترة بالمساحة -->
+            <div class="flex">
+                <input type="number" name="min_area" class="form-input w-full" placeholder="أقل مساحة (م²)" value="{{ request()->input('min_area') }}">
+                <input type="number" name="max_area" class="form-input w-full" placeholder="أعلى مساحة (م²)" value="{{ request()->input('max_area') }}">
             </div>
+
+            <!-- زر البحث -->
+            <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded">بحث</button>
         </div>
-        <div class="property-details">
-            <p><strong><i class="fas fa-city icon"></i> المدينة:</strong> الرياض</p>
-            <p><strong><i class="fas fa-map-marker-alt icon"></i> الحي:</strong> حي العليا</p>
-            <p><strong><i class="fas fa-road icon"></i> الشارع:</strong> شارع التحلية</p>
-            <p><strong><i class="fas fa-building icon"></i> النوع:</strong> سكني</p>
-            <p><strong><i class="fas fa-tags icon"></i> التصنيف:</strong> شقة</p>
-            <p><strong><i class="fas fa-bed icon"></i> الغرف:</strong> 3</p>
-            <p><strong><i class="fas fa-bath icon"></i> دورات المياه:</strong> 2</p>
-            <p><strong><i class="fas fa-ruler-combined icon"></i> المساحة (م²):</strong> 120</p>
-            <p><strong><i class="fas fa-dollar-sign icon"></i> السعر:</strong> 500,000</p>
-            <br>
-            <div class="control-buttons">
-                <button><i class="fas fa-edit"></i></button>
-                <button><i class="fas fa-trash"></i></button>
-                <button>التفاصيل</button>
-            </div>
-        </div>
-    </div>
-    <!-- أضف المزيد من العناصر هنا -->
-</div>
+    </form>
+</section>
+
+<!-- عرض العقارات -->
+<section class="mt-8 px-4">
+    <h2 class="text-2xl font-bold mb-4 text-center">العقارات</h2>
+
+    <div class="max-w-screen-xl mx-auto grid grid-cols-1 sm:grid-cols-3 gap-8">
+        @foreach($products as $product)
+            <div class="relative group overflow-hidden rounded-lg shadow-lg">
+                <img src="{{ url('/storage/app/public/' . $product->image) }}" alt="Property Image" class="w-full h-full object-cover rounded-t-lg">
+                <div class="absolute top-4 right-4">
+                    <div class="relative">
+                        <i class="far fa-heart text-white text-2xl rounded-full"></i>
+                    </div>
+                </div>
+                <div class="absolute top-4 left-4">
+                    <div class="relative">
+                        <i class="far fa-comment text-white text-2xl rounded-full"></i>
+                        <div class="absolute top-0 right-0 transform translate-x-1/2 -translate-y-1/2 bg-primary text-white rounded-full w-6 h-6 flex items-center justify-center text-xs font-bold">
+                            {{ $product->comments_count ?? 0 }}
+                        </div>
+                    </div>
+                </div>
+                <div class="absolute inset-x-0 bottom-0 text-white transition-all duration-300 transform translate-y-full group-hover:translate-y-0" style="background-color: rgba(0, 62, 55, 0.85);">
+                    <div class="p-4">
+                        <a href="{{ route('products.show', ['product' => $product->id]) }}">
+                            <h3 class="text-lg font-semibold">{{ $product->title }}</h3>
+                        </a>
+                    </div>
+                    <div class="p-4">
+                        <div class="flex items-center mb-2">
+                            <i class="fas fa-map-marker-alt mr-2 ml-2"></i>
+                            <p class="ml-2">{{ $product->location }}</p>
+                        </div>
+                        <div class="flex items-center mb-2">
+                            <i class="fas fa-bed mr-2 ml-2"></i>
+                            <p class="ml-2">{{ $product->bedrooms }} غرف </p>
+                            <span class="mx-2">|</span>
+                            <i class="fas fa-bath mr-2 ml-2"></i>
+                            <p class="ml-2">{{ $product->bathrooms }} حمام</p>
+                        </div>
+                        <div class="flex items-center mb-2 ml-2">
+                            <i class="fas fa-ruler-combined mr-2 ml-2"></i>
+                            <p class="ml-2">{{ $product->area }} م
+
 
 @endsection

@@ -214,269 +214,12 @@
 
 
 
+@include('parts.search-filter') <!-- تضمين البحث والفلترة -->
+    @include('parts.property-list') <!-- تضمين عرض العقارات -->
 
 
 
-    <section class="mt-8 px-4">
-    <h2 class="text-2xl font-bold mb-4 text-center">العقارات</h2>
-    <div class="max-w-screen-xl mx-auto grid grid-cols-1 sm:grid-cols-3 gap-8">
-        @foreach($products as $product)
-            <div class="relative group overflow-hidden rounded-lg shadow-lg">
 
-                <img src="{{ url('/storage/app/public/' . $product->image) }}" alt="Property Image" class="w-full h-full object-cover rounded-t-lg">
-                <div class="absolute top-4 right-4">
-                    <div class="relative">
-                        <i class="far fa-heart text-white text-2xl rounded-full"></i>
-                   <!-- زر إضافة إلى المفضلة -->
-
-
-
-                    </div>
-                </div>
-                <div class="absolute top-4 left-4">
-                    <div class="relative">
-                        <i class="far fa-comment text-white text-2xl rounded-full"></i>
-                        <div class="absolute top-0 right-0 transform translate-x-1/2 -translate-y-1/2 bg-primary text-white rounded-full w-6 h-6 flex items-center justify-center text-xs font-bold">
-                            {{ $product->comments_count ?? 0 }} <!-- عدد التعليقات (يمكن أن تكون صفر إذا لم يتم تقديمها) -->
-                        </div>
-                    </div>
-                </div>
-                <div class="absolute inset-x-0 bottom-0 text-white transition-all duration-300 transform translate-y-full group-hover:translate-y-0" style="background-color: rgba(0, 62, 55, 0.85);">
-                    <div class="p-4">
-      <a class="protected-link" href="{{ route('products.show', ['product' => $product->id]) }}">
-
-    <h3 class="text-lg font-semibold">{{ $product->title }}</h3>
-</a>
-
-                    </div>
-                    <div class="p-4">
-                        <div class="flex items-center mb-2">
-                            <i class="fas fa-map-marker-alt mr-2 ml-2"></i>
-                            <p class="ml-2">{{ $product->location }}</p>
-                        </div>
-                        <div class="flex items-center mb-2">
-                            <i class="fas fa-bed mr-2 ml-2"></i>
-                            <p class="ml-2">{{ $product->bedrooms }} غرف </p>
-                            <span class="mx-2">|</span>
-                            <i class="fas fa-bath mr-2 ml-2"></i>
-                            <p class="ml-2">{{ $product->bathrooms }} حمام</p>
-                        </div>
-                        <div class="flex items-center mb-2 ml-2">
-                            <i class="fas fa-ruler-combined mr-2 ml-2"></i>
-                            <p class="ml-2">{{ $product->area }}  م</p>
-                            <span class="mx-2">|</span>
-                            <i class="fas fa-money-bill-wave mr-2 ml-2"></i>
-                            <p class="ml-2">{{ number_format($product->price) }} ريال</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        @endforeach
-    </div>
-</section>
-
-
-{{--    <section class="mt-8 px-4">--}}
-{{--        <h2 class="text-3xl font-bold mb-8 text-center text-gray-800">عقارات مميزة</h2>--}}
-{{--        <div class="max-w-screen-xl mx-auto grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">--}}
-{{--            @foreach($products as $product)--}}
-{{--                <div class="relative group overflow-hidden rounded-lg shadow-lg bg-white">--}}
-{{--                    <!-- صورة العقار -->--}}
-{{--                    <img src="{{ url('/storage/app/public/' . $product->image) }}" alt="Property Image" class="w-full h-64 object-cover rounded-t-lg">--}}
-
-{{--                    <!-- الأيقونات التفاعلية -->--}}
-{{--                    <div class="absolute top-4 right-4 flex space-x-2">--}}
-{{--                        <div class="relative">--}}
-{{--                            <i class="far fa-heart text-white text-2xl rounded-full bg-gray-700 p-2"></i>--}}
-{{--                            <div class="absolute top-0 right-0 transform translate-x-1/2 -translate-y-1/2 bg-red-500 text-white rounded-full w-6 h-6 flex items-center justify-center text-xs font-bold">--}}
-{{--                                {{ $product->likes_count ?? 0 }}--}}
-{{--                            </div>--}}
-{{--                        </div>--}}
-{{--                        <div class="relative">--}}
-{{--                            <i class="far fa-comment text-white text-2xl rounded-full bg-gray-700 p-2"></i>--}}
-{{--                            <div class="absolute top-0 right-0 transform translate-x-1/2 -translate-y-1/2 bg-blue-500 text-white rounded-full w-6 h-6 flex items-center justify-center text-xs font-bold">--}}
-{{--                                {{ $product->comments_count ?? 0 }}--}}
-{{--                            </div>--}}
-{{--                        </div>--}}
-{{--                    </div>--}}
-
-{{--                    <!-- معلومات العقار -->--}}
-{{--                    <div class="absolute inset-x-0 bottom-0 bg-black bg-opacity-70 text-white transition-all duration-300 transform translate-y-full group-hover:translate-y-0">--}}
-{{--                        <div class="p-4">--}}
-{{--                            <a href="{{ route('single', $product->id) }}" class="text-lg font-semibold hover:underline">{{ $product->title }}</a>--}}
-{{--                            <div class="flex items-center mb-2 mt-2">--}}
-{{--                                <i class="fas fa-map-marker-alt mr-2 text-yellow-300"></i>--}}
-{{--                                <p>{{ $product->location }}</p>--}}
-{{--                            </div>--}}
-{{--                            <div class="flex items-center mb-2">--}}
-{{--                                <i class="fas fa-bed mr-2 text-green-300"></i>--}}
-{{--                                <p>{{ $product->bedrooms }} غرف </p>--}}
-{{--                                <span class="mx-2">|</span>--}}
-{{--                                <i class="fas fa-bath mr-2 text-blue-300"></i>--}}
-{{--                                <p>{{ $product->bathrooms }} حمام</p>--}}
-{{--                            </div>--}}
-{{--                            <div class="flex items-center mb-2">--}}
-{{--                                <i class="fas fa-ruler-combined mr-2 text-purple-300"></i>--}}
-{{--                                <p>{{ $product->area }} م²</p>--}}
-{{--                                <span class="mx-2">|</span>--}}
-{{--                                <i class="fas fa-money-bill-wave mr-2 text-orange-300"></i>--}}
-{{--                                <p>{{ number_format($product->price) }} ريال</p>--}}
-{{--                            </div>--}}
-{{--                        </div>--}}
-{{--                    </div>--}}
-{{--                </div>--}}
-{{--            @endforeach--}}
-{{--        </div>--}}
-{{--    </section>--}}
-
-
-{{--<section class="mt-8 px-4">--}}
-{{--    <h2 class="text-2xl font-bold mb-4 text-center">عقارات مميزة</h2>--}}
-{{--    <div class="max-w-screen-xl mx-auto grid grid-cols-1 sm:grid-cols-3 gap-8">--}}
-{{--        <!-- Property Card -->--}}
-{{--        <div class="relative group overflow-hidden rounded-lg shadow-lg">--}}
-{{--            <img src="{{ asset('images/3.png') }}" alt="Property Image" class="w-full h-full object-cover rounded-t-lg">--}}
-{{--            <div class="absolute top-4 right-4">--}}
-{{--                <div class="relative">--}}
-{{--                    <i class="far fa-heart text-white text-2xl rounded-full"></i>--}}
-{{--                    <div class="absolute top-0 right-0 transform translate-x-1/2 -translate-y-1/2 bg-primary text-white rounded-full w-6 h-6 flex items-center justify-center text-xs font-bold">--}}
-{{--                        2--}}
-{{--                    </div>--}}
-{{--                </div>--}}
-{{--            </div>--}}
-{{--            <div class="absolute top-4 left-4">--}}
-{{--                <div class="relative">--}}
-{{--                    <i class="far fa-comment text-white text-2xl rounded-full"></i>--}}
-{{--                    <div class="absolute top-0 right-0 transform translate-x-1/2 -translate-y-1/2 bg-primary text-white rounded-full w-6 h-6 flex items-center justify-center text-xs font-bold">--}}
-{{--                        20--}}
-{{--                    </div>--}}
-{{--                </div>--}}
-{{--            </div>--}}
-{{--            <div class="absolute inset-x-0 bottom-0 text-white transition-all duration-300 transform translate-y-full group-hover:translate-y-0" style="background-color: rgba(0, 62, 55, 0.85);">--}}
-{{--                <div class="p-4">--}}
-{{--                    <h3 class="text-lg font-semibold">عنوان العقار</h3>--}}
-{{--                </div>--}}
-{{--                <div class="p-4">--}}
-{{--                    <div class="flex items-center mb-2">--}}
-{{--                        <i class="fas fa-map-marker-alt mr-2 ml-2"></i>--}}
-{{--                        <p class="ml-2">موقع العقار</p>--}}
-{{--                    </div>--}}
-{{--                    <div class="flex items-center mb-2">--}}
-{{--                        <i class="fas fa-bed mr-2 ml-2"></i>--}}
-{{--                        <p class="ml-2">2 غرف نوم</p>--}}
-{{--                        <span class="mx-2">|</span>--}}
-{{--                        <i class="fas fa-bath mr-2 ml-2"></i>--}}
-{{--                        <p class="ml-2">1 حمام</p>--}}
-{{--                    </div>--}}
-{{--                    <div class="flex items-center mb-2 ml-2">--}}
-{{--                        <i class="fas fa-ruler-combined mr-2 ml-2"></i>--}}
-{{--                        <p class="ml-2">100 متر مربع</p>--}}
-{{--                        <span class="mx-2">|</span>--}}
-{{--                        <i class="fas fa-money-bill-wave mr-2 ml-2"></i>--}}
-{{--                        <p class="ml-2">300,000 ريال</p>--}}
-{{--                    </div>--}}
-{{--                </div>--}}
-{{--            </div>--}}
-{{--        </div>--}}
-
-{{--        <div class="relative group overflow-hidden rounded-lg shadow-lg">--}}
-{{--            <img src="{{ asset('images/3.png') }}" alt="Property Image" class="w-full h-full object-cover rounded-t-lg">--}}
-{{--            <div class="absolute top-4 right-4">--}}
-{{--                <div class="relative">--}}
-{{--                    <i class="far fa-heart text-white text-2xl rounded-full"></i>--}}
-{{--                    <div class="absolute top-0 right-0 transform translate-x-1/2 -translate-y-1/2 bg-primary text-white rounded-full w-6 h-6 flex items-center justify-center text-xs font-bold">--}}
-{{--                        2--}}
-{{--                    </div>--}}
-{{--                </div>--}}
-{{--            </div>--}}
-{{--            <div class="absolute top-4 left-4">--}}
-{{--                <div class="relative">--}}
-{{--                    <i class="far fa-comment text-white text-2xl rounded-full"></i>--}}
-{{--                    <div class="absolute top-0 right-0 transform translate-x-1/2 -translate-y-1/2 bg-primary text-white rounded-full w-6 h-6 flex items-center justify-center text-xs font-bold">--}}
-{{--                        20--}}
-{{--                    </div>--}}
-{{--                </div>--}}
-{{--            </div>--}}
-{{--            <div class="absolute inset-x-0 bottom-0 text-white transition-all duration-300 transform translate-y-full group-hover:translate-y-0" style="background-color: rgba(0, 62, 55, 0.85);">--}}
-{{--                <div class="p-4">--}}
-{{--                    <h3 class="text-lg font-semibold">عنوان العقار</h3>--}}
-{{--                </div>--}}
-{{--                <div class="p-4">--}}
-{{--                    <div class="flex items-center mb-2">--}}
-{{--                        <i class="fas fa-map-marker-alt mr-2 ml-2"></i>--}}
-{{--                        <p class="ml-2">موقع العقار</p>--}}
-{{--                    </div>--}}
-{{--                    <div class="flex items-center mb-2">--}}
-{{--                        <i class="fas fa-bed mr-2 ml-2"></i>--}}
-{{--                        <p class="ml-2">2 غرف نوم</p>--}}
-{{--                        <span class="mx-2">|</span>--}}
-{{--                        <i class="fas fa-bath mr-2 ml-2"></i>--}}
-{{--                        <p class="ml-2">1 حمام</p>--}}
-{{--                    </div>--}}
-{{--                    <div class="flex items-center mb-2 ml-2">--}}
-{{--                        <i class="fas fa-ruler-combined mr-2 ml-2"></i>--}}
-{{--                        <p class="ml-2">100 متر مربع</p>--}}
-{{--                        <span class="mx-2">|</span>--}}
-{{--                        <i class="fas fa-money-bill-wave mr-2 ml-2"></i>--}}
-{{--                        <p class="ml-2">300,000 ريال</p>--}}
-{{--                    </div>--}}
-{{--                </div>--}}
-{{--            </div>--}}
-{{--        </div>--}}
-
-{{--        <div class="relative group overflow-hidden rounded-lg shadow-lg">--}}
-{{--            <img src="{{ asset('images/3.png') }}" alt="Property Image" class="w-full h-full object-cover rounded-t-lg">--}}
-{{--            <div class="absolute top-4 right-4">--}}
-{{--                <div class="relative">--}}
-{{--                    <i class="far fa-heart text-white text-2xl rounded-full"></i>--}}
-{{--                    <div class="absolute top-0 right-0 transform translate-x-1/2 -translate-y-1/2 bg-primary text-white rounded-full w-6 h-6 flex items-center justify-center text-xs font-bold">--}}
-{{--                        2--}}
-{{--                    </div>--}}
-{{--                </div>--}}
-{{--            </div>--}}
-{{--            <div class="absolute top-4 left-4">--}}
-{{--                <div class="relative">--}}
-{{--                    <i class="far fa-comment text-white text-2xl rounded-full"></i>--}}
-{{--                    <div class="absolute top-0 right-0 transform translate-x-1/2 -translate-y-1/2 bg-primary text-white rounded-full w-6 h-6 flex items-center justify-center text-xs font-bold">--}}
-{{--                        20--}}
-{{--                    </div>--}}
-{{--                </div>--}}
-{{--            </div>--}}
-{{--            <div class="absolute inset-x-0 bottom-0 text-white transition-all duration-300 transform translate-y-full group-hover:translate-y-0" style="background-color: rgba(0, 62, 55, 0.85);">--}}
-{{--                <div class="p-4">--}}
-{{--                    <h3 class="text-lg font-semibold">عنوان العقار</h3>--}}
-{{--                </div>--}}
-{{--                <div class="p-4">--}}
-{{--                    <div class="flex items-center mb-2">--}}
-{{--                        <i class="fas fa-map-marker-alt mr-2 ml-2"></i>--}}
-{{--                        <p class="ml-2">موقع العقار</p>--}}
-{{--                    </div>--}}
-{{--                    <div class="flex items-center mb-2">--}}
-{{--                        <i class="fas fa-bed mr-2 ml-2"></i>--}}
-{{--                        <p class="ml-2">2 غرف نوم</p>--}}
-{{--                        <span class="mx-2">|</span>--}}
-{{--                        <i class="fas fa-bath mr-2 ml-2"></i>--}}
-{{--                        <p class="ml-2">1 حمام</p>--}}
-{{--                    </div>--}}
-{{--                    <div class="flex items-center mb-2 ml-2">--}}
-{{--                        <i class="fas fa-ruler-combined mr-2 ml-2"></i>--}}
-{{--                        <p class="ml-2">100 متر مربع</p>--}}
-{{--                        <span class="mx-2">|</span>--}}
-{{--                        <i class="fas fa-money-bill-wave mr-2 ml-2"></i>--}}
-{{--                        <p class="ml-2">300,000 ريال</p>--}}
-{{--                    </div>--}}
-{{--                </div>--}}
-{{--            </div>--}}
-{{--        </div>--}}
-
-{{--        <!-- Repeat for other properties -->--}}
-{{--    </div>--}}
-{{--</section>--}}
-
-
-<br>
-<br>
-<br>
 
 <section class="mt-8 flex ">
     <button class="relative bg-primary font-bold py-4 px-8 rounded hover:bg-opacity-90 duration-300">
@@ -494,8 +237,16 @@
 
 <section id="section" class="section-container">
     <div class="section-inner">
-        <div class="section-image" style="background-image: url('{{ asset('images/5.png') }}');">
-        <div></div>
+    <div class="section-image" style="background-image: url('{{ asset('images/5.png') }}');">
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+
+     <div></div>
 
         </div>
         <div class="section-content">
@@ -517,19 +268,19 @@
             <h2 class="text-3xl font-bold mb-6">استثمارك في العقارات يبدأ من هنا</h2>
             <ul class="space-y-6 text-lg">
                 <li class="flex items-center space-x-4 rtl:space-x-reverse">
-                    <span class="bg-primary text-white p-3 rounded-full mr-4 ml-4">
+                    <span class="bg-primary  p-3 rounded-full mr-4 ml-4">
                         <i class="fas fa-chart-line text-2xl"></i>
                     </span>
                     <span class="text-xl">خطط استثمارية مبتكرة لتحقيق أعلى عائد.</span>
                 </li>
                 <li class="flex items-center space-x-4 rtl:space-x-reverse">
-                    <span class="bg-primary text-white p-3 rounded-full mr-4 ml-4">
+                    <span class="bg-primary p-3 rounded-full mr-4 ml-4">
                         <i class="fas fa-city text-2xl "></i>
                     </span>
                     <span class="text-xl">مواقع استراتيجية في أهم المدن.</span>
                 </li>
                 <li class="flex items-center space-x-4 rtl:space-x-reverse">
-                    <span class="bg-primary text-white p-3 rounded-full mr-4 ml-4">
+                    <span class="bg-primary  p-3 rounded-full mr-4 ml-4">
                         <i class="fas fa-shield-alt text-2xl"></i>
                     </span>
                     <span class="text-xl">أمان وضمان لعقاراتك المستقبلية.</span>
@@ -544,15 +295,6 @@
 
 
 
-<style>
-    .group:hover .translate-y-full {
-        transform: translateY(0);
-    }
-    .translate-y-full {
-        transform: translateY(calc(100% - 4rem)); /* يظهر جزء صغير فقط لعنوان العقار */
-    }
-
- </style>
 
 
 

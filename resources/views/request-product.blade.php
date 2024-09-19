@@ -1,6 +1,5 @@
 @extends('layout')
 
-@section('title', 'اطلب منتج')
 
 @section('content')
      <form action="{{ route('submit.product.request') }}" method="POST">

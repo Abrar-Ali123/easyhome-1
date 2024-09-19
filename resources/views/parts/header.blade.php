@@ -1,6 +1,56 @@
 
 
+<style>
+    /* زر القائمة (الهامبرجر) */
+button[aria-controls="navbar-default"] {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px; /* عرض الزر */
+    height: 40px; /* ارتفاع الزر */
+    padding: 8px;
+     border: none; /* إزالة الإطار */
+    cursor: pointer;
+    z-index: 1001; /* لضمان ظهوره فوق العناصر الأخرى */
 
+}
+
+/* أيقونة SVG داخل الزر */
+button[aria-controls="navbar-default"] svg {
+    width: 24px; /* عرض الأيقونة */
+    height: 24px; /* ارتفاع الأيقونة */
+    stroke: var(--accent-color); /* لون الأيقونة */
+    transition: stroke 0.3s ease;
+}
+
+/* تغيير لون الأيقونة عند التفاعل (hover) */
+button[aria-controls="navbar-default"]:hover svg {
+    stroke: var(--accent-color); /* تغيير لون الأيقونة عند التفاعل */
+}
+
+/* إظهار زر القائمة على الشاشات الصغيرة فقط */
+@media (max-width: 768px) {
+    button[aria-controls="navbar-default"] {
+        display: inline-flex; /* إظهار الزر على الشاشات الصغيرة */
+    }
+
+    #navbar-default {
+        display: none; /* إخفاء القائمة على الشاشات الصغيرة افتراضيًا */
+    }
+
+    #navbar-default.show {
+        display: block; /* إظهار القائمة عند النقر على الزر */
+    }
+}
+
+/* إخفاء الزر على الشاشات الكبيرة */
+@media (min-width: 768px) {
+    button[aria-controls="navbar-default"] {
+        display: none;
+    }
+}
+
+    </style>
 <header>
         <nav>
             <div>
@@ -23,7 +73,7 @@
 
                         <li>
                             @guest
-                                <a id="openPopup"><i class="fas fa-user"></i></a>
+                            <a id="openLoginPopup"><i class="fas fa-user"></i></a>
                             @else
                                 <a href="#" id="userMenuToggle" style="display: flex; align-items: center;">
                                     <img src="{{ Auth::user()->avatar }}" alt="صورة المستخدم" style="width: 30px; height: 30px; border-radius: 50%; margin-right: 5px;">
@@ -56,3 +106,26 @@
             </div>
         </nav>
     </header>
+
+    <script>
+
+    // دالة لإظهار وإخفاء النافذة المنبثقة
+function togglePopup() {
+    var popup = document.getElementById('loginPopup');
+    popup.classList.toggle('hidden'); // تبديل بين إظهار وإخفاء النافذة
+}
+
+// إظهار النافذة عند الضغط على الأيقونة
+document.getElementById('openLoginPopup').addEventListener('click', function() {
+    togglePopup(); // استدعاء دالة إظهار النافذة
+});
+
+// التحقق من وجود أخطاء في النموذج وعرض النافذة إذا كانت هناك أخطاء
+document.addEventListener('DOMContentLoaded', function() {
+    @if ($errors->any())
+        togglePopup(); // إظهار النافذة إذا كانت هناك أخطاء
+    @endif
+});
+
+</script>
+

@@ -1,5 +1,4 @@
 @extends('home')
-@section('title', 'عرض العقارات')
 @section('content')
 <!-- Font Awesome CDN -->
 
@@ -51,165 +50,8 @@
 {{--    </div>--}}
 {{--</div>--}}
 
-<!-- CSS للنافذة المنبثقة -->
-<style>
-    @import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&display=swap');
 
 
-
-    #popup {
-        display: none; /* المخفي بشكل افتراضي */
-        position: fixed;
-        left: 0;
-        top: 0;
-        width: 100%;
-        height: 100%;
-        background: rgba(0, 0, 0, 0.5);
-        justify-content: center;
-        align-items: center;
-        z-index: 1000; /* تأكد من أن هذه القيمة أعلى من أي قيمة z-index أخرى */
-    }
-
-
-
-    .popup-content .close {
-        position: absolute;
-        top: 10px;
-        right: 15px;
-        font-size: 2em;
-        color: #bb9339;
-        cursor: pointer;
-    }
-
-    .popup-content .content {
-        display: flex;
-        flex-direction: column;
-        gap: 40px;
-    }
-
-    .popup-content .content h2 {
-        font-size: 2em;
-        color: #bb9339;
-        text-transform: uppercase;
-    }
-
-    .popup-content .content .form {
-        display: flex;
-        flex-direction: column;
-        gap: 25px;
-    }
-
-    .popup-content .content .form .inputBox {
-        position: relative;
-        width: 100%;
-    }
-
-    .popup-content .content .form .inputBox input {
-        position: relative;
-        width: 100%;
-        background: #003e37;
-
-        border: none;
-        outline: none;
-        padding: 25px 10px 7.5px;
-        border-radius: 4px;
-        color: #bb9339;
-        font-weight: 500;
-        font-size: 1em;
-    }
-
-    .popup-content .content .form .inputBox i {
-        position: absolute;
-        left: 0;
-        padding: 15px 10px;
-        font-style: normal;
-        color: #aaa;
-        transition: 0.5s;
-        pointer-events: none;
-    }
-
-    .popup-content .content .form .inputBox input:focus ~ i,
-    .popup-content .content .form .inputBox input:valid ~ i {
-        transform: translateY(-7.5px);
-        font-size: 0.8em;
-        color: #bb9339;
-    }
-
-    .popup-content .content .form .links {
-        display: flex;
-        justify-content: space-between;
-    }
-
-    .popup-content .content .form .links a {
-        color: #bb9339;
-        text-decoration: none;
-    }
-
-    .popup-content .content .form .links a:nth-child(2) {
-        color: #bb9339;
-        font-weight: 600;
-    }
-
-    .popup-content .content .form .inputBox input[type="submit"] {
-        padding: 10px;
-        background: #bb9339;
-        color: #FFF;
-        font-weight: 600;
-        font-size: 1.35em;
-        letter-spacing: 0.05em;
-        cursor: pointer;
-    }
-
-    input[type="submit"]:active {
-        opacity: 0.6;
-    }
-
-    /* خيارات تسجيل الدخول الاجتماعي */
-.social-login {
-    display: flex;
-    justify-content: center;
-    gap: 10px;
-    margin-top: 20px;
-}
-
-.social-login a {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 40px;
-    height: 40px;
-    background: #333;
-    border-radius: 50%;
-    color: #bb9339;
-    font-size: 1.5em;
-    text-decoration: none;
-    transition: background 0.3s;
-}
-
-.social-login a:hover {
-    background: #555;
-}
-
-/* أيقونات */
-.google-icon::before {
-    content: 'G'; /* رمز قوقل */
-}
-
-.facebook-icon::before {
-    content: 'F'; /* رمز فيسبوك */
-}
-
-</style>
-
-<div id="loginPopup" style="display: none;">
-    <!-- محتوى نافذة تسجيل الدخول -->
-    <form action="/login" method="POST">
-        @csrf
-        <input type="email" name="email" placeholder="البريد الإلكتروني" required>
-        <input type="password" name="password" placeholder="كلمة المرور" required>
-        <button type="submit">تسجيل الدخول</button>
-    </form>
-</div>
 
 
 
@@ -262,39 +104,43 @@
 <br>
 <br>
 <br>
-<section class="bg-white py-12 px-4 md:px-12">
-    <div class="max-w-screen-xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
-        <div>
-            <h2 class="text-3xl font-bold mb-6">استثمارك في العقارات يبدأ من هنا</h2>
-            <ul class="space-y-6 text-lg">
-                <li class="flex items-center space-x-4 rtl:space-x-reverse">
-                    <span class="bg-primary  p-3 rounded-full mr-4 ml-4">
-                        <i class="fas fa-chart-line text-2xl"></i>
-                    </span>
-                    <span class="text-xl">خطط استثمارية مبتكرة لتحقيق أعلى عائد.</span>
-                </li>
-                <li class="flex items-center space-x-4 rtl:space-x-reverse">
-                    <span class="bg-primary p-3 rounded-full mr-4 ml-4">
-                        <i class="fas fa-city text-2xl "></i>
-                    </span>
-                    <span class="text-xl">مواقع استراتيجية في أهم المدن.</span>
-                </li>
-                <li class="flex items-center space-x-4 rtl:space-x-reverse">
-                    <span class="bg-primary  p-3 rounded-full mr-4 ml-4">
-                        <i class="fas fa-shield-alt text-2xl"></i>
-                    </span>
-                    <span class="text-xl">أمان وضمان لعقاراتك المستقبلية.</span>
-                </li>
-            </ul>
-        </div>
-        <div>
-            <img src="{{ asset('images/44.png') }}" alt="Real Estate" class="rounded-lg shadow-lg">
+
+
+
+
+
+<section class="section-investment">
+    <div class="container">
+        <div class="investment-content">
+            <div class="text-content">
+                <h2>استثمارك في العقارات يبدأ من هنا</h2>
+                <ul>
+                    <li class="item">
+                        <span class="icon-bg">
+                            <i class="fas fa-chart-line"></i>
+                        </span>
+                        <span class="text">خطط استثمارية مبتكرة لتحقيق أعلى عائد.</span>
+                    </li>
+                    <li class="item">
+                        <span class="icon-bg">
+                            <i class="fas fa-city"></i>
+                        </span>
+                        <span class="text">مواقع استراتيجية في أهم المدن.</span>
+                    </li>
+                    <li class="item">
+                        <span class="icon-bg">
+                            <i class="fas fa-shield-alt"></i>
+                        </span>
+                        <span class="text">أمان وضمان لعقاراتك المستقبلية.</span>
+                    </li>
+                </ul>
+            </div>
+            <div class="image-container">
+                <img src="{{ asset('images/44.png') }}" alt="Real Estate" class="image">
+            </div>
         </div>
     </div>
 </section>
-
-
-
 
 
 

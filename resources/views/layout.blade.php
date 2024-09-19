@@ -15,7 +15,7 @@
     <link rel="dns-prefetch" href="//fonts.bunny.net">
     <link href="https://fonts.bunny.net/css?family=Nunito" rel="stylesheet">
      <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>صفحة المثال</title>
+    <title>  easyhome</title>
 </head>
 <body>
 @include('parts.login_popup')

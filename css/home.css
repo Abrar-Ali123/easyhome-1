@@ -137,7 +137,7 @@ nav button {
     border-radius: 8px;
     background-color: transparent;
     border: none;
-    transition: background-color 0.3s;
+
 }
 
 body.dark-theme nav button {
@@ -541,8 +541,7 @@ body.dark-theme .section-container {
     overflow: hidden;
      display: flex;
     align-items: center;
-    background-color: var(--primary-color);
-    transition: background-color 0.3s;
+     transition: background-color 0.3s;
 }
 
 
@@ -553,8 +552,7 @@ body.dark-theme .section-container {
     background-size: cover;
     background-position: center;
     background-image: url('/path/to/your/image.png'); /* Replace with correct image path */
-    background-color: var(--primary-color);
-}
+ }
 
 body.dark-theme .section-image {
     background-color: var(--primary-color-dark);
@@ -574,8 +572,7 @@ body.dark-theme .section-image {
 }
 
 body.dark-theme .section-content {
-    background-color: var(--primary-color-dark);
-    color: var(--highlight-color);
+     color: var(--highlight-color);
 }
 
 .section-link {
@@ -590,8 +587,7 @@ body.dark-theme .section-content {
 }
 
 body.dark-theme .section-link {
-    background-color: var(--secondary-color);
-    color: var(--highlight-color);
+     color: var(--highlight-color);
 }
 
 .section-link:hover {
@@ -819,15 +815,88 @@ margin-left: 5%;
     text-decoration: none;
     cursor: pointer;
 }
-/* التأكد من أن كل شيء يبقى داخل الفورم */
-form {
-    max-width: 800px; /* أقصى عرض للفورم */
-    margin: 0 auto; /* مركزة الفورم في الوسط */
-    padding: 20px; /* التباعد الداخلي للفورم */
-    background-color: var(--primary-color); /* لون الخلفية */
-    border-radius: 10px; /* حواف مستديرة */
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* ظل خفيف */
-    transition: background-color 0.3s, box-shadow 0.3s; /* انتقال سلس للألوان */
-    box-sizing: border-box; /* لحساب الحدود والتباعد الداخلي */
-    overflow: hidden; /* منع العناصر من الخروج خارج حدود الفورم */
+
+
+
+/* الوضع الأساسي */
+.section-investment {
+     padding: 3rem 1rem;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.investment-content {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 2rem;
+    align-items: center;
+}
+
+.text-content {
+    flex: 1;
+}
+
+.image-container {
+    flex: 1;
+}
+
+.investment-content h2 {
+    font-size: 2rem;
+    font-weight: bold;
+    margin-bottom: 1.5rem;
+    color: var(-highlight-color);
+}
+
+.investment-content ul {
+    list-style: none;
+    padding: 0;
+    color: var(-highlight-color);
+
+}
+
+.item {
+    display: flex;
+    align-items: center;
+    margin-bottom: 1.5rem;
+}
+
+.icon-bg {
+     padding: 1rem;
+    border-radius: 50%;
+    margin-right: 1rem;
+     font-size: 1.5rem;
+}
+
+.item .text {
+    font-size: 1.25rem;
+    color: var(-highlight-color);
+}
+
+.image {
+    width: 100%;
+    max-width: 500px; /* حجم الصورة المحدد */
+    border-radius: 0.5rem;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+/* الوضع الداكن */
+@media (prefers-color-scheme: dark) {
+    .section-investment {
+        background-color: var(--primary-color-dark);
+    }
+
+    .investment-content h2 {
+        color: var(--highlight-color); /* تغيير لون النص في الوضع الداكن */
+    }
+
+    .item .text {
+        color: var(--highlight-color); /* تغيير لون النص في الوضع الداكن */
+    }
+
+    .icon-bg {
+        background-color: var(--accent-color); /* تغيير لون الخلفية للأيقونات في الوضع الداكن */
+    }
 }

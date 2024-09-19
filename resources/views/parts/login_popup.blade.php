@@ -203,4 +203,17 @@
             togglePopup(true); // إظهار النافذة إذا كانت هناك أخطاء
         @endif
     });
+
+
+    // دالة لإظهار وإخفاء النافذة المنبثقة
+function togglePopup() {
+    var popup = document.getElementById('loginPopup');
+    popup.classList.toggle('hidden'); // تبديل بين إظهار وإخفاء النافذة
+}
+
+// تفعيل النافذة عند الضغط على أيقونة المستخدم
+document.getElementById('loginPopupButton').addEventListener('click', function() {
+    togglePopup();
+});
+
 </script>

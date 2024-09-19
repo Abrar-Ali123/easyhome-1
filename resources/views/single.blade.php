@@ -1,6 +1,5 @@
 @extends('layout')
 
-@section('title', 'عرض العقارات')
 
 @section('content')
     <!-- إضافة روابط Font Awesome و GLightbox CSS -->

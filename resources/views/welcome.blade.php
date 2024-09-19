@@ -102,39 +102,6 @@
 
 
 
-<section class="section-investment">
-    <div class="container">
-        <div class="investment-content">
-            <div class="text-content">
-                <h2>استثمارك في العقارات يبدأ من هنا</h2>
-                <ul>
-                    <li class="item">
-                        <span class="icon-bg">
-                            <i class="fas fa-chart-line"></i>
-                        </span>
-                        <span class="text">خطط استثمارية مبتكرة لتحقيق أعلى عائد.</span>
-                    </li>
-                    <li class="item">
-                        <span class="icon-bg">
-                            <i class="fas fa-city"></i>
-                        </span>
-                        <span class="text">مواقع استراتيجية في أهم المدن.</span>
-                    </li>
-                    <li class="item">
-                        <span class="icon-bg">
-                            <i class="fas fa-shield-alt"></i>
-                        </span>
-                        <span class="text">أمان وضمان لعقاراتك المستقبلية.</span>
-                    </li>
-                </ul>
-            </div>
-            <div class="image-container">
-                <img src="{{ asset('images/44.png') }}" alt="Real Estate" class="image">
-            </div>
-        </div>
-    </div>
-</section>
-
 
 
 <!-- تأكد من تضمين مكتبة Font Awesome -->

@@ -77,26 +77,19 @@
 
 
 
-<section id="section" class="section-container">
+<section id="about-us" class="section-container">
     <div class="section-inner">
-    <div class="section-image" style="background-image: url('{{ asset('images/5.png') }}');">
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-
-     <div></div>
-
+        <div class="section-image" style="background-image: url('{{ asset('images/5.png') }}');">
+            <br><br><br><br><br><br><br>
+            <div></div>
         </div>
         <div class="section-content">
             <a href="#about" class="section-link">رؤيتنـــــا</a>
             <h1 class="section-title">أن نصبح الشركة الرائدة في قطاع العقارات من خلال تقديم أعلى مستويات الخدمة لعملائنا وتحقيق أقصى قيمة مضافة لهم.</h1>
-         </div>
+        </div>
     </div>
 </section>
+
 
 
 

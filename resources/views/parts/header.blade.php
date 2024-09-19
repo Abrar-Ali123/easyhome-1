@@ -66,10 +66,10 @@ button[aria-controls="navbar-default"]:hover svg {
                 <div id="navbar-default">
                     <ul>
 
-                        <li><a href="#">الرئيسية</a></li>
-                        <li><a href="#">العقارات</a></li>
-                        <li><a href="#">من نحن</a></li>
-                        <li><a href="{{ route('request.product.form') }}">اطلب عقارك</a></li>
+                    <li><a href="{{ url('/') }}">الرئيسية</a></li>
+                    <li><a href="{{ route('products.index1') }}">العقارات</a></li>
+                    <li><a href="#about-us">من نحن</a></li>
+                    <li><a href="{{ route('request.product.form') }}">اطلب عقارك</a></li>
 
                         <li>
                             @guest

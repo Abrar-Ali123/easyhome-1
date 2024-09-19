@@ -891,23 +891,3 @@ margin-left: 5%;
 }
 
 
-
-
-/* الوضع الداكن */
-@media (prefers-color-scheme: dark) {
-    .section-investment {
-        background-color: var(--primary-color-dark);
-    }
-
-    .investment-content h2 {
-        color: var(--highlight-color); /* تغيير لون النص في الوضع الداكن */
-    }
-
-    .item .text {
-        color: var(--highlight-color); /* تغيير لون النص في الوضع الداكن */
-    }
-
-    .icon-bg {
-        background-color: var(--accent-color); /* تغيير لون الخلفية للأيقونات في الوضع الداكن */
-    }
-}

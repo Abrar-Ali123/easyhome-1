@@ -1,5 +1,4 @@
 <section class="search-filter-section">
-
     <form method="GET" action="{{ route('products.index1') }}">
         <div class="filter-grid">
             <!-- البحث بالكلمة -->
@@ -35,181 +34,126 @@
 
             <!-- زر البحث -->
             <button type="submit" class="search-button">
-                <i class="fas fa-search"></i>
+                <i class="fas fa-search"></i> ابحث
             </button>
         </div>
     </form>
 </section>
 
+
 <style>
-.search-filter-section {
-    margin-top: 2rem;
-    padding: 1rem;
-    background-color: var(--primary-color);
-    border-radius: 8px;
-    transition: background-color 0.3s;
+   :root {
+    --primary-color: #fff; /* اللون الأساسي للخلفية العامة */
+    --primary-color-dark: #091716; /* اللون الأساسي للخلفية العامة في الوضع الداكن */
+    --highlight-color: #fff6e0; /* اللون المميز لإبراز العناصر */
+    --secondary-color: #003e37; /* لون النصوص والخلفيات الأخرى */
+    --accent-color: #bb9339; /* اللون المميز للتأكيد */
 }
 
+.search-filter-section {
+    background-color: var(--primary-color);
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    margin-right: 20%;
+    margin-left: 20%;
+    margin-top: 10%;
+    color: var(--secondary-color);
+}
+
+.search-filter-section .filter-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 20px;
+}
+
+.search-filter-section .form-input,
+.search-filter-section .form-select {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 14px;
+    background-color: var(--primary-color);
+    color: var(--secondary-color);
+    transition: border-color 0.3s ease;
+}
+
+.search-filter-section .form-input:focus,
+.search-filter-section .form-select:focus {
+    border-color: var(--accent-color);
+    outline: none;
+}
+
+.search-filter-section .price-range,
+.search-filter-section .area-range {
+    display: flex;
+    gap: 10px;
+}
+
+.search-filter-section .price-range input,
+.search-filter-section .area-range input {
+    flex: 1;
+    background-color: var(--primary-color);
+    color: var(--secondary-color);
+}
+
+.search-filter-section .search-button {
+    background-color: var(--accent-color);
+    color: var(--primary-color);
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.search-filter-section .search-button i {
+    margin-right: 8px;
+}
+
+.search-filter-section .search-button:hover {
+    background-color: darken(var(--accent-color), 10%);
+}
+
+/* الوضع الداكن */
 body.dark-theme .search-filter-section {
     background-color: var(--primary-color-dark);
+    color: var(--highlight-color);
+    box-shadow: 0 2px 10px rgba(255, 255, 255, 0.5); /* ظل أبيض مع شفافية */
+
 }
 
-.search-filter-title {
-    font-size: 1.5rem;
-    font-weight: bold;
-    margin-bottom: 1rem;
-    text-align: center;
-    color: var(--secondary-color);
-    transition: color 0.3s;
-}
-
-body.dark-theme .search-filter-title {
+body.dark-theme .search-filter-section .form-input,
+body.dark-theme .search-filter-section .form-select {
+    background-color: var(--primary-color-dark);
+    border: 1px solid var(--highlight-color);
     color: var(--highlight-color);
 }
 
-.filter-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr) auto; /* تعديل ليظهر زر البحث بجانب الحقول */
-    gap: 1rem;
-    align-items: center;
+body.dark-theme .search-filter-section .form-input:focus,
+body.dark-theme .search-filter-section .form-select:focus {
+    border-color: var(--accent-color);
 }
 
-@media (min-width: 640px) {
-    .filter-grid {
-        grid-template-columns: repeat(3, 1fr) auto; /* لضبط الشبكة في الشاشات الأكبر */
-    }
-}
-
-.form-input, .form-select {
-    padding: 0.5rem;
-    border: 1px solid var(--secondary-color);
-    border-radius: 0.5rem;
-    background-color: var(--primary-color);
-    color: var(--secondary-color);
-    transition: background-color 0.3s, color 0.3s;
-}
-
-body.dark-theme .form-input, body.dark-theme .form-select {
+body.dark-theme .search-filter-section .price-range input,
+body.dark-theme .search-filter-section .area-range input {
     background-color: var(--primary-color-dark);
     color: var(--highlight-color);
-    border-color: var(--highlight-color);
 }
 
-.price-range, .area-range {
-    display: flex;
-    gap: 0.5rem;
-}
-
-.search-button {
+body.dark-theme .search-filter-section .search-button {
     background-color: var(--accent-color);
-    color: var(--highlight-color);
-    padding: 0.75rem 1.5rem; /* تكبير حجم الزر */
-    border-radius: 0.5rem;
-    border: none;
-    cursor: pointer;
-    font-size: 1.25rem; /* تكبير الأيقونة */
-    transition: background-color 0.3s ease;
+    color: var(--primary-color-dark);
 }
 
-.search-button:hover {
-    background-color: var(--accent-color);
+body.dark-theme .search-filter-section .search-button:hover {
+    background-color: darken(var(--accent-color), 10%);
 }
 
-body.dark-theme .search-button {
-    background-color: var(--accent-color);
-    color: var(--highlight-color);
-}
-<style>
-.search-filter-section {
-    margin-top: 2rem;
-    padding: 1rem;
-    background-color: var(--primary-color);
-    border-radius: 8px;
-    transition: background-color 0.3s;
-}
 
-body.dark-theme .search-filter-section {
-    background-color: var(--primary-color-dark);
-}
-
-.search-filter-title {
-    font-size: 1.5rem;
-    font-weight: bold;
-    margin-bottom: 1rem;
-    text-align: center;
-    color: var(--secondary-color);
-    transition: color 0.3s;
-}
-
-body.dark-theme .search-filter-title {
-    color: var(--highlight-color);
-}
-
-.filter-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr) auto; /* تعديل ليظهر زر البحث بجانب الحقول */
-    gap: 1rem;
-    align-items: center;
-}
-
-@media (min-width: 640px) {
-    .filter-grid {
-        grid-template-columns: repeat(3, 1fr) auto; /* لضبط الشبكة في الشاشات الأكبر */
-    }
-}
-
-.form-input, .form-select {
-    padding: 0.5rem;
-    border: 1px solid var(--secondary-color);
-    border-radius: 0.5rem;
-    background-color: var(--primary-color);
-    color: var(--secondary-color);
-    transition: background-color 0.3s, color 0.3s;
-}
-
-body.dark-theme .form-input, body.dark-theme .form-select {
-    background-color: var(--primary-color-dark);
-    color: var(--highlight-color);
-    border-color: var(--highlight-color);
-}
-
-.price-range, .area-range {
-    display: flex;
-    gap: 0.5rem;
-}
-
-.search-button {
-    background-color: var(--accent-color);
-    color: var(--highlight-color);
-    padding: 0.75rem 1.5rem; /* تكبير حجم الزر */
-    border-radius: 0.5rem;
-    border: none;
-    cursor: pointer;
-    font-size: 1.25rem; /* تكبير الأيقونة */
-    transition: background-color 0.3s ease;
-}
-
-.search-button:hover {
-    background-color: var(--accent-color);
-}
-
-body.dark-theme .search-button {
-    background-color: var(--accent-color);
-    color: var(--highlight-color);
-}
-
-/* التأكد من أن كل شيء يبقى داخل الفورم */
-form {
-     margin: 5%;
-    padding: 5%;
-
-    background-color: var(--primary-color); /* لون الخلفية */
-    border-radius: 10px; /* حواف مستديرة */
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* ظل خفيف */
-    transition: background-color 0.3s, box-shadow 0.3s; /* انتقال سلس للألوان */
-    box-sizing: border-box; /* لحساب الحدود والتباعد الداخلي */
-    overflow: hidden; /* منع العناصر من الخروج خارج حدود الفورم */
-}
-</style>
-
-</style>
+    </style>

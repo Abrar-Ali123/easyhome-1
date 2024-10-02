@@ -136,6 +136,16 @@
 
 
 
+<div class="section-container">
+    <div class="section-inner">
+        <div class="section-image" style="background-image: url('/path/to/your/image.jpg');"></div>
+        <div class="section-content">
+            <h2 class="section-title">عنوان القسم</h2>
+            <p class="section-description">وصف موجز يصف محتوى هذا القسم. هنا يمكنك توضيح بعض النقاط المهمة.</p>
+            <a href="#" class="section-link">اقرأ المزيد</a>
+        </div>
+    </div>
+</div>
 
 <!-- تأكد من تضمين مكتبة Font Awesome -->
 

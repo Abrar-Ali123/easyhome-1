@@ -15,12 +15,12 @@ class CreateCitiesTable extends Migration
     {
         Schema::create('cities', function (Blueprint $table) {
             $table->id();
-            $table->string('name'); // اسم المدينة
+            $table->string('name'); // اسم المدينة أو الحي
             $table->string('image')->nullable(); // عمود الصورة
+            $table->foreignId('parent_id')->nullable()->constrained('cities')->onDelete('cascade'); // يشير إلى المدينة الرئيسية، إذا كان الحي
             $table->timestamps();
         });
 
-        // إضافة الفهرس أو القيود إذا لزم الأمر
     }
 
     /**

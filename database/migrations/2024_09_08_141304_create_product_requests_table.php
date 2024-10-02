@@ -18,7 +18,6 @@ return new class extends Migration
             $table->string('neighborhoods'); // أسماء الأحياء
             $table->text('description'); // وصف المنتج المطلوب
             $table->string('category');
-
             $table->timestamps();
         });
     }

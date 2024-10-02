@@ -4,8 +4,6 @@
 
 @section('content')
 
-{{--<!-- زر إضافة مدينة جديدة -->--}}
-{{--<button class="btn btn-primary mb-3" onclick="openCreateModal()">إضافة مدينة جديدة</button>--}}
 <!-- زر لفتح مودال إضافة مدينة جديدة -->
 <button type="button" class="btn btn-success mb-3" data-bs-toggle="modal" data-bs-target="#addCityModal">
     إضافة مدينة جديدة
@@ -24,37 +22,30 @@
     <table class="table table-striped">
         <thead>
             <tr>
-                <th><i class="fas fa-city"></i> اسم المدينة</th>
-                <th><i class="fas fa-image"></i> الصورة</th>
-                <th><i class="fas fa-cog"></i> الإجراءات</th>
+                <th>اسم المدينة</th>
+                <th>المدينة الرئيسية</th>
+                <th>الصورة</th>
+                <th>الإجراءات</th>
             </tr>
         </thead>
         <tbody id="cityTableBody">
             @foreach ($cities as $city)
             <tr id="city-row-{{ $city->id }}">
                 <td>{{ $city->name }}</td>
+                <td>{{ $city->parent ? $city->parent->name : 'لا توجد' }}</td> <!-- المدينة الرئيسية -->
                 <td>
                     @if ($city->image)
-                        <img src="{{ asset('storage/images' . $city->image) }}" alt="City Image" style="height: 50px; object-fit: cover;">
+                        <img src="{{ asset('storage/' . $city->image) }}" alt="City Image" style="height: 50px; object-fit: cover;">
                     @else
                         لا توجد صورة
                     @endif
                 </td>
                 <td>
-{{--                    <button class="btn btn-warning" onclick="openEditModal({{ $city->id }})"><i class="fas fa-edit"></i></button>--}}
-{{--                    <button class="btn btn-danger" onclick="deleteCity({{ $city->id }})"><i class="fas fa-trash"></i></button>--}}
-                    <!-- زر لفتح مودال تعديل المدينة -->
+                    <!-- زر تعديل المدينة -->
                     <button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#editCityModal{{ $city->id }}">
                         <i class="fas fa-edit"></i>
                     </button>
 
-                    <!-- زر حذف المدينة -->
-
-{{--                    <form action="{{ route('cities.destroy', $city->id) }}" method="POST"  style="display:inline;">--}}
-{{--                        @csrf--}}
-{{--                        @method('DELETE')--}}
-{{--                        <button type="submit" class="btn btn-danger"><i class="fas fa-trash"></i></button>--}}
-{{--                    </form>--}}
                     <!-- زر فتح مودال تأكيد الحذف -->
                     <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteCityModal{{ $city->id }}">
                         <i class="fas fa-trash"></i>
@@ -82,11 +73,8 @@
                             </div>
                         </div>
                     </div>
-
-
                 </td>
             </tr>
-
 
             <!-- مودال تعديل المدينة -->
             <div class="modal fade" id="editCityModal{{ $city->id }}" tabindex="-1" aria-labelledby="editCityModalLabel{{ $city->id }}" aria-hidden="true">
@@ -103,6 +91,17 @@
                                 <div class="mb-3">
                                     <label for="name" class="form-label">اسم المدينة</label>
                                     <input type="text" class="form-control" id="name" name="name" value="{{ $city->name }}" required>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="parent_id" class="form-label">المدينة الرئيسية (اختياري)</label>
+                                    <select class="form-control" id="parent_id" name="parent_id">
+                                        <option value="">اختر المدينة الرئيسية</option>
+                                        @foreach($cities as $parent)
+                                            <option value="{{ $parent->id }}" {{ $city->parent_id == $parent->id ? 'selected' : '' }}>
+                                                {{ $parent->name }}
+                                            </option>
+                                        @endforeach
+                                    </select>
                                 </div>
                                 <div class="mb-3">
                                     <label for="image" class="form-label">صورة المدينة</label>
@@ -122,32 +121,6 @@
     </table>
 </div>
 
-<!-- Modal لإنشاء وتعديل المدن -->
-{{--<div class="modal fade" id="cityModal" tabindex="-1" aria-labelledby="cityModalLabel" aria-hidden="true">--}}
-{{--    <div class="modal-dialog">--}}
-{{--        <div class="modal-content">--}}
-{{--            <div class="modal-header">--}}
-{{--                <h5 class="modal-title" id="modalTitle">إضافة مدينة جديدة</h5>--}}
-{{--                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>--}}
-{{--            </div>--}}
-{{--            <div class="modal-body">--}}
-{{--                <form id="cityForm" action="{{route('cities.store')}}" enctype="multipart/form-data">--}}
-{{--                    <input type="hidden" id="cityId" name="cityId">--}}
-{{--                    <div class="form-group">--}}
-{{--                        <label for="cityName">اسم المدينة:</label>--}}
-{{--                        <input type="text" id="cityName" name="name" class="form-control" required>--}}
-{{--                    </div>--}}
-{{--                    <div class="form-group mt-2">--}}
-{{--                        <label for="cityImage">الصورة:</label>--}}
-{{--                        <input type="file" id="cityImage" name="image" class="form-control">--}}
-{{--                    </div>--}}
-{{--                    <button type="submit" class="btn btn-primary mt-3">حفظ</button>--}}
-{{--                </form>--}}
-{{--            </div>--}}
-{{--        </div>--}}
-{{--    </div>--}}
-{{--</div>--}}
-
 <!-- مودال إضافة مدينة جديدة -->
 <div class="modal fade" id="addCityModal" tabindex="-1" aria-labelledby="addCityModalLabel" aria-hidden="true">
     <div class="modal-dialog">
@@ -164,6 +137,15 @@
                         <input type="text" class="form-control" id="name" name="name" required>
                     </div>
                     <div class="mb-3">
+                        <label for="parent_id" class="form-label">المدينة الرئيسية (اختياري)</label>
+                        <select class="form-control" id="parent_id" name="parent_id">
+                            <option value="">اختر المدينة الرئيسية</option>
+                            @foreach($cities as $city)
+                                <option value="{{ $city->id }}">{{ $city->name }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                    <div class="mb-3">
                         <label for="image" class="form-label">صورة المدينة</label>
                         <input type="file" class="form-control" id="image" name="image">
                     </div>
@@ -173,65 +155,11 @@
         </div>
     </div>
 </div>
+
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 
 <script>
-    function openCreateModal() {
-        $('#cityForm')[0].reset();
-        $('#cityId').val('');
-        $('#modalTitle').text('إضافة مدينة جديدة');
-        $('#cityModal').modal('show');
-    }
-
-    function openEditModal(id) {
-        $.get(`/cities/${id}/edit`, function(data) {
-            $('#cityName').val(data.name);
-            $('#cityId').val(id);
-            $('#modalTitle').text('تعديل المدينة');
-            $('#cityModal').modal('show');
-        });
-    }
-
-    function deleteCity(id) {
-        if (confirm('هل أنت متأكد من حذف هذه المدينة؟')) {
-            $.ajax({
-                url: `/cities/${id}`,
-                type: 'DELETE',
-                data: {
-                    _token: '{{ csrf_token() }}'
-                },
-                success: function() {
-                    $(`#city-row-${id}`).remove();
-                }
-            });
-        }
-    }
-
-    $('#cityForm').on('submit', function(e) {
-        e.preventDefault();
-        var id = $('#cityId').val();
-        var url = id ? `/cities/${id}` : '/cities';
-        var method = id ? 'PUT' : 'POST';
-        var formData = new FormData(this);
-
-        $.ajax({
-            url: url,
-            type: method,
-            data: formData,
-            contentType: false,
-            processData: false,
-            success: function(result) {
-                $('#cityModal').modal('hide');
-                if (id) {
-                    $(`#city-row-${id}`).replaceWith(result);
-                } else {
-                    $('#cityTableBody').append(result);
-                }
-            }
-        });
-    });
-
     function searchCity() {
         var name = $('#searchName').val();
         $.ajax({

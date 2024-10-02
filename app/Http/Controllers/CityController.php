@@ -26,29 +26,30 @@ class CityController extends Controller
         return view('dashboard.cities.index', compact('cities'));
     }
 
-//    public function store(Request $request)
-//    {
-//        $city = new City();
-//        $city->name = $request->name;
-//
-//        if ($request->hasFile('image')) {
-//            $path = $request->file('image')->store('cities', 'public');
-//            $city->image = $path;
-//        }
-//
-//        $city->save();
-//
-//        if ($request->ajax()) {
-//            return view('dashboard.cities._row', compact('city'))->render();
-//        }
-//
-//        return redirect()->route('cities.index');
-//    }
+    //    public function store(Request $request)
+    //    {
+    //        $city = new City();
+    //        $city->name = $request->name;
+    //
+    //        if ($request->hasFile('image')) {
+    //            $path = $request->file('image')->store('cities', 'public');
+    //            $city->image = $path;
+    //        }
+    //
+    //        $city->save();
+    //
+    //        if ($request->ajax()) {
+    //            return view('dashboard.cities._row', compact('city'))->render();
+    //        }
+    //
+    //        return redirect()->route('cities.index');
+    //    }
 
     public function store(Request $request)
     {
         $request->validate([
             'name' => 'required|string|max:255',
+            'parent_id' => 'nullable|exists:cities,id', // تأكد من وجود parent_id وأنه يشير إلى معرّف مدينة موجودة
             'image' => 'nullable|image|mimes:jpg,jpeg,png,gif,svg|max:2048',
         ]);
 
@@ -59,41 +60,43 @@ class CityController extends Controller
 
         City::create([
             'name' => $request->name,
+            'parent_id' => $request->input('parent_id'), // إضافة parent_id إلى البيانات المخزنة
             'image' => $imagePath,
         ]);
 
         return redirect()->route('cities.index')->with('success', 'تمت إضافة المدينة بنجاح');
     }
-//    public function edit(City $city)
-//    {
-//        return response()->json($city);
-//    }
+
+    //    public function edit(City $city)
+    //    {
+    //        return response()->json($city);
+    //    }
 
     public function edit(City $city)
     {
         return view('cities.edit', compact('city'));
     }
 
-//    public function update(Request $request, City $city)
-//    {
-//        $city->name = $request->name;
-//
-//        if ($request->hasFile('image')) {
-//            if ($city->image) {
-//                Storage::delete('public/'.$city->image);
-//            }
-//            $path = $request->file('image')->store('cities', 'public');
-//            $city->image = $path;
-//        }
-//
-//        $city->save();
-//
-//        if ($request->ajax()) {
-//            return view('dashboard.cities._row', compact('city'))->render();
-//        }
-//
-//        return redirect()->route('cities.index');
-//    }
+    //    public function update(Request $request, City $city)
+    //    {
+    //        $city->name = $request->name;
+    //
+    //        if ($request->hasFile('image')) {
+    //            if ($city->image) {
+    //                Storage::delete('public/'.$city->image);
+    //            }
+    //            $path = $request->file('image')->store('cities', 'public');
+    //            $city->image = $path;
+    //        }
+    //
+    //        $city->save();
+    //
+    //        if ($request->ajax()) {
+    //            return view('dashboard.cities._row', compact('city'))->render();
+    //        }
+    //
+    //        return redirect()->route('cities.index');
+    //    }
 
     public function update(Request $request, City $city)
     {
@@ -112,6 +115,7 @@ class CityController extends Controller
 
         return redirect()->route('cities.index')->with('success', 'تم تعديل المدينة بنجاح');
     }
+
     public function destroy(City $city)
     {
         if ($city->image) {

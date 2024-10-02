@@ -9,13 +9,28 @@ class City extends Model
 {
     use HasFactory;
 
-    protected $fillable = [
-        'name',
-        'image',
-    ];
+    protected $fillable = ['name', 'image', 'parent_id'];
 
-    public function products()
+    // العلاقة بين المدينة والأحياء (الأحياء التي تتبع المدينة)
+    public function neighborhoods()
     {
-        return $this->hasMany(Product::class);
+        return $this->hasMany(City::class, 'parent_id');
+    }
+
+    // العلاقة التي تشير إلى المدينة الرئيسية إذا كان الحي تابعًا
+    public function parentCity()
+    {
+        return $this->belongsTo(City::class, 'parent_id');
+    }
+
+    // في موديل City
+    public function parent()
+    {
+        return $this->belongsTo(City::class, 'parent_id');
+    }
+
+    public function children()
+    {
+        return $this->hasMany(City::class, 'parent_id');
     }
 }

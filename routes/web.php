@@ -42,21 +42,16 @@ Route::middleware(['check.employee' => \App\Http\Middleware\CheckEmployeeRole::c
 
 Route::middleware(['Auth_user' => \App\Http\Middleware\Auth_user::class])->prefix('home')->group(function () {
     Route::post('/orders/store/{product}', [OrderController::class, 'store'])->name('orders.store');
-    Route::get('/request-product', [ProductRequestController::class, 'showRequestForm'])->name('request.product.form');
-    Route::post('/request-product', [ProductRequestController::class, 'submitRequest'])->name('submit.product.request');
     Route::post('/likes', [LikeController::class, 'store'])->name('likes.store');
     Route::get('/profile', [ProfileController::class, 'show'])->name('profile.show');
     Route::get('/profile/edit', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::post('/profile', [ProfileController::class, 'update'])->name('profile.update');
-
     Route::post('/products/{id}/order', [OrderController::class, 'placeOrder'])->name('products.order');
-
     Route::get('/products/{product}/comments', [CommentController::class, 'index'])->name('comments.index');
     Route::post('/products/{product}/comments', [CommentController::class, 'store'])->name('comments.store');
     Route::put('/comments/{comment}', [CommentController::class, 'update'])->name('comments.update');
     Route::delete('/comments/{comment}', [CommentController::class, 'destroy'])->name('comments.destroy');
     Route::post('/comments/{comment}/reply', [CommentController::class, 'reply'])->name('comments.reply');
-
 });
 
 Route::get('/login', [LoginController::class, 'showLoginForm'])->name('login');
@@ -84,3 +79,7 @@ Auth::routes();
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 Route::get('/products1', [ProductController::class, 'index1'])->name('products.index1');
 Route::get('/products/{product}', [ProductController::class, 'show'])->name('products.show');
+Route::get('/request-product', [ProductRequestController::class, 'showRequestForm'])->name('request.product.form');
+Route::post('/request-product', [ProductRequestController::class, 'submitRequest'])->name('submit.product.request');
+
+Route::get('/get-neighborhoods/{cityId}', [ProductRequestController::class, 'getNeighborhoods'])->name('get.neighborhoods');

@@ -29,8 +29,6 @@ return new class extends Migration
             // حقول إضافية مطلوبة
             $table->decimal('salary', 10, 2)->nullable(); // الراتب
             $table->string('bank')->nullable(); // البنك
-            $table->string('city')->nullable(); // المدينة
-            $table->json('preferred_neighborhoods')->nullable(); // الأحياء المفضلة (JSON)
             $table->integer('age')->nullable(); // العمر
 
             $table->rememberToken();

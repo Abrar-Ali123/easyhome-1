@@ -1,21 +1,15 @@
 @extends('layout')
-
 @section('content')
     <form action="{{ route('submit.product.request') }}" method="POST">
         @csrf
-
-         <!-- عرض رسالة النجاح -->
     @if(session('success'))
         <div class="alert alert-success alert-dismissible fade show mt-4" role="alert">
             <strong>تهانينا!</strong> {{ session('success') }}
             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
         </div>
     @endif
-
-        <!-- تحقق مما إذا كان المستخدم مسجل دخول -->
-        @guest
-            <!-- بيانات تسجيل المستخدم (تظهر فقط إذا لم يكن مسجل دخول) -->
-            <div>
+         @guest
+             <div>
                 <label for="name">الاسم:</label>
                 <input type="text" id="name" name="name" value="{{ old('name') }}" required placeholder="اكتب اسمك">
             </div>

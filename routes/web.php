@@ -83,3 +83,7 @@ Route::get('/request-product', [ProductRequestController::class, 'showRequestFor
 Route::post('/request-product', [ProductRequestController::class, 'submitRequest'])->name('submit.product.request');
 
 Route::get('/get-neighborhoods/{cityId}', [ProductRequestController::class, 'getNeighborhoods'])->name('get.neighborhoods');
+
+use App\Http\Controllers\ContactController;
+
+Route::resource('contacts', ContactController::class);

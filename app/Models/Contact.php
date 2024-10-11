@@ -9,5 +9,5 @@ class Contact extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['name', 'phone', 'dob', 'message']; // الحقول التي يمكن تعبئتها
+    protected $fillable = ['name', 'phone', 'message', 'status', 'note'];
 }

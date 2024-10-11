@@ -1,5 +1,5 @@
 <!-- resources/views/parts/property-list.blade.php -->
-<link href="https://cdn.jsdelivr.net/npm/tailwindcss/dist/tailwind.min.css" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
 
 <section class="mt-8 px-4">
     <h2 class="text-2xl font-bold mb-4 text-center">العقارات</h2>

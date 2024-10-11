@@ -2,9 +2,8 @@
 <html lang="ar">
 <head>
 <meta charset="utf-8">
+
       <link href="{{ asset('css/home.css') }}" rel="stylesheet">
-      <script src="{{ asset('js/site.js') }}"></script>
-      <script src="{{ asset('js/site2.js') }}"></script>
 
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
@@ -30,17 +29,13 @@
     @include('parts.footer')
 
 
-
-
-
     <script>
     function toggleLoginPopup() {
         const loginPopup = document.getElementById('loginPopup');
         loginPopup.classList.toggle('hidden');
     }
 
-    // التعامل مع الروابط، الأزرار، والنماذج
-    document.querySelectorAll('a, button, form').forEach(element => {
+     document.querySelectorAll('a, button').forEach(element => {
         element.addEventListener('click', function(event) {
             // التأكد من نوع العنصر للتعامل معه بشكل صحيح
             if (element.tagName.toLowerCase() === 'a' && element.href.includes('/home/')) {

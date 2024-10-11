@@ -2,6 +2,8 @@
 <html lang="ar">
 <head>
 <meta charset="utf-8">
+<link href="https://cdn.jsdelivr.net/npm/tailwindcss/dist/tailwind.min.css" rel="stylesheet">
+
       <link href="{{ asset('css/front.css') }}" rel="stylesheet">
       <script src="{{ asset('js/site.js') }}"></script>
       <script src="{{ asset('js/site2.js') }}"></script>
@@ -28,8 +30,7 @@
 
 
     <script>
- // تعريف دالة handleFormRequest أولاً للتعامل مع POST
-function handleFormRequest(url, formData) {
+ function handleFormRequest(url, formData) {
     fetch(url, {
         method: 'POST',
         body: formData,
@@ -38,62 +39,26 @@ function handleFormRequest(url, formData) {
             'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content') // إضافة CSRF token
         }
     })
-    .then(response => {
-        if (response.status === 403) {
-            toggleLoginPopup(); // عرض نافذة تسجيل الدخول إذا كانت الاستجابة 403
-        } else if (response.ok) {
-            window.location.reload(); // إعادة تحميل الصفحة بعد النجاح
+    .then(response => response.json()) // تحويل الاستجابة إلى JSON
+    .then(data => {
+        const messagesDiv = document.getElementById('form-messages');
+        messagesDiv.style.display = 'block';
+
+        if (response.ok) {
+            // عرض رسالة النجاح
+            messagesDiv.innerHTML = `<div class="alert alert-success">${data.message || 'تمت العملية بنجاح'}</div>`;
         } else {
-            console.error('An error occurred.');
+            // عرض رسالة الخطأ
+            messagesDiv.innerHTML = `<div class="alert alert-danger">${data.error || 'حدث خطأ ما.'}</div>`;
         }
     })
     .catch(error => {
         console.error('Error:', error);
+        const messagesDiv = document.getElementById('form-messages');
+        messagesDiv.style.display = 'block';
+        messagesDiv.innerHTML = `<div class="alert alert-danger">حدث خطأ غير متوقع.</div>`;
     });
 }
-
-// دالة للتعامل مع الروابط GET
-function handleRequest(url) {
-    fetch(url, {
-        method: 'GET',
-        credentials: 'same-origin'
-    })
-    .then(response => {
-        if (response.status === 403) {
-            toggleLoginPopup(); // عرض نافذة تسجيل الدخول إذا كانت الاستجابة 403
-        } else if (response.ok) {
-            window.location.href = url; // الانتقال إلى الرابط عند نجاح الطلب
-        } else {
-            console.error('An error occurred.');
-        }
-    })
-    .catch(error => {
-        console.error('Error:', error);
-    });
-}
-
-// التعامل مع جميع الروابط، الأزرار والنماذج
-document.querySelectorAll('a, button, form').forEach(element => {
-    // إذا كان العنصر نموذجًا
-    if (element.tagName.toLowerCase() === 'form') {
-        element.addEventListener('submit', function(event) {
-            event.preventDefault(); // منع إعادة تحميل الصفحة
-            const formAction = element.action; // الحصول على رابط النموذج
-            const formData = new FormData(element); // جمع بيانات النموذج
-            handleFormRequest(formAction, formData); // استدعاء دالة POST
-        });
-    }
-
-    // إذا كان العنصر رابطًا (anchor tag)
-    if (element.tagName.toLowerCase() === 'a') {
-        element.addEventListener('click', function(event) {
-            event.preventDefault(); // منع الانتقال الفوري للرابط
-            const linkHref = element.href; // الحصول على الرابط
-            handleRequest(linkHref); // استدعاء دالة GET
-        });
-    }
-});
-
 
 </script>
 

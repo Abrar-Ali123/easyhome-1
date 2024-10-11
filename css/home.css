@@ -890,5 +890,107 @@ margin-left: 5%;
     }
 }
 
+#background-video {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    object-fit: cover;
+    z-index: -1; /* يضمن أن الفيديو يبقى خلف المحتوى */
+}
+
+.page-content {
+    z-index: 1;
+    width: 80%;
+    color: white;
+    margin-top: 60%;
+    margin: 10%;
+    padding-top: 20%;
+    direction: rtl;
+    text-align: right;
+}
 
 
+/* التأكد من أن كل شيء يبقى داخل الفورم */
+form {
+    direction: rtl;
+
+    max-width: 100%; /* أقصى عرض للفورم */
+      flex-wrap: wrap;
+    padding: 20px;
+     z-index: 1;
+     background: rgba(255, 255, 255, 0.8);
+     color: #000;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    padding: 20px;
+    flex: 1 1 calc(25% - 20px);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+
+}
+
+body.dark-theme form {
+    background-color: var(--secondary-color); /* لون الخلفية في الوضع الداكن */
+    color: var(--highlight-color); /* لون النص في الوضع الداكن */
+}
+
+form * {
+    box-sizing: border-box; /* التأكد من حساب الحدود والتباعد الداخلي لكل العناصر */
+}
+
+form input[type="text"],
+form input[type="email"],
+form input[type="password"],
+form input[type="number"],
+form select,
+form textarea {
+    width: 100%; /* عرض الحقول لتملأ الفورم */
+    padding: 12px 15px; /* تباعد داخلي */
+    margin-bottom: 10px; /* تباعد بين الحقول */
+    border: 1px solid #ddd; /* حدود خفيفة */
+    border-radius: 5px; /* حواف مستديرة للحقول */
+    background-color: #f8f9fa; /* لون خلفية الحقول */
+    font-size: 16px; /* حجم الخط */
+    transition: border-color 0.3s ease, background-color 0.3s ease; /* انتقال سلس للألوان */
+}
+
+body.dark-theme form input,
+body.dark-theme form select,
+body.dark-theme form textarea {
+    background-color: var(--primary-color-dark); /* لون الخلفية في الوضع الداكن */
+    border-color: var(--highlight-color); /* لون الحدود في الوضع الداكن */
+    color: var(--highlight-color); /* لون النص في الوضع الداكن */
+}
+
+/* الحقول عند التركيز */
+form input:focus,
+form select:focus,
+form textarea:focus {
+    border-color: var(--accent-color); /* تغيير لون الحدود عند التركيز */
+    outline: none; /* إزالة الحدود الافتراضية */
+}
+
+/* تصميم الأزرار */
+form button {
+    width: 100%; /* عرض الزر ليملأ الفورم */
+    padding: 12px; /* تباعد داخلي للزر */
+    font-size: 18px; /* حجم الخط للزر */
+    background-color: var(--secondary-color); /* لون خلفية الزر */
+    color: var(--highlight-color); /* لون النص للزر */
+    border: none; /* إزالة الحدود الافتراضية */
+    border-radius: 5px; /* حواف مستديرة للزر */
+    cursor: pointer; /* مؤشر اليد عند التمرير */
+    transition: background-color 0.3s ease, transform 0.2s ease; /* انتقال سلس للألوان والحركة */
+}
+
+body.dark-theme form button {
+    background-color: var(--highlight-color); /* لون الزر في الوضع الداكن */
+    color: var(--secondary-color); /* لون النص للزر في الوضع الداكن */
+}
+
+form button:hover {
+    background-color: var(--accent-color); /* تغيير لون الزر عند التمرير */
+    transform: translateY(-2px); /* حركة خفيفة للأعلى عند التمرير */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* ظل خفيف عند التمرير */
+}

@@ -1,6 +1,14 @@
 <!DOCTYPE html>
-<html lang="ar" dir="rtl">
+<html lang="{{ app()->getLocale() }}" dir="{{ app()->getLocale() == 'ar' ? 'rtl' : 'ltr' }}">
 <head>
+    <!-- jQuery CDN -->
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<!-- Select2 CDN -->
+<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/js/select2.min.js"></script>
+
  <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" />
 
     <meta charset="UTF-8">
@@ -29,17 +37,16 @@
         }
 
         function toggleLanguage() {
-            const currentLang = document.documentElement.getAttribute('lang');
-            const newLang = currentLang === 'ar' ? 'en' : 'ar';
-            document.documentElement.setAttribute('lang', newLang);
-            document.documentElement.setAttribute('dir', newLang === 'ar' ? 'rtl' : 'ltr');
-            document.getElementById('langButton').textContent = newLang === 'ar' ? 'English' : 'العربية';
-        }
+    const currentLang = document.documentElement.getAttribute('lang');
+    const newLang = currentLang === 'ar' ? 'en' : 'ar';
 
-        document.addEventListener('DOMContentLoaded', function() {
-            const currentLang = document.documentElement.getAttribute('lang');
-            document.body.classList.add(currentLang === 'ar' ? '' : 'dark-theme');
-        });
+    document.documentElement.setAttribute('lang', newLang);
+    document.documentElement.setAttribute('dir', newLang === 'ar' ? 'rtl' : 'ltr');
+
+    // تغيير النصوص إذا كانت مدمجة مباشرة في الصفحة
+    document.getElementById('langButton').textContent = newLang === 'ar' ? 'English' : 'العربية';
+}
+
     </script>
 
 </head>
@@ -58,8 +65,10 @@
     <img src="{{ asset('/images/9.png') }}" class="w-20 h-20" />
     </div>
     </a>
+
             <a  onclick="toggleTheme()" id="themeIcon">☀️</a>
          </div>
+
 
          <a href="{{ route('dashboard.index') }}">
     <div class="icon"><i class="fas fa-home"></i></div>

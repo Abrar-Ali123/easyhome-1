@@ -15,11 +15,12 @@ class CreateContactsTable extends Migration
     {
         Schema::create('contacts', function (Blueprint $table) {
             $table->id();
-            $table->string('name'); // الاسم
-            $table->string('phone'); // رقم الهاتف
-            $table->date('dob'); // تاريخ الميلاد
-            $table->text('message'); // الرسالة
-            $table->timestamps(); // created_at و updated_at
+            $table->string('name');
+            $table->string('phone');
+            $table->string('status')->default('لم يتم التواصل');
+            $table->text('note')->nullable();
+            $table->text('message');
+            $table->timestamps();
         });
     }
 

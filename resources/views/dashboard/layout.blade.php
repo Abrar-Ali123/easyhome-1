@@ -81,54 +81,27 @@
 </a>
 
 
-    <a href="#">
-        <div class="icon"><i class="fas fa-city"></i></div>
-        <span>المدن</span>
-    </a>
-    <a href="#">
-        <div class="icon"><i class="fas fa-building"></i></div>
+<a href="{{ route('admin.contacts.index') }}">
+
+    <div class="icon"><i class="fas fa-tags"></i></div>
+    <span>طلبات التواصل </span>
+</a>
+
+<a href="{{ route('cities.index') }}">
+    <div class="icon"><i class="fas fa-city"></i></div>
+    <span>المدن</span>
+</a>
+
+
+
+<a href="{{ route('products.index') }}">
+
+         <div class="icon"><i class="fas fa-building"></i></div>
         <span>العقارات</span>
     </a>
-    <a href="#">
-        <div class="icon"><i class="fas fa-th-list"></i></div>
-        <span>تصنيفات المدونة</span>
-    </a>
-    <a href="#">
-        <div class="icon"><i class="fas fa-blog"></i></div>
-        <span>المدونة</span>
-    </a>
-    </div>
-    <header>
-    <div class="header-content">
 
-    <div class="user-info">
-
-    <div class="avatar">
-        <img src="image/7.png" alt="Avatar">
-    </div>
-    <div class="dropdown">
-        <div class="dropdown-toggle">Username</div>
-        <div class="dropdown-menu">
-            <a href="{{route('profile.show')}}">View Profile</a>
-            <a href="#">Messages</a>
-            <a href="{{route('logout')}}">Logout</a>
-        </div>
-    </div>
-    <div class="icon">
-        <i class="fas fa-bell"></i>
-        <span class="badge">5</span>
-    </div>
-    <div class="icon">
-        <i class="fas fa-envelope"></i>
-        <span class="badge">3</span>
-    </div>
-</div>
     </div>
 
-
-
-
-</header>
 
 
 

@@ -226,9 +226,11 @@ header {
 }
 
 .sidebar:hover ~ header {
-    width: 80%;
-    height: 100px; /* ضبط الارتفاع حسب الحاجة */
+     height: 100px; /* ضبط الارتفاع حسب الحاجة */
     border-radius: 7px;
+    direction: ltr;
+    margin-left: 20%;
+
 }
 
 .company-logo img {

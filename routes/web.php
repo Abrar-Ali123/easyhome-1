@@ -37,6 +37,7 @@ Route::middleware(['check.employee' => \App\Http\Middleware\CheckEmployeeRole::c
     Route::get('/product-requests', [ProductRequestController::class, 'showProductRequests'])->name('dashboard.product.requests');
     Route::get('/orders', [OrderController::class, 'index'])->name('orders.index');
     Route::post('/orders/update', [OrderController::class, 'update'])->name('orders.update'); // لا يتطلب معرف الطلب في المسار
+
     Route::resource('cities', CityController::class);
 });
 

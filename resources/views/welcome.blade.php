@@ -136,18 +136,33 @@
 
 
 
-<div class="section-container">
-    <div class="section-inner">
-        <div class="section-image" style="background-image: url('/path/to/your/image.jpg');"></div>
-        <div class="section-content">
-            <h2 class="section-title">عنوان القسم</h2>
-            <p class="section-description">وصف موجز يصف محتوى هذا القسم. هنا يمكنك توضيح بعض النقاط المهمة.</p>
-            <a href="#" class="section-link">اقرأ المزيد</a>
-        </div>
+
+
+<div class="engage-program">
+<div class="overlay"></div>
+
+    <div class="engage-header">
+        <img src="{{ asset('images/44.png') }}" alt="صورة برنامج إنجاز">
+        <h1 class="engage-title">برنامج إنجاز</h1>
+    </div>
+    <div class="engage-content">
+        <ul class="engage-grid">
+            <li class="engage-item"><i class="fas fa-check-circle engage-icon"></i> إنجاز جميع الإجراءات في البنوك في أقل وقت.</li>
+            <li class="engage-item"><i class="fas fa-hand-holding-usd engage-icon"></i> حلول في الدفعة الأولى.</li>
+            <li class="engage-item"><i class="fas fa-file-invoice-dollar engage-icon"></i> توحيد الأقساط في قسط واحد.</li>
+            <li class="engage-item"><i class="fas fa-chart-line engage-icon"></i> الاستفادة بأقل ربح وأعلى مبلغ تمويل.</li>
+            <li class="engage-item"><i class="fas fa-exchange-alt engage-icon"></i> إمكانية وسرعة تحويل الراتب إلى بنك آخر.</li>
+            <li class="engage-item"><i class="fas fa-home engage-icon"></i> إمكانية التضامن والاستفادة من دعم سكني.</li>
+            <li class="engage-item"><i class="fas fa-building engage-icon"></i> التعامل مع جميع القطاعات الحكومية والقطاع الخاص المعتمد وغير المعتمد.</li>
+        </ul>
     </div>
 </div>
 
-<!-- تأكد من تضمين مكتبة Font Awesome -->
+
+
+
+<!-- إضافة مكتبة Font Awesome للأيقونات -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 
 
 

@@ -2,6 +2,7 @@
 <html lang="ar">
 <head>
 <meta charset="utf-8">
+<link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
 
       <link href="{{ asset('css/home.css') }}" rel="stylesheet">
       <script src="{{ asset('js/site.js') }}"></script>

@@ -50,9 +50,8 @@
             </div>
         @endguest
 
-        <!-- اختيار المدينة الرئيسية -->
-        <div>
-            <label for="parent_city">اختر المدينة الرئيسية:</label>
+         <div>
+            <label for="parent_city"> المدينة :</label>
             <select name="parent_city" id="parent_city" required>
                 <option value="" disabled {{ old('parent_city') ? '' : 'selected' }}>اختر المدينة الرئيسية</option>
                 @foreach($cities as $city)
@@ -65,7 +64,7 @@
 
         <!-- اختيار المدن التابعة -->
         <div>
-            <label for="sub_cities">اختر المدن التابعة:</label>
+            <label for="sub_cities">الحي  :</label>
             <div id="sub_cities_container">
                 <!-- سيتم تعبئة المدن التابعة هنا باستخدام checkboxes -->
             </div>
@@ -93,8 +92,7 @@
         <button type="submit">تسجيل وإرسال الطلب</button>
     </form>
 
-    <!-- جافاسكريبت لجلب المدن التابعة باستخدام AJAX -->
-    <script>
+     <script>
         document.getElementById('parent_city').addEventListener('change', function () {
             var parentCityId = this.value;
 

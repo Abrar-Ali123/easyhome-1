@@ -45,6 +45,6 @@ class ContactController extends Controller
         Contact::create($validatedData);
 
         // Redirect or show a success message
-        return redirect()->back()->with('success', 'Contact added successfully!');
+        return redirect()->back()->with('success', 'تم إرسال رسالتك بنجاح.');
     }
 }

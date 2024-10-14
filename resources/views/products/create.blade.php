@@ -19,13 +19,24 @@
     <form action="{{ route('products.store') }}" method="POST" enctype="multipart/form-data">
         @csrf
 
-        <div class="mb-4">
-            <label for="city_id" class="block text-sm font-medium text-gray-700">المدينة</label>
-            <select id="city_id" name="city_id" class="mt-1 block w-full" required>
+        <div>
+            <label for="parent_city"> المدينة :</label>
+            <select name="parent_city" id="parent_city" required>
+                <option value="" disabled {{ old('parent_city') ? '' : 'selected' }}>اختر المدينة الرئيسية</option>
                 @foreach($cities as $city)
-                    <option value="{{ $city->id }}">{{ $city->name }}</option>
+                    <option value="{{ $city->id }}" {{ old('parent_city') == $city->id ? 'selected' : '' }}>
+                        {{ $city->name }}
+                    </option>
                 @endforeach
             </select>
+        </div>
+
+        <!-- اختيار المدن التابعة -->
+        <div>
+            <label for="sub_cities">الحي  :</label>
+            <div id="sub_cities_container">
+                <!-- سيتم تعبئة المدن التابعة هنا باستخدام checkboxes -->
+            </div>
         </div>
         <div class="form-group">
             <label for="title">العنوان</label>
@@ -69,17 +80,18 @@
 
         <div class="form-group">
     <label for="features">المميزات</label>
-    <div class="dropdown">
-        <button type="button" class="dropdown-button" id="features-button">اختر المميزات</button>
-        <div class="dropdown-content" id="features-content">
-            @foreach($featuresList as $feature => $icon)
-                <div class="dropdown-item" data-value="{{ $feature }}">
-                    <i class="{{ $icon }}"></i> <span class="dropdown-text">{{ $feature }}</span></div>
-            @endforeach
-        </div>
+    <div id="features-checkboxes">
+        @foreach($featuresList as $feature => $icon)
+            <div>
+                <input type="checkbox" name="features[]" value="{{ $feature }}" id="feature_{{ $feature }}">
+                <label for="feature_{{ $feature }}">
+                    <i class="{{ $icon }}"></i> {{ $feature }}
+                </label>
+            </div>
+        @endforeach
     </div>
-    <input type="hidden" name="features" id="features">
 </div>
+
 
         <div class="form-group">
             <label for="category">التصنيف</label>
@@ -102,9 +114,36 @@
         </div>
 
         <div class="form-group">
-            <label for="images">الصور الإضافية</label>
-            <input type="file" name="images[]" id="images" class="form-control-file" multiple>
-        </div>
+    <label for="images">الصور الإضافية</label>
+    <input type="file" name="images[]" id="images" class="form-control-file" multiple onchange="previewImages(event)">
+    <div id="image-preview" style="display: flex; flex-wrap: wrap; gap: 10px; margin-top: 10px;"></div>
+</div>
+
+<script>
+    function previewImages(event) {
+        const previewContainer = document.getElementById('image-preview');
+        previewContainer.innerHTML = ''; // تفريغ المعاينات السابقة
+
+        const files = event.target.files;
+        for (let i = 0; i < files.length; i++) {
+            const file = files[i];
+            const reader = new FileReader();
+
+            reader.onload = function(e) {
+                const img = document.createElement('img');
+                img.src = e.target.result;
+                img.style.width = '100px';
+                img.style.height = '100px';
+                img.style.objectFit = 'cover';
+                img.style.borderRadius = '8px';
+                previewContainer.appendChild(img);
+            };
+
+            reader.readAsDataURL(file);
+        }
+    }
+</script>
+
 
         <button type="submit" class="btn btn-primary">حفظ</button>
     </form>
@@ -202,4 +241,48 @@
         });
     });
 </script>
+
+
+
+<script>
+        document.getElementById('parent_city').addEventListener('change', function () {
+            var parentCityId = this.value;
+
+            // استخدام AJAX لجلب المدن التابعة بناءً على المدينة الرئيسية المختارة
+            fetch(`{{ url('/get-neighborhoods/') }}/${parentCityId}`)
+                .then(response => response.json())
+                .then(data => {
+                    var subCitiesContainer = document.getElementById('sub_cities_container');
+                    subCitiesContainer.innerHTML = '';  // تفريغ الحاوية القديمة
+
+                    if (data.message) {
+                        // إذا لم تكن هناك مدن تابعة
+                        alert(data.message);
+                    } else {
+                        // إنشاء checkboxes للمدن التابعة
+                        data.forEach(function(subCity) {
+                            var checkbox = document.createElement('input');
+                            checkbox.type = 'checkbox';
+                            checkbox.name = 'sub_cities[]';
+                            checkbox.value = subCity.id;
+                            checkbox.id = 'sub_city_' + subCity.id;
+
+                            var label = document.createElement('label');
+                            label.htmlFor = 'sub_city_' + subCity.id;
+                            label.textContent = subCity.name;
+
+                            var div = document.createElement('div');
+                            div.appendChild(checkbox);
+                            div.appendChild(label);
+
+                            subCitiesContainer.appendChild(div);
+                        });
+                    }
+                })
+                .catch(error => {
+                    console.error('Error fetching subcities:', error);
+                    alert('حدث خطأ أثناء تحميل المدن التابعة.');
+                });
+        });
+    </script>
 @endsection

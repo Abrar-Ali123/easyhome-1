@@ -1,5 +1,7 @@
 @extends('home')
 @section('content')
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet" crossorigin="anonymous">
+
 <!-- Google Fonts -->
 <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
@@ -40,8 +42,7 @@
             <span class="text-danger">{{ $message }}</span>
             @enderror
         </div>
-
-        <button type="submit">إرسال</button>
+         <button type="submit">إرسال</button>
     </form>
 </div>
 
@@ -54,6 +55,11 @@
                icon: 'success',
                confirmButtonText: 'موافق',
                confirmButtonColor: '#556B2F' // كود اللون الأخضر الزيتي
+           }).then((result) => {
+               if (result.isConfirmed) {
+                   // تفريغ النموذج بعد الموافقة
+                   document.querySelector('form').reset();
+               }
            });
        });
    </script>

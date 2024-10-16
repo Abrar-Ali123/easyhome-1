@@ -137,26 +137,214 @@
 
 
 
-
 <div class="engage-program">
-<div class="overlay"></div>
-
     <div class="engage-header">
         <img src="{{ asset('images/44.png') }}" alt="صورة برنامج إنجاز">
         <h1 class="engage-title">برنامج إنجاز</h1>
     </div>
-    <div class="engage-content">
-        <ul class="engage-grid">
-            <li class="engage-item"><i class="fas fa-check-circle engage-icon"></i> إنجاز جميع الإجراءات في البنوك في أقل وقت.</li>
-            <li class="engage-item"><i class="fas fa-hand-holding-usd engage-icon"></i> حلول في الدفعة الأولى.</li>
-            <li class="engage-item"><i class="fas fa-file-invoice-dollar engage-icon"></i> توحيد الأقساط في قسط واحد.</li>
-            <li class="engage-item"><i class="fas fa-chart-line engage-icon"></i> الاستفادة بأقل ربح وأعلى مبلغ تمويل.</li>
-            <li class="engage-item"><i class="fas fa-exchange-alt engage-icon"></i> إمكانية وسرعة تحويل الراتب إلى بنك آخر.</li>
-            <li class="engage-item"><i class="fas fa-home engage-icon"></i> إمكانية التضامن والاستفادة من دعم سكني.</li>
-            <li class="engage-item"><i class="fas fa-building engage-icon"></i> التعامل مع جميع القطاعات الحكومية والقطاع الخاص المعتمد وغير المعتمد.</li>
-        </ul>
-    </div>
+    <p class="engage-description">استفد من خيارات تمويل مرنة ودعم متخصص لتحقيق أهدافك بسهولة وسرعة. تعرف على المزيد عن البرنامج الآن!</p>
+    <a href="{{ route('request.product.form') }}" class="details-button">اكتشف المزيد</a>
+
 </div>
+<br>
+<br>
+<br>
+<style>
+:root {
+    --primary-color: #fff;
+    --primary-color-dark: #091716;
+    --highlight-color: #fff6e0;
+    --secondary-color: #003e37;
+    --accent-color: #bb9339;
+    --matching-green: rgba(210, 245, 220, 0.7); /* درجة الأخضر الفاتح المتناسقة */
+}
+
+body {
+    font-family: 'Amiri', serif;
+    background-color: var(--primary-color);
+    color: var(--secondary-color);
+    transition: background-color 0.3s, color 0.3s;
+}
+
+body.dark-theme {
+    background-color: var(--primary-color-dark);
+    color: var(--highlight-color);
+}
+
+/* قسم العلامات التجارية */
+.brand-section {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+    padding: 20px;
+    background-color: var(--primary-color);
+    border-radius: 8px;
+}
+
+/* العناصر داخل قسم العلامات التجارية */
+.brand-section .brand-item {
+    flex: 1 1 calc(25% - 20px);
+    max-width: calc(10% - 20px);
+    text-align: center;
+    padding: 15px;
+    background-color: var(--matching-green); /* الخلفية بلون الأخضر الفاتح */
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* تخصيص المزيد من التنسيق للصور */
+.brand-section .brand-item img {
+    width: 100px;
+    height: auto;
+    object-fit: contain;
+    margin-bottom: 10px;
+}
+
+/* تأثير الخلفية في الوضع الداكن */
+body.dark-theme .brand-section .brand-item {
+    background-color: rgba(34, 139, 34, 0.3); /* درجة أغمق للأخضر في الوضع الداكن */
+    color: var(--highlight-color);
+}
+</style>
+
+
+<style>
+.title {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Tajawal', sans-serif;
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: var(--secondary-color);
+    margin: 20px 0;
+}
+
+.title:before,
+.title:after {
+    content: "";
+    flex: 1;
+    border-top: 1px solid var(--secondary-color);
+    margin: 0 15px;
+}
+
+body.dark-theme .title {
+    color: var(--highlight-color);
+}
+
+body.dark-theme .title:before,
+body.dark-theme .title:after {
+    border-top-color: var(--highlight-color);
+}
+</style>
+
+<div class="title">شركاؤنا</div>
+
+<section class="brand-section">
+    <div class="brand-item">
+        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTaTuKGUsLIUueHg63S0KjgMzEJK-x2QhfQtA&s" alt="Logo 1">
+    </div>
+    <div class="brand-item">
+        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRSl2PS5UJs4iC3od99LjgxS3xGGqWuy7AUSQ&s" alt="Logo 2">
+    </div>
+    <div class="brand-item">
+        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRh9pK5bARj_q5nbl1xg4HZjt-uFcZ6adMOUQ&s" alt="Logo 3">
+    </div>
+    <div class="brand-item">
+        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQMRjesYcOXvYvgzaxxPI_qjFpxipoSoXiQfA&s" alt="Logo 4">
+    </div>
+
+
+
+    <div class="brand-item">
+        <img src="https://www.wadhefa.com/logo/company/62c1a6d7b46fb.png" alt="Logo 1">
+    </div>
+    <div class="brand-item">
+        <img src="https://yt3.googleusercontent.com/2xdSPoxSE3CORfYZN1LOUXiu5EN1uzjMAzmZiEY0WTPwR_7lHzhfR304OiCJHyAmh2DAPMjw=s900-c-k-c0x00ffffff-no-rj" alt="Logo 2">
+    </div>
+    <div class="brand-item">
+        <img src="https://pbs.twimg.com/profile_images/1445656983332216833/2pUbqSUu_400x400.jpg" alt="Logo 3">
+    </div>
+    <div class="brand-item">
+        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQMRjesYcOXvYvgzaxxPI_qjFpxipoSoXiQfA&s" alt="Logo 4">
+    </div>
+</section>
+
+<style>
+    .engage-program {
+        position: relative;
+        padding: 60px 30px;
+        color: var(--highlight-color);
+        text-align: center;
+        background-color: rgba(255, 255, 255, 0.8);
+        border-radius: 8px;
+        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+        margin: 20px auto;
+        width: 95%;
+    }
+
+    .engage-program::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(rgba(0, 100, 0, 0.5), rgba(0, 100, 0, 0.5)),
+                    url('https://www.emaratalyoum.com/polopoly_fs/1.1246830.1567186592!/image/image.jpg');
+        background-size: cover;
+        background-position: center;
+        z-index: -1;
+        border-radius: 8px;
+    }
+
+    .engage-header {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .engage-header img {
+        width: 80px;
+        height: 80px;
+        border-radius: 50%;
+        margin-bottom: 15px;
+    }
+
+    .engage-title {
+        font-family: 'Pacifico', cursive;
+        font-size: 2.2rem;
+        color: var(--accent-color);
+        margin: 0;
+    }
+
+    .engage-description {
+        font-size: 1.2rem;
+        margin: 20px 0;
+        color: var(--secondary-color);
+    }
+
+    .details-button {
+        display: inline-block;
+        padding: 12px 25px;
+        font-size: 1.1rem;
+        background: var(--accent-color);
+        color: var(--highlight-color);
+        border-radius: 30px;
+        text-decoration: none;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        transition: background 0.3s, box-shadow 0.3s, transform 0.3s;
+    }
+
+    .details-button:hover {
+        background: var(--secondary-color);
+        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+        transform: translateY(-3px);
+    }
+</style>
+
 
 
 

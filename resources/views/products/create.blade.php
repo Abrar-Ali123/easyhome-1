@@ -78,19 +78,18 @@
             <input type="number" name="area" id="area" class="form-control" value="{{ old('area') }}" required>
         </div>
 
-        <div class="form-group">
-    <label for="features">المميزات</label>
-    <div id="features-checkboxes">
-        @foreach($featuresList as $feature => $icon)
-            <div>
-                <input type="checkbox" name="features[]" value="{{ $feature }}" id="feature_{{ $feature }}">
-                <label for="feature_{{ $feature }}">
-                    <i class="{{ $icon }}"></i> {{ $feature }}
-                </label>
-            </div>
-        @endforeach
-    </div>
+        <div id="features-checkboxes">
+    @foreach($featuresList as $feature => $icon)
+        <div>
+            <input type="checkbox" name="features[]" value="{{ $feature }}" id="feature_{{ $feature }}">
+            <label for="feature_{{ $feature }}">
+                <i class="{{ $icon }}"></i> {{ $feature }}
+            </label>
+        </div>
+    @endforeach
 </div>
+<input type="hidden" name="features_combined" id="features_combined">
+
 
 
         <div class="form-group">
@@ -142,6 +141,18 @@
             reader.readAsDataURL(file);
         }
     }
+
+
+    document.querySelectorAll('input[name="features[]"]').forEach(checkbox => {
+    checkbox.addEventListener('change', function () {
+        const selectedFeatures = Array.from(document.querySelectorAll('input[name="features[]"]:checked'))
+            .map(checkbox => checkbox.value)
+            .join(',');
+
+        document.getElementById('features_combined').value = selectedFeatures;
+    });
+});
+
 </script>
 
 

@@ -24,6 +24,11 @@ Route::get('/', function () {
 });
 
 Route::middleware(['check.employee' => \App\Http\Middleware\CheckEmployeeRole::class])->prefix('dashboard')->group(function () {
+    Route::get('/contacts', [ContactController::class, 'adminIndex'])->name('admin.contacts.index');
+    Route::get('/contacts/{id}/edit', [ContactController::class, 'adminEdit'])->name('admin.contacts.edit');
+    Route::put('/contacts/{id}', [ContactController::class, 'adminUpdate'])->name('admin.contacts.update');
+    Route::post('/admin/contacts/{id}/update', [ContactController::class, 'adminUpdate'])->name('admin.contacts.update');
+
     Route::get('/products', [ProductController::class, 'index'])->name('products.index');
     Route::get('/products/create', [ProductController::class, 'create'])->name('products.create');
     Route::post('/products', [ProductController::class, 'store'])->name('products.store');
@@ -87,12 +92,5 @@ Route::get('/get-neighborhoods/{cityId}', [ProductRequestController::class, 'get
 
 use App\Http\Controllers\ContactController;
 
-Route::resource('contacts', ContactController::class);
-
 Route::get('/contacts/create', [ContactController::class, 'create'])->name('contacts.create');
 Route::post('/contacts/store', [ContactController::class, 'store'])->name('contacts.store');
-
-Route::get('/contacts', [ContactController::class, 'adminIndex'])->name('admin.contacts.index');
-Route::get('/contacts/{id}/edit', [ContactController::class, 'adminEdit'])->name('admin.contacts.edit');
-Route::put('/contacts/{id}', [ContactController::class, 'adminUpdate'])->name('admin.contacts.update');
-Route::post('/admin/contacts/{id}/update', [ContactController::class, 'adminUpdate'])->name('admin.contacts.update');

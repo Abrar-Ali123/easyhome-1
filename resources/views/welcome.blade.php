@@ -194,8 +194,7 @@ body.dark-theme {
     transition: background-color 0.3s ease, box-shadow 0.3s ease;
 }
 
-/* تخصيص المزيد من التنسيق للصور */
-.brand-section .brand-item img {
+ .brand-section .brand-item img {
     width: 100%;
     height: 100%;
 

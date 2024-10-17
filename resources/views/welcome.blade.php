@@ -261,9 +261,7 @@ body.dark-theme .title:after {
     <div class="brand-item">
         <img src="https://www.wadhefa.com/logo/company/62c1a6d7b46fb.png" alt="Logo 1">
     </div>
-    <div class="brand-item">
-        <img src="https://yt3.googleusercontent.com/2xdSPoxSE3CORfYZN1LOUXiu5EN1uzjMAzmZiEY0WTPwR_7lHzhfR304OiCJHyAmh2DAPMjw=s900-c-k-c0x00ffffff-no-rj" alt="Logo 2">
-    </div>
+
     <div class="brand-item">
         <img src="https://pbs.twimg.com/profile_images/1445656983332216833/2pUbqSUu_400x400.jpg" alt="Logo 3">
     </div>

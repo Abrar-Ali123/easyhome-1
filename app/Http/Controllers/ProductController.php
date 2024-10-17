@@ -108,6 +108,7 @@ class ProductController extends Controller
             'video' => 'required|string',
 
             'city_id' => 'required|exists:cities,id',
+            'neighborhood_id' => 'nullable|exists:cities,id',
 
             'price' => 'required|numeric',
             'bedrooms' => 'required|integer',
@@ -131,6 +132,7 @@ class ProductController extends Controller
         $product = new Product();
         $product->title = $request->title;
         $product->city_id = $request->city_id;
+        $product->neighborhood_id = $request->neighborhood_id;
         $product->video = $request->video;
 
         $product->description = $request->description;

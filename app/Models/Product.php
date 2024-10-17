@@ -17,9 +17,10 @@ class Product extends Model
         'area',
         'features',
         'category',
-        'image', // إذا كنت تستخدم حقل واحد للصور
+        'image',
         'images', // إذا كنت تستخدم حقل متعدد للصور
         'city_id',
+        'neighborhood_id',
     ];
 
     const CATEGORIES = [
@@ -77,8 +78,13 @@ class Product extends Model
         return $this->hasMany(Comment::class);
     }
 
-    public function city()
+    public function parent()
     {
-        return $this->belongsTo(City::class);
+        return $this->belongsTo(City::class, 'parent_id');
+    }
+
+    public function children()
+    {
+        return $this->hasMany(City::class, 'parent_id');
     }
 }

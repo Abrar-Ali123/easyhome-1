@@ -7,7 +7,7 @@
 :root {
     --primary-color: #fff; /* اللون الأساسي للخلفية العامة */
     --primary-color-dark: #091716; /* اللون الأساسي للخلفية العامة في الوضع الداكن */
-    --highlight-color: #fff6e0; /* اللون المميز لإبراز العناصر */
+    --highlight-color: #fff6e0;
     --secondary-color: #003e37; /* لون النصوص والخلفيات الأخرى */
     --accent-color: #bb9339; /* اللون المميز للتأكيد */
 }
@@ -373,8 +373,8 @@ body.dark-mode .toggle-theme-btn {
 
 .property-info {
     padding: 20px;
-    background: var(--highlight-color);
-    border-radius: 16px;
+    background: rgba(255, 246, 224, 0.747);
+            border-radius: 16px;
     box-shadow: 0 8px 16px rgba(0, 0, 0, 0.05);
     margin-top: 20px;
     color: var(--secondary-color);
@@ -402,7 +402,7 @@ body.dark-theme .property-info {
     display: flex;
     align-items: center;
     padding: 10px;
-    background: var(--highlight-color);
+    background: rgba(255, 246, 224, 0.747);
     border-radius: 10px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
     text-align: center;

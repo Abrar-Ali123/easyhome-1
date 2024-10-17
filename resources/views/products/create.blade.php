@@ -19,25 +19,30 @@
     <form action="{{ route('products.store') }}" method="POST" enctype="multipart/form-data">
         @csrf
 
-        <div>
-            <label for="parent_city"> المدينة :</label>
-            <select name="parent_city" id="parent_city" required>
-                <option value="" disabled {{ old('parent_city') ? '' : 'selected' }}>اختر المدينة الرئيسية</option>
-                @foreach($cities as $city)
-                    <option value="{{ $city->id }}" {{ old('parent_city') == $city->id ? 'selected' : '' }}>
-                        {{ $city->name }}
-                    </option>
-                @endforeach
-            </select>
-        </div>
 
-        <!-- اختيار المدن التابعة -->
+
         <div>
-            <label for="sub_cities">الحي  :</label>
-            <div id="sub_cities_container">
-                <!-- سيتم تعبئة المدن التابعة هنا باستخدام checkboxes -->
-            </div>
-        </div>
+    <label for="parent_city"> المدينة :</label>
+    <select name="city_id" id="parent_city" required>
+        <option value="" disabled {{ old('city_id') ? '' : 'selected' }}>اختر المدينة الرئيسية</option>
+        @foreach($cities as $city)
+            <option value="{{ $city->id }}" {{ old('city_id') == $city->id ? 'selected' : '' }}>
+                {{ $city->name }}
+            </option>
+        @endforeach
+    </select>
+</div>
+
+<div>
+    <label for="neighborhood_id">الحي :</label>
+    <select name="neighborhood_id" id="sub_cities">
+        <option value="" disabled selected>اختر الحي</option>
+    </select>
+</div>
+
+
+
+
         <div class="form-group">
             <label for="title">العنوان</label>
             <input type="text" name="title" id="title" class="form-control" value="{{ old('title') }}" required>
@@ -77,7 +82,6 @@
             <label for="area">المساحة (بالمتر المربع)</label>
             <input type="number" name="area" id="area" class="form-control" value="{{ old('area') }}" required>
         </div>
-
         <div id="features-checkboxes">
     @foreach($featuresList as $feature => $icon)
         <div>
@@ -88,7 +92,8 @@
         </div>
     @endforeach
 </div>
-<input type="hidden" name="features_combined" id="features_combined">
+<!-- حقل مخفي لجمع الميزات المحددة -->
+<input type="hidden" name="features" id="features" value="{{ old('features') }}">
 
 
 
@@ -118,42 +123,6 @@
     <div id="image-preview" style="display: flex; flex-wrap: wrap; gap: 10px; margin-top: 10px;"></div>
 </div>
 
-<script>
-    function previewImages(event) {
-        const previewContainer = document.getElementById('image-preview');
-        previewContainer.innerHTML = ''; // تفريغ المعاينات السابقة
-
-        const files = event.target.files;
-        for (let i = 0; i < files.length; i++) {
-            const file = files[i];
-            const reader = new FileReader();
-
-            reader.onload = function(e) {
-                const img = document.createElement('img');
-                img.src = e.target.result;
-                img.style.width = '100px';
-                img.style.height = '100px';
-                img.style.objectFit = 'cover';
-                img.style.borderRadius = '8px';
-                previewContainer.appendChild(img);
-            };
-
-            reader.readAsDataURL(file);
-        }
-    }
-
-
-    document.querySelectorAll('input[name="features[]"]').forEach(checkbox => {
-    checkbox.addEventListener('change', function () {
-        const selectedFeatures = Array.from(document.querySelectorAll('input[name="features[]"]:checked'))
-            .map(checkbox => checkbox.value)
-            .join(',');
-
-        document.getElementById('features_combined').value = selectedFeatures;
-    });
-});
-
-</script>
 
 
         <button type="submit" class="btn btn-primary">حفظ</button>
@@ -192,62 +161,81 @@
     }
 </style>
 
+
 <script>
     document.addEventListener('DOMContentLoaded', function () {
+        document.getElementById('parent_city').addEventListener('change', function () {
+            const parentCityId = this.value;
+            fetch(`{{ url('/get-neighborhoods/') }}/${parentCityId}`)
+                .then(response => response.json())
+                .then(data => {
+                    const subCities = document.getElementById('sub_cities');
+                    subCities.innerHTML = '<option value="" disabled selected>اختر الحي</option>';
+                    if (data.message) {
+                        alert(data.message);
+                    } else {
+                        data.forEach(subCity => {
+                            const option = document.createElement('option');
+                            option.value = subCity.id;
+                            option.textContent = subCity.name;
+                            subCities.appendChild(option);
+                        });
+                    }
+                })
+                .catch(error => console.error('Error fetching subcities:', error));
+        });
+
+         document.getElementById('images').addEventListener('change', function (event) {
+            const previewContainer = document.getElementById('image-preview');
+            previewContainer.innerHTML = '';
+            Array.from(event.target.files).forEach(file => {
+                const reader = new FileReader();
+                reader.onload = e => {
+                    const img = document.createElement('img');
+                    img.src = e.target.result;
+                    img.style.width = '100px';
+                    img.style.height = '100px';
+                    img.style.objectFit = 'cover';
+                    img.style.borderRadius = '8px';
+                    previewContainer.appendChild(img);
+                };
+                reader.readAsDataURL(file);
+            });
+        });
+
+        document.querySelectorAll('input[name="features[]"]').forEach(checkbox => {
+    checkbox.addEventListener('change', () => {
+        const selectedFeatures = Array.from(document.querySelectorAll('input[name="features[]"]:checked'))
+            .map(checkbox => checkbox.value)
+            .join(',');
+        document.getElementById('features').value = selectedFeatures;
+    });
+});
+
+
+        // القائمة المنسدلة للتصنيف
         const dropdownButton = document.getElementById('dropdown-button');
         const dropdownContent = document.getElementById('dropdown-content');
         const categoryInput = document.getElementById('category');
 
-        dropdownButton.addEventListener('click', function () {
+        dropdownButton.addEventListener('click', () => {
             dropdownContent.style.display = dropdownContent.style.display === 'block' ? 'none' : 'block';
         });
 
-        dropdownContent.addEventListener('click', function (e) {
+        dropdownContent.addEventListener('click', (e) => {
             if (e.target.classList.contains('dropdown-item')) {
                 const value = e.target.getAttribute('data-value');
                 const text = e.target.querySelector('.dropdown-text').innerText;
-
                 dropdownButton.innerHTML = `<i class="${e.target.querySelector('i').className}"></i> ${text}`;
                 categoryInput.value = value;
                 dropdownContent.style.display = 'none';
             }
         });
 
-        const featuresButton = document.getElementById('features-button');
-        const featuresContent = document.getElementById('features-content');
-        const featuresInput = document.getElementById('features');
-        let selectedFeatures = [];
-
-        featuresButton.addEventListener('click', function () {
-            featuresContent.style.display = featuresContent.style.display === 'block' ? 'none' : 'block';
-        });
-
-        featuresContent.addEventListener('click', function (e) {
-            if (e.target.classList.contains('dropdown-item')) {
-                const value = e.target.getAttribute('data-value');
-                const text = e.target.querySelector('.dropdown-text').innerText;
-
-                if (selectedFeatures.includes(value)) {
-                    selectedFeatures = selectedFeatures.filter(item => item !== value);
-                } else {
-                    selectedFeatures.push(value);
-                }
-
-                featuresButton.innerHTML = selectedFeatures.map(feature => {
-                    const item = featuresContent.querySelector(`[data-value="${feature}"]`);
-                    return `<i class="${item.querySelector('i').className}"></i> ${item.querySelector('.dropdown-text').innerText}`;
-                }).join(', ');
-
-                featuresInput.value = JSON.stringify(selectedFeatures);
-            }
-        });
-
-        document.addEventListener('click', function (e) {
+        // إغلاق القوائم عند النقر خارجها
+        document.addEventListener('click', (e) => {
             if (!dropdownButton.contains(e.target) && !dropdownContent.contains(e.target)) {
                 dropdownContent.style.display = 'none';
-            }
-            if (!featuresButton.contains(e.target) && !featuresContent.contains(e.target)) {
-                featuresContent.style.display = 'none';
             }
         });
     });
@@ -255,45 +243,5 @@
 
 
 
-<script>
-        document.getElementById('parent_city').addEventListener('change', function () {
-            var parentCityId = this.value;
 
-            // استخدام AJAX لجلب المدن التابعة بناءً على المدينة الرئيسية المختارة
-            fetch(`{{ url('/get-neighborhoods/') }}/${parentCityId}`)
-                .then(response => response.json())
-                .then(data => {
-                    var subCitiesContainer = document.getElementById('sub_cities_container');
-                    subCitiesContainer.innerHTML = '';  // تفريغ الحاوية القديمة
-
-                    if (data.message) {
-                        // إذا لم تكن هناك مدن تابعة
-                        alert(data.message);
-                    } else {
-                        // إنشاء checkboxes للمدن التابعة
-                        data.forEach(function(subCity) {
-                            var checkbox = document.createElement('input');
-                            checkbox.type = 'checkbox';
-                            checkbox.name = 'sub_cities[]';
-                            checkbox.value = subCity.id;
-                            checkbox.id = 'sub_city_' + subCity.id;
-
-                            var label = document.createElement('label');
-                            label.htmlFor = 'sub_city_' + subCity.id;
-                            label.textContent = subCity.name;
-
-                            var div = document.createElement('div');
-                            div.appendChild(checkbox);
-                            div.appendChild(label);
-
-                            subCitiesContainer.appendChild(div);
-                        });
-                    }
-                })
-                .catch(error => {
-                    console.error('Error fetching subcities:', error);
-                    alert('حدث خطأ أثناء تحميل المدن التابعة.');
-                });
-        });
-    </script>
 @endsection

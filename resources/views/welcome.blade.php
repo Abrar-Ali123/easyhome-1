@@ -196,10 +196,9 @@ body.dark-theme {
 
 /* تخصيص المزيد من التنسيق للصور */
 .brand-section .brand-item img {
-    width: 100px;
-    height: auto;
-    object-fit: contain;
-    margin-bottom: 10px;
+    width: 100%;
+    height: 100%;
+
 }
 
 /* تأثير الخلفية في الوضع الداكن */
@@ -268,6 +267,38 @@ body.dark-theme .title:after {
     <div class="brand-item">
         <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQMRjesYcOXvYvgzaxxPI_qjFpxipoSoXiQfA&s" alt="Logo 4">
     </div>
+
+    <div class="brand-item">
+        <img src="https://pbs.twimg.com/profile_images/1716072957003304960/z20nwYIU_400x400.jpg" alt="Logo 4">
+    </div>
+
+
+
+
+    <div class="brand-item">
+        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQa-96sxtQkOb0eKu7VhkrlTqxaY0IdRtsTJQ&s" alt="Logo 4">
+    </div>
+
+
+    <div class="brand-item">
+        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR8-aNFDh73kNsg7kKW3iBCmEcZ0fO1ugprPQ&s" alt="Logo 4">
+    </div>
+
+    <div class="brand-item">
+        <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgMxRhNnl57TcmqHi1EFTxgFDRRQ4YMHbprMnECr2pili1wRgS8F-0-egk_ncIRXOGePCdzeosFKOOhBDH_d2ie-jss5JSwmzwlUvzkJvNNjp7hFxazsNcqB0fMg9tchKrGhTBiI8hW0eU/s1600/%25D8%25A8%25D9%2586%25D9%2583+%25D8%25A7%25D9%2584%25D8%25B1%25D9%258A%25D8%25A7%25D8%25B6.jpg" alt="Logo 4">
+    </div>
+
+
+    <div class="brand-item">
+        <img src="https://pbs.twimg.com/profile_images/1574351106846646272/OqMQuKsM_400x400.jpg" alt="Logo 4">
+    </div>
+
+    <div class="brand-item">
+        <img src="https://saudipedia.com/saudipedia/uploads/images/2023/09/12/65807.jpg" alt="Logo 4">
+    </div>
+
+
+
 </section>
 
 <style>

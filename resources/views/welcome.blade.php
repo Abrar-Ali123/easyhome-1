@@ -1,8 +1,5 @@
 @extends('home')
 @section('content')
-<!-- Font Awesome CDN -->
-
-<!-- الزر لفتح النافذة المنبثقة -->
 <div class="prat">
         <video autoplay muted loop>
         <source src="{{ asset('images/4.mp4') }}" type="video/mp4">
@@ -134,21 +131,19 @@
     </div>
 </section>
 
-
-
-
 <div class="engage-program">
     <div class="engage-header">
         <img src="{{ asset('images/44.png') }}" alt="صورة برنامج إنجاز">
         <h1 class="engage-title">برنامج إنجاز</h1>
     </div>
     <p class="engage-description">استفد من خيارات تمويل مرنة ودعم متخصص لتحقيق أهدافك بسهولة وسرعة. تعرف على المزيد عن البرنامج الآن!</p>
-    <a href="{{ route('contact.page1') }}" class="details-button">اكتشف المزيد</a>
+    <a href="{{ route('contact.page2') }}" class="details-button">اكتشف المزيد</a>
 
 </div>
 <br>
 <br>
 <br>
+
 <style>
 :root {
     --primary-color: #fff;
@@ -171,8 +166,7 @@ body.dark-theme {
     color: var(--highlight-color);
 }
 
-/* قسم العلامات التجارية */
-.brand-section {
+ .brand-section {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
@@ -182,8 +176,7 @@ body.dark-theme {
     border-radius: 8px;
 }
 
-/* العناصر داخل قسم العلامات التجارية */
-.brand-section .brand-item {
+ .brand-section .brand-item {
     flex: 1 1 calc(25% - 20px);
     max-width: calc(10% - 20px);
     text-align: center;

@@ -182,6 +182,7 @@ body.dark-theme .title:after {
 </section>
 
     @endif
+
     <form action="{{ route('contacts.store') }}" method="POST">
     @csrf
     <input type="hidden" name="source" value="{{ $source }}"> <!-- لتحديد مصدر الصفحة -->

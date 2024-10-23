@@ -19,7 +19,10 @@ class CreateContactsTable extends Migration
             $table->string('phone');
             $table->string('status')->default('لم يتم التواصل');
             $table->text('note')->nullable();
-            $table->text('message');
+            $table->text('message')->nullable();
+            $table->string('source')->default('contact');
+            $table->unsignedBigInteger('updated_by')->nullable(); // إزالة after('note')
+            $table->foreign('updated_by')->references('id')->on('users')->onDelete('set null');
             $table->timestamps();
         });
     }

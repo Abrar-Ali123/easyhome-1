@@ -9,6 +9,9 @@
             <th>رقم الهاتف</th>
             <th>الحالة</th>
             <th>ملاحظة</th>
+            <th>الرسالة</th>
+            <th>المصدر</th>
+            <th>آخر تحديث بواسطة</th> <!-- العمود الجديد -->
             <th>الإجراءات</th>
         </tr>
     </thead>
@@ -26,6 +29,17 @@
             <td>
                 <input type="text" class="note" data-id="{{ $contact->id }}" value="{{ $contact->note }}">
             </td>
+            <td>{{ $contact->message }}</td>
+            <td>
+    @if ($contact->source == 'page1')
+        <i class="fas fa-phone-alt"></i> تواصل
+    @elseif ($contact->source == 'page2')
+        <i class="fas fa-handshake"></i> برنامج إنجاز
+    @else
+        <i class="fas fa-question-circle"></i> مصدر غير معروف
+    @endif
+</td>
+            <td>{{ $contact->updatedBy ? $contact->updatedBy->name : 'غير معروف' }}</td> <!-- يعرض اسم الشخص الذي قام بالتحديث -->
             <td>
                 <button type="button" class="btn btn-primary update" data-id="{{ $contact->id }}">تحديث</button>
             </td>
@@ -42,17 +56,16 @@
             const note = document.querySelector(`.note[data-id="${id}"]`).value;
 
             fetch(`/easyhome/admin/contacts/${id}/update`, {
-    method: 'POST',
-    headers: {
-        'Content-Type': 'application/json',
-        'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content
-    },
-    body: JSON.stringify({ status, note })
-})
-.then(response => response.json())
-.then(data => alert(data.success ? 'تم التحديث بنجاح!' : 'حدث خطأ أثناء التحديث'))
-.catch(() => alert('حدث خطأ في الاتصال بالخادم'));
-
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content
+                },
+                body: JSON.stringify({ status, note })
+            })
+            .then(response => response.json())
+            .then(data => alert(data.success ? 'تم التحديث بنجاح!' : 'حدث خطأ أثناء التحديث'))
+            .catch(() => alert('حدث خطأ في الاتصال بالخادم'));
         };
     });
 </script>

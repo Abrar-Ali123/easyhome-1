@@ -14,9 +14,32 @@ class ContactController extends Controller
         return view('dashboard.contacts.index', compact('contacts'));
     }
 
-    public function create()
+    public function createPage1()
     {
-        return view('contact');
+        return view('contact', ['source' => 'page1']);
+    }
+
+    public function createPage2()
+    {
+        return view('contact', ['source' => 'page2']);
+    }
+
+    public function store(Request $request)
+    {
+
+        $validatedData['updated_by'] = auth()->user()->id;
+
+        $validatedData = $request->validate([
+            'name' => 'required|string|max:255',
+            'phone' => 'required|string|max:15',
+            'message' => 'required|string',
+            'source' => 'required|string',
+
+        ]);
+
+        Contact::create($validatedData);
+
+        return redirect()->back()->with('success', 'تم إرسال رسالتك بنجاح.');
     }
 
     public function adminUpdate(Request $request, $id)
@@ -27,24 +50,10 @@ class ContactController extends Controller
         ]);
 
         $contact = Contact::findOrFail($id);
+        $validatedData['updated_by'] = auth()->user()->id;
+
         $contact->update($validatedData);
 
         return response()->json(['success' => true]);
-    }
-
-    public function store(Request $request)
-    {
-        // Validate the form input
-        $validatedData = $request->validate([
-            'name' => 'required|string|max:255',
-            'phone' => 'required|string|max:15',
-            'message' => 'required|string',
-        ]);
-
-        // Create the contact
-        Contact::create($validatedData);
-
-        // Redirect or show a success message
-        return redirect()->back()->with('success', 'تم إرسال رسالتك بنجاح.');
     }
 }

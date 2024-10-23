@@ -143,7 +143,7 @@
         <h1 class="engage-title">برنامج إنجاز</h1>
     </div>
     <p class="engage-description">استفد من خيارات تمويل مرنة ودعم متخصص لتحقيق أهدافك بسهولة وسرعة. تعرف على المزيد عن البرنامج الآن!</p>
-    <a href="{{ route('request.product.form') }}" class="details-button">اكتشف المزيد</a>
+    <a href="{{ route('contact.page1') }}" class="details-button">اكتشف المزيد</a>
 
 </div>
 <br>

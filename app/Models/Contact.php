@@ -9,5 +9,10 @@ class Contact extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['name', 'phone', 'message', 'status', 'note'];
+    protected $fillable = ['name', 'phone', 'message', 'status', 'note', 'source', 'updated_by'];
+
+    public function updatedBy()
+    {
+        return $this->belongsTo(User::class, 'updated_by');
+    }
 }

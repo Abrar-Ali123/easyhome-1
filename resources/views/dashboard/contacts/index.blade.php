@@ -50,25 +50,26 @@
 </table>
 
 <script>
-    document.querySelectorAll('.update').forEach(button => {
-        button.onclick = () => {
-            const id = button.dataset.id;
-            const status = document.querySelector(`.status[data-id="${id}"]`).value;
-            const note = document.querySelector(`.note[data-id="${id}"]`).value;
+   document.querySelectorAll('.update').forEach(button => {
+    button.onclick = () => {
+        const id = button.dataset.id;
+        const status = document.querySelector(`.status[data-id="${id}"]`).value;
+        const note = document.querySelector(`.note[data-id="${id}"]`).value;
 
-            fetch(`/easyhome/admin/contacts/${id}/update`, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content
-                },
-                body: JSON.stringify({ status, note })
-            })
-            .then(response => response.json())
-            .then(data => alert(data.success ? 'تم التحديث بنجاح!' : 'حدث خطأ أثناء التحديث'))
-            .catch(() => alert('حدث خطأ في الاتصال بالخادم'));
-        };
-    });
+        fetch(`{{ url('/admin/contacts') }}/${id}/update`, {  // استخدام دالة url لتوليد المسار بشكل ديناميكي
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content
+            },
+            body: JSON.stringify({ status, note })
+        })
+        .then(response => response.json())
+        .then(data => alert(data.success ? 'تم التحديث بنجاح!' : 'حدث خطأ أثناء التحديث'))
+        .catch(() => alert('حدث خطأ في الاتصال بالخادم'));
+    };
+});
+
 </script>
 
 @endsection

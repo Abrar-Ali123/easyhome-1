@@ -27,8 +27,6 @@ class ContactController extends Controller
     public function store(Request $request)
     {
 
-        $validatedData['updated_by'] = auth()->user()->id;
-
         $validatedData = $request->validate([
             'name' => 'required|string|max:255',
             'phone' => 'required|string|max:15',

@@ -75,10 +75,7 @@
     <span>الرئيسية</span>
 </a>
 
-<a href="{{ route('orders.index') }}">
-    <div class="icon"><i class="fas fa-tags"></i></div>
-    <span>الطلبات</span>
-</a>
+
 
 
 <a href="{{ route('admin.contacts.index') }}">

@@ -32,20 +32,13 @@
             <td>{{ $contact->message }}</td>
             <td>
 
-            <div class="card text-white bg-info mb-3 shadow-lg">
-    <div class="card-body">
-        <div class="d-flex justify-content-between align-items-center">
-            <div>
-                <h5 class="card-title">عدد الطلبات</h5>
-                <p class="card-text display-4">{{ $totalOrders }}</p>
-            </div>
-            <div>
-                <i class="fas fa-shopping-cart fa-3x"></i>
-            </div>
-        </div>
-    </div>
-</div>
-
+    @if ($contact->source == 'page1')
+        <i class="fas fa-phone-alt"></i> تواصل
+    @elseif ($contact->source == 'page2')
+        <i class="fas fa-handshake"></i> برنامج إنجاز
+    @else
+        <i class="fas fa-question-circle"></i> مصدر غير معروف
+    @endif
 </td>
             <td>{{ $contact->updatedBy ? $contact->updatedBy->name : 'غير معروف' }}</td> <!-- يعرض اسم الشخص الذي قام بالتحديث -->
             <td>

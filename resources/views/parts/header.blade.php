@@ -69,7 +69,7 @@ button[aria-controls="navbar-default"]:hover svg {
                     <li><a href="{{ url('/') }}">الرئيسية</a></li>
                     <li><a href="{{ route('products.index1') }}">العقارات</a></li>
                     <li><a href="#about-us">من نحن</a></li>
-                    <li><a href="{{ route('contact.page1') }}">انجاز</a></li>
+                    <li><a href="{{ route('contact.page2') }}">انجاز</a></li>
                     <li><a href="{{ route('contact.page1') }}"> تواصل معانا</a></li>
 
                         <li>

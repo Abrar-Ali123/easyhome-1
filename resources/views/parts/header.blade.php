@@ -1,6 +1,26 @@
 
 
 <style>
+
+
+/* زر إغلاق القائمة */
+#close-navbar {
+    background-color: transparent;
+    border: none;
+    font-size: 24px;
+    color: #fff;
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    cursor: pointer;
+}
+
+#close-navbar:hover {
+    color: #bb9339; /* تغيير لون الزر عند التفاعل */
+}
+
+
+
     /* زر القائمة (الهامبرجر) */
 button[aria-controls="navbar-default"] {
     display: inline-flex;
@@ -63,8 +83,12 @@ button[aria-controls="navbar-default"]:hover svg {
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 1h15M1 7h15M1 13h15" />
                     </svg>
                 </button>
+
+
+
                 <div id="navbar-default">
                     <ul>
+<button id="close-navbar" type="button">X</button>
 
                     <li><a href="{{ url('/') }}">الرئيسية</a></li>
                     <li><a href="{{ route('products.index1') }}">العقارات</a></li>
@@ -116,6 +140,9 @@ function togglePopup() {
     popup.classList.toggle('hidden'); // تبديل بين إظهار وإخفاء النافذة
 }
 
+
+
+
 // إظهار النافذة عند الضغط على الأيقونة
 document.getElementById('openLoginPopup').addEventListener('click', function() {
     togglePopup(); // استدعاء دالة إظهار النافذة
@@ -127,6 +154,13 @@ document.addEventListener('DOMContentLoaded', function() {
         togglePopup(); // إظهار النافذة إذا كانت هناك أخطاء
     @endif
 });
+
+
+document.getElementById('close-navbar').addEventListener('click', function() {
+    var navbar = document.getElementById('navbar-default');
+    navbar.classList.remove('show'); // إخفاء القائمة
+});
+
 
 </script>
 

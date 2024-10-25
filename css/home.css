@@ -196,7 +196,7 @@ nav ul {
     border-radius: 8px;
      position: relative; /* تأكد من أن nav يكون مرجعًا لz-index */
     list-style: none; /* إزالة النقاط */
-    transition: background-color 0.3s;
+    background-color: var(--primary-color-dark);
 }
 
 body.dark-theme nav ul {
@@ -209,7 +209,7 @@ body.dark-theme nav ul {
         padding: 0;
         margin-top: 0;
         border: none;
-        background-color: transparent;
+        background-color: var(--primary-color-dark);
     }
 }
 

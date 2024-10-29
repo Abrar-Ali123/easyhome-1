@@ -43,9 +43,10 @@ button[aria-controls="navbar-default"] svg {
     transition: stroke 0.3s ease;
 }
 
-/* تغيير لون الأيقونة عند التفاعل (hover) */
-button[aria-controls="navbar-default"]:hover svg {
-    stroke: var(--accent-color); /* تغيير لون الأيقونة عند التفاعل */
+
+
+#navbar-default.show ~ button[aria-controls="navbar-default"] {
+    display: none; /* إخفاء الزر عندما تكون القائمة مفتوحة */
 }
 
 /* إظهار زر القائمة على الشاشات الصغيرة فقط */
@@ -54,6 +55,12 @@ button[aria-controls="navbar-default"]:hover svg {
         display: inline-flex; /* إظهار الزر على الشاشات الصغيرة */
     }
 
+    #navbar-default.show ~ button[aria-controls="navbar-default"] {
+    display: none; /* إخفاء الزر عندما تكون القائمة مفتوحة */
+}
+       button[aria-controls="navbar-default"] {
+        display: inline-flex; /* إظهار الزر على الشاشات الصغيرة */
+    }
     #navbar-default {
         display: none; /* إخفاء القائمة على الشاشات الصغيرة افتراضيًا */
     }
@@ -61,7 +68,25 @@ button[aria-controls="navbar-default"]:hover svg {
     #navbar-default.show {
         display: block; /* إظهار القائمة عند النقر على الزر */
     }
+
+   /* إخفاء النص داخل زر الهامبرجر عندما تكون القائمة مفتوحة */
+#navbar-default.show ~ button[aria-controls="navbar-default"] span {
+    display: none; /* إخفاء العنصر عند فتح القائمة */
 }
+
+}
+
+
+/* إخفاء زر الهامبرجر عند فتح القائمة */
+#navbar-default.show ~ button[aria-controls="navbar-default"] {
+    display: none;
+}
+
+/* إظهار زر الهامبرجر عند إغلاق القائمة */
+#navbar-default:not(.show) ~ button[aria-controls="navbar-default"] {
+    display: inline-flex;
+}
+
 
 /* إخفاء الزر على الشاشات الكبيرة */
 @media (min-width: 768px) {
@@ -77,12 +102,19 @@ button[aria-controls="navbar-default"]:hover svg {
             <a href="#" class="flex items-center space-x-3 rtl:space-x-reverse">
             <img src="{{ asset('/images/9.png') }}" class="w-20 h-20" />
         </a>
-                <button type="button" aria-controls="navbar-default" aria-expanded="false">
-                    <span class="sr-only">افتح القائمة</span>
-                    <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 17 14">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 1h15M1 7h15M1 13h15" />
-                    </svg>
-                </button>
+        <button type="button" aria-controls="navbar-default" aria-expanded="false" id="toggle-navbar">
+    <span class="sr-only">افتح القائمة</span>
+    <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 17 14">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 1h15M1 7h15M1 13h15" />
+    </svg>
+</button>
+
+<style>
+     #toggle-navbar[aria-expanded="true"] .sr-only {
+        display: none;
+    }
+</style>
+
 
 
 
@@ -90,11 +122,11 @@ button[aria-controls="navbar-default"]:hover svg {
                     <ul>
 <button id="close-navbar" type="button">X</button>
 
-                    <li><a href="{{ url('/') }}">الرئيسية</a></li>
-                    <li><a href="{{ route('products.index1') }}">العقارات</a></li>
                     <li><a href="#about-us">من نحن</a></li>
                     <li><a href="{{ route('contact.page2') }}">انجاز</a></li>
                     <li><a href="{{ route('contact.page1') }}"> تواصل معانا</a></li>
+                    <li><a href="{{ route('products.index1') }}">العقارات</a></li>
+                    <li><a href="{{ url('/') }}">الرئيسية</a></li>
 
                         <li>
                             @guest

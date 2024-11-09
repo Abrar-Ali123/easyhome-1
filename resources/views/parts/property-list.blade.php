@@ -1,4 +1,3 @@
-<!-- resources/views/parts/property-list.blade.php -->
 <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
 
 <section class="mt-8 px-4">
@@ -6,7 +5,7 @@
 
     <div class="max-w-screen-xl mx-auto grid grid-cols-1 sm:grid-cols-3 gap-8">
         @forelse($products as $product)
-            <div class="relative group overflow-hidden rounded-lg shadow-lg">
+            <a href="{{ route('products.show', ['product' => $product->id]) }}" class="relative group overflow-hidden rounded-lg shadow-lg block">
                 <img src="{{ url('/storage/app/public/' . $product->image) }}" alt="Property Image" class="w-full h-full object-cover rounded-t-lg">
                 <div class="absolute top-4 right-4">
                     <div class="relative">
@@ -23,9 +22,7 @@
                 </div>
                 <div class="absolute inset-x-0 bottom-0 text-white transition-all duration-300 transform translate-y-full group-hover:translate-y-0" style="background-color: rgba(0, 62, 55, 0.85);">
                     <div class="p-4">
-                        <a href="{{ route('products.show', ['product' => $product->id]) }}">
-                            <h3 class="text-lg font-semibold">{{ $product->title }}</h3>
-                        </a>
+                        <h3 class="text-lg font-semibold">{{ $product->title }}</h3>
                     </div>
                     <div class="p-4">
                         <div class="flex items-center mb-2">
@@ -48,7 +45,7 @@
                         </div>
                     </div>
                 </div>
-            </div>
+            </a>
         @empty
             <p class="text-center col-span-3">لا توجد نتائج للبحث.</p>
         @endforelse
@@ -64,6 +61,5 @@
     .translate-y-full {
         transform: translateY(calc(100% - 4rem)); /* يظهر جزء صغير فقط لعنوان العقار */
     }
-
- </style>
+</style>
 </section>

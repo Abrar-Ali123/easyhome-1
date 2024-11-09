@@ -40,9 +40,8 @@
     </form>
 </section>
 
-
 <style>
-   :root {
+:root {
     --primary-color: #fff; /* اللون الأساسي للخلفية العامة */
     --primary-color-dark: #091716; /* اللون الأساسي للخلفية العامة في الوضع الداكن */
     --highlight-color: #fff6e0; /* اللون المميز لإبراز العناصر */
@@ -55,16 +54,15 @@
     padding: 20px;
     border-radius: 8px;
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-    margin-right: 20%;
-    margin-left: 20%;
-    margin-top: 10%;
+    margin: 0 auto; /* توسيط النموذج */
+    max-width: 600px; /* تحديد عرض أقصى للنموذج */
     color: var(--secondary-color);
 }
 
 .search-filter-section .filter-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    gap: 20px;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); /* تصميم مرن مع حد أدنى للعرض */
+    gap: 15px; /* المسافة بين العناصر */
 }
 
 .search-filter-section .form-input,
@@ -125,7 +123,6 @@ body.dark-theme .search-filter-section {
     background-color: var(--primary-color-dark);
     color: var(--highlight-color);
     box-shadow: 0 2px 10px rgba(255, 255, 255, 0.5); /* ظل أبيض مع شفافية */
-
 }
 
 body.dark-theme .search-filter-section .form-input,
@@ -155,5 +152,14 @@ body.dark-theme .search-filter-section .search-button:hover {
     background-color: darken(var(--accent-color), 10%);
 }
 
+/* استعلامات الوسائط للأجهزة المحمولة */
+@media (max-width: 480px) {
+    .search-filter-section {
+        padding: 15px; /* تقليل الحشوة على الشاشات الصغيرة */
+    }
 
-    </style>
+    .search-filter-section .filter-grid {
+        grid-template-columns: 1fr; /* جعل العناصر في عمود واحد */
+    }
+}
+</style>

@@ -39,11 +39,6 @@ class Product extends Model
         // أضف أيقونات التصنيفات الأخرى هنا
     ];
 
-    // مثال لتخزين المميزات كمصفوفة JSON
-    protected $casts = [
-        'features' => 'array',
-    ];
-
     public static $featuresList = [
         'مرآب' => 'fas fa-car',
         'مسبح' => 'fas fa-swimming-pool',
@@ -86,5 +81,20 @@ class Product extends Model
     public function children()
     {
         return $this->hasMany(City::class, 'parent_id');
+    }
+
+    public function city()
+    {
+        return $this->belongsTo(City::class);
+    }
+
+    public function neighborhood()
+    {
+        return $this->belongsTo(City::class, 'neighborhood_id');
+    }
+
+    public function getFeaturesAttribute($value)
+    {
+        return explode(',', $value); // تحويل النص إلى مصفوفة بناءً على الفواصل
     }
 }

@@ -82,8 +82,11 @@
             <label for="area">المساحة (بالمتر المربع)</label>
             <input type="number" name="area" id="area" class="form-control" value="{{ old('area') }}" required>
         </div>
-        <div id="features-checkboxes">
-    @foreach($featuresList as $feature => $icon)
+
+
+
+<div id="features-checkboxes">
+    @foreach(App\Models\Product::$featuresList as $feature => $icon)
         <div>
             <input type="checkbox" name="features[]" value="{{ $feature }}" id="feature_{{ $feature }}">
             <label for="feature_{{ $feature }}">
@@ -92,6 +95,9 @@
         </div>
     @endforeach
 </div>
+
+</div>
+
 <!-- حقل مخفي لجمع الميزات المحددة -->
 <input type="hidden" name="features" id="features" value="{{ old('features') }}">
 

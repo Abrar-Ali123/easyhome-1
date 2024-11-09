@@ -100,6 +100,7 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
+
         $user = \Illuminate\Support\Facades\Auth::user();
         $request->validate([
             'title' => 'required|string|max:255',
@@ -114,7 +115,6 @@ class ProductController extends Controller
             'bedrooms' => 'required|integer',
             'bathrooms' => 'required|integer',
             'area' => 'required|integer',
-            'features' => 'nullable|string',
             'category' => 'required|string',
             'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
             'images.*' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
@@ -129,7 +129,7 @@ class ProductController extends Controller
             }
         }
 
-        $product = new Product();
+        $product = new Product;
         $product->title = $request->title;
         $product->city_id = $request->city_id;
         $product->neighborhood_id = $request->neighborhood_id;
@@ -172,6 +172,11 @@ class ProductController extends Controller
         $product = Product::with('comments.likes')->findOrFail($id);
 
         return view('products.show', compact('product', 'cities'));
+    }
+
+    public function getFeaturesAttribute($value)
+    {
+        return explode(',', $value);
     }
 
     /**

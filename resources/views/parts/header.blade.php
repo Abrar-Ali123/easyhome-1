@@ -145,6 +145,10 @@
           <div class="dropdown-menu" id="dropdown-menu">
             <a href="#">الملف الشخصي</a>
             <a href="{{ route('logout') }}">تسجيل الخروج</a>
+            @if(Auth::user()->role == 0)
+    <a href="{{ route('dashboard.index') }}">لوحة التحكم</a>
+@endif
+
           </div>
         </li>
       @else

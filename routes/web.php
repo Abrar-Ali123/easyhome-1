@@ -6,16 +6,20 @@ use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\Auth\ResetPasswordController;
 use App\Http\Controllers\AuthCheckController;
+use App\Http\Controllers\CategoryBlogController;
 use App\Http\Controllers\CityController;
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\LikeController;
 use App\Http\Controllers\OrderController;
+use App\Http\Controllers\PostController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProductRequestController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
+
+Route::get('/posts', [PostController::class, 'userPosts'])->name('posts.user.index');
 
 Route::get('/auth/check', [AuthCheckController::class, 'check'])->name('auth.check');
 
@@ -25,16 +29,15 @@ Route::get('/', function () {
 
 Route::get('/contact/page1', [ContactController::class, 'createPage1'])->name('contact.page1');
 Route::get('/contact/page2', [ContactController::class, 'createPage2'])->name('contact.page2');
+Route::post('/contact/store', [ContactController::class, 'store'])->name('contact.store');
 
 Route::post('/contacts/store', [ContactController::class, 'store'])->name('contacts.store');
 
 Route::get('/admin/contacts', [ContactController::class, 'adminIndex'])->name('admin.contacts.index');
 Route::post('/admin/contacts/{id}/update', [ContactController::class, 'adminUpdate'])->name('admin.contacts.update');
 
-Route::get('/contact/page1', [ContactController::class, 'createPage1'])->name('contact.page1');
-Route::get('/contact/page2', [ContactController::class, 'createPage2'])->name('contact.page2');
-
 Route::post('/contacts/store', [ContactController::class, 'store'])->name('contacts.store');
+Route::get('/blog', [PostController::class, 'userIndex'])->name('blog.index');
 
 Route::get('/admin/contacts', [ContactController::class, 'adminIndex'])->name('admin.contacts.index');
 Route::post('/admin/contacts/{id}/update', [ContactController::class, 'adminUpdate'])->name('admin.contacts.update');
@@ -44,6 +47,8 @@ Route::middleware(['check.employee' => \App\Http\Middleware\CheckEmployeeRole::c
     Route::get('/contacts/{id}/edit', [ContactController::class, 'adminEdit'])->name('admin.contacts.edit');
     Route::put('/contacts/{id}', [ContactController::class, 'adminUpdate'])->name('admin.contacts.update');
     Route::post('/admin/contacts/{id}/update', [ContactController::class, 'adminUpdate'])->name('admin.contacts.update');
+    Route::resource('category_blog', CategoryBlogController::class);
+    Route::resource('posts', PostController::class);
 
     Route::get('/products', [ProductController::class, 'index'])->name('products.index');
     Route::get('/products/create', [ProductController::class, 'create'])->name('products.create');

@@ -52,20 +52,65 @@
 
 
 
+<br>
+<br>
+<br>
 
-@include('parts.search-filter') <!-- تضمين البحث والفلترة -->
-    @include('parts.property-list') <!-- تضمين عرض العقارات -->
+@include('parts.search-filter')
+
+
+    @include('parts.property-list')
 
 
 
 
 
-<section class="mt-8 flex ">
-    <button class="relative bg-primary font-bold py-4 px-8 rounded hover:bg-opacity-90 duration-300">
-        <span class="ml-12 text-white ">عرض المزيد</span>
-        <i class="fas fa-arrow-left absolute left-0 transform -translate-x-1/2 text-gold text-4xl  "></i>
-    </button>
-</section>
+    <div class="container my-5" style="background-color: var(--primary-color); color: var(--secondary-color);">
+    <h2 class="text-center mb-4" style="color: var(--secondary-color);">أحدث المنشورات</h2>
+    <div class="row g-4 justify-content-center">
+        @foreach($posts as $post)
+            <div class="col-12 col-sm-6 col-md-4 col-lg-3">
+                <div class="card h-100 shadow-sm" style="border: 1px solid var(--secondary-color); ">
+                    <!-- صورة البوست -->
+                    @if($post->image)
+                        <img src="{{ url('/storage/app/public/' . $post->image) }}" class="card-img-top" alt="{{ $post->title }}" style="height: 200px; object-fit: cover;">
+                    @else
+                        <img src="https://via.placeholder.com/400x250?text=No+Image" class="card-img-top" alt="No Image" style="height: 200px; object-fit: cover;">
+                    @endif
+                    <!-- محتوى البطاقة -->
+                    <div class="card-body text-center">
+                        <h5 class="card-title text-truncate" title="{{ $post->title }}" style="color: var(--secondary-color);">{{ $post->title }}</h5>
+                        <p class="card-text small" style="color: var(--secondary-color);">
+                            {{ \Illuminate\Support\Str::limit(strip_tags($post->content), 50, '...') }}
+                        </p>
+                        <a href="{{ route('posts.show', $post->id) }}" class="btn" style="background-color: var(--secondary-color); color: var(--primary-color);">قراءة المزيد</a>
+                    </div>
+                    <!-- تذييل البطاقة -->
+                    <div class="card-footer text-center" style="background-color: var(--primary-color-dark); color: var(--highlight-color);">
+                        <span><i class="fas fa-clock"></i> {{ $post->created_at->format('Y-m-d') }}</span>
+                    </div>
+                </div>
+            </div>
+        @endforeach
+    </div>
+
+    <section class="mt-5 d-flex justify-content-center">
+        <button class="py-2 px-4 rounded" style="background-color: var(--secondary-color); color: var(--primary-color); border: none;">
+            عرض المزيد
+            <i class="fas fa-arrow-left ms-2" style="color: var(--accent-color);"></i>
+        </button>
+    </section>
+</div>
+
+
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+
+
+
+
+
+
 
 
 <br>
@@ -187,6 +232,22 @@ body.dark-theme {
     transition: background-color 0.3s ease, box-shadow 0.3s ease;
 }
 
+
+/* الشاشات المتوسطة */
+@media (max-width: 1024px) {
+    .brand-section .brand-item {
+        max-width: calc(100% - 20px);
+
+    }
+}
+
+/* الشاشات الصغيرة */
+@media (max-width: 768px) {
+    .brand-section .brand-item {
+
+    }
+}
+
  .brand-section .brand-item img {
     width: 100%;
     height: 100%;
@@ -285,9 +346,6 @@ body.dark-theme .title:after {
         <img src="https://pbs.twimg.com/profile_images/1574351106846646272/OqMQuKsM_400x400.jpg" alt="Logo 4">
     </div>
 
-    <div class="brand-item">
-        <img src="https://saudipedia.com/saudipedia/uploads/images/2023/09/12/65807.jpg" alt="Logo 4">
-    </div>
 
 
 

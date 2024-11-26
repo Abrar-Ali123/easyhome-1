@@ -1,6 +1,16 @@
 <!DOCTYPE html>
-<html lang="ar">
+<html lang="ar" dir="rtl">
 <head>
+<link rel="icon" href="{{ asset('/images/9.png') }}">
+
+
+    <!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-PWNWC86L');</script>
+
 <meta charset="utf-8">
 
       <link href="{{ asset('css/home.css') }}" rel="stylesheet">
@@ -15,6 +25,10 @@
      <title>  easyhome</title>
      </head>
 <body>
+    <!-- Google Tag Manager (noscript) -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-PWNWC86L"
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+
  @include('parts.header')
  @include('parts.login_popup')
 

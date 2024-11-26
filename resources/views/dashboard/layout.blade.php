@@ -1,145 +1,277 @@
 <!DOCTYPE html>
-<html lang="{{ app()->getLocale() }}" dir="{{ app()->getLocale() === 'ar' ? 'rtl' : 'ltr' }}">
+<html lang="en" dir="ltr">
 <head>
+<link rel="icon" href="{{ asset('/images/9.png') }}">
+
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>لوحة التحكم - إدارة العقارات</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap{{ app()->getLocale() === 'ar' ? '.rtl' : '' }}.min.css" rel="stylesheet">
+    <title>easyhome</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
-        /* تهيئة الوضع الداكن */
-        body, html { height: 100%; margin: 0; }
-        body.dark-mode { background-color: #121212; color: #ffffff; transition: background-color 0.3s, color 0.3s; }
-        .dark-mode .navbar, .dark-mode .sidebar, .dark-mode .footer { background-color: #333 !important; color: #fff; }
+        :root {
+            --sidebar-width: 250px;
+            --transition-speed: 0.3s;
+        }
 
-        /* ضبط الهيدر ليكون ثابتًا أعلى الصفحة */
-        .navbar {
-            width: 100%;
-            height: 8vh; /* ارتفاع نسبي للهيدر */
+        body {
+            font-family: Arial, sans-serif;
+            transition: background-color var(--transition-speed), color var(--transition-speed);
+        }
+
+        .dark-mode {
+            background-color: #121212;
+            color: #f1f1f1;
+        }
+
+        .sidebar {
+            width: var(--sidebar-width);
+            height: 100vh;
             position: fixed;
             top: 0;
             left: 0;
-            z-index: 1050;
+            background-color: #343a40;
+            color: white;
+            overflow-y: auto;
+            transition: width var(--transition-speed);
         }
 
-        /* الشريط الجانبي يبدأ من أسفل الهيدر */
-        .sidebar {
-            width: 20vw;
-            height: calc(100vh - 8vh);
-            margin-top: 8vh;
-            position: fixed;
-            background-color: #f8f9fa;
-            transition: width 0.3s;
-            z-index: 1000;
+        .sidebar.collapsed {
+            width: 80px;
         }
-        /* عرض الشريط الجانبي على اليمين إذا كان الاتجاه RTL */
-        [dir="rtl"] .sidebar {
+
+        .sidebar .nav-link {
+            color: white;
+            transition: color var(--transition-speed);
+        }
+
+        .sidebar .nav-link:hover {
+            color: #17a2b8;
+        }
+
+        .sidebar.collapsed .nav-link span {
+            display: none;
+        }
+
+        .content {
+            margin-left: var(--sidebar-width);
+            padding: 20px;
+            transition: margin-left var(--transition-speed);
+        }
+
+        .content.full {
+            margin-left: 80px;
+        }
+
+        .dark-mode .sidebar {
+            background-color: #222;
+        }
+
+        .toggle-btn {
+            cursor: pointer;
+        }
+
+        .rtl {
+            direction: rtl;
+        }
+
+        .rtl .sidebar {
+            left: auto;
             right: 0;
         }
-        /* عرض الشريط الجانبي على اليسار إذا كان الاتجاه LTR */
-        [dir="ltr"] .sidebar {
-            left: 0;
+
+        .rtl .content {
+            margin-left: 0;
+            margin-right: var(--sidebar-width);
         }
 
-        .sidebar.collapsed { width: 8vw; }
-        .sidebar .menu-text { display: inline-block; transition: opacity 0.3s; }
-        .sidebar.collapsed .menu-text { opacity: 0; }
-
-        /* ضبط محتوى الصفحة */
-        .content-wrapper {
-            padding-top: 2vh;
-            padding-bottom: 8vh;
-            transition: margin-left 0.3s;
-        }
-        [dir="ltr"] .content-wrapper { margin-left: 20vw; }
-        [dir="rtl"] .content-wrapper { margin-right: 20vw; }
-        .sidebar.collapsed + .content-wrapper { margin-left: 8vw; }
-
-        /* التأكد من أن الفوتر يمتد لعرض الشاشة بالكامل */
-        .footer {
-            width: 100%;
-            height: 8vh;
-            position: fixed;
-            bottom: 0;
-            left: 0;
-            text-align: center;
-            padding: 1vh;
-            background-color: #f8f9fa;
+        .rtl .content.full {
+            margin-right: 80px;
         }
     </style>
 </head>
-<body class="{{ session('theme', 'light-mode') }}">
-    <div id="app" class="d-flex">
-        <!-- Sidebar -->
-        <div id="sidebar" class="sidebar">
-            <button onclick="toggleSidebar()" class="btn btn-outline-primary w-100 mt-2"><i class="fas fa-bars"></i></button>
-            <!-- روابط القائمة -->
-            <a href="#" class="d-flex align-items-center p-3 {{ request()->is('dashboard') ? 'active-link' : '' }}"><i class="fas fa-tachometer-alt me-2"></i><span class="menu-text">الرئيسية</span></a>
-            <!-- بقية الروابط -->
-            <button onclick="toggleTheme()" class="btn btn-secondary w-100 mt-3"><i id="themeIcon" class="fas fa-sun"></i></button>
-            <button onclick="toggleLanguage()" class="btn btn-info w-100 mt-2">{{ app()->getLocale() === 'ar' ? 'English' : 'العربية' }}</button>
-        </div>
+<body>
 
-        <!-- Content Wrapper -->
-        <div id="content-wrapper" class="content-wrapper">
-            <!-- Navbar -->
-            <nav class="navbar navbar-expand-lg navbar-light bg-light {{ session('theme') === 'dark-mode' ? 'dark-mode' : '' }}">
-                <div class="container-fluid">
-                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                        <span class="navbar-toggler-icon"></span>
-                    </button>
-                    <div class="collapse navbar-collapse" id="navbarNav">
-                        <ul class="navbar-nav ms-auto">
-                            <li class="nav-item">
-                                <a class="nav-link" href="#"><i class="fas fa-bell"></i> إشعارات</a>
-                            </li>
-                            <!-- باقي العناصر -->
-                        </ul>
-                    </div>
-                </div>
-            </nav>
-
-            <!-- Main Content -->
-            <main class="p-4">
-                @yield('content')
-            </main>
-
-            <!-- Footer -->
-            <footer class="footer bg-light {{ session('theme') === 'dark-mode' ? 'dark-mode' : '' }}">
-                &copy; {{ date('Y') }} جميع الحقوق محفوظة
-            </footer>
-        </div>
+<div class="sidebar" id="sidebar">
+    <div class="p-3">
+        <div class="sidebar-logo">
+        <a href="{{ route('dashboard.index') }}">
+            <img src="{{ asset('/images/9.png') }}" alt="Logo" class="logo-small">
+        </a>
     </div>
 
-    <!-- Scripts -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-    <script>
-    function toggleTheme() {
-        document.body.classList.toggle('dark-mode');
-        const theme = document.body.classList.contains('dark-mode') ? 'dark-mode' : 'light-mode';
-        localStorage.setItem('theme', theme);
+    <h5>لوحة التحكم</h5>
+
+
+        </li>
+
+
+     <button id="toggleSidebar" class="btn btn-secondary dark-mode-toggle">
+    <i class="fas fa-bars"></i>
+</button>
+
+<button  id="toggleDarkMode" class="btn btn-secondary dark-mode-toggle">
+    <i class="fas fa-moon"></i>
+</button>
+
+
+
+    </div>
+    <nav class="nav flex-column">
+        <a href="#" class="nav-link"><i class="fas fa-home"></i> <span>الرئيسية</span></a>
+        <a href="{{ route('category_blog.index') }}" class="nav-link">
+    <i class="fas fa-table"></i> <span>تصنيفات المدونة</span>
+</a>
+
+
+<a href="{{ route('posts.index') }}" class="nav-link">
+    <i class="fas fa-table"></i> <span>المدونة</span>
+</a>
+
+
+        <!-- رابط المنتجات -->
+        <li class="nav-item">
+            <a href="{{ route('products.index') }}" class="nav-link">
+                <i class="fas fa-box"></i> <span>العقارات</span>
+            </a>
+        </li>
+
+        <!-- رابط المدن -->
+        <li class="nav-item">
+            <a href="{{ route('cities.index') }}" class="nav-link">
+                <i class="fas fa-city"></i> <span>المدن</span>
+            </a>
+        </li>
+
+        <!-- رابط جهات الاتصال -->
+        <li class="nav-item">
+            <a href="{{ route('admin.contacts.index') }}" class="nav-link">
+                <i class="fas fa-address-book"></i> <span> الاتصال</span>
+            </a>
+        </li>
+
+
+
+
+
+     </nav>
+</div>
+
+<div class="content" id="content">
+    <div class="container-fluid">
+
+        @yield('content')
+
+
+ <script src="https://cdnjs.cloudflare.com/ajax/libs/sortable/1.15.0/Sortable.min.js"></script>
+<script>
+    const galleryContainer = document.getElementById('galleryContainer');
+
+    // Add Images to Gallery
+    function addImages(event) {
+        const files = event.target.files;
+        Array.from(files).forEach(file => {
+            const reader = new FileReader();
+            reader.onload = () => {
+                const imageContainer = document.createElement('div');
+                imageContainer.classList.add('image-wrapper');
+                imageContainer.innerHTML = `
+                    <div class="image-thumbnail" style="background-image: url('${reader.result}')"></div>
+                    <button class="btn btn-sm btn-danger remove-btn" onclick="removeImage(this)">Remove</button>
+                `;
+                galleryContainer.appendChild(imageContainer);
+            };
+            reader.readAsDataURL(file);
+        });
     }
 
-    function toggleSidebar() {
-        const sidebar = document.getElementById('sidebar');
-        sidebar.classList.toggle('collapsed');
-        localStorage.setItem('sidebarCollapsed', sidebar.classList.contains('collapsed') ? 'true' : 'false');
+    // Remove Image from Gallery
+    function removeImage(button) {
+        const imageWrapper = button.parentElement;
+        galleryContainer.removeChild(imageWrapper);
     }
 
-    function toggleLanguage() {
-        const currentLang = document.documentElement.getAttribute('lang');
-        const newLang = currentLang === 'ar' ? 'en' : 'ar';
-        document.documentElement.setAttribute('lang', newLang);
-        document.documentElement.setAttribute('dir', newLang === 'ar' ? 'rtl' : 'ltr');
-    }
-
-    window.addEventListener('load', () => {
-        const savedTheme = localStorage.getItem('theme');
-        if (savedTheme) document.body.classList.toggle('dark-mode', savedTheme === 'dark-mode');
-        const sidebar = document.getElementById('sidebar');
-        const sidebarCollapsed = localStorage.getItem('sidebarCollapsed') === 'true';
-        if (sidebarCollapsed) sidebar.classList.add('collapsed');
+    // Make Gallery Sortable
+    new Sortable(galleryContainer, {
+        animation: 150,
     });
-    </script>
+</script>
+
+<style>
+    #galleryContainer {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 15px;
+    }
+
+    .image-wrapper {
+        position: relative;
+        width: 150px;
+        height: 150px;
+    }
+
+    .image-thumbnail {
+        width: 100%;
+        height: 100%;
+        background-size: cover;
+        background-position: center;
+        border-radius: 10px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+
+    .remove-btn {
+        position: absolute;
+        top: 5px;
+        right: 5px;
+        background-color: rgba(255, 0, 0, 0.8);
+        border: none;
+        padding: 3px 8px;
+        color: white;
+        font-size: 12px;
+        cursor: pointer;
+        border-radius: 5px;
+    }
+
+    .remove-btn:hover {
+        background-color: rgba(255, 0, 0, 1);
+    }
+
+    .sidebar-logo {
+    text-align: left; /* محاذاة الشعار إلى اليسار */
+    padding: 10px;
+    padding-left: 15px; /* مسافة من اليسار لتناسب التصميم */
+}
+
+.sidebar-logo img.logo-small {
+    max-width: 50px; /* حجم الشعار */
+    height: auto;
+    display: inline-block;
+}
+
+
+</style>
+
+
+
+
+    </div>
+</div>
+
+<script>
+    const sidebar = document.getElementById('sidebar');
+    const content = document.getElementById('content');
+    const toggleSidebar = document.getElementById('toggleSidebar');
+    const toggleDarkMode = document.getElementById('toggleDarkMode');
+    toggleSidebar.addEventListener('click', () => {
+        sidebar.classList.toggle('collapsed');
+        content.classList.toggle('full');
+    });
+    toggleDarkMode.addEventListener('click', () => {
+        document.body.classList.toggle('dark-mode');
+    });
+    // RTL Toggle Example
+    document.body.classList.toggle('rtl', navigator.language === 'ar');
+</script>
+
 </body>
 </html>

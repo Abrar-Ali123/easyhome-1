@@ -21,8 +21,11 @@ class CreateContactsTable extends Migration
             $table->text('note')->nullable();
             $table->text('message')->nullable();
             $table->string('source')->default('contact');
-            $table->unsignedBigInteger('updated_by')->nullable(); // إزالة after('note')
+            $table->unsignedBigInteger('updated_by')->nullable();
             $table->foreign('updated_by')->references('id')->on('users')->onDelete('set null');
+
+            $table->unsignedBigInteger('product_id')->nullable();
+            $table->foreign('product_id')->references('id')->on('products')->onDelete('set null');
             $table->timestamps();
         });
     }

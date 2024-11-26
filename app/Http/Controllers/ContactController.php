@@ -32,6 +32,7 @@ class ContactController extends Controller
             'phone' => 'required|string|max:15',
             'message' => 'required|string',
             'source' => 'required|string',
+            'product_id' => 'nullable|exists:products,id',
 
         ]);
 

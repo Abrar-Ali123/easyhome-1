@@ -9,53 +9,40 @@ use Illuminate\Support\Facades\Storage;
 
 class ProductController extends Controller
 {
-    public function index1(Request $request)
+    public function index(Request $request)
     {
-        $query = Product::query();
+        $products = Product::query()
+            ->when($request->search, function ($query) use ($request) {
+                $query->where('title', 'like', '%'.$request->search.'%');
+            })
+            ->when($request->city_id, function ($query) use ($request) {
+                $query->where('city_id', $request->city_id);
+            })
+            ->when($request->min_price, function ($query) use ($request) {
+                $query->where('price', '>=', $request->min_price);
+            })
+            ->when($request->max_price, function ($query) use ($request) {
+                $query->where('price', '<=', $request->max_price);
+            })
+            ->when($request->bedrooms, function ($query) use ($request) {
+                $query->where('bedrooms', $request->bedrooms);
+            })
+            ->when($request->bathrooms, function ($query) use ($request) {
+                $query->where('bathrooms', $request->bathrooms);
+            })
+            ->when($request->min_area, function ($query) use ($request) {
+                $query->where('area', '>=', $request->min_area);
+            })
+            ->when($request->max_area, function ($query) use ($request) {
+                $query->where('area', '<=', $request->max_area);
+            })
+            ->paginate(9);
 
-        // البحث حسب الكلمات المفتاحية
-        if ($request->has('search')) {
-            $search = $request->input('search');
-            $query->where(function ($q) use ($search) {
-                $q->where('title', 'like', "%{$search}%")
-                    ->orWhere('description', 'like', "%{$search}%")
-                    ->orWhere('category', 'like', "%{$search}%")
-                    ->orWhere('features', 'like', "%{$search}%");
-            });
+        if ($request->ajax()) {
+            return view('parts.property-list', compact('products'))->render();
         }
 
-        // الفلترة حسب المدينة
-        if ($request->has('city_id') && ! empty($request->input('city_id'))) {
-            $query->where('city_id', $request->input('city_id'));
-        }
-
-        // الفلترة حسب السعر
-        if ($request->has('min_price') && $request->has('max_price')) {
-            $query->whereBetween('price', [$request->input('min_price'), $request->input('max_price')]);
-        }
-
-        // الفلترة حسب عدد الغرف
-        if ($request->has('bedrooms')) {
-            $query->where('bedrooms', $request->input('bedrooms'));
-        }
-
-        // الفلترة حسب عدد الحمامات
-        if ($request->has('bathrooms')) {
-            $query->where('bathrooms', $request->input('bathrooms'));
-        }
-
-        // الفلترة حسب المساحة
-        if ($request->has('min_area') && $request->has('max_area')) {
-            $query->whereBetween('area', [$request->input('min_area'), $request->input('max_area')]);
-        }
-
-        // إحضار النتائج مع التصفح
-        $products = $query->paginate(9);
-
-        // إحضار قائمة المدن للفلترة
-        $cities = City::all();
-
-        return view('product', compact('products', 'cities'));
+        return view('welcome', compact('products'));
     }
 
     /**
@@ -70,7 +57,7 @@ class ProductController extends Controller
         return view('single', compact('products'));
     }
 
-    public function index()
+    public function index1()
     {
 
         $products = Product::all();

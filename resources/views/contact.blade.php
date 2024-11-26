@@ -23,7 +23,9 @@
         <section class="etmam-section">
             <div class="text-center mb-4">
                 <h2 class="etmam-title">مزايا برنامج إنجاز</h2>
-                <p class="etmam-subtitle">لضمان راحتك وراحة عائلتك، بينك وبين بيتك خطوة</p>
+                <p class="etmam-subtitle">حيث تبدأ الراحة, منزلك هنا ليحتضن أحلامك وأمان عائلتك.
+
+</p>
             </div>
 
             <div class="feature-grid">

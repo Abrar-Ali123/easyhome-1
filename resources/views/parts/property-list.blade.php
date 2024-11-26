@@ -1,13 +1,13 @@
-<!-- resources/views/parts/property-list.blade.php -->
 <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
-<section class="mt-8 px-4">
+<section class="mt-8 px-4" style="direction: rtl;">
     <h2 class="text-2xl font-bold mb-4 text-center">العقارات</h2>
+    <div id="productsContainer" class="max-w-screen-xl mx-auto grid grid-cols-1 sm:grid-cols-3 gap-8">
+         @forelse($products as $product)
+        <div class="relative group overflow-hidden rounded-lg shadow-lg cursor-pointer" onclick="window.location='{{ route('products.show', ['product' => $product->id]) }}'">
 
-    <div class="max-w-screen-xl mx-auto grid grid-cols-1 sm:grid-cols-3 gap-8">
-        @forelse($products as $product)
-            <div class="relative group overflow-hidden rounded-lg shadow-lg">
-                <img src="{{ url('/storage/app/public/' . $product->image) }}" alt="Property Image" class="w-full h-full object-cover rounded-t-lg">
+                 <img src="{{ url('/storage/app/public/' . $product->image) }}" alt="Property Image" class="w-full h-full object-cover rounded-t-lg">
                 <div class="absolute top-4 right-4">
                     <div class="relative">
                         <i class="far fa-heart text-white text-2xl rounded-full"></i>

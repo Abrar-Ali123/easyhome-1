@@ -1,4 +1,4 @@
-@extends('layouts.dashboard')
+@extends('dashboard.layout')
 @section('content')
 <div class="container">
     <h1>عرض طلبات المنتجات</h1>

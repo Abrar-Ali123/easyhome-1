@@ -141,8 +141,16 @@
 
       @if(Auth::check())
         <li class="user-info" onclick="toggleDropdown()">
-          <img src="{{ Auth::user()->avatar ?? asset('/images/default-avatar.png') }}" class="avatar" alt="صورة المستخدم">
-          <div class="dropdown-menu" id="dropdown-menu">
+
+        @if (Auth::user()->avatar)
+
+ @else
+ <i class="fa fa-user-circle avatar-icon" aria-hidden="true"></i>
+
+    <i class="fa fa-user-circle avatar-icon" aria-hidden="true"></i>
+@endif
+
+        <div class="dropdown-menu" id="dropdown-menu">
             <a href="#">الملف الشخصي</a>
             <a href="{{ route('logout') }}">تسجيل الخروج</a>
             @if(Auth::user()->role == 0)
@@ -154,8 +162,9 @@
       @else
         <li>
           <a href="{{ route('login') }}">
-            <img src="{{ asset('/images/login-icon.png') }}" alt="تسجيل الدخول" class="avatar">
-          </a>
+          <i class="fa fa-user-circle avatar-icon" aria-hidden="true"></i>
+
+           </a>
         </li>
       @endif
     </ul>

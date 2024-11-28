@@ -50,7 +50,7 @@ Route::middleware(['check.employee' => \App\Http\Middleware\CheckEmployeeRole::c
     Route::resource('category_blog', CategoryBlogController::class);
     Route::resource('posts', PostController::class);
 
-    Route::get('/products', [ProductController::class, 'index'])->name('products.index');
+    Route::get('/products', [ProductController::class, 'index1'])->name('products.index');
     Route::get('/products/create', [ProductController::class, 'create'])->name('products.create');
     Route::post('/products', [ProductController::class, 'store'])->name('products.store');
     Route::get('/products/{product}', [ProductController::class, 'show'])->name('dashboard.products.show');

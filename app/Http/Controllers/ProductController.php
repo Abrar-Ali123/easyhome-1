@@ -18,6 +18,9 @@ class ProductController extends Controller
             ->when($request->city_id, function ($query) use ($request) {
                 $query->where('city_id', $request->city_id);
             })
+            ->when($request->neighborhood_id, function ($query) use ($request) {
+                $query->where('neighborhood_id', $request->neighborhood_id); // إضافة شرط الحي
+            })
             ->when($request->min_price, function ($query) use ($request) {
                 $query->where('price', '>=', $request->min_price);
             })

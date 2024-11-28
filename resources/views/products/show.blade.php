@@ -12,13 +12,13 @@
         متصفحك لا يدعم عرض الفيديو.
     </video>
     <div class="overlay absolute inset-0 bg-gradient-to-t from-black to-transparent opacity-80"></div>
-    <div class="absolute bottom-12 right-0 p-8 text-right text-white z-10">
-        <h1 class="text-4xl md:text-5xl font-bold animate-fade-in">            <h1 class="text-3xl sm:text-4xl font-bold text-center mb-4 text-primary">
-    {{ $product->title }}
-    </h1> </h1>
-        <p class="text-lg md:text-xl mt-2">      {{ $product->description }}</p>
+    <div class="absolute bottom-12 right-0 p-8 text-right text-white z-10 text-container">
+        <h1 class="text-4xl md:text-5xl font-bold animate-fade-in">{{ $product->title }}</h1>
+        <p class="text-lg md:text-xl mt-2">{{ $product->description }}</p>
     </div>
 </div>
+
+
 
 <div class="values-section py-12 bg-gray-100" id="values">
     <h2 class="text-4xl font-bold text-center mb-12 text-primary animate-fade-in-up">مميزات </h2>
@@ -31,6 +31,7 @@
         @endforeach
     </div>
 </div>
+<div class="product-info-container mx-auto mt-8 p-6 rounded-lg shadow-md bg-white">
 
 <div class="container_1 mt-16 px-4">
 
@@ -101,14 +102,61 @@
     @endphp
 
     <div class="video-container mt-12 flex justify-center">
-    <iframe class="w-full h-96 max-w-4xl rounded-lg shadow-md transition-transform duration-500 hover:scale-105"
-            src="https://www.youtube.com/embed/{{ $videoId }}?autoplay=0&mute=1"
+    <iframe class="rounded-lg shadow-md fit-video"
+            src="https://www.youtube.com/embed/{{ $videoId }}?autoplay=1&mute=1"
             title="YouTube video player"
             frameborder="0"
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
             allowfullscreen>
     </iframe>
 </div>
+
+ <style>
+ .video-container {
+    position: relative;
+    width: 100%;
+    max-width: 800px;
+    aspect-ratio: 16/9; /* لضبط نسبة العرض إلى الارتفاع */
+    overflow: hidden;
+}
+
+.video-container iframe {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* تغطية الإطار بالكامل */
+    transform: scale(2.1); /* تكبير الفيديو قليلاً لتغطية المساحات السوداء */
+}
+
+
+
+.product-info-container {
+    max-width: 90%; /* العرض النسبي لجعل الديف متجاوبًا */
+    background-color: #ffffff; /* خلفية بيضاء */
+    border-radius: 12px; /* زوايا مستديرة */
+    padding: 20px; /* حشوة داخلية */
+    margin-bottom: 20px; /* هوامش سفلية */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* ظل لطيف */
+    transition: transform 0.3s ease, box-shadow 0.3s ease; /* تأثير عند التفاعل */
+}
+
+.product-info-container:hover {
+    transform: translateY(-5px); /* رفع العنصر عند التمرير */
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15); /* زيادة الظل */
+}
+
+@media (min-width: 768px) {
+    .product-info-container {
+        max-width: 80%; /* زيادة العرض قليلاً على الشاشات المتوسطة */
+    }
+}
+
+@media (min-width: 1024px) {
+    .product-info-container {
+        max-width: 70%; /* عرض أكبر للشاشات الكبيرة */
+    }
+}
+
+    </style>
 
 </div>
 <br>
@@ -178,7 +226,7 @@
     </section>
 </div>
 
-
+</din>
 @if (session('success'))
    <script>
        document.addEventListener('DOMContentLoaded', function() {

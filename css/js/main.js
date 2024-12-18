@@ -55,27 +55,27 @@
     // Start things up
     themesflatTheme.init();
 
-    var retinaLogos = function() {
-        var retina = window.devicePixelRatio > 1 ? true : false;
-        if (retina) {
-            $('#site-logo-inner').find('img').attr({
-                src: 'assets/images/logo/logo@2x.png',
-                width: '197',
-                height: '48'
-            });
+    // var retinaLogos = function() {
+    //     var retina = window.devicePixelRatio > 1 ? true : false;
+    //     if (retina) {
+    //         $('#site-logo-inner').find('img').attr({
+    //             src: 'assets/images/logo/logo@2x.png',
+    //             width: '197',
+    //             height: '48'
+    //         });
 
-            $('#logo-footer.style').find('img').attr({
-                src: 'assets/images/logo/logo-footer@2x.png',
-                width: '197',
-                height: '48'
-            });
-            $('#logo-footer.style2').find('img').attr({
-                src: 'assets/images/logo/logo@2x.png',
-                width: '197',
-                height: '48'
-            });
-        }
-    };
+    //         $('#logo-footer.style').find('img').attr({
+    //             src: 'assets/images/logo/logo-footer@2x.png',
+    //             width: '197',
+    //             height: '48'
+    //         });
+    //         $('#logo-footer.style2').find('img').attr({
+    //             src: 'assets/images/logo/logo@2x.png',
+    //             width: '197',
+    //             height: '48'
+    //         });
+    //     }
+    // };
 
     var ajaxContactForm = function() {
         $('#contactform,#commentform').each(function() {
@@ -164,7 +164,7 @@
 
 
 
-    //  show logo home2 
+    //  show logo home2
     $('#showlogo').prepend('<a href="index.html"><img id="theImg" src="assets/images/logo/logo2.png" /></a>');
 
 

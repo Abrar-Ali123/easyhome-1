@@ -2,26 +2,29 @@
 <div id="loginPopup" class="popup-overlay hidden">
     <div class="overlay"></div>
     <div class="popup-content">
-         <h2 class="popup-title">تسجيل الدخول</h2>
+        <h2 class="popup-title">تسجيل الدخول</h2>
         <form method="POST" action="{{ route('login') }}">
             @csrf
             <div class="form-group">
                 <label for="email" class="label">البريد الإلكتروني</label>
-                <input id="email" type="email" class="input @error('email') error-input @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus>
+                <input id="email" type="email" class="input @error('email') error-input @enderror" name="email"
+                    value="{{ old('email') }}" required autocomplete="email" autofocus>
                 @error('email')
-                <p class="error-message">{{ $message }}</p>
+                    <p class="error-message">{{ $message }}</p>
                 @enderror
             </div>
             <div class="form-group">
                 <label for="password" class="label">كلمة المرور</label>
-                <input id="password" type="password" class="input @error('password') error-input @enderror" name="password" required autocomplete="current-password">
+                <input id="password" type="password" class="input @error('password') error-input @enderror"
+                    name="password" required autocomplete="current-password">
                 @error('password')
-                <p class="error-message">{{ $message }}</p>
+                    <p class="error-message">{{ $message }}</p>
                 @enderror
             </div>
             <div class="form-group remember-group">
                 <div class="checkbox-group">
-                    <input class="checkbox" type="checkbox" name="remember" id="remember" {{ old('remember') ? 'checked' : '' }}>
+                    <input class="checkbox" type="checkbox" name="remember" id="remember"
+                        {{ old('remember') ? 'checked' : '' }}>
                     <label class="checkbox-label" for="remember">تذكرني</label>
                 </div>
                 @if (Route::has('password.request'))
@@ -51,7 +54,7 @@
     .overlay {
         position: absolute;
         inset: 0;
-     }
+    }
 
     .popup-content {
         background-color: white;
@@ -157,7 +160,8 @@
     }
 
     .submit-button {
-        background-color: #003e37;;
+        background-color: #003e37;
+        ;
         color: white;
         font-weight: bold;
         padding: 0.5rem 1rem;
@@ -183,7 +187,4 @@
     .register-link:hover {
         color: #1e3a8a;
     }
-
-
 </style>
-

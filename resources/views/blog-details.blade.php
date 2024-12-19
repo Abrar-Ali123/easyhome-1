@@ -59,24 +59,21 @@
 
                         </div>
 
-                        <div class="content" style="margin-bottom: 30px">
-                            {!! $post->content !!}
-                        </div>
-
-                        {{-- <p class="content texts-2 fs-16 font-2 lh-29 text-color-2" > </p> --}}
+                        <p class="content texts-2 fs-16 font-2 lh-29 text-color-2">{!! $post->content !!} </p>
 
 
                         <div class="tag-wrap flex justify-space align-center">
                             <div class="tags-box">
                                 <div class="tags flex-three ">
-                                    <p>العلامات:</p>
+                                    <p>Tags:</p>
                                     <div class="flex fs-13 fw-6 link-style-1">
-                                        <a href="#">{{ $post->categoryBlog->name }}</a>
+                                        <a href="#">Personal</a>
+                                        <a href="#">Business</a>
                                     </div>
                                 </div>
                             </div>
                             <div class="share-box flex-three">
-                                <p>شارك هذا المنشور:</p>
+                                <p>Share this post:</p>
                                 <div class="icon-social">
                                     <a href="#"><i class="fab fa-facebook-f"></i></a>
                                     <a href="#"><i class="fab fa-twitter"></i></a>
@@ -87,7 +84,7 @@
                         </div>
                         <div class="wrap-review ">
                             <div class="box-title titles">
-                                <h3>تعليق (0)</h3>
+                                <h3>Comment (0)</h3>
                             </div>
                             <div class="comment-list">
                                 <ol class="">
@@ -289,13 +286,13 @@
                                             <input type="text" class="my-input" name="text" placeholder="اسمك"
                                                 required="">
                                         </fieldset>
-                                        <div class="row">
-                                            <fieldset class="wg-box col-6">
+                                        <div class="inner-1 form-wg flex">
+                                            <fieldset class="wg-box ">
                                                 <label class="fw-6">عنوان البريد الإلكتروني</label>
                                                 <input type="email" class="my-input" name="email"
                                                     placeholder="بريدك الإلكتروني" required="">
                                             </fieldset>
-                                            <fieldset class="wg-box col-6">
+                                            <fieldset class="wg-box ">
                                                 <label class="fw-6">رقم التليفون</label>
                                                 <input type="tel" class="my-input2" name="tel"
                                                     placeholder="هاتفك" required="">

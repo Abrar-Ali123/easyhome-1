@@ -11,7 +11,7 @@ class PostController extends Controller
 {
     public function userPosts()
     {
-        $posts = Post::paginate(10); // عرض المنشورات المنشورة فقط
+        $posts = Post::paginate(10);
 
         return view('posts.userindex', compact('posts'));
     }
@@ -27,7 +27,7 @@ class PostController extends Controller
 
     public function index()
     {
-        $posts = Post::paginate(10); // أو استخدم أي منطق يناسب عرض البوستات
+        $posts = Post::paginate(10);
 
         return view('posts.index', compact('posts'));
     }

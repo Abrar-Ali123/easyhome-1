@@ -18,9 +18,11 @@ class PostController extends Controller
 
     public function userIndex()
     {
-        $posts = Post::latest()->paginate(12); // جلب المنشورات مع تقسيم الصفحات
+        $posts = Post::latest()->paginate(12);
+        $firstPost = Post::latest()->first();
 
-        return view('posts.user_index', compact('posts'));
+
+        return view('posts.user_index', compact('posts', 'firstPost'));
     }
 
     public function index()

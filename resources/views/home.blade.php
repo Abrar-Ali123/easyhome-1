@@ -13,10 +13,11 @@
 
 
 
-    <div class="content">
-        @yield('content')
+    <div id="wrapper">
+        <div id="pagee" class="clearfix">
+            @yield('content')
+        </div>
     </div>
-
 
     @include('parts.footer')
 

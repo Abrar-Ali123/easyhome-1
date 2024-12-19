@@ -27,6 +27,15 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::get('contact/new', function () {
+    return view('contact2');
+});
+
+Route::get('blog/new', function () {
+    return view('blog');
+});
+
+
 Route::get('/contact/page1', [ContactController::class, 'createPage1'])->name('contact.page1');
 Route::get('/contact/page2', [ContactController::class, 'createPage2'])->name('contact.page2');
 Route::post('/contact/store', [ContactController::class, 'store'])->name('contact.store');
@@ -48,7 +57,6 @@ Route::middleware(['check.employee' => \App\Http\Middleware\CheckEmployeeRole::c
     Route::put('/contacts/{id}', [ContactController::class, 'adminUpdate'])->name('admin.contacts.update');
     Route::post('/admin/contacts/{id}/update', [ContactController::class, 'adminUpdate'])->name('admin.contacts.update');
     Route::resource('category_blog', CategoryBlogController::class);
-    Route::resource('posts', PostController::class);
 
     Route::get('/products', [ProductController::class, 'index1'])->name('products.index');
     Route::get('/products/create', [ProductController::class, 'create'])->name('products.create');
@@ -113,3 +121,4 @@ Route::get('/get-neighborhoods/{cityId}', [ProductRequestController::class, 'get
 
 Route::get('/contacts/create', [ContactController::class, 'create'])->name('contacts.create');
 Route::post('/contacts/store', [ContactController::class, 'store'])->name('contacts.store');
+Route::resource('posts', PostController::class);

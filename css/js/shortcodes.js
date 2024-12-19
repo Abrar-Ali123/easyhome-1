@@ -240,7 +240,7 @@
                 size: 68,
                 scaleColor: false,
                 barColor: '#FFF5E0',
-                trackColor: '#FFA920',
+                trackColor: '#b38f39',
                 animate: 5000,
                 onStep: function(from, to, percent) {
                     $(this.el).find('.percent').text(Math.round(percent));
@@ -305,7 +305,7 @@
     //         }
     //     });
     //     }
-    // } 
+    // }
 
     var donatProgress = function() {
         $(".content-progress-box").appear(function() {

@@ -55,7 +55,7 @@
                                         تسجيل الخروج
                                     </a>
                                 @else
-                                    <a class="sc-button btn-icon " href="{{ route('login') }}">
+                                    <a class="sc-button btn-icon " data-toggle="modal" data-target="#popup_bid" href="{{ route('login') }}">
                                         تسجيل دخول
                                     </a>
 

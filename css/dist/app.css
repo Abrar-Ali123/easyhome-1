@@ -1818,7 +1818,7 @@
 }
 
 .flat-featured.home {
-    padding: 0px 0 71px;
+    padding: 70px 0 71px;
 }
 
 .flat-featured.home4 {
@@ -4972,12 +4972,15 @@
     background-image: url(./../../assets/images/section/bg-icon.jpg);
     background-repeat: no-repeat;
     background-size: cover;
+    background: #16151b;
 }
 
 .flat-service .box {
-    background-color: #fff;
+    background-color: #0c2321;
     padding: 30px;
     border-radius: 10px;
+    color: #fff;
+    min-height: 270px;
 }
 
 .flat-service .box:hover .icon svg {

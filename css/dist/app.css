@@ -1718,7 +1718,7 @@
     cursor: pointer;
     width: 112px;
     height: 54px;
-    background-color: #fff5e0;
+    background-color: #b38f39;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -2083,7 +2083,8 @@
 }
 
 .wg-dream .icons span:nth-child(1) {
-    margin-right: 4px;
+    margin-left: 4px;
+    color: #fff;
 }
 
 .wg-dream .days-box .compare::before {
@@ -5096,6 +5097,7 @@
 
 .flat-property-detail .wrap-house .title-heading {
     margin-bottom: 14px;
+    color: #fff;
 }
 
 .flat-property-detail .wrap-house .inner {
@@ -5104,7 +5106,7 @@
 
 .flat-property-detail .wrap-house .inner .text-address {
     margin-bottom: 0;
-    margin-right: 15px;
+    margin-left: 15px;
 }
 
 .flat-property-detail .wrap-house .inner .sales {
@@ -5116,15 +5118,16 @@
     align-items: center;
     justify-content: center;
     border-radius: 5px;
-    margin-right: 13px;
+    margin-left: 13px;
 }
 
 .flat-property-detail .wrap-house .inner .icon-inner .years-icon {
-    margin-right: 10px;
+    margin-left: 10px;
 }
 
 .flat-property-detail .wrap-house .inner .icon-inner i {
-    margin-right: 6px;
+    margin-left: 6px;
+    color: #fff;
 }
 
 .flat-property-detail .wrap-house .icon-box {
@@ -5250,12 +5253,13 @@
     padding-bottom: 12px;
     margin-bottom: 20px;
     border-bottom: 1px solid #efefef;
+    color: #fff;
 }
 
 .flat-property-detail .wrap-style {
     margin-bottom: 30px;
     border-radius: 10px;
-    box-shadow: 0px 4px 18px 0px rgba(0, 0, 0, 0.0784313725);
+    box-shadow: 0px 4px 18px 0px rgb(92 90 90 / 8%);
 }
 
 .flat-property-detail .wrap-style:last-child {
@@ -5280,7 +5284,7 @@
     border-radius: 10px;
     border: 1px solid #e5e5ea;
     margin-bottom: 19px;
-    margin-right: 14px;
+    margin-left: 14px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -5544,7 +5548,7 @@
 }
 
 .flat-property-detail .wrap-walksore .progress-box .progress-walk {
-    margin-right: 20px;
+    margin-left: 20px;
 }
 
 .flat-property-detail .wrap-walksore .progress-box .progress-walk svg {
@@ -8680,7 +8684,7 @@
 }
 
 .side-bar .author-box .image-author {
-    margin-right: 17px;
+    margin-left: 17px;
 }
 
 .side-bar .author-box .image-author img {
@@ -8795,6 +8799,7 @@
 .side-bar .widget-tour .comments .comment-form .nice-select {
     padding: 16px 20px 14px 17px;
     margin-bottom: 9px;
+    color: #fff;
 }
 
 .side-bar .widget-tour .comments .comment-form button {
@@ -8819,7 +8824,7 @@
 }
 
 .side-bar .widget-tour .widget-form .sub-title {
-    margin-right: 3px;
+    margin-left: 3px;
     margin-top: 1px;
 }
 
@@ -10363,6 +10368,7 @@ video {
     font-size: 100%;
     font-style: inherit;
     font-weight: inherit;
+    color: #fff;
 }
 
 article,
@@ -10809,6 +10815,7 @@ button {
 
 .font-2 {
     font-family: "Mulish", sans-serif;
+    color: #fff;
 }
 
 .fw-1 {
@@ -10826,6 +10833,7 @@ button {
 
 .fw-6 {
     font-weight: 600;
+    color: #fff;
 }
 
 .fw-7 {

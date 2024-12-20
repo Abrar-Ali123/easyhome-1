@@ -27,12 +27,8 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('contact/new', function () {
-    return view('contact2');
-});
-
-Route::get('blog/new', function () {
-    return view('blog');
+Route::get('property/details', function () {
+    return view('property-details');
 });
 
 

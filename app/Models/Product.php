@@ -21,6 +21,11 @@ class Product extends Model
         'images', // إذا كنت تستخدم حقل متعدد للصور
         'city_id',
         'neighborhood_id',
+        'monthly_installment',
+        'ad_number',
+        'property_usage',
+        'property_facade',
+        'profile_project',
     ];
 
     const CATEGORIES = [

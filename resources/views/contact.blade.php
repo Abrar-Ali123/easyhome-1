@@ -2,6 +2,11 @@
 
 
 @section('content')
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet"
+        crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
     @if ($source == 'page1')
         <section class="contact-section tf-section">
             <div class="text-center">
@@ -180,8 +185,8 @@
             </div>
         </div>
         <!-- <div class="mark-img">
-                                                        <img src="{{ asset('') }}/images/mark/mark-vector.png" alt="images">
-                                                    </div> -->
+                                                            <img src="{{ asset('') }}/images/mark/mark-vector.png" alt="images">
+                                                        </div> -->
     </section>
 
     <section class="flat-map">

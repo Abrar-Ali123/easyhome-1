@@ -67,7 +67,7 @@
                                 <div class="inner-container flex justify-space align-center">
                                     <!-- Logo Box -->
                                     <div class="logo-box flex">
-                                        <div class="logo"><a href="index.html"><img src="assets/images/logo/logo@2x.png" alt="" width="197" height="48"></a></div>
+                                        <div class="logo"><a href="{{ url('/') }}"><img src="assets/images/logo/logo@2x.png" alt="" width="197" height="48"></a></div>
                                     </div>
                                     <div class="nav-outer flex align-center">
                                         <!-- Main Menu -->
@@ -76,7 +76,7 @@
                                                 <ul class="navigation clearfix">
                                                     <li class="dropdown2"><a href="#">Home</a>
                                                         <ul>
-                                                            <li><a href="index.html">Home Page 01</a></li>
+                                                            <li><a href="{{ url('/') }}">Home Page 01</a></li>
                                                             <li><a href="home02.html">Home Page 02</a></li>
                                                             <li><a href="home03.html">Home Page 03</a></li>
                                                             <li><a href="home04.html">Home Page 04</a></li>
@@ -194,7 +194,7 @@
                 <div class="mobile-menu">
                     <div class="menu-backdrop"></div>
                     <nav class="menu-box">
-                        <div class="nav-logo"><a href="index.html"><img src="assets/images/logo/logo@2x.png" alt="" width="197" height="48"></a></div>
+                        <div class="nav-logo"><a href="{{ url('/') }}"><img src="assets/images/logo/logo@2x.png" alt="" width="197" height="48"></a></div>
                         <div class="bottom-canvas">
                             <div class="login-box flex align-center">
                                 <svg width="22" height="22" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -264,7 +264,7 @@
                     <div class="row">
                         <div class="col-lg-12">
                             <div class="title-inner style-detail">
-                                <div class="title-group fs-12"><a class="home fw-6 text-color-3" href="index.html">Home</a><span>Property Listing</span></div>
+                                <div class="title-group fs-12"><a class="home fw-6 text-color-3" href="{{ url('/') }}">Home</a><span>Property Listing</span></div>
                             </div>
                         </div>
                     </div>
@@ -1835,13 +1835,13 @@
                         <div class="col-lg-12">
                             <div class="wrap-logo flex align-center justify-space">
                                 <div class="logo-footer style box-1" id="logo-footer">
-                                    <a href="index.html">
+                                    <a href="{{ url('/') }}">
                                         <img src="assets/images/logo/logo-footer@2x.png" alt="img" width="197" height="48">
                                     </a>
                                 </div>
                                 <div class="box-menu box-2">
                                     <ul class="menu-bottom flex align-center fs-16 fw-6">
-                                        <li><a href="index.html">Home</a> </li>
+                                        <li><a href="{{ url('/') }}">Home</a> </li>
                                         <li><a href="properties-grid.html">Property</a> </li>
                                         <li><a href="agents.html">Agents</a> </li>
                                         <li><a href="blog.html">Blog</a> </li>

@@ -7,7 +7,7 @@
                     <div class="inner-container flex justify-space align-center">
                         <!-- Logo Box -->
                         <div class="logo-box flex">
-                            <div class="logo"><a href="index.html"><img src="{{ asset('/images/9.png') }}"
+                            <div class="logo"><a href="{{ url('/') }}"><img src="{{ asset('/images/9.png') }}"
                                         alt="" width="70"></a></div>
                         </div>
                         <div class="nav-outer flex align-center">
@@ -78,7 +78,7 @@
     <div class="mobile-menu">
         <div class="menu-backdrop"></div>
         <nav class="menu-box">
-            <div class="nav-logo"><a href="index.html"><img src="assets/images/logo/logo@2x.png" alt=""
+            <div class="nav-logo"><a href="{{ url('/') }}"><img src="assets/images/logo/logo@2x.png" alt=""
                         width="197" height="48"></a></div>
             <div class="bottom-canvas">
                 <div class="login-box flex align-center">

@@ -9,7 +9,7 @@
         crossorigin="anonymous" referrerpolicy="no-referrer" />
 
     <link href="{{ asset('css/dist/font-awesome.css') }}" rel="stylesheet">
-    <link href="{{ asset('css/dist/app.css') }}?v=34" rel="stylesheet">
+    <link href="{{ asset('css/dist/app.css') }}?v=45" rel="stylesheet">
     <link href="{{ asset('css/dist/responsive.css') }}" rel="stylesheet">
     <link href="{{ asset('css/dist/owl.css') }}" rel="stylesheet">
 

@@ -58,18 +58,21 @@
                     <div class="wrap-house wg-dream flex bg-white">
                         <div class="box-1">
                             <div class="title-heading fs-30 fw-7 lh-45">{{ $product->title }}</div>
+                            <div class="title-heading fs-20 fw-7 lh-45">اعلان رقم: {{ $product->ad_number }}</div>
+
                             <div class="inner flex">
                                 <div class="sales fs-12 fw-7 font-2 text-color-1">For sale</div>
-                                <div class="text-address">
-                                    <p>{{ $product->location }}</p>
+                                <div class="text-address flex align-center">
+                                    <i class="fa-solid fa-location-dot" style="margin-left: 5px"></i>
+                                    <p>{{ $product->city->name . ' - ' . $product->neighborhood->name }}</p>
                                 </div>
                                 <div class="icon-inner flex">
                                     <div class="years-icon flex align-center">
-                                        <i class="fal fa-calendar"></i>
+                                        <i class="fas fa-calendar"></i>
                                         <p class="text-color-2">{{ $product->created_at->diffForHumans() }}</p>
                                     </div>
                                     <div class="view-icon flex align-center">
-                                        <i class="far fa-eye"></i>
+                                        <i class="fa-solid fa-eye"></i>
                                         <p class="text-color-2">4.529 Views</p>
                                     </div>
                                 </div>
@@ -124,7 +127,14 @@
                                 </a>
                             </div>
                             <div class="moneys fs-30 fw-7 lh-45 text-color-3">{{ $product->price }} ريال سعودي</div>
-                            <div class="text-sq fs-12 lh-16">1964 Sq Ft</div>
+                            <div class="moneys fs-15 fw-7 lh-45 text-color-3">القسط الشهري: {{ $product->price }} ريال
+                                سعودي</div>
+                                <div class="button-box sc-btn-top center flex justify-space">
+                                    <a href="{{ url('/storage/app/public/' . $product->profile_project) }}" target="_blank" class="profile-proj-btn sc-button btn-svg">
+                                        <span>بروفايل المشروع</span>
+                                    </a>
+                                </div>
+
                         </div>
                     </div>
                 </div>
@@ -137,23 +147,23 @@
                     <div class="post">
                         <div class="wrap-overview wrap-style">
                             <h3 class="titles">ملخص</h3>
-                            <div class="icon-wrap flex">
-                                <div class="box-icon">
+                            <div class="icon-wrap row">
+                                <div class="box-icon col-6 col-md-3">
                                     <div class="inner flex">
                                         <div class="icon">
                                             <svg width="18" height="18" viewBox="0 0 18 18" fill="none"
                                                 xmlns="http://www.w3.org/2000/svg">
                                                 <path
                                                     d="M17.691 16.465H15.2848V1.22595C15.2848 1.14998 15.2568 1.07669 15.2062 1.02006C15.1556 0.963431 15.0859 0.927444 15.0104 0.918975L6.88567 0.00194478C6.84244 -0.00292852 6.79866 0.00138197 6.7572 0.0145944C6.71574 0.0278068 6.67754 0.0496235 6.6451 0.0786168C6.61265 0.10761 6.5867 0.143127 6.56892 0.182844C6.55115 0.22256 6.54197 0.265582 6.54197 0.309093V0.916856H3.02433C2.94235 0.916856 2.86373 0.94942 2.80577 1.00739C2.7478 1.06535 2.71524 1.14397 2.71524 1.22595V16.465H0.309091C0.227115 16.465 0.148497 16.4976 0.0905309 16.5556C0.032565 16.6135 0 16.6922 0 16.7741C0 16.8561 0.032565 16.9347 0.0905309 16.9927C0.148497 17.0507 0.227115 17.0832 0.309091 17.0832H6.54197V17.691C6.54197 17.773 6.57453 17.8516 6.6325 17.9095C6.69046 17.9675 6.76908 18.0001 6.85106 18.0001C6.86286 18.0002 6.87466 17.9995 6.88638 17.9981L14.9934 17.0832H17.6915C17.7735 17.0832 17.8521 17.0507 17.9101 16.9927C17.968 16.9347 18.0006 16.8561 18.0006 16.7741C18.0006 16.6922 17.968 16.6135 17.9101 16.5556C17.8521 16.4976 17.7735 16.465 17.6915 16.465H17.691ZM3.33342 1.53504H6.54197V2.32985H4.43714C4.35517 2.32985 4.27655 2.36241 4.21858 2.42038C4.16061 2.47834 4.12805 2.55696 4.12805 2.63894V16.465H3.33324L3.33342 1.53504ZM4.74641 16.465V2.94803H6.54197V16.465H4.74641ZM7.16015 0.654923L14.6667 1.50272V16.4981L7.16015 17.3459V0.654923Z"
-                                                    fill="black" />
+                                                    fill="white" />
                                                 <path
                                                     d="M8.49017 8.0802C8.30824 8.0802 8.13039 8.13415 7.97912 8.23522C7.82785 8.3363 7.70995 8.47996 7.64033 8.64804C7.57071 8.81612 7.55249 9.00108 7.58799 9.17951C7.62348 9.35795 7.71109 9.52185 7.83973 9.65049C7.96838 9.77914 8.13228 9.86675 8.31071 9.90224C8.48915 9.93773 8.6741 9.91951 8.84218 9.84989C9.01026 9.78027 9.15393 9.66237 9.255 9.5111C9.35608 9.35983 9.41003 9.18199 9.41003 9.00006C9.40974 8.75618 9.31274 8.52238 9.1403 8.34993C8.96785 8.17748 8.73404 8.08048 8.49017 8.0802ZM8.49017 9.30173C8.4305 9.30173 8.37218 9.28404 8.32257 9.25089C8.27296 9.21774 8.23429 9.17063 8.21146 9.1155C8.18863 9.06038 8.18265 8.99972 8.19429 8.9412C8.20593 8.88268 8.23466 8.82893 8.27685 8.78674C8.31904 8.74455 8.3728 8.71582 8.43132 8.70418C8.48983 8.69254 8.55049 8.69851 8.60561 8.72135C8.66074 8.74418 8.70785 8.78285 8.741 8.83246C8.77415 8.88207 8.79184 8.94039 8.79184 9.00006C8.79175 9.08004 8.75994 9.15671 8.70338 9.21327C8.64683 9.26982 8.57015 9.30164 8.49017 9.30173Z"
-                                                    fill="black" />
+                                                    fill="white" />
                                             </svg>
                                         </div>
                                         <div class="content">
-                                            <div class="font-2">Rooms</div>
-                                            <div class="font-2 fw-7">8</div>
+                                            <div class="font-2">غرف</div>
+                                            <div class="font-2 fw-7">{{ $product->bedrooms }}</div>
                                         </div>
                                     </div>
                                     <div class="inner flex">
@@ -169,12 +179,13 @@
                                             </svg>
                                         </div>
                                         <div class="content">
-                                            <div class="font-2 ">Year built:</div>
+                                            <div class="font-2 ">بنيت سنة:</div>
                                             <div class="font-2 fw-7">2015</div>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="box-icon">
+
+                                <div class="box-icon col-6 col-md-3">
                                     <div class="inner flex">
                                         <div class="icon">
                                             <svg width="16" height="17" viewBox="0 0 16 17" fill="none"
@@ -185,7 +196,7 @@
                                             </svg>
                                         </div>
                                         <div class="content">
-                                            <div class="font-2">Baths:</div>
+                                            <div class="font-2">حمامات:</div>
                                             <div class="font-2 fw-7">{{ $product->bathrooms }}</div>
                                         </div>
                                     </div>
@@ -199,26 +210,12 @@
                                             </svg>
                                         </div>
                                         <div class="content">
-                                            <div class="font-2">Property type:</div>
+                                            <div class="font-2">نوع الخاصية:</div>
                                             <div class="font-2 fw-7">Villa</div>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="box-icon">
-                                    <div class="inner flex">
-                                        <div class="icon">
-                                            <svg width="16" height="17" viewBox="0 0 16 17" fill="none"
-                                                xmlns="http://www.w3.org/2000/svg">
-                                                <path
-                                                    d="M14.1805 7.67821V3.22946C14.1805 2.32484 13.4445 1.58887 12.5399 1.58887H3.46003C2.55541 1.58887 1.8195 2.32484 1.8195 3.22946V7.67821C0.777125 7.92896 0 8.86855 0 9.98677V13.305C0 13.5682 0.213406 13.7816 0.476656 13.7816H1.81947V14.9345C1.81947 15.1977 2.03288 15.4111 2.29612 15.4111C2.55937 15.4111 2.77278 15.1977 2.77278 14.9345V13.7816H13.2272V14.9345C13.2272 15.1977 13.4406 15.4111 13.7038 15.4111C13.9671 15.4111 14.1805 15.1977 14.1805 14.9345V13.7816H15.5233C15.7865 13.7816 15.9999 13.5682 15.9999 13.305V9.98677C16 8.86855 15.2229 7.92896 14.1805 7.67821ZM2.77281 3.22946C2.77281 2.85052 3.08113 2.54221 3.46003 2.54221H12.5399C12.9189 2.54221 13.2272 2.85052 13.2272 3.22946V7.61202H11.652V6.86002C11.652 5.61409 10.6384 4.60046 9.39247 4.60046H6.60759C5.36166 4.60046 4.34803 5.61412 4.34803 6.86002V7.61199H2.77281V3.22946ZM10.6987 6.86002V7.61199H5.30128V6.86002C5.30128 6.13974 5.88725 5.55377 6.60753 5.55377H9.39244C10.1127 5.55374 10.6987 6.13977 10.6987 6.86002ZM0.953313 12.8283V9.98677C0.953313 9.20299 1.59097 8.56534 2.37475 8.56534H13.6252C14.409 8.56534 15.0466 9.20299 15.0466 9.98677V12.8283H0.953313Z"
-                                                    fill="#8E8E93" />
-                                            </svg>
-                                        </div>
-                                        <div class="content">
-                                            <div class="font-2">Bed:</div>
-                                            <div class="font-2 fw-7">{{ $product->bedrooms }}</div>
-                                        </div>
-                                    </div>
+                                <div class="box-icon col-6 col-md-3">
                                     <div class="inner flex">
                                         <div class="icon">
                                             <svg width="18" height="16" viewBox="0 0 18 16" fill="none"
@@ -233,12 +230,32 @@
                                             </svg>
                                         </div>
                                         <div class="content">
-                                            <div class="font-2">Garage:</div>
+                                            <div class="font-2">المرآب:</div>
                                             <div class="font-2 fw-7">1</div>
                                         </div>
                                     </div>
+                                    <div class="inner flex">
+                                        <div class="icon">
+                                            <svg width="18" height="16" viewBox="0 0 18 16" fill="none"
+                                                xmlns="http://www.w3.org/2000/svg">
+                                                <path
+                                                    d="M0.588634 14.6051H17.4112M16.3933 4.65453V14.6051H1.60654V4.62514M17.4764 4.87532L8.99991 1.3949L0.523438 4.87532M3.72978 8.32286H14.2701M3.72978 10.417H14.2701M3.72978 12.5111H14.2701"
+                                                    stroke="#fff" stroke-miterlimit="10" stroke-linecap="round"
+                                                    stroke-linejoin="round" />
+                                                <path d="M3.73047 6.22876H14.2707V14.6051H3.73047V6.22876Z" stroke="#fff"
+                                                    stroke-miterlimit="10" stroke-linecap="round"
+                                                    stroke-linejoin="round" />
+                                            </svg>
+                                        </div>
+                                        <div class="content ms-2">
+                                            <div class="font-2 fw-bold">استخدام العقار:</div>
+                                            <div class="font-2 fw-7">{{ $product->property_usage }}</div>
+                                        </div>
+                                    </div>
+
                                 </div>
-                                <div class="box-icon">
+
+                                <div class="box-icon col-6 col-md-3">
                                     <div class="inner flex">
                                         <div class="icon">
                                             <svg width="18" height="14" viewBox="0 0 18 14" fill="none"
@@ -252,94 +269,81 @@
                                             </svg>
                                         </div>
                                         <div class="content">
-                                            <div class="font-2">Size:</div>
+                                            <div class="font-2">مقاس:</div>
                                             <div class="font-2 fw-7">{{ $product->area }} Sq Ft</div>
                                         </div>
                                     </div>
+                                    <div class="inner flex">
+                                        <div class="icon">
+                                            <svg width="18" height="16" viewBox="0 0 18 16" fill="none"
+                                                xmlns="http://www.w3.org/2000/svg">
+                                                <path
+                                                    d="M0.588634 14.6051H17.4112M16.3933 4.65453V14.6051H1.60654V4.62514M17.4764 4.87532L8.99991 1.3949L0.523438 4.87532M3.72978 8.32286H14.2701M3.72978 10.417H14.2701M3.72978 12.5111H14.2701"
+                                                    stroke="#fff" stroke-miterlimit="10" stroke-linecap="round"
+                                                    stroke-linejoin="round" />
+                                                <path d="M3.73047 6.22876H14.2707V14.6051H3.73047V6.22876Z" stroke="#fff"
+                                                    stroke-miterlimit="10" stroke-linecap="round"
+                                                    stroke-linejoin="round" />
+                                            </svg>
+                                        </div>
+                                        <div class="content ms-2">
+                                            <div class="font-2 fw-bold">واجهة العقار:</div>
+                                            <div class="font-2 fw-7">{{ $product->property_facade }}</div>
+                                        </div>
+                                    </div>
+
                                 </div>
+
                             </div>
 
                         </div>
                         <div class="wrap-text wrap-style">
-                            <h3 class="titles">وصف الخاصية</h3>
+                            <h3 class="titles">وصف العقار</h3>
                             <p class="text-1 text-color-2">{{ $product->description }}</p>
                             <a href="#" class="fw-6">تظهر المزيد</a>
                         </div>
                         <div class="wrap-featured wrap-style tf-amenities">
-                            <h3 class="titles">Featured</h3>
+                            <h3 class="titles">المميزات</h3>
+
                             <div class="box-featured flex">
-                                <div class="inner-1">
-                                    <div class="subtitle title-1 fw-6">Outdoor features</div>
-                                    <label class="flex"><input name="newsletter" type="checkbox" checked />
-                                        <span class="btn-checkbox"></span><span class="fs-13">Swimming pool</span>
-                                    </label>
-                                    <label class="flex"><input name="newsletter" type="checkbox" checked />
-                                        <span class="btn-checkbox"></span><span class="fs-13">Balcony</span>
-                                    </label>
-                                    <label class="flex"><input name="newsletter" type="checkbox" checked />
-                                        <span class="btn-checkbox"></span><span class="fs-13">Undercover parking</span>
-                                    </label>
+                                @foreach ($product->features as $feature)
+                                    <div class="inner-1">
+
+                                        <label class="flex align-items-center">
+                                            <span class="btn-checkbox"><i
+                                                    class="{{ $product->getFeatureIcon($feature) }} text-4xl text-primary mb-4"></i></span>
+
+
+
+                                            <span class="fs-13">{{ trim($feature) }}</span>
+                                        </label>
+                                    </div>
+                                @endforeach
+
+                            </div>
+                        </div>
+
+                        <div class="wrap-virtual wrap-style">
+                            <h3 class="titles">تصميم عقاري</h3>
+                            <div class="virtual-box relative flex align-center justify-center">
+                                <div class="images">
+                                    <img class="img-2" src="{{ asset('') }}/images/img-box/property-6.jpg"
+                                        alt="images">
                                 </div>
-                                <div class="inner-2">
-                                    <label class="flex"><input name="newsletter" type="checkbox" checked />
-                                        <span class="btn-checkbox"></span><span class="fs-13">Tennis court</span>
-                                    </label>
-                                    <label class="flex"><input name="newsletter" type="checkbox" checked />
-                                        <span class="btn-checkbox"></span><span class="fs-13">Garage</span>
-                                    </label>
-                                    <label class="flex"><input name="newsletter" type="checkbox" checked />
-                                        <span class="btn-checkbox"></span><span class="fs-13">Outdoor area</span>
-                                    </label>
-                                </div>
-                                <div class="inner-3">
-                                    <div class="subtitle title-1 fw-6">Indoor features</div>
-                                    <label class="flex"><input name="newsletter" type="checkbox" checked />
-                                        <span class="btn-checkbox"></span><span class="fs-13">Ensuite</span>
-                                    </label>
-                                    <label class="flex"><input name="newsletter" type="checkbox" checked />
-                                        <span class="btn-checkbox"></span><span class="fs-13">Study</span>
-                                    </label>
-                                    <label class="flex"><input name="newsletter" type="checkbox" checked />
-                                        <span class="btn-checkbox"></span><span class="fs-13">Alarm system</span>
-                                    </label>
-                                </div>
-                                <div class="inner-4">
-                                    <label class="flex"><input name="newsletter" type="checkbox" checked />
-                                        <span class="btn-checkbox"></span><span class="fs-13">Dishwasher</span>
-                                    </label>
-                                    <label class="flex"><input name="newsletter" type="checkbox" checked />
-                                        <span class="btn-checkbox"></span><span class="fs-13">Built in robes</span>
-                                    </label>
-                                    <label class="flex"><input name="newsletter" type="checkbox" checked />
-                                        <span class="btn-checkbox"></span><span class="fs-13">Broadband</span>
-                                    </label>
+                                <div class="icon absolute">
+                                    <svg width="50" height="50" viewBox="0 0 50 50" fill="none"
+                                        xmlns="http://www.w3.org/2000/svg">
+                                        <path
+                                            d="M49.9216 23.8206C49.8503 23.286 49.3587 22.9105 48.8245 22.9818C48.2898 23.0531 47.9144 23.5443 47.9856 24.079C48.0263 24.3835 48.0469 24.6934 48.0469 25C48.0469 28.2857 45.7232 31.4176 41.5041 33.8187C37.1115 36.3186 31.2503 37.6953 25 37.6953C21.0505 37.6953 17.2568 37.145 13.8904 36.1096C12.855 32.7432 12.3047 28.9495 12.3047 25C12.3047 18.7498 13.6814 12.8885 16.1812 8.4959C18.5824 4.27666 21.7143 1.95312 25 1.95312C27.7572 1.95312 29.9527 3.54316 31.5336 5.29131H30.5334C29.9941 5.29131 29.5568 5.72852 29.5568 6.26787C29.5568 6.80723 29.9941 7.24443 30.5334 7.24443H33.5632C34.1024 7.24443 34.5397 6.80723 34.5397 6.26787V3.23799C34.5397 2.69863 34.1024 2.26143 33.5632 2.26143C33.0239 2.26143 32.5866 2.69863 32.5866 3.23799V3.56699C30.3218 1.2498 27.6938 0 25 0C20.9818 0 17.2472 2.67412 14.4837 7.52979C11.819 12.2121 10.3516 18.4164 10.3516 25C10.3516 28.6174 10.7955 32.1195 11.6367 35.3183C10.525 34.8758 9.47383 34.3753 8.4959 33.8187C4.27676 31.4176 1.95312 28.2857 1.95312 25C1.95312 22.2265 3.56191 20.021 5.32227 18.438V19.4331C5.32227 19.9725 5.75957 20.4097 6.29883 20.4097C6.83809 20.4097 7.27539 19.9725 7.27539 19.4331V16.4032C7.27539 15.8639 6.83809 15.4267 6.29883 15.4267H3.26904C2.72978 15.4267 2.29248 15.8639 2.29248 16.4032C2.29248 16.9426 2.72978 17.3798 3.26904 17.3798H3.60186C1.2625 19.6523 0 22.2928 0 25C0 29.0181 2.67412 32.7528 7.52979 35.5162C8.996 36.3506 10.6114 37.0676 12.341 37.6589C12.9323 39.3885 13.6493 41.004 14.4837 42.4701C17.2472 47.3259 20.9818 50 25 50C27.3036 50 29.5912 49.0841 31.6153 47.3512C32.025 47.0004 32.0729 46.384 31.7222 45.9742C31.3715 45.5646 30.755 45.5167 30.3452 45.8674C28.656 47.3137 26.8575 48.0469 25 48.0469C21.7143 48.0469 18.5824 45.7233 16.1812 41.5041C15.6247 40.5261 15.1241 39.4749 14.6817 38.3633C17.8805 39.2045 21.3826 39.6484 25 39.6484C31.5836 39.6484 37.7879 38.181 42.4702 35.5162C47.3259 32.7528 50 29.0181 50 25C49.9998 24.6056 49.9737 24.2116 49.9216 23.8206Z"
+                                            fill="white" />
+                                        <path
+                                            d="M48.7213 20.3243L48.7172 20.3169C48.458 19.8488 47.8693 19.6763 47.3979 19.9315C46.9236 20.1884 46.7474 20.7811 47.0043 21.2553L47.0123 21.2697C47.0743 21.382 47.1579 21.481 47.2582 21.5609C47.3584 21.6409 47.4735 21.7003 47.5968 21.7358C47.72 21.7712 47.8491 21.782 47.9765 21.7676C48.104 21.7531 48.2273 21.7137 48.3396 21.6516C48.8114 21.3905 48.9824 20.7963 48.7213 20.3243ZM34.121 42.9507C33.6829 42.6369 33.0694 42.7434 32.755 43.1804L32.75 43.1873C32.4393 43.6271 32.5386 44.2419 32.9777 44.5536C33.1413 44.6699 33.3371 44.7322 33.5378 44.7318C33.8461 44.7318 34.1509 44.5868 34.3427 44.318C34.6554 43.8796 34.5588 43.2644 34.121 42.9507ZM31.8864 22.187C31.8698 20.8137 30.7427 19.6964 29.3738 19.6964H25.9294V17.1206C25.9295 16.975 25.9874 16.8353 26.0904 16.7323C26.1934 16.6293 26.3331 16.5714 26.4787 16.5713H29.3103C29.8495 16.5713 30.2868 16.1341 30.2868 15.5947C30.2868 15.0554 29.8495 14.6182 29.3103 14.6182H26.4787C25.0988 14.6182 23.9763 15.7407 23.9763 17.1206V25.0043C23.9763 26.3842 25.0988 27.5067 26.4787 27.5067H29.3738C30.7427 27.5067 31.8698 26.3895 31.8864 25.0161L31.8865 25.0043V22.1988L31.8864 22.187ZM29.9332 24.9969C29.9271 25.3042 29.6771 25.5535 29.3737 25.5535H26.4786C26.333 25.5534 26.1933 25.4955 26.0903 25.3925C25.9873 25.2895 25.9294 25.1498 25.9293 25.0042V21.6494H29.3737C29.6771 21.6494 29.9272 21.8988 29.9332 22.2062V24.9969ZM38.3684 14.6182H35.4631C34.0832 14.6182 32.9606 15.7407 32.9606 17.1206V25.0043C32.9606 26.3842 34.0832 27.5067 35.4631 27.5067H38.3684C39.7482 27.5067 40.8708 26.3842 40.8708 25.0043V17.1206C40.8708 15.7407 39.7482 14.6182 38.3684 14.6182ZM38.9177 25.0043C38.9175 25.1499 38.8596 25.2896 38.7566 25.3926C38.6537 25.4956 38.514 25.5535 38.3684 25.5536H35.4631C35.3174 25.5535 35.1778 25.4956 35.0748 25.3926C34.9718 25.2896 34.9139 25.1499 34.9138 25.0043V17.1206C34.9139 16.975 34.9718 16.8353 35.0748 16.7323C35.1778 16.6293 35.3174 16.5714 35.4631 16.5713H38.3684C38.514 16.5714 38.6537 16.6293 38.7566 16.7323C38.8596 16.8353 38.9175 16.975 38.9177 17.1206V25.0043ZM20.398 14.6182H17.9048C16.5249 14.6182 15.4023 15.7407 15.4023 17.1206V17.1551C15.4023 17.6944 15.8396 18.1316 16.3789 18.1316C16.9182 18.1316 17.3555 17.6944 17.3555 17.1551V17.1206C17.3556 16.975 17.4135 16.8353 17.5165 16.7323C17.6195 16.6293 17.7591 16.5714 17.9048 16.5713H20.398C20.5437 16.5714 20.6833 16.6293 20.7863 16.7323C20.8893 16.8353 20.9472 16.975 20.9474 17.1206V20.0859H18.4425C17.9032 20.0859 17.4659 20.5231 17.4659 21.0625C17.4659 21.6019 17.9032 22.0391 18.4425 22.0391H20.9474V25.0043C20.9472 25.1499 20.8893 25.2896 20.7863 25.3926C20.6833 25.4956 20.5437 25.5535 20.398 25.5536H17.9048C17.7591 25.5535 17.6195 25.4956 17.5165 25.3926C17.4135 25.2896 17.3556 25.1499 17.3555 25.0043V24.8691C17.3555 24.3298 16.9182 23.8926 16.3789 23.8926C15.8396 23.8926 15.4023 24.3298 15.4023 24.8691V25.0043C15.4023 26.3842 16.5249 27.5067 17.9048 27.5067H20.398C21.7779 27.5067 22.9005 26.3842 22.9005 25.0043V17.1206C22.9005 15.7407 21.7779 14.6182 20.398 14.6182ZM44.8193 13.0044C43.391 13.0044 42.229 14.1664 42.229 15.5947C42.229 17.023 43.391 18.1851 44.8193 18.1851C46.2477 18.1851 47.4097 17.023 47.4097 15.5947C47.4097 14.1664 46.2477 13.0044 44.8193 13.0044ZM44.8193 16.2318C44.6504 16.2316 44.4884 16.1644 44.369 16.045C44.2495 15.9255 44.1823 15.7636 44.1821 15.5946C44.1823 15.4257 44.2495 15.2637 44.369 15.1443C44.4884 15.0248 44.6504 14.9576 44.8193 14.9574C44.9883 14.9576 45.1502 15.0248 45.2697 15.1443C45.3892 15.2637 45.4564 15.4257 45.4565 15.5946C45.4563 15.7636 45.3891 15.9255 45.2697 16.045C45.1502 16.1644 44.9883 16.2316 44.8193 16.2318Z"
+                                            fill="white" />
+                                    </svg>
                                 </div>
                             </div>
                         </div>
-                        <div class="wrap-map wrap-property wrap-style">
-                            <h3 class="titles">موقع الخريطة</h3>
-                            <div class="box flex">
-                                <ul>
-                                    <li class="flex"><span class="one fw-6">عنوان</span><span class="two">150
-                                            sqft</span></li>
-                                    <li class="flex"><span class="one fw-6">مدينة</span><span
-                                            class="two">#1234</span></li>
-                                    <li class="flex"><span class="one fw-6">State/county</span><span
-                                            class="two">$7,500</span></li>
-                                </ul>
-                                <ul>
-                                    <li class="flex"><span class="one fw-6">رمز بريدي</span><span
-                                            class="two">7.328</span></li>
-                                    <li class="flex"><span class="one fw-6">منطقة</span><span
-                                            class="two">7.328</span></li>
-                                    <li class="flex"><span class="one fw-6">دولة</span><span class="two">2022</span>
-                                    </li>
-                                </ul>
-                            </div>
-                            <iframe class="map-content"
-                                src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d7302.453092836291!2d90.47477022812872!3d23.77494577893369!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1svi!2s!4v1627293157601!5m2!1svi!2s"
-                                allowfullscreen="" loading="lazy"></iframe>
-                        </div>
+
                         @if ($product->video)
                             <div class="wrap-video wrap-style">
                                 <h3 class="titles">فيديو</h3>
@@ -380,459 +384,32 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="wrap-review wrap-style">
-                            <div class="box-title titles flex align-center justify-space">
-                                <div class="inner flex align-center ">
-                                    <div class="star flex">
-                                        <svg version="1.1" xmlns="http://www.w3.org/2000/svg"
-                                            xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
-                                            viewBox="0 0 512 512" style="enable-background:new 0 0 512 512;"
-                                            xml:space="preserve">
-                                            <g>
-                                                <g>
-                                                    <polygon
-                                                        points="512,197.816 325.961,185.585 255.898,9.569 185.835,185.585 0,197.816 142.534,318.842 95.762,502.431 			255.898,401.21 416.035,502.431 369.263,318.842 		">
-                                                    </polygon>
-                                                </g>
-                                            </g>
-                                            <g></g>
-                                            <g></g>
-                                            <g></g>
-                                            <g></g>
-                                            <g></g>
-                                            <g></g>
-                                            <g></g>
-                                            <g></g>
-                                            <g></g>
-                                            <g></g>
-                                            <g></g>
-                                            <g></g>
-                                            <g></g>
-                                            <g></g>
-                                            <g></g>
-                                        </svg>
-                                    </div>
-                                    <h3>مراجعة</h3>
-                                    <p class="fw-6">(0 مراجعة)</p>
-                                </div>
-                                <div class="sort-inner flex">
-                                    <span class="text-color-4">فرز </span><a class="newest">أحدث</a>
-                                </div>
-                            </div>
-                            <div class="comment-list">
-                                <ol class="">
-                                    {{-- <li class="flex">
-                                        <div class="images flex-none">
-                                            <img src="{{ asset('') }}/images/author/author-review-1.jpg"
-                                                alt="images">
-                                        </div>
-                                        <div class="content">
-                                            <div class="title-item flex justify-space align-center">
-                                                <h4>Leslie Alexander</h4>
-                                                <p class="fs-12 lh-18">April 5, 2023</p>
-                                            </div>
-                                            <div class="star flex">
-                                                <svg version="1.1" xmlns="http://www.w3.org/2000/svg"
-                                                    xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
-                                                    viewBox="0 0 512 512" style="enable-background:new 0 0 512 512;"
-                                                    xml:space="preserve">
-                                                    <g>
-                                                        <g>
-                                                            <polygon
-                                                                points="512,197.816 325.961,185.585 255.898,9.569 185.835,185.585 0,197.816 142.534,318.842 95.762,502.431 			255.898,401.21 416.035,502.431 369.263,318.842 		">
-                                                            </polygon>
-                                                        </g>
-                                                    </g>
-                                                    <g></g>
-                                                    <g></g>
-                                                    <g></g>
-                                                    <g></g>
-                                                    <g></g>
-                                                    <g></g>
-                                                    <g></g>
-                                                    <g></g>
-                                                    <g></g>
-                                                    <g></g>
-                                                    <g></g>
-                                                    <g></g>
-                                                    <g></g>
-                                                    <g></g>
-                                                    <g></g>
-                                                </svg>
-                                                <svg version="1.1" xmlns="http://www.w3.org/2000/svg"
-                                                    xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
-                                                    viewBox="0 0 512 512" style="enable-background:new 0 0 512 512;"
-                                                    xml:space="preserve">
-                                                    <g>
-                                                        <g>
-                                                            <polygon
-                                                                points="512,197.816 325.961,185.585 255.898,9.569 185.835,185.585 0,197.816 142.534,318.842 95.762,502.431 			255.898,401.21 416.035,502.431 369.263,318.842 		">
-                                                            </polygon>
-                                                        </g>
-                                                    </g>
-                                                    <g></g>
-                                                    <g></g>
-                                                    <g></g>
-                                                    <g></g>
-                                                    <g></g>
-                                                    <g></g>
-                                                    <g></g>
-                                                    <g></g>
-                                                    <g></g>
-                                                    <g></g>
-                                                    <g></g>
-                                                    <g></g>
-                                                    <g></g>
-                                                    <g></g>
-                                                    <g></g>
-                                                </svg>
-                                                <svg version="1.1" xmlns="http://www.w3.org/2000/svg"
-                                                    xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
-                                                    viewBox="0 0 512 512" style="enable-background:new 0 0 512 512;"
-                                                    xml:space="preserve">
-                                                    <g>
-                                                        <g>
-                                                            <polygon
-                                                                points="512,197.816 325.961,185.585 255.898,9.569 185.835,185.585 0,197.816 142.534,318.842 95.762,502.431 			255.898,401.21 416.035,502.431 369.263,318.842 		">
-                                                            </polygon>
-                                                        </g>
-                                                    </g>
-                                                    <g></g>
-                                                    <g></g>
-                                                    <g></g>
-                                                    <g></g>
-                                                    <g></g>
-                                                    <g></g>
-                                                    <g></g>
-                                                    <g></g>
-                                                    <g></g>
-                                                    <g></g>
-                                                    <g></g>
-                                                    <g></g>
-                                                    <g></g>
-                                                    <g></g>
-                                                    <g></g>
-                                                </svg>
-                                                <svg version="1.1" xmlns="http://www.w3.org/2000/svg"
-                                                    xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
-                                                    viewBox="0 0 512 512" style="enable-background:new 0 0 512 512;"
-                                                    xml:space="preserve">
-                                                    <g>
-                                                        <g>
-                                                            <polygon
-                                                                points="512,197.816 325.961,185.585 255.898,9.569 185.835,185.585 0,197.816 142.534,318.842 95.762,502.431 			255.898,401.21 416.035,502.431 369.263,318.842 		">
-                                                            </polygon>
-                                                        </g>
-                                                    </g>
-                                                    <g></g>
-                                                    <g></g>
-                                                    <g></g>
-                                                    <g></g>
-                                                    <g></g>
-                                                    <g></g>
-                                                    <g></g>
-                                                    <g></g>
-                                                    <g></g>
-                                                    <g></g>
-                                                    <g></g>
-                                                    <g></g>
-                                                    <g></g>
-                                                    <g></g>
-                                                    <g></g>
-                                                </svg>
-                                                <svg version="1.1" xmlns="http://www.w3.org/2000/svg"
-                                                    xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
-                                                    viewBox="0 0 512 512" style="enable-background:new 0 0 512 512;"
-                                                    xml:space="preserve">
-                                                    <g>
-                                                        <g>
-                                                            <polygon
-                                                                points="512,197.816 325.961,185.585 255.898,9.569 185.835,185.585 0,197.816 142.534,318.842 95.762,502.431 			255.898,401.21 416.035,502.431 369.263,318.842 		">
-                                                            </polygon>
-                                                        </g>
-                                                    </g>
-                                                    <g></g>
-                                                    <g></g>
-                                                    <g></g>
-                                                    <g></g>
-                                                    <g></g>
-                                                    <g></g>
-                                                    <g></g>
-                                                    <g></g>
-                                                    <g></g>
-                                                    <g></g>
-                                                    <g></g>
-                                                    <g></g>
-                                                    <g></g>
-                                                    <g></g>
-                                                    <g></g>
-                                                </svg>
-                                            </div>
-                                            <p class="texts text-color-2">Lorem ipsum dolor sit amet, consectetur
-                                                adipiscing elit. Pellentesque at velit eu libero laoreet mattis ac a ipsum.
-                                                Vivamus efficitur volutpat ante, sed consequat ligula ultricies in.</p>
-                                            <div class="img-box">
-                                                <img src="{{ asset('') }}/images/img-box/review-1.jpg"
-                                                    alt="images">
-                                                <img src="{{ asset('') }}/images/img-box/review-2.jpg"
-                                                    alt="images">
-                                                <img src="{{ asset('') }}/images/img-box/review-3.jpg"
-                                                    alt="images">
-                                            </div>
-                                            <div class="icon-box flex">
-                                                <a class="icon flex align-center">
-                                                    <svg width="16" height="15" viewBox="0 0 16 15"
-                                                        fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                        <path
-                                                            d="M11.375 5.75H9.68749M3.66949 13.0625C3.66124 13.025 3.64849 12.9875 3.63049 12.9515C3.18724 12.0515 2.93749 11.039 2.93749 9.96875C2.93587 8.89238 3.19282 7.83136 3.68674 6.875M3.66949 13.0625C3.72649 13.3362 3.53224 13.625 3.23824 13.625H2.55724C1.89049 13.625 1.27249 13.2365 1.07824 12.599C0.82399 11.7665 0.68749 10.8837 0.68749 9.96875C0.68749 8.804 0.90874 7.69175 1.31074 6.67025C1.54024 6.08975 2.12524 5.75 2.74999 5.75H3.53974C3.89374 5.75 4.09849 6.167 3.91474 6.47C3.83434 6.60234 3.7578 6.73742 3.68674 6.875M3.66949 13.0625H4.63999C5.0027 13.0623 5.36307 13.1205 5.70724 13.235L8.04274 14.015C8.38691 14.1295 8.74728 14.1877 9.10999 14.1875H12.122C12.5855 14.1875 13.0347 14.0022 13.3257 13.6407C14.6143 12.0434 15.3156 10.0523 15.3125 8C15.3125 7.6745 15.2952 7.35275 15.2615 7.03625C15.1797 6.2705 14.4905 5.75 13.721 5.75H11.3765C10.913 5.75 10.6332 5.207 10.8327 4.7885C11.191 4.03444 11.3763 3.20985 11.375 2.375C11.375 1.92745 11.1972 1.49823 10.8807 1.18176C10.5643 0.86529 10.135 0.6875 9.68749 0.6875C9.53831 0.6875 9.39523 0.746763 9.28974 0.852252C9.18425 0.957741 9.12499 1.10082 9.12499 1.25V1.72475C9.12499 2.1545 9.04249 2.57975 8.88349 2.97875C8.65549 3.54875 8.18599 3.97625 7.64374 4.265C6.81128 4.7092 6.0807 5.32228 5.49874 6.065C5.12524 6.5405 4.57924 6.875 3.97474 6.875H3.68674"
-                                                            stroke="#8E8E93" stroke-linecap="round"
-                                                            stroke-linejoin="round" />
-                                                    </svg>
-                                                    <p class="fs-12 font-2">Useful</p>
-                                                </a>
-                                                <a class="icon flex align-center">
-                                                    <svg width="16" height="15" viewBox="0 0 16 15"
-                                                        fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                        <path
-                                                            d="M4.62501 9.25H6.31251M12.3305 1.9375C12.3388 1.975 12.3515 2.0125 12.3695 2.0485C12.8128 2.9485 13.0625 3.961 13.0625 5.03125C13.0641 6.10762 12.8072 7.16864 12.3133 8.125M12.3305 1.9375C12.2735 1.66375 12.4678 1.375 12.7618 1.375H13.4428C14.1095 1.375 14.7275 1.7635 14.9218 2.401C15.176 3.2335 15.3125 4.11625 15.3125 5.03125C15.3125 6.196 15.0913 7.30825 14.6893 8.32975C14.4598 8.91025 13.8748 9.25 13.25 9.25H12.4603C12.1063 9.25 11.9015 8.833 12.0853 8.53C12.1657 8.39766 12.2422 8.26258 12.3133 8.125M12.3305 1.9375H11.36C10.9973 1.93772 10.6369 1.87948 10.2928 1.765L7.95726 0.985001C7.61309 0.870526 7.25272 0.812279 6.89001 0.812501H3.87801C3.41451 0.812501 2.96526 0.997751 2.67426 1.35925C1.38572 2.95658 0.684409 4.94774 0.68751 7C0.68751 7.3255 0.70476 7.64725 0.73851 7.96375C0.82026 8.7295 1.50951 9.25 2.27901 9.25H4.62351C5.08701 9.25 5.36676 9.793 5.16726 10.2115C4.80897 10.9656 4.6237 11.7902 4.62501 12.625C4.62501 13.0726 4.8028 13.5018 5.11927 13.8182C5.43574 14.1347 5.86496 14.3125 6.31251 14.3125C6.46169 14.3125 6.60477 14.2532 6.71026 14.1477C6.81575 14.0423 6.87501 13.8992 6.87501 13.75V13.2753C6.87501 12.8455 6.95751 12.4203 7.11651 12.0213C7.34451 11.4513 7.81401 11.0238 8.35626 10.735C9.18872 10.2908 9.9193 9.67772 10.5013 8.935C10.8748 8.4595 11.4208 8.125 12.0253 8.125H12.3133"
-                                                            stroke="#8E8E93" stroke-linecap="round"
-                                                            stroke-linejoin="round" />
-                                                    </svg>
-                                                    <p class="fs-12 font-2">Not helpful</p>
-                                                </a>
-                                            </div>
-                                        </div>
-                                    </li> --}}
-                                </ol>
-                            </div>
-
-                        </div>
-                        <div class="wrap-contact wrap-form wrap-style">
-                            <div class="titles">
-                                <h3>اترك مراجعة</h3>
-                                <p class="fs-12 lh-18">لن يتم نشر عنوان بريدك الإلكتروني.يتم وضع علامة على الحقول المطلوبة
-                                    *</p>
-                            </div>
-
-                            <div id="comments" class="comments">
-                                <div class="respond-comment">
-                                    <form method="post" id="contactform" class="comment-form form-submit"
-                                        action="./contact/contact-process.php" accept-charset="utf-8"
-                                        novalidate="novalidate">
-                                        <fieldset class="">
-                                            <label class="fw-6">اسمك *</label>
-                                            <input type="text" class="my-input" name="text" placeholder="اسمك"
-                                                required="">
-                                        </fieldset>
-                                        <div class="inner-1 row">
-                                            <fieldset class="wg-box col-6">
-                                                <label class="fw-6">عنوان البريد الإلكتروني</label>
-                                                <input type="email" class="my-input" name="email"
-                                                    placeholder="Your email" required="">
-                                            </fieldset>
-                                            <fieldset class="wg-box col-6">
-                                                <label class="fw-6">رقم التليفون</label>
-                                                <input type="tel" class="my-input2" name="tel"
-                                                    placeholder="هاتفك" required="">
-                                            </fieldset>
-                                        </div>
-                                        <fieldset class="message-wrap">
-                                            <label class="fw-6">مراجعتك</label>
-                                            <textarea id="comment-message" name="message" rows="4" tabindex="4" placeholder="رسالتك "
-                                                aria-required="true"></textarea>
-                                        </fieldset>
-                                        <div class="inner-2 align-center flex">
-                                            <div class="title-rating font-2 fs-16 fw-8">تصنيف</div>
-                                            <div class="star flex">
-                                                <a class="star flex">
-                                                    <svg height="20pt" viewBox="0 -10 511.98685 511" width="20pt"
-                                                        xmlns="http://www.w3.org/2000/svg">
-                                                        <path
-                                                            d="m114.59375 491.140625c-5.609375 0-11.179688-1.75-15.933594-5.1875-8.855468-6.417969-12.992187-17.449219-10.582031-28.09375l32.9375-145.089844-111.703125-97.960937c-8.210938-7.167969-11.347656-18.519532-7.976562-28.90625 3.371093-10.367188 12.542968-17.707032 23.402343-18.710938l147.796875-13.417968 58.433594-136.746094c4.308594-10.046875 14.121094-16.535156 25.023438-16.535156 10.902343 0 20.714843 6.488281 25.023437 16.511718l58.433594 136.769532 147.773437 13.417968c10.882813.980469 20.054688 8.34375 23.425782 18.710938 3.371093 10.367187.253906 21.738281-7.957032 28.90625l-111.703125 97.941406 32.9375 145.085938c2.414063 10.667968-1.726562 21.699218-10.578125 28.097656-8.832031 6.398437-20.609375 6.890625-29.910156 1.300781l-127.445312-76.160156-127.445313 76.203125c-4.308594 2.558594-9.109375 3.863281-13.953125 3.863281zm141.398438-112.875c4.84375 0 9.640624 1.300781 13.953124 3.859375l120.277344 71.9375-31.085937-136.941406c-2.21875-9.746094 1.089843-19.921875 8.621093-26.515625l105.472657-92.5-139.542969-12.671875c-10.046875-.917969-18.6875-7.234375-22.613281-16.492188l-55.082031-129.046875-55.148438 129.066407c-3.882812 9.195312-12.523438 15.511718-22.546875 16.429687l-139.5625 12.671875 105.46875 92.5c7.554687 6.613281 10.859375 16.769531 8.621094 26.539062l-31.0625 136.9375 120.277343-71.914062c4.308594-2.558594 9.109376-3.859375 13.953126-3.859375zm-84.585938-221.847656s0 .023437-.023438.042969zm169.128906-.0625.023438.042969c0-.023438 0-.023438-.023438-.042969zm0 0" />
-                                                    </svg>
-                                                    <svg height="20pt" viewBox="0 -10 511.98685 511" width="20pt"
-                                                        xmlns="http://www.w3.org/2000/svg">
-                                                        <path
-                                                            d="m114.59375 491.140625c-5.609375 0-11.179688-1.75-15.933594-5.1875-8.855468-6.417969-12.992187-17.449219-10.582031-28.09375l32.9375-145.089844-111.703125-97.960937c-8.210938-7.167969-11.347656-18.519532-7.976562-28.90625 3.371093-10.367188 12.542968-17.707032 23.402343-18.710938l147.796875-13.417968 58.433594-136.746094c4.308594-10.046875 14.121094-16.535156 25.023438-16.535156 10.902343 0 20.714843 6.488281 25.023437 16.511718l58.433594 136.769532 147.773437 13.417968c10.882813.980469 20.054688 8.34375 23.425782 18.710938 3.371093 10.367187.253906 21.738281-7.957032 28.90625l-111.703125 97.941406 32.9375 145.085938c2.414063 10.667968-1.726562 21.699218-10.578125 28.097656-8.832031 6.398437-20.609375 6.890625-29.910156 1.300781l-127.445312-76.160156-127.445313 76.203125c-4.308594 2.558594-9.109375 3.863281-13.953125 3.863281zm141.398438-112.875c4.84375 0 9.640624 1.300781 13.953124 3.859375l120.277344 71.9375-31.085937-136.941406c-2.21875-9.746094 1.089843-19.921875 8.621093-26.515625l105.472657-92.5-139.542969-12.671875c-10.046875-.917969-18.6875-7.234375-22.613281-16.492188l-55.082031-129.046875-55.148438 129.066407c-3.882812 9.195312-12.523438 15.511718-22.546875 16.429687l-139.5625 12.671875 105.46875 92.5c7.554687 6.613281 10.859375 16.769531 8.621094 26.539062l-31.0625 136.9375 120.277343-71.914062c4.308594-2.558594 9.109376-3.859375 13.953126-3.859375zm-84.585938-221.847656s0 .023437-.023438.042969zm169.128906-.0625.023438.042969c0-.023438 0-.023438-.023438-.042969zm0 0" />
-                                                    </svg>
-                                                    <svg height="20pt" viewBox="0 -10 511.98685 511" width="20pt"
-                                                        xmlns="http://www.w3.org/2000/svg">
-                                                        <path
-                                                            d="m114.59375 491.140625c-5.609375 0-11.179688-1.75-15.933594-5.1875-8.855468-6.417969-12.992187-17.449219-10.582031-28.09375l32.9375-145.089844-111.703125-97.960937c-8.210938-7.167969-11.347656-18.519532-7.976562-28.90625 3.371093-10.367188 12.542968-17.707032 23.402343-18.710938l147.796875-13.417968 58.433594-136.746094c4.308594-10.046875 14.121094-16.535156 25.023438-16.535156 10.902343 0 20.714843 6.488281 25.023437 16.511718l58.433594 136.769532 147.773437 13.417968c10.882813.980469 20.054688 8.34375 23.425782 18.710938 3.371093 10.367187.253906 21.738281-7.957032 28.90625l-111.703125 97.941406 32.9375 145.085938c2.414063 10.667968-1.726562 21.699218-10.578125 28.097656-8.832031 6.398437-20.609375 6.890625-29.910156 1.300781l-127.445312-76.160156-127.445313 76.203125c-4.308594 2.558594-9.109375 3.863281-13.953125 3.863281zm141.398438-112.875c4.84375 0 9.640624 1.300781 13.953124 3.859375l120.277344 71.9375-31.085937-136.941406c-2.21875-9.746094 1.089843-19.921875 8.621093-26.515625l105.472657-92.5-139.542969-12.671875c-10.046875-.917969-18.6875-7.234375-22.613281-16.492188l-55.082031-129.046875-55.148438 129.066407c-3.882812 9.195312-12.523438 15.511718-22.546875 16.429687l-139.5625 12.671875 105.46875 92.5c7.554687 6.613281 10.859375 16.769531 8.621094 26.539062l-31.0625 136.9375 120.277343-71.914062c4.308594-2.558594 9.109376-3.859375 13.953126-3.859375zm-84.585938-221.847656s0 .023437-.023438.042969zm169.128906-.0625.023438.042969c0-.023438 0-.023438-.023438-.042969zm0 0" />
-                                                    </svg>
-                                                    <svg height="20pt" viewBox="0 -10 511.98685 511" width="20pt"
-                                                        xmlns="http://www.w3.org/2000/svg">
-                                                        <path
-                                                            d="m114.59375 491.140625c-5.609375 0-11.179688-1.75-15.933594-5.1875-8.855468-6.417969-12.992187-17.449219-10.582031-28.09375l32.9375-145.089844-111.703125-97.960937c-8.210938-7.167969-11.347656-18.519532-7.976562-28.90625 3.371093-10.367188 12.542968-17.707032 23.402343-18.710938l147.796875-13.417968 58.433594-136.746094c4.308594-10.046875 14.121094-16.535156 25.023438-16.535156 10.902343 0 20.714843 6.488281 25.023437 16.511718l58.433594 136.769532 147.773437 13.417968c10.882813.980469 20.054688 8.34375 23.425782 18.710938 3.371093 10.367187.253906 21.738281-7.957032 28.90625l-111.703125 97.941406 32.9375 145.085938c2.414063 10.667968-1.726562 21.699218-10.578125 28.097656-8.832031 6.398437-20.609375 6.890625-29.910156 1.300781l-127.445312-76.160156-127.445313 76.203125c-4.308594 2.558594-9.109375 3.863281-13.953125 3.863281zm141.398438-112.875c4.84375 0 9.640624 1.300781 13.953124 3.859375l120.277344 71.9375-31.085937-136.941406c-2.21875-9.746094 1.089843-19.921875 8.621093-26.515625l105.472657-92.5-139.542969-12.671875c-10.046875-.917969-18.6875-7.234375-22.613281-16.492188l-55.082031-129.046875-55.148438 129.066407c-3.882812 9.195312-12.523438 15.511718-22.546875 16.429687l-139.5625 12.671875 105.46875 92.5c7.554687 6.613281 10.859375 16.769531 8.621094 26.539062l-31.0625 136.9375 120.277343-71.914062c4.308594-2.558594 9.109376-3.859375 13.953126-3.859375zm-84.585938-221.847656s0 .023437-.023438.042969zm169.128906-.0625.023438.042969c0-.023438 0-.023438-.023438-.042969zm0 0" />
-                                                    </svg>
-                                                    <svg height="20pt" viewBox="0 -10 511.98685 511" width="20pt"
-                                                        xmlns="http://www.w3.org/2000/svg">
-                                                        <path
-                                                            d="m114.59375 491.140625c-5.609375 0-11.179688-1.75-15.933594-5.1875-8.855468-6.417969-12.992187-17.449219-10.582031-28.09375l32.9375-145.089844-111.703125-97.960937c-8.210938-7.167969-11.347656-18.519532-7.976562-28.90625 3.371093-10.367188 12.542968-17.707032 23.402343-18.710938l147.796875-13.417968 58.433594-136.746094c4.308594-10.046875 14.121094-16.535156 25.023438-16.535156 10.902343 0 20.714843 6.488281 25.023437 16.511718l58.433594 136.769532 147.773437 13.417968c10.882813.980469 20.054688 8.34375 23.425782 18.710938 3.371093 10.367187.253906 21.738281-7.957032 28.90625l-111.703125 97.941406 32.9375 145.085938c2.414063 10.667968-1.726562 21.699218-10.578125 28.097656-8.832031 6.398437-20.609375 6.890625-29.910156 1.300781l-127.445312-76.160156-127.445313 76.203125c-4.308594 2.558594-9.109375 3.863281-13.953125 3.863281zm141.398438-112.875c4.84375 0 9.640624 1.300781 13.953124 3.859375l120.277344 71.9375-31.085937-136.941406c-2.21875-9.746094 1.089843-19.921875 8.621093-26.515625l105.472657-92.5-139.542969-12.671875c-10.046875-.917969-18.6875-7.234375-22.613281-16.492188l-55.082031-129.046875-55.148438 129.066407c-3.882812 9.195312-12.523438 15.511718-22.546875 16.429687l-139.5625 12.671875 105.46875 92.5c7.554687 6.613281 10.859375 16.769531 8.621094 26.539062l-31.0625 136.9375 120.277343-71.914062c4.308594-2.558594 9.109376-3.859375 13.953126-3.859375zm-84.585938-221.847656s0 .023437-.023438.042969zm169.128906-.0625.023438.042969c0-.023438 0-.023438-.023438-.042969zm0 0" />
-                                                    </svg>
-                                                </a>
-                                            </div>
-                                        </div>
-                                        <button class="sc-button" name="submit" type="submit">
-                                            <span>إرسال المراجعة</span>
-                                        </button>
-                                    </form>
-                                </div>
-                            </div>
-                        </div>
                     </div>
                 </div>
                 <div class="col-lg-4">
                     <aside class="side-bar side-bar-1">
                         <div class="inner-side-bar">
-                            <div class="widget-tour widget-rent">
-                                <h3 class="title-tour">
-                                    جولة جولة
-                                </h3>
-                                <p class="p-tour text-color-2">اختر اليوم الأنسب</p>
-                                <div class="days-wrap flex flex-wrap">
-                                    <div class="day-box box-1 center">
-                                        <p>Mon</p>
-                                        <div class="number fs-18 lh-24 fw-6">17</div>
-                                        <p>Apr</p>
-                                    </div>
-                                    <div class="day-box box-2 center">
-                                        <p>Mon</p>
-                                        <div class="number fs-18 lh-24 fw-6">18</div>
-                                        <p>Apr</p>
-                                    </div>
-                                    <div class="day-box box-3 center">
-                                        <p>Mon</p>
-                                        <div class="number fs-18 lh-24 fw-6">19</div>
-                                        <p>Apr</p>
-                                    </div>
-                                    <div class="day-box box-4 center">
-                                        <p>Mon</p>
-                                        <div class="number fs-18 lh-24 fw-6">20</div>
-                                        <p>Apr</p>
-                                    </div>
-                                </div>
-                                <h5>نوع الجولة</h5>
-                                <div class="flat-tabs style2">
-                                    <div class="box-tab center">
-                                        <ul class="menu-tab tab-title flex">
-                                            <li class="item-title active flex align-center">
-                                                <svg width="20" height="20" viewBox="0 0 20 20" fill="none"
-                                                    xmlns="http://www.w3.org/2000/svg">
-                                                    <path
-                                                        d="M7 10.75L9.25 13L13 7.75M19 10C19 11.1819 18.7672 12.3522 18.3149 13.4442C17.8626 14.5361 17.1997 15.5282 16.364 16.364C15.5282 17.1997 14.5361 17.8626 13.4442 18.3149C12.3522 18.7672 11.1819 19 10 19C8.8181 19 7.64778 18.7672 6.55585 18.3149C5.46392 17.8626 4.47177 17.1997 3.63604 16.364C2.80031 15.5282 2.13738 14.5361 1.68508 13.4442C1.23279 12.3522 1 11.1819 1 10C1 7.61305 1.94821 5.32387 3.63604 3.63604C5.32387 1.94821 7.61305 1 10 1C12.3869 1 14.6761 1.94821 16.364 3.63604C18.0518 5.32387 19 7.61305 19 10Z"
-                                                        stroke="white" stroke-width="1.5" stroke-linecap="round"
-                                                        stroke-linejoin="round"></path>
-                                                </svg>
-                                                <h4 class="inner">شخصيا</h4>
-                                            </li>
-                                            <li class="item-title style btn-1">
-                                                <h4 class="inner">دردشة الفيديو </h4>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                    <div class="content-tab">
-                                        <div class="content-inner tab-content">
-                                            <div class="comments">
-                                                <div class="comment-form">
-                                                    <form method="post">
-                                                        <div class="wd-find-select ">
-                                                            <div class="group-select">
-                                                                <div class="nice-select" tabindex="0"><span
-                                                                        class="current">اختر الوقت</span>
-                                                                    <ul class="list">
-                                                                        <li data-value class="option selected">اختر الوقت
-                                                                        </li>
-                                                                        <li data-value="6" class="option">6h</li>
-                                                                        <li data-value="8" class="option">8h</li>
-                                                                        <li data-value="10" class="option">10h</li>
-                                                                        <li data-value="14" class="option">14h</li>
-                                                                        <li data-value="16" class="option">16h</li>
-                                                                        <li data-value="18" class="option">18h</li>
-                                                                        <li data-value="20" class="option">20h</li>
-                                                                    </ul>
-                                                                </div>
-                                                            </div>
-                                                            <fieldset class="">
-                                                                <input type="text" class="" name="text"
-                                                                    placeholder="Your name" required="">
-                                                            </fieldset>
-                                                            <fieldset class="">
-                                                                <input type="tel" class="" name="tel"
-                                                                    placeholder="Phone number" required="">
-                                                            </fieldset>
-                                                            <fieldset class="">
-                                                                <input type="email" class="" name="email"
-                                                                    placeholder="Email address" required="">
-                                                            </fieldset>
-                                                            <fieldset class="message-wrap">
-                                                                <textarea name="message" rows="4" tabindex="4" placeholder="Your mesage"></textarea>
-                                                            </fieldset>
-                                                            <div class="widget-form flex">
-                                                                <label class="widget-form ">
-                                                                    <input type="checkbox">
-                                                                    <span class="btn-checkbox flex-two"></span>
-                                                                </label>
-                                                                <div class="flex fs-13 lh-18">
-                                                                    <span class="sub-title">Iأوافق على</span>
-                                                                    <a href="#"
-                                                                        class="font-2 text-color-3 text-line"> المصطلحات و
-                                                                        شروط.</a>
-                                                                </div>
-                                                            </div>
-                                                            <div class="button-box center">
-                                                                <button class="sc-button btn-icon2 one btn-svg center">
-                                                                    <span class="">إرسال طلب جولة</span>
-                                                                    <svg width="18" height="10" viewBox="0 0 14 7"
-                                                                        fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                                        <path d="M10.5 1L13 3.5M13 3.5L10.5 6M13 3.5H1"
-                                                                            stroke="#fff" stroke-width="1.5"
-                                                                            stroke-linecap="round"
-                                                                            stroke-linejoin="round"></path>
-                                                                    </svg>
-                                                                </button>
-                                                            </div>
-                                                        </div>
-                                                    </form>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
                             <div class="widget-rent style">
                                 <h3 class="widget-title title-contact">
-                                    الاتصال البائع
+                                    قدم طلب او استفسر
                                 </h3>
-                                <div class="author-box flex align-center">
-                                    <div class="image-author flex-none">
-                                        <img src="{{ asset('') }}/images/author/author-footer.jpg" alt="images">
-                                    </div>
-                                    <div class="content">
-                                        <p class="text-color-2">كاميرون ويليامسون</p>
-                                        <h5 class="link-style-1"><a href="tel:0123456789">(405) 555-000-999</a></h5>
-                                        <a class="fs-12 lh-18"
-                                            href="mailto:cameronwilliamson@gmail.com">cameronwilliamson@gmail.com</a>
-                                    </div>
-                                </div>
                                 <div class="comments">
                                     <div class="comment-form">
                                         <form method="post">
                                             <div class="wd-find-select ">
-                                                <fieldset class="">
-                                                    <input type="text" class="" name="text"
-                                                        placeholder="الاسم الكامل *" required="">
+                                                <fieldset>
+                                                    <label class="fw-6">اسمك *</label>
+                                                    <input type="text" class="my-input" name="name"
+                                                        value="{{ old('name') }}" placeholder="اسمك" required="">
                                                 </fieldset>
-                                                <fieldset class="">
-                                                    <input type="tel" class="" name="tel"
-                                                        placeholder="رقم التليفون *" required="">
+                                                <fieldset>
+                                                    <label class="fw-6">رقم التليفون</label>
+                                                    <input type="text" class="my-input2" value="{{ old('phone') }}"
+                                                        name="phone" placeholder="هاتفك" required="">
                                                 </fieldset>
-                                                <fieldset class="">
-                                                    <input type="email" class="" name="email"
-                                                        placeholder="عنوان البريد الإلكتروني" required="">
-                                                </fieldset>
-                                                <fieldset class="message-wrap">
-                                                    <textarea name="message" rows="4" tabindex="4" placeholder="رسالتك *"></textarea>
+                                                <fieldset>
+                                                    <label class="fw-6">الرسالة</label>
+                                                    <textarea name="message" rows="4" tabindex="4" placeholder="رسالتك " aria-required="true"></textarea>
                                                 </fieldset>
                                                 <div class="button-box sc-btn-top center flex justify-space">
                                                     <button class="sc-button btn-svg">
@@ -847,18 +424,6 @@
                                                                 fill="white" />
                                                         </svg>
                                                     </button>
-                                                    <a class="sc-button btn-1 btn-svg" href="tel:012345678">
-                                                        <span>يتصل</span>
-                                                        <svg width="19" height="18" viewBox="0 0 19 18"
-                                                            fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                            <path fill-rule="evenodd" clip-rule="evenodd"
-                                                                d="M15.125 7.31249C15.125 7.46168 15.0657 7.60475 14.9602 7.71024C14.8548 7.81573 14.7117 7.87499 14.5625 7.87499H11.1875C11.0383 7.87499 10.8952 7.81573 10.7898 7.71024C10.6843 7.60475 10.625 7.46168 10.625 7.31249V3.93749C10.625 3.78831 10.6843 3.64523 10.7898 3.53975C10.8952 3.43426 11.0383 3.37499 11.1875 3.37499C11.3367 3.37499 11.4798 3.43426 11.5852 3.53975C11.6907 3.64523 11.75 3.78831 11.75 3.93749V5.95499L15.29 2.41499C15.3415 2.35973 15.4036 2.3154 15.4726 2.28466C15.5416 2.25391 15.6161 2.23738 15.6916 2.23605C15.7671 2.23472 15.8422 2.24861 15.9122 2.2769C15.9822 2.30519 16.0459 2.3473 16.0993 2.40071C16.1527 2.45413 16.1948 2.51775 16.2231 2.5878C16.2514 2.65784 16.2653 2.73286 16.2639 2.80839C16.2626 2.88391 16.2461 2.9584 16.2153 3.0274C16.1846 3.0964 16.1403 3.1585 16.085 3.20999L12.545 6.74999H14.5625C14.7117 6.74999 14.8548 6.80926 14.9602 6.91475C15.0657 7.02024 15.125 7.16331 15.125 7.31249Z"
-                                                                fill="#1C1C1E" />
-                                                            <path fill-rule="evenodd" clip-rule="evenodd"
-                                                                d="M1.625 3.375C1.625 2.77826 1.86205 2.20597 2.28401 1.78401C2.70597 1.36205 3.27826 1.125 3.875 1.125H4.904C5.549 1.125 6.1115 1.5645 6.26825 2.19L7.097 5.50725C7.16416 5.77575 7.15059 6.05809 7.058 6.31892C6.96542 6.57974 6.79792 6.80744 6.5765 6.9735L5.60675 7.701C5.5055 7.77675 5.48375 7.88775 5.51225 7.965C5.93553 9.11614 6.60395 10.1615 7.47121 11.0288C8.33847 11.8961 9.38386 12.5645 10.535 12.9877C10.6123 13.0162 10.7225 12.9945 10.799 12.8932L11.5265 11.9235C11.6926 11.7021 11.9203 11.5346 12.1811 11.442C12.4419 11.3494 12.7243 11.3358 12.9928 11.403L16.31 12.2318C16.9355 12.3885 17.375 12.951 17.375 13.5968V14.625C17.375 15.2217 17.1379 15.794 16.716 16.216C16.294 16.6379 15.7217 16.875 15.125 16.875H13.4375C6.914 16.875 1.625 11.586 1.625 5.0625V3.375Z"
-                                                                fill="#1C1C1E" />
-                                                        </svg>
-                                                    </a>
                                                 </div>
                                             </div>
                                         </form>

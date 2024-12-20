@@ -41,7 +41,7 @@
 
       <section class="sidebar">
         <div class="sidebar-item">
-          <a class="sidebar-link" href="./index.html">
+          <a class="sidebar-link" href="./{{ url('/') }}">
             <i class="bi bi-house-door"></i> &nbsp;الرئيسية
           </a>
         </div>

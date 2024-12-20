@@ -27,11 +27,6 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('property/details', function () {
-    return view('property-details');
-});
-
-
 Route::get('/contact/page1', [ContactController::class, 'createPage1'])->name('contact.page1');
 Route::get('/contact/page2', [ContactController::class, 'createPage2'])->name('contact.page2');
 Route::post('/contact/store', [ContactController::class, 'store'])->name('contact.store');

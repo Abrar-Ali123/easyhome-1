@@ -165,7 +165,7 @@
 
 
     //  show logo home2
-    $('#showlogo').prepend('<a href="index.html"><img id="theImg" src="assets/images/logo/logo2.png" /></a>');
+    $('#showlogo').prepend('<a href="{{ url('/') }}"><img id="theImg" src="assets/images/logo/logo2.png" /></a>');
 
 
     //=========NICE SELECT=========

@@ -5292,11 +5292,14 @@
 
 .flat-property-detail .wrap-text {
     padding: 21px 20px 20px;
+    width: 100%;
 }
 
 .flat-property-detail .wrap-text .text-2,
 .flat-property-detail .wrap-text .text-1 {
     margin-bottom: 12px;
+    width: 100%;!;!importan;!i;!;
+    overflow: hidden;
 }
 
 .flat-property-detail .wrap-property {
@@ -12255,4 +12258,11 @@ input::placeholder {
     width: 100%;
     height: auto;
     border-radius: 50%;
+}
+
+
+.swiper-container-fade .swiper-slide img {
+    width: 100%;
+    height: 500px;
+    object-fit: cover;
 }

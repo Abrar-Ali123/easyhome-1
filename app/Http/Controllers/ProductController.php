@@ -11,6 +11,8 @@ class ProductController extends Controller
 {
     public function index(Request $request)
     {
+
+        $features = Product::$featuresList;
         $products = Product::query()
             ->when($request->search, function ($query) use ($request) {
                 $query->where('title', 'like', '%' . $request->search . '%');
@@ -42,10 +44,10 @@ class ProductController extends Controller
             ->paginate(9);
 
         if ($request->ajax()) {
-            return view('parts.property-list', compact('products'))->render();
+            return view('parts.property-list', compact('products', 'features'))->render();
         }
 
-        return view('welcome', compact('products'));
+        return view('welcome', compact('products', 'features'));
     }
 
     /**

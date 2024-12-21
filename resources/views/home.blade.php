@@ -21,8 +21,15 @@
 
     @include('parts.footer')
 
+    <div class="whatsapp-float" onclick="openWhatsApp()">
+        <i class="fab fa-whatsapp"></i>
+    </div>
 
-
+    <div class="toggle-container">
+        <button id="toggleMode" class="toggle-btn">
+            <i id="modeIcon" class="fa-regular fa-sun"></i>
+        </button>
+    </div>
 
     <!-- Javascript -->
     <script src="{{ asset('css/js/jquery.min.js') }}"></script>
@@ -53,6 +60,30 @@
 
     <script src="{{ asset('css/js/jquery-validate.js') }}"></script>
 
+    <script>
+        document.getElementById('toggleMode').addEventListener('click', function() {
+            const html = document.documentElement;
+            const icon = document.getElementById('modeIcon');
+
+            if (html.classList.contains('light-mode')) {
+                html.classList.remove('light-mode');
+                icon.classList.remove('fa-moon');
+                icon.classList.add('fa-sun');
+            } else {
+                html.classList.add('light-mode');
+                icon.classList.remove('fa-sun');
+                icon.classList.add('fa-moon');
+            }
+        });
+
+        function openWhatsApp() {
+            const phoneNumber = "+966551421008";
+            const message = encodeURIComponent("Hello, I would like to get in touch with you.");
+            const whatsappUrl = `https://wa.me/${phoneNumber}?text=${message}`;
+
+            window.open(whatsappUrl, '_blank');
+        }
+    </script>
 
 </body>
 

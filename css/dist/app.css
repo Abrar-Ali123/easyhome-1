@@ -24689,6 +24689,7 @@ input::placeholder {
 
 .swiper-slide img {
     width: 100%;
+    object-fit: cover;
 }
 
 .swiper-wrapper {

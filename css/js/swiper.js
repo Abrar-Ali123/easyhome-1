@@ -74,6 +74,7 @@ if ($('.one-carousel').length) {
     $('.one-carousel').owlCarousel({
         loop: false,
         margin: 30,
+        rtl: true,
         smartSpeed: 500,
         autoplay: 4000,
         responsive: {

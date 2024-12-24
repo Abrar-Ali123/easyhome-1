@@ -185,8 +185,8 @@
             </div>
         </div>
         <!-- <div class="mark-img">
-                                                            <img src="{{ asset('') }}/images/mark/mark-vector.png" alt="images">
-                                                        </div> -->
+                                                                <img src="{{ asset('') }}/images/mark/mark-vector.png" alt="images">
+                                                            </div> -->
     </section>
 
     <section class="flat-map">
@@ -273,6 +273,81 @@
             </div>
         </div>
     </section>
+
+    @if ($source == 'page2')
+        <section class="flat-sale-detail flat-sale wg-dream wg-dots tf-section">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="heading-section ">
+                            <div class="title-heading fs-30 lh-45 fw-7">ترشيحات العقارات</div>
+                        </div>
+                        <div class="swiper-container2">
+                            <div class="one-carousel owl-carousel owl-theme">
+
+                                @foreach ($products as $product)
+                                    <div class="slide-item">
+                                        <div class="box box-dream hv-one">
+                                            <div class="image-group relative ">
+                                                <span class="icon-bookmark"><i class="far fa-bookmark"></i></span>
+                                                <div class="swiper-container noo carousel-2 img-style">
+                                                    <a href="property-detail-v1.html" class="icon-plus"><img
+                                                            src="{{ url('/storage/app/public/' . $product->image) }}"
+                                                            alt="images"></a>
+                                                    <div class="swiper-wrapper ">
+
+                                                        @foreach (array_slice(json_decode($product->images, true), 0, 5) as $image)
+                                                            <div class="swiper-slide">
+                                                                <img src="{{ url('/storage/app/public/' . $image) }}"
+                                                                    alt="images">
+                                                            </div>
+                                                        @endforeach
+
+
+
+                                                    </div>
+                                                    <div class="pagi2">
+                                                        <div class="swiper-pagination2"> </div>
+                                                    </div>
+                                                    <div class="swiper-button-next2 "><i class="fal fa-arrow-right"></i>
+                                                    </div>
+                                                    <div class="swiper-button-prev2 "><i class="fal fa-arrow-left"></i>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="content">
+                                                <h3 class="link-style-1"><a
+                                                        href="{{ route('products.show', ['product' => $product->id]) }}">{{ $product->title }}</a>
+                                                </h3>
+                                                <div class="text-address">
+                                                    <p class="p-12">{{ $product->city->name }}</p>
+                                                </div>
+                                                <div class="money fs-18 fw-6 text-color-3"><a
+                                                        href="property-detail-v1.html">{{ number_format($product->price) }}
+                                                        ريال</a></div>
+                                                <div class="icon-box flex">
+
+                                                    <div class="icons icon-1 flex"><span>غرف: </span><span
+                                                            class="fw-6">{{ $product->bedrooms }} </span>
+                                                    </div>
+                                                    <div class="icons icon-2 flex"><span>حمام: </span><span
+                                                            class="fw-6">{{ $product->bathrooms }} </span>
+                                                    </div>
+                                                    <div class="icons icon-3 flex"><span>م²: </span><span
+                                                            class="fw-6">{{ $product->area }} </span></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                @endforeach
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    @endif
 
     @if (session('success'))
         <script>

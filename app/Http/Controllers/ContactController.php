@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Contact;
+use App\Models\Product;
 use Illuminate\Http\Request;
 
 class ContactController extends Controller
@@ -21,7 +22,10 @@ class ContactController extends Controller
 
     public function createPage2()
     {
-        return view('contact', ['source' => 'page2']);
+
+        $products = Product::paginate(10);
+
+        return view('contact', ['source' => 'page2'] + compact('products'));
     }
 
     public function store(Request $request)

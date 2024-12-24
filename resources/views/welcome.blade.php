@@ -253,18 +253,12 @@
                                                                 src="{{ url('/storage/app/public/' . $product->image) }}"
                                                                 alt="images"></div>
 
-                                                        <div class="swiper-slide"><img
-                                                                src="{{ asset('/images/house/featured-1.jpg') }}"
-                                                                alt="images"></div>
-                                                        <div class="swiper-slide"><img
-                                                                src="{{ asset('/images/house/featured-2.jpg') }}"
-                                                                alt="images"></div>
-                                                        <div class="swiper-slide"><img
-                                                                src="{{ asset('/images/house/featured-3.jpg') }}"
-                                                                alt="images"></div>
-                                                        <div class="swiper-slide"><img
-                                                                src="{{ asset('/images/house/featured-4.jpg') }}"
-                                                                alt="images"></div>
+                                                        @foreach (array_slice(json_decode($product->images, true), 0, 5) as $image)
+                                                            <div class="swiper-slide">
+                                                                <img src="{{ url('/storage/app/public/' . $image) }}"
+                                                                    alt="images">
+                                                            </div>
+                                                        @endforeach
 
                                                     </div>
                                                     <div class="pagi2">

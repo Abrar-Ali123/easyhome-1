@@ -3,37 +3,20 @@
 
 @section('content')
 
-    <section class="flat-slider01 ">
-        <div class="container-full">
+
+    <section class="flat-slider01 style">
+        <div class="container">
             <div class="row">
                 <div class="col-lg-12">
-                    <div class="swiper-container thumbs-swiper-column">
+                    <div class="swiper-container thumbs-swiper-row">
                         <div class="swiper-wrapper">
                             <div class="swiper-slide">
                                 <div class="image-detail">
-                                    <img src="{{ url('/storage/app/public/' . $product->image) }}" alt="صورة العقار الرئيسية">
+                                    <img src="{{ url('/storage/app/public/' . $product->image) }}" alt="images">
                                 </div>
                             </div>
 
-                            @if ($product->images)
-                                @foreach (json_decode($product->images, true) as $image)
-                                    <div class="swiper-slide">
-                                        <div class="image-detail">
-                                            <img src="{{ url('/storage/app/public/' . $image) }}" alt="صورة العقار">
-                                        </div>
-                                    </div>
-                                @endforeach
-                            @endif
 
-
-                        </div>
-                        <div class="button-custom-slider">
-                            <div class="swiper-button-next5"><i class="far fa-chevron-down"></i></div>
-                            <div class="swiper-button-prev5"><i class="far fa-chevron-up"></i></div>
-                        </div>
-                    </div>
-                    <div thumbsSlider="" class="swiper-container thumbs-swiper-column1 swiper-pagination5">
-                        <div class="swiper-wrapper">
                             @if ($product->images)
                                 @foreach (json_decode($product->images, true) as $image)
                                     <div class="swiper-slide">
@@ -46,11 +29,28 @@
 
                         </div>
                     </div>
+                    <div thumbsSlider="" class="swiper-container thumbs-swiper-row1">
+                        <div class="swiper-wrapper">
+                            @if ($product->images)
+                                <div class="swiper-slide">
+                                    <div class="image-detail">
+                                        <img src="{{ url('/storage/app/public/' . $image) }}" alt="images">
+                                    </div>
+                                </div>
+                                @foreach (json_decode($product->images, true) as $image)
+                                    <div class="swiper-slide">
+                                        <div class="image-detail">
+                                            <img src="{{ url('/storage/app/public/' . $image) }}" alt="images">
+                                        </div>
+                                    </div>
+                                @endforeach
+                            @endif
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
     </section>
-
     <section class="flat-property-detail style2 tf-section">
         <div class="container">
             <div class="row">
@@ -129,11 +129,12 @@
                             <div class="moneys fs-30 fw-7 lh-45 text-color-3">{{ $product->price }} ريال سعودي</div>
                             <div class="moneys fs-15 fw-7 lh-45 text-color-3">القسط الشهري: {{ $product->price }} ريال
                                 سعودي</div>
-                                <div class="button-box sc-btn-top center flex justify-space">
-                                    <a href="{{ url('/storage/app/public/' . $product->profile_project) }}" target="_blank" class="profile-proj-btn sc-button btn-svg">
-                                        <span>بروفايل المشروع</span>
-                                    </a>
-                                </div>
+                            <div class="button-box sc-btn-top center flex justify-space">
+                                <a href="{{ url('/storage/app/public/' . $product->profile_project) }}" target="_blank"
+                                    class="profile-proj-btn sc-button btn-svg">
+                                    <span>بروفايل المشروع</span>
+                                </a>
+                            </div>
 
                         </div>
                     </div>
@@ -436,4 +437,76 @@
             </div>
         </div>
     </section>
+
+    <section class="flat-sale-detail flat-sale wg-dream wg-dots tf-section">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="heading-section ">
+                        <div class="title-heading fs-30 lh-45 fw-7">ترشيحات العقارات</div>
+                    </div>
+                    <div class="swiper-container2">
+                        <div class="one-carousel owl-carousel owl-theme">
+
+                            @foreach ($products as $product)
+                                <div class="slide-item">
+                                    <div class="box box-dream hv-one">
+                                        <div class="image-group relative ">
+                                            <span class="icon-bookmark"><i class="far fa-bookmark"></i></span>
+                                            <div class="swiper-container noo carousel-2 img-style">
+                                                <a href="property-detail-v1.html" class="icon-plus"><img
+                                                        src="{{ url('/storage/app/public/' . $product->image) }}"
+                                                        alt="images"></a>
+                                                <div class="swiper-wrapper ">
+
+                                                    @foreach (array_slice(json_decode($product->images, true), 0, 5) as $image)
+                                                        <div class="swiper-slide">
+                                                            <img src="{{ url('/storage/app/public/' . $image) }}"
+                                                                alt="images">
+                                                        </div>
+                                                    @endforeach
+
+
+
+                                                </div>
+                                                <div class="pagi2">
+                                                    <div class="swiper-pagination2"> </div>
+                                                </div>
+                                                <div class="swiper-button-next2 "><i class="fal fa-arrow-right"></i></div>
+                                                <div class="swiper-button-prev2 "><i class="fal fa-arrow-left"></i> </div>
+                                            </div>
+                                        </div>
+                                        <div class="content">
+                                            <h3 class="link-style-1"><a
+                                                    href="{{ route('products.show', ['product' => $product->id]) }}">{{ $product->title }}</a>
+                                            </h3>
+                                            <div class="text-address">
+                                                <p class="p-12">{{ $product->city->name }}</p>
+                                            </div>
+                                            <div class="money fs-18 fw-6 text-color-3"><a
+                                                    href="property-detail-v1.html">{{ number_format($product->price) }}
+                                                    ريال</a></div>
+                                            <div class="icon-box flex">
+
+                                                <div class="icons icon-1 flex"><span>غرف: </span><span
+                                                        class="fw-6">{{ $product->bedrooms }} </span>
+                                                </div>
+                                                <div class="icons icon-2 flex"><span>حمام: </span><span
+                                                        class="fw-6">{{ $product->bathrooms }} </span>
+                                                </div>
+                                                <div class="icons icon-3 flex"><span>م²: </span><span
+                                                        class="fw-6">{{ $product->area }} </span></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            @endforeach
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
 @endsection

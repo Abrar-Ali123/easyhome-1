@@ -175,11 +175,11 @@ class ProductController extends Controller
     // داخل ProductController.php
     public function show($id)
     {
-
         $cities = City::all();
         $product = Product::with('comments.likes')->findOrFail($id);
+        $products = Product::where('id', '!=', $id)->paginate(10);
 
-        return view('products.show', compact('product', 'cities'));
+        return view('products.show', compact('product', 'cities', 'products'));
     }
 
     public function getFeaturesAttribute($value)

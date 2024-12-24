@@ -16045,7 +16045,7 @@ html.light-mode .main-header {
 .flat-contact2 .mark-img {
     position: absolute;
     top: -158px;
-    left: 14px;
+    left: -73px;
 }
 
 .flat-contact2.style .mark-img {
@@ -20329,7 +20329,7 @@ html.light-mode .main-header {
 
 .flat-slider01.style {
     padding: 50px 0 45px;
-    background-color: #f7f7f7;
+    background-color: #100f14;
     margin-bottom: 50px;
 }
 
@@ -24894,4 +24894,9 @@ html.light-mode .main-header {
 
 .whatsapp-float i {
     font-size: 24px;
+}
+
+
+.mark-img img {
+    width: 445px;
 }

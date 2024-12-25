@@ -246,7 +246,7 @@
                                         <!-- col 1 -->
                                         <div class="box box-dream hv-one">
                                             <div class="image-group relative ">
-                                                <span class="featured fs-12 fw-6">Featured</span>
+                                                <span class="featured fs-12 fw-6">{{ $product->category }}</span>
                                                 <span class="icon-bookmark"><i class="far fa-bookmark"></i></span>
                                                 <div class="swiper-container carousel-2 img-style">
 

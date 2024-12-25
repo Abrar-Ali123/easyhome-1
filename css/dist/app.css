@@ -15053,6 +15053,7 @@ html.light-mode .main-header {
 
 .flat-blog.home {
     background-color: #16151b;
+    padding-bottom: 115px;
 }
 
 .flat-blog.home2 .content {
@@ -20533,7 +20534,7 @@ html.light-mode .main-header {
 }
 
 .button-search a span {
-    margin-right: 8px;
+    margin-left: 8px;
 }
 
 .form-style {
@@ -22198,8 +22199,8 @@ html.light-mode .main-header {
 }
 
 .tf-amenities .btn-checkbox {
-    width: 20px;
-    height: 20px;
+    width: 10px;
+    height: 10px;
     border: 1px solid #b38f39;
     border-radius: 3px;
     display: flex;
@@ -22207,7 +22208,7 @@ html.light-mode .main-header {
     justify-content: center;
     margin-left: 10px;
     background: #b38f39;
-    padding: 13px;
+    padding: 10px;
 }
 
 .tf-amenities .btn-checkbox::after {
@@ -24688,7 +24689,6 @@ input::placeholder {
 }
 
 .swiper-slide img {
-    width: 100%;
     object-fit: cover;
 }
 
@@ -25132,4 +25132,25 @@ html.light-mode .main-header {
 .testimonial .carousel-control-prev-icon {
     width: 35px;
     height: 35px;
+}
+
+.slogan-logo img {
+    width: 125px;
+    padding: 10px;
+}
+
+@media only screen and (max-width: 1520px) {
+    .content.po-content-two {
+        padding: 0px 0 !important;
+    }
+
+    .slider .slider-item .images {
+        height: 100% !important;
+    }
+}
+
+.slider .slider-item .images .image,
+.slider .slider-item .images img {
+    width: 100%;
+    height: 100%;
 }

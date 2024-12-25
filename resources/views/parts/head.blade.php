@@ -9,7 +9,7 @@
         crossorigin="anonymous" referrerpolicy="no-referrer" />
 
     <link href="{{ asset('css/dist/font-awesome.css') }}" rel="stylesheet">
-    <link href="{{ asset('css/dist/app.css') }}?v=54" rel="stylesheet">
+    <link href="{{ asset('css/dist/app.css') }}?v=49" rel="stylesheet">
     <link href="{{ asset('css/dist/responsive.css') }}" rel="stylesheet">
     <link href="{{ asset('css/dist/owl.css') }}" rel="stylesheet">
 
@@ -54,10 +54,11 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=El+Messiri:wght@400..700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Amiri&family=Lateef&family=Cairo:wght@300;400;700&family=Tajawal:wght@300;400;700&family=Almarai:wght@300;400;700&display=swap" rel="stylesheet">
 
     <style>
         body {
-            font-family: "El Messiri", serif;
+font-family: 'Droid Arabic Naskh', serif;
             font-optical-sizing: auto;
             font-style: normal;
 

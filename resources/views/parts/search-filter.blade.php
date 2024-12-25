@@ -123,19 +123,21 @@
 
                         <div class="boder-wg"></div>
                         <div class="box2 flex flex-wrap form-wg">
-                            <div class="form-group wg-box3">
-                                <div class="tf-amenities bg-white">
-                                    @foreach ($features as $key => $feature)
-                                        <label class="flex">
-                                            <input type="checkbox" name="features[]" value="{{ $key }}"
-                                                {{ in_array($key, request()->input('features', [])) ? 'checked' : '' }} />
-                                            <span class="btn-checkbox"></span>
-                                            <span class="fs-13">{{ $feature }}</span>
-                                        </label>
-                                    @endforeach
-                                </div>
-                            </div>
-                        </div>
+    @foreach ($features as $key => $icon)
+        <div class="form-group wg-box3">
+            <div class="tf-amenities bg-white">
+                <label class="flex">
+                    <input name="features[]" type="checkbox" value="{{ $key }}"
+                        {{ in_array($key, request()->input('features', [])) ? 'checked' : '' }}>
+                    <span class="btn-checkbox"></span>
+                    <i class="{{ $icon }}"></i>
+                    <span class="fs-13">{{ $key }}</span>
+                </label>
+            </div>
+        </div>
+    @endforeach
+</div>
+
                     </div>
                 </form>
             </div>

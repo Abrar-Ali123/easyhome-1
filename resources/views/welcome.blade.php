@@ -50,7 +50,7 @@
                             <div class="swiper-slide">
                                 <div class="slogan-logo">
                                     <a href="#">
-                                        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTaTuKGUsLIUueHg63S0KjgMzEJK-x2QhfQtA&s"
+                                        <img src="{{ asset('/images/banks/1.png') }}"
                                             alt="Logo 1">
                                     </a>
                                 </div>
@@ -58,7 +58,7 @@
                             <div class="swiper-slide">
                                 <div class="slogan-logo">
                                     <a href="#">
-                                        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRSl2PS5UJs4iC3od99LjgxS3xGGqWuy7AUSQ&s"
+                                        <img src="{{ asset('/images/banks/2.png') }}"
                                             alt="Logo 2">
                                     </a>
                                 </div>
@@ -66,7 +66,7 @@
                             <div class="swiper-slide">
                                 <div class="slogan-logo">
                                     <a href="#">
-                                        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRh9pK5bARj_q5nbl1xg4HZjt-uFcZ6adMOUQ&s"
+                                        <img src="{{ asset('/images/banks/3.png') }}"
                                             alt="Logo 3">
                                     </a>
                                 </div>
@@ -74,14 +74,14 @@
                             <div class="swiper-slide">
                                 <div class="slogan-logo">
                                     <a href="#">
-                                        <img src="https://www.wadhefa.com/logo/company/62c1a6d7b46fb.png" alt="Logo 4">
+                                        <img src="{{ asset('/images/banks/4.png') }}" alt="Logo 4">
                                     </a>
                                 </div>
                             </div>
                             <div class="swiper-slide">
                                 <div class="slogan-logo">
                                     <a href="#">
-                                        <img src="https://pbs.twimg.com/profile_images/1445656983332216833/2pUbqSUu_400x400.jpg"
+                                        <img src="{{ asset('/images/banks/5.png') }}"
                                             alt="Logo 5">
                                     </a>
                                 </div>
@@ -89,7 +89,7 @@
                             <div class="swiper-slide">
                                 <div class="slogan-logo">
                                     <a href="#">
-                                        <img src="https://pbs.twimg.com/profile_images/1716072957003304960/z20nwYIU_400x400.jpg"
+                                        <img src="{{ asset('/images/banks/6.png') }}"
                                             alt="Logo 6">
                                     </a>
                                 </div>
@@ -97,7 +97,7 @@
                             <div class="swiper-slide">
                                 <div class="slogan-logo">
                                     <a href="#">
-                                        <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgMxRhNnl57TcmqHi1EFTxgFDRRQ4YMHbprMnECr2pili1wRgS8F-0-egk_ncIRXOGePCdzeosFKOOhBDH_d2ie-jss5JSwmzwlUvzkJvNNjp7hFxazsNcqB0fMg9tchKrGhTBiI8hW0eU/s1600/%25D8%25A8%25D9%2586%25D9%2583+%25D8%25A7%25D9%2584%25D8%25B1%25D9%258A%25D8%25A7%25D8%25B6.jpg"
+                                        <img src="{{ asset('/images/banks/7.png') }}"
                                             alt="Logo 7">
                                     </a>
                                 </div>
@@ -105,7 +105,7 @@
                             <div class="swiper-slide">
                                 <div class="slogan-logo">
                                     <a href="#">
-                                        <img src="https://pbs.twimg.com/profile_images/1574351106846646272/OqMQuKsM_400x400.jpg"
+                                        <img src="{{ asset('/images/banks/8.png') }}"
                                             alt="Logo 8">
                                     </a>
                                 </div>
@@ -113,7 +113,7 @@
                             <div class="swiper-slide">
                                 <div class="slogan-logo">
                                     <a href="#">
-                                        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQa-96sxtQkOb0eKu7VhkrlTqxaY0IdRtsTJQ&s"
+                                        <img src="{{ asset('/images/banks/9.png') }}"
                                             alt="Logo 9">
                                     </a>
                                 </div>
@@ -121,7 +121,7 @@
                             <div class="swiper-slide">
                                 <div class="slogan-logo">
                                     <a href="#">
-                                        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR8-aNFDh73kNsg7kKW3iBCmEcZ0fO1ugprPQ&s"
+                                        <img src="{{ asset('/images/banks/10.png') }}"
                                             alt="Logo 10">
                                     </a>
                                 </div>

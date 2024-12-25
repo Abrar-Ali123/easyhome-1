@@ -6880,11 +6880,11 @@
 }
 
 .widget-logo-footer .box-menu ul li {
-    margin-right: 40.5px;
+    margin-left: 40.5px;
 }
 
 .widget-logo-footer .box-menu ul li:last-child {
-    margin-right: 0;
+    margin-left: 0;
 }
 
 .widget-logo-footer .box-menu ul li:hover {
@@ -7481,7 +7481,7 @@
 
 .slider .slider-item .images {
     position: absolute;
-    top: 83px;
+    top: 0;
     left: -100px;
     max-width: 60%;
 }
@@ -19902,7 +19902,7 @@ html.light-mode .main-header {
 
 .slider .slider-item .images {
     position: absolute;
-    top: 83px;
+    top: 0;
     left: -100px;
     max-width: 60%;
 }

@@ -75,9 +75,7 @@
                 <div class="col-lg-6 col-md-7">
                     <div class="heading-section">
                         <h2 class="font-2 fw-8 ">نحن نقدم العقارات الأنسب والجودة.</h2>
-                        <p class="text-color-">لوريم جزر جدا ، مطور الطماطم الجامعية.سريري ولكن الخزان
-                            ميكروويف ميكروويف معرف لورم الكراهية</p>
-                    </div>
+                     </div>
                     <div class="wrap-info">
                         <div class="box-info flex align-center">
                             <div class="icon-info">

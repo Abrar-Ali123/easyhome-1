@@ -171,3 +171,35 @@
         });
     });
 </script>
+
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    $(document).ready(function () {
+        $('#searchForm').on('submit', function (e) {
+            e.preventDefault(); // منع تحديث الصفحة الافتراضي
+
+            // الحصول على بيانات النموذج
+            let formData = $(this).serialize();
+
+            // إرسال طلب AJAX
+            $.ajax({
+                url: $(this).attr('action'), // الرابط الموجود في form
+                method: 'GET', // طريقة الإرسال
+                data: formData,
+                beforeSend: function () {
+                    // يمكنك هنا إضافة مؤشر تحميل
+                    $('#searchResults').html('<p>جاري البحث...</p>');
+                },
+                success: function (response) {
+                    // عرض النتائج في div
+                    $('#searchResults').html(response);
+                },
+                error: function (xhr, status, error) {
+                    console.error('حدث خطأ:', error);
+                    $('#searchResults').html('<p>حدث خطأ أثناء البحث. الرجاء المحاولة مرة أخرى.</p>');
+                }
+            });
+        });
+    });
+</script>

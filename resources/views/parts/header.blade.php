@@ -19,6 +19,7 @@
                                         <li><a href="{{ route('blog.index') }}">مدونتنا</a></li>
                                         <li><a href="{{ route('contact.page2') }}">برنامج انجاز</a></li>
                                         <li><a href="{{ route('contact.page1') }}">تواصل معنا</a></li>
+                                        <li><a href="{{ route('about') }}">من نحن</a></li>
                                     </ul>
                                 </div>
                             </nav>
@@ -26,37 +27,23 @@
                         </div>
                         <div class="header-account flex align-center">
                             <div class="register">
-                                <ul class="flex align-center">
-                                    <li>
-                                        <i class="fa-solid fa-phone"></i>
-                                    </li>
-                                    <li class="">
-                                        <a href="#" data-toggle="modal"
-                                            data-target="#popup_bid2">966551421008+</a>
-                                    </li>
 
-                                    <li class="profile-icon">
-                                        <i class="fa-regular fa-user"></i>
-                                    </li>
-
-
-
-                                </ul>
                             </div>
                             <div class="flat-bt-top sc-btn-top ">
 
                                 @if (Auth::check())
 
                                     @if (Auth::user()->role == 0)
-                                        <a href="{{ route('dashboard.index') }}">لوحة التحكم</a>
+
+                                        <a  class="sc-button btn-icon fa-regular fa-user" href="{{ route('dashboard.index') }}">لوحة التحكم</a>
                                     @endif
 
-                                    <a class="sc-button btn-icon " href="{{ route('logout') }}">
+                                    <a class="sc-button btn-icon fa-regular fa-user" href="{{ route('logout') }}">
                                         تسجيل الخروج
                                     </a>
                                 @else
-                                    <a class="sc-button btn-icon " data-toggle="modal" data-target="#popup_bid" href="{{ route('login') }}">
-                                        تسجيل دخول
+                                    <a class="sc-button btn-icon fa-regular fa-user" data-toggle="modal" data-target="#popup_bid" href="{{ route('login') }}">
+
                                     </a>
 
                                 @endif
@@ -183,3 +170,28 @@
     <!-- End Mobile Menu -->
 
 </header>
+
+
+<style>
+    .sc-button.btn-icon.fa-regular.fa-user::before {
+        margin-right: 10px; /* مسافة بين الأيقونة والكلمة */
+    }
+
+
+    .sc-button.btn-icon {
+    display: inline-flex; /* يسمح بوجود مسافات بين الأيقونة والنص */
+    align-items: center; /* لضبط المحاذاة الرأسية */
+    gap: 10px; /* لتحديد المسافة بين الأيقونة والنص */
+}
+
+
+
+
+
+
+</style>
+
+
+
+
+

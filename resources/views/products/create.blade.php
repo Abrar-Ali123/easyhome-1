@@ -110,23 +110,18 @@
 
 
 
-            <div class="form-group">
-                <label for="category">التصنيف</label>
-                <div class="dropdown">
-                    <button type="button" class="dropdown-button" id="dropdown-button">اختر التصنيف</button>
-                    <div class="dropdown-content" id="dropdown-content">
-                        <div class="dropdown-item" data-value="apartment"><i class="fas fa-home"></i> <span
-                                class="dropdown-text">شقة</span></div>
-                        <div class="dropdown-item" data-value="house"><i class="fas fa-house-user"></i> <span
-                                class="dropdown-text">منزل</span></div>
-                        <div class="dropdown-item" data-value="commercial"><i class="fas fa-store"></i> <span
-                                class="dropdown-text">تجاري</span></div>
-                        <div class="dropdown-item" data-value="land"><i class="fas fa-landmark"></i> <span
-                                class="dropdown-text">أرض</span></div>
-                    </div>
-                </div>
-                <input type="hidden" name="category" id="category">
-            </div>
+
+
+
+
+            <select name="category" id="category" class="form-control">
+    @foreach (App\Models\Product::CATEGORIES as $category)
+        <option value="{{ $category }}" {{ old('category') == $category ? 'selected' : '' }}>
+            {{ $category }}
+        </option>
+    @endforeach
+</select>
+
 
             <div class="form-group">
                 <label for="image">الصورة الرئيسية</label>

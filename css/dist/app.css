@@ -25095,25 +25095,7 @@ html.light-mode .main-header {
     position: relative;
     text-align: center;
 }
-.testimonial4_slide img {
-    top: 0;
-    left: 0;
-    right: 0;
-    width: 136px;
-    height: 136px;
-    margin: auto;
-    display: block;
-    color: #f2f2f2;
-    font-size: 18px;
-    line-height: 46px;
-    text-align: center;
-    position: relative;
-    border-radius: 50%;
-    box-shadow: -6px 6px 6px rgba(0, 0, 0, 0.23);
-    -moz-box-shadow: -6px 6px 6px rgba(0, 0, 0, 0.23);
-    -o-box-shadow: -6px 6px 6px rgba(0, 0, 0, 0.23);
-    -webkit-box-shadow: -6px 6px 6px rgba(0, 0, 0, 0.23);
-}
+
 .testimonial4_slide p {
     color: #ffffff;
     font-size: 20px;

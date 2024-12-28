@@ -19,6 +19,10 @@ use App\Http\Controllers\ProductRequestController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
+Route::get('/about', function () {
+    return view('about');
+})->name('about');
+
 Route::get('/posts', [PostController::class, 'userPosts'])->name('posts.user.index');
 
 Route::get('/auth/check', [AuthCheckController::class, 'check'])->name('auth.check');

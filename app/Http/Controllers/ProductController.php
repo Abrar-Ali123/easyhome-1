@@ -11,43 +11,43 @@ class ProductController extends Controller
 {
     public function index(Request $request)
     {
+        // جلب البيانات بناءً على معايير البحث
+        $query = Product::query();
 
-        $features = Product::$featuresList;
-        $products = Product::query()
-            ->when($request->search, function ($query) use ($request) {
-                $query->where('title', 'like', '%' . $request->search . '%');
-            })
-            ->when($request->city_id, function ($query) use ($request) {
-                $query->where('city_id', $request->city_id);
-            })
-            ->when($request->neighborhood_id, function ($query) use ($request) {
-                $query->where('neighborhood_id', $request->neighborhood_id); // إضافة شرط الحي
-            })
-            ->when($request->min_price, function ($query) use ($request) {
-                $query->where('price', '>=', $request->min_price);
-            })
-            ->when($request->max_price, function ($query) use ($request) {
-                $query->where('price', '<=', $request->max_price);
-            })
-            ->when($request->bedrooms, function ($query) use ($request) {
-                $query->where('bedrooms', $request->bedrooms);
-            })
-            ->when($request->bathrooms, function ($query) use ($request) {
-                $query->where('bathrooms', $request->bathrooms);
-            })
-            ->when($request->min_area, function ($query) use ($request) {
-                $query->where('area', '>=', $request->min_area);
-            })
-            ->when($request->max_area, function ($query) use ($request) {
-                $query->where('area', '<=', $request->max_area);
-            })
-            ->paginate(9);
-
-        if ($request->ajax()) {
-            return view('parts.property-list', compact('products', 'features'))->render();
+        if ($request->has('search')) {
+            $query->where('name', 'LIKE', '%'.$request->input('search').'%');
         }
 
-        return view('welcome', compact('products', 'features'));
+        if ($request->has('city_id')) {
+            $query->where('city_id', $request->input('city_id'));
+        }
+
+        if ($request->has('neighborhood_id')) {
+            $query->where('neighborhood_id', $request->input('neighborhood_id'));
+        }
+
+        // شروط إضافية للبحث
+        if ($request->has('min_price')) {
+            $query->where('price', '>=', $request->input('min_price'));
+        }
+
+        if ($request->has('max_price')) {
+            $query->where('price', '<=', $request->input('max_price'));
+        }
+
+        if ($request->has('features')) {
+            $query->whereJsonContains('features', $request->input('features'));
+        }
+
+        $products = $query->get();
+
+        // إذا كان الطلب AJAX، أعد النتائج كـ HTML
+        if ($request->ajax()) {
+            return view('partials.search-results', compact('products'))->render();
+        }
+
+        // للطلبات العادية
+        return view('products.index', compact('products'));
     }
 
     /**
@@ -118,7 +118,7 @@ class ProductController extends Controller
         $images = [];
         if ($request->hasfile('images')) {
             foreach ($request->file('images') as $image) {
-                $name = time() . '_' . $image->getClientOriginalName();
+                $name = time().'_'.$image->getClientOriginalName();
                 $path = $image->storeAs('public/images', $name);
                 $images[] = str_replace('public/', '', $path);
             }
@@ -127,7 +127,7 @@ class ProductController extends Controller
         $profileProjectPath = null;
         if ($request->hasFile('profile_project')) {
             $profileProject = $request->file('profile_project');
-            $fileName = time() . '_' . $profileProject->getClientOriginalName();
+            $fileName = time().'_'.$profileProject->getClientOriginalName();
             $path = $profileProject->storeAs('public/projects', $fileName);
             $profileProjectPath = str_replace('public/', '', $path);
         }
@@ -154,7 +154,7 @@ class ProductController extends Controller
 
         if ($request->hasFile('image')) {
             $image = $request->file('image');
-            $imageName = time() . '_' . $image->getClientOriginalName();
+            $imageName = time().'_'.$image->getClientOriginalName();
             $path = $image->storeAs('public/images', $imageName);
             $product->image = str_replace('public/', '', $path);
         }
@@ -236,7 +236,7 @@ class ProductController extends Controller
         $images = json_decode($product->images, true) ?? [];
         if ($request->hasfile('images')) {
             foreach ($request->file('images') as $image) {
-                $name = time() . '_' . $image->getClientOriginalName();
+                $name = time().'_'.$image->getClientOriginalName();
                 $path = $image->storeAs('public/images', $name); // حفظ في storage/app/public/images
                 $images[] = str_replace('public/', '', $path); // احفظ المسار الجزئي فقط
             }
@@ -255,11 +255,11 @@ class ProductController extends Controller
 
         // تحديث بروفايل المشروع
         if ($request->hasFile('profile_project')) {
-            if ($product->profile_project && Storage::exists('public/' . $product->profile_project)) {
-                Storage::delete('public/' . $product->profile_project);
+            if ($product->profile_project && Storage::exists('public/'.$product->profile_project)) {
+                Storage::delete('public/'.$product->profile_project);
             }
             $file = $request->file('profile_project');
-            $fileName = time() . '_' . $file->getClientOriginalName();
+            $fileName = time().'_'.$file->getClientOriginalName();
             $path = $file->storeAs('public/files', $fileName);
             $product->profile_project = str_replace('public/', '', $path);
         }
@@ -271,12 +271,12 @@ class ProductController extends Controller
 
         if ($request->hasFile('image')) {
             // حذف الصورة القديمة إذا كانت موجودة
-            if ($product->image && Storage::exists('public/' . str_replace('storage/', '', $product->image))) {
-                Storage::delete('public/' . str_replace('storage/', '', $product->image));
+            if ($product->image && Storage::exists('public/'.str_replace('storage/', '', $product->image))) {
+                Storage::delete('public/'.str_replace('storage/', '', $product->image));
             }
 
             $image = $request->file('image');
-            $imageName = time() . '_' . $image->getClientOriginalName();
+            $imageName = time().'_'.$image->getClientOriginalName();
             $path = $image->storeAs('public/images', $imageName); // حفظ في storage/app/public/images
             $product->image = str_replace('public/', '', $path); // احفظ المسار الجزئي فقط
         }
@@ -297,16 +297,16 @@ class ProductController extends Controller
     public function destroy(Product $product)
     {
         // حذف الصورة الرئيسية إذا كانت موجودة
-        if ($product->image && Storage::exists('public/' . str_replace('storage/', '', $product->image))) {
-            Storage::delete('public/' . str_replace('storage/', '', $product->image));
+        if ($product->image && Storage::exists('public/'.str_replace('storage/', '', $product->image))) {
+            Storage::delete('public/'.str_replace('storage/', '', $product->image));
         }
 
         // حذف الصور الإضافية
         $images = json_decode($product->images, true) ?? [];
         foreach ($images as $image) {
             $imagePath = str_replace('storage/', '', $image);
-            if (Storage::exists('public/' . $imagePath)) {
-                Storage::delete('public/' . $imagePath);
+            if (Storage::exists('public/'.$imagePath)) {
+                Storage::delete('public/'.$imagePath);
             }
         }
 

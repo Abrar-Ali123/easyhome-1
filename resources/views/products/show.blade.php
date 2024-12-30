@@ -61,7 +61,7 @@
                             <div class="title-heading fs-20 fw-7 lh-45">اعلان رقم: {{ $product->ad_number }}</div>
 
                             <div class="inner flex">
-                                 <div class="text-address flex align-center">
+                                <div class="text-address flex align-center">
                                     <i class="fa-solid fa-location-dot" style="margin-left: 5px"></i>
                                     <p>{{ $product->city->name . ' - ' . $product->neighborhood->name }}</p>
                                 </div>
@@ -193,7 +193,7 @@
                                         </div>
                                         <div class="content">
                                             <div class="font-2">المساحة:</div>
-                                            <div class="font-2 fw-7">{{ $product->area }}  م²</div>
+                                            <div class="font-2 fw-7">{{ $product->area }} م²</div>
                                         </div>
                                     </div>
                                     <div class="inner flex">
@@ -269,49 +269,27 @@
                         </div>
 
                         @php
-        $videoUrl = $product->video;
-        $videoId = substr($videoUrl, strrpos($videoUrl, '/') + 1);
-    @endphp
+                            $videoUrl = $product->video;
+                            $videoId = substr($videoUrl, strrpos($videoUrl, '/') + 1);
+                        @endphp
                         @if ($product->video)
                             <div class="wrap-video wrap-style">
                                 <h3 class="titles">فيديو</h3>
                                 <div class="video-box center ">
                                     <div class="video-container post-video flex align-center justify-center  relative">
 
-                                          <iframe
-            src="https://www.youtube.com/embed/{{ $videoId }}?autoplay=1&mute=1"
-
-
-            frameborder="0"
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-            allowfullscreen>
-    </iframe>
-                                     </div>
+                                        <iframe src="https://www.youtube.com/embed/{{ $videoId }}?autoplay=1&mute=1"
+                                            frameborder="0"
+                                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                            allowfullscreen>
+                                        </iframe>
+                                    </div>
                                 </div>
                             </div>
                         @endif
 
 
-                         <!-- قسم الفيديو -->
-
-
-
-<style>
- .video-container {
-    position: relative;
-    width: 100%;
-     overflow: hidden;
-}
-
-.video-container iframe {
-    width: 100%;
-    height: 100%;
-    object-fit: cover; /* تغطية الإطار بالكامل */
-    transform: scale(2.1); /* تكبير الفيديو قليلاً لتغطية المساحات السوداء */
-}
-
-</style>
-
+                        <!-- قسم الفيديو -->
 
                         <div class="wrap-virtual wrap-style">
                             <h3 class="titles">360 جولة افتراضية</h3>

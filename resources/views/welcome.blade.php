@@ -438,33 +438,20 @@
                 </div>
                 <div class="wrap-icon">
                     <div class="box flex">
-                        <div class="icon">
-
-                        </div>
                         <div class="content">
-                            <h4>موثوقية وخبرة</h4>
+                            <h3>موثوقية وخبرة</h3>
                             <p class="text-color-2">نعمل بخبرة سنوات لضمان تقديم أفضل الخيارات العقارية</p>
                         </div>
                     </div>
                     <div class="box flex">
-                        <div class="icon">
-                            <svg width="50" height="50" viewBox="0 0 68 68" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                <!-- أيقونة تمثل الدعم -->
-                            </svg>
-                        </div>
                         <div class="content">
-                            <h4>دعم شخصي</h4>
+                            <h3>دعم شخصي</h3>
                             <p class="text-color-2">فريقنا يساعدك في كل خطوة من البحث حتى الشراء</p>
                         </div>
                     </div>
                     <div class="box flex">
-                        <div class="icon">
-                            <svg width="50" height="50" viewBox="0 0 70 70" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                <!-- أيقونة تمثل خدمات ما بعد البيع -->
-                            </svg>
-                        </div>
                         <div class="content">
-                            <h4>خدمات ما بعد البيع</h4>
+                            <h3>خدمات ما بعد البيع</h3>
                             <p class="text-color-2">دعم متواصل لضمان رضاك التام عن خدماتنا</p>
                         </div>
                     </div>

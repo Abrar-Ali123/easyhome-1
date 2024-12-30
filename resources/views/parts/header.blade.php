@@ -34,15 +34,16 @@
                                 @if (Auth::check())
 
                                     @if (Auth::user()->role == 0)
-
-                                        <a  class="sc-button btn-icon fa-regular fa-user" href="{{ route('dashboard.index') }}">لوحة التحكم</a>
+                                        <a class="sc-button btn-icon fa-regular fa-user"
+                                            href="{{ route('dashboard.index') }}">لوحة التحكم</a>
                                     @endif
 
                                     <a class="sc-button btn-icon fa-regular fa-user" href="{{ route('logout') }}">
                                         تسجيل الخروج
                                     </a>
                                 @else
-                                    <a class="sc-button btn-icon fa-regular fa-user" data-toggle="modal" data-target="#popup_bid" href="{{ route('login') }}">
+                                    <a class="sc-button btn-icon fa-regular fa-user" data-toggle="modal"
+                                        data-target="#popup_bid" href="{{ route('login') }}">
 
                                     </a>
 
@@ -65,8 +66,8 @@
     <div class="mobile-menu">
         <div class="menu-backdrop"></div>
         <nav class="menu-box">
-            <div class="nav-logo"><a href="{{ url('/') }}"><img src="assets/images/logo/logo@2x.png" alt=""
-                        width="197" height="48"></a></div>
+            <div class="nav-logo"><a href="{{ url('/') }}"><img src="assets/images/logo/logo@2x.png"
+                        alt="" width="197" height="48"></a></div>
             <div class="bottom-canvas">
                 <div class="login-box flex align-center">
                     <svg width="22" height="22" viewBox="0 0 22 22" fill="none"
@@ -174,24 +175,14 @@
 
 <style>
     .sc-button.btn-icon.fa-regular.fa-user::before {
-        margin-right: 10px; /* مسافة بين الأيقونة والكلمة */
+        margin-right: 10px;
+        /* مسافة بين الأيقونة والكلمة */
     }
 
 
     .sc-button.btn-icon {
-    display: inline-flex; /* يسمح بوجود مسافات بين الأيقونة والنص */
-    align-items: center; /* لضبط المحاذاة الرأسية */
-    gap: 10px; /* لتحديد المسافة بين الأيقونة والنص */
-}
-
-
-
-
-
-
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+    }
 </style>
-
-
-
-
-

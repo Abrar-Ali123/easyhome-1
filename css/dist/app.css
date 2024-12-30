@@ -25136,3 +25136,17 @@ html.light-mode .main-header {
     width: 100%;
     height: 100%;
 }
+
+.video-container {
+    position: relative;
+    width: 100%;
+    height:350px;
+     overflow: hidden;
+}
+
+.video-container iframe {
+    width: max-content;
+    height: 100%;
+    object-fit: cover;
+    transform: scale(2.1);
+}

@@ -18,7 +18,7 @@ class Product extends Model
         'features',
         'category',
         'image',
-        'images', // إذا كنت تستخدم حقل متعدد للصور
+        'images',
         'city_id',
         'neighborhood_id',
         'monthly_installment',
@@ -26,6 +26,7 @@ class Product extends Model
         'property_usage',
         'property_facade',
         'profile_project',
+        'croquis',
     ];
 
     const CATEGORIES = [

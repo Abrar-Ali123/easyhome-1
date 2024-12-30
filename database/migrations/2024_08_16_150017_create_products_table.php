@@ -25,6 +25,12 @@ return new class extends Migration
             $table->string('category');
             $table->text('image');
             $table->text('images');
+            $table->string('monthly_installment')->nullable();
+            $table->string('ad_number')->nullable();
+            $table->string('property_usage')->nullable();
+            $table->string('property_facade')->nullable();
+            $table->string('profile_project')->nullable();
+            $table->text('croquis')->nullable(); // الكروكي
 
             $table->unsignedBigInteger('city_id')->nullable();
             $table->unsignedBigInteger('neighborhood_id')->nullable();

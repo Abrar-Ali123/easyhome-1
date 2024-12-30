@@ -11,7 +11,6 @@ class ProductController extends Controller
 {
     public function index(Request $request)
     {
-        // جلب البيانات بناءً على معايير البحث
         $query = Product::query();
 
         if ($request->has('search')) {
@@ -26,7 +25,6 @@ class ProductController extends Controller
             $query->where('neighborhood_id', $request->input('neighborhood_id'));
         }
 
-        // شروط إضافية للبحث
         if ($request->has('min_price')) {
             $query->where('price', '>=', $request->input('min_price'));
         }
@@ -41,20 +39,13 @@ class ProductController extends Controller
 
         $products = $query->get();
 
-        // إذا كان الطلب AJAX، أعد النتائج كـ HTML
         if ($request->ajax()) {
             return view('partials.search-results', compact('products'))->render();
         }
 
-        // للطلبات العادية
         return view('products.index', compact('products'));
     }
 
-    /**
-     * عرض قائمة المنتجات.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function single()
     {
         $products = Product::all();
@@ -64,32 +55,19 @@ class ProductController extends Controller
 
     public function index1()
     {
-
         $products = Product::all();
 
         return view('products.index', compact('products'));
     }
 
-    /**
-     * عرض نموذج إنشاء منتج جديد.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function create()
     {
-        // نحصل على قائمة المميزات من الموديل
         $featuresList = Product::$featuresList;
         $cities = City::all();
 
-        // نمرر قائمة المميزات إلى الـ View
         return view('products.create', compact('featuresList', 'cities'));
     }
 
-    /**
-     * تخزين منتج جديد.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function store(Request $request)
     {
         $user = \Illuminate\Support\Facades\Auth::user();
@@ -108,6 +86,7 @@ class ProductController extends Controller
             'category' => 'required|string',
             'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
             'images.*' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'croquis' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
             'monthly_installment' => 'nullable|string',
             'ad_number' => 'nullable|string',
             'property_usage' => 'nullable|string',
@@ -132,6 +111,14 @@ class ProductController extends Controller
             $profileProjectPath = str_replace('public/', '', $path);
         }
 
+        $croquisPath = null;
+        if ($request->hasFile('croquis')) {
+            $croquis = $request->file('croquis');
+            $croquisName = time().'_'.$croquis->getClientOriginalName();
+            $path = $croquis->storeAs('public/croquis', $croquisName);
+            $croquisPath = str_replace('public/', '', $path);
+        }
+
         $product = new Product;
         $product->title = $request->title;
         $product->city_id = $request->city_id;
@@ -150,6 +137,7 @@ class ProductController extends Controller
         $product->property_usage = $request->property_usage;
         $product->property_facade = $request->property_facade;
         $product->profile_project = $profileProjectPath;
+        $product->croquis = $croquisPath;
         $product->created_by = $user->id;
 
         if ($request->hasFile('image')) {
@@ -167,12 +155,6 @@ class ProductController extends Controller
             ->with('success', 'Product created successfully.');
     }
 
-    /**
-     * عرض تفاصيل منتج محدد.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    // داخل ProductController.php
     public function show($id)
     {
         $cities = City::all();
@@ -182,16 +164,6 @@ class ProductController extends Controller
         return view('products.show', compact('product', 'cities', 'products'));
     }
 
-    public function getFeaturesAttribute($value)
-    {
-        return explode(',', $value);
-    }
-
-    /**
-     * عرض نموذج تعديل منتج.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function edit($id)
     {
         $product = Product::findOrFail($id);
@@ -206,11 +178,6 @@ class ProductController extends Controller
         return view('products.edit', compact('product', 'featuresList'));
     }
 
-    /**
-     * تحديث منتج محدد.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function update(Request $request, Product $product)
     {
         $request->validate([
@@ -227,6 +194,7 @@ class ProductController extends Controller
             'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
             'images.*' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
             'profile_project' => 'nullable|file|mimes:pdf,doc,docx|max:2048',
+            'croquis' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
             'monthly_installment' => 'nullable|numeric',
             'ad_number' => 'nullable|integer',
             'property_usage' => 'nullable|string',
@@ -237,9 +205,30 @@ class ProductController extends Controller
         if ($request->hasfile('images')) {
             foreach ($request->file('images') as $image) {
                 $name = time().'_'.$image->getClientOriginalName();
-                $path = $image->storeAs('public/images', $name); // حفظ في storage/app/public/images
-                $images[] = str_replace('public/', '', $path); // احفظ المسار الجزئي فقط
+                $path = $image->storeAs('public/images', $name);
+                $images[] = str_replace('public/', '', $path);
             }
+        }
+
+        if ($request->hasFile('croquis')) {
+            if ($product->croquis && Storage::exists('public/'.$product->croquis)) {
+                Storage::delete('public/'.$product->croquis);
+            }
+            $croquis = $request->file('croquis');
+            $croquisName = time().'_'.$croquis->getClientOriginalName();
+            $path = $croquis->storeAs('public/croquis', $croquisName);
+            $product->croquis = str_replace('public/', '', $path);
+        }
+
+        if ($request->hasFile('image')) {
+            if ($product->image && Storage::exists('public/'.str_replace('storage/', '', $product->image))) {
+                Storage::delete('public/'.str_replace('storage/', '', $product->image));
+            }
+
+            $image = $request->file('image');
+            $imageName = time().'_'.$image->getClientOriginalName();
+            $path = $image->storeAs('public/images', $imageName);
+            $product->image = str_replace('public/', '', $path);
         }
 
         $product->title = $request->title;
@@ -252,34 +241,10 @@ class ProductController extends Controller
         $product->area = $request->area;
         $product->features = $request->features;
         $product->category = $request->category;
-
-        // تحديث بروفايل المشروع
-        if ($request->hasFile('profile_project')) {
-            if ($product->profile_project && Storage::exists('public/'.$product->profile_project)) {
-                Storage::delete('public/'.$product->profile_project);
-            }
-            $file = $request->file('profile_project');
-            $fileName = time().'_'.$file->getClientOriginalName();
-            $path = $file->storeAs('public/files', $fileName);
-            $product->profile_project = str_replace('public/', '', $path);
-        }
-
         $product->monthly_installment = $request->monthly_installment;
         $product->ad_number = $request->ad_number;
         $product->property_usage = $request->property_usage;
         $product->property_facade = $request->property_facade;
-
-        if ($request->hasFile('image')) {
-            // حذف الصورة القديمة إذا كانت موجودة
-            if ($product->image && Storage::exists('public/'.str_replace('storage/', '', $product->image))) {
-                Storage::delete('public/'.str_replace('storage/', '', $product->image));
-            }
-
-            $image = $request->file('image');
-            $imageName = time().'_'.$image->getClientOriginalName();
-            $path = $image->storeAs('public/images', $imageName); // حفظ في storage/app/public/images
-            $product->image = str_replace('public/', '', $path); // احفظ المسار الجزئي فقط
-        }
 
         $product->images = json_encode($images);
 
@@ -289,19 +254,16 @@ class ProductController extends Controller
             ->with('success', 'Product updated successfully.');
     }
 
-    /**
-     * حذف منتج محدد.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function destroy(Product $product)
     {
-        // حذف الصورة الرئيسية إذا كانت موجودة
         if ($product->image && Storage::exists('public/'.str_replace('storage/', '', $product->image))) {
             Storage::delete('public/'.str_replace('storage/', '', $product->image));
         }
 
-        // حذف الصور الإضافية
+        if ($product->croquis && Storage::exists('public/'.$product->croquis)) {
+            Storage::delete('public/'.$product->croquis);
+        }
+
         $images = json_decode($product->images, true) ?? [];
         foreach ($images as $image) {
             $imagePath = str_replace('storage/', '', $image);

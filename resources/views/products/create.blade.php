@@ -123,18 +123,26 @@
 </select>
 
 
-            <div class="form-group">
-                <label for="image">الصورة الرئيسية</label>
+<div class="form-group">
+    <label for="image">الصورة الرئيسية</label>
+    <input type="file" name="image" id="image" class="form-control-file" accept="image/*">
+    <div id="image-preview" style="display: flex; flex-wrap: wrap; gap: 10px; margin-top: 10px;"></div>
+</div>
 
-                <input type="file" name="image" id="image" class="form-control-file">
-            </div>
+<div class="form-group">
+    <label for="images">الصور الإضافية</label>
+    <input type="file" name="images[]" id="images" class="form-control-file" multiple accept="image/*">
+    <div id="images-preview" style="display: flex; flex-wrap: wrap; gap: 10px; margin-top: 10px;"></div>
+</div>
 
-            <div class="form-group">
-                <label for="images">الصور الإضافية</label>
-                <input type="file" name="images[]" id="images" class="form-control-file" multiple
-                    onchange="previewImages(event)">
-                <div id="image-preview" style="display: flex; flex-wrap: wrap; gap: 10px; margin-top: 10px;"></div>
-            </div>
+<div class="form-group">
+    <label for="croquis">الكروكي</label>
+    <input type="file" name="croquis" id="croquis" class="form-control-file" accept="image/*">
+    <div id="croquis-preview" style="display: flex; flex-wrap: wrap; gap: 10px; margin-top: 10px;"></div>
+</div>
+
+
+
 
             <div class="form-group">
                 <label for="profile_project">بروفايل المشروع</label>
@@ -157,10 +165,14 @@
             </div>
 
             <div class="form-group">
-                <label for="property_usage">استخدام العقار</label>
-                <input type="text" name="property_usage" id="property_usage" class="form-control"
-                    value="{{ old('property_usage') }}" required>
-            </div>
+    <label for="property_usage">استخدام العقار</label>
+    <select name="property_usage" id="property_usage" class="form-control" required>
+        <option value="" disabled {{ old('property_usage') ? '' : 'selected' }}>اختر نوع الاستخدام</option>
+        <option value="سكني" {{ old('property_usage') == 'سكني' ? 'selected' : '' }}>سكني</option>
+        <option value="تجاري" {{ old('property_usage') == 'تجاري' ? 'selected' : '' }}>تجاري</option>
+    </select>
+</div>
+
 
             <div class="form-group">
                 <label for="property_facade">واجهة العقار</label>
@@ -238,22 +250,25 @@
             });
 
             document.getElementById('images').addEventListener('change', function(event) {
-                const previewContainer = document.getElementById('image-preview');
-                previewContainer.innerHTML = '';
-                Array.from(event.target.files).forEach(file => {
-                    const reader = new FileReader();
-                    reader.onload = e => {
-                        const img = document.createElement('img');
-                        img.src = e.target.result;
-                        img.style.width = '100px';
-                        img.style.height = '100px';
-                        img.style.objectFit = 'cover';
-                        img.style.borderRadius = '8px';
-                        previewContainer.appendChild(img);
-                    };
-                    reader.readAsDataURL(file);
-                });
-            });
+    const previewContainer = document.getElementById('images-preview'); // ربط بمعاينة الصور الإضافية
+    previewContainer.innerHTML = '';
+    Array.from(event.target.files).forEach(file => {
+        const reader = new FileReader();
+        reader.onload = e => {
+            const img = document.createElement('img');
+            img.src = e.target.result;
+            img.style.width = '100px';
+            img.style.height = '100px';
+            img.style.objectFit = 'cover';
+            img.style.borderRadius = '8px';
+            img.style.border = '1px solid #ddd';
+            img.style.padding = '5px';
+            previewContainer.appendChild(img);
+        };
+        reader.readAsDataURL(file);
+    });
+});
+
 
             document.querySelectorAll('input[name="features[]"]').forEach(checkbox => {
                 checkbox.addEventListener('change', () => {
@@ -300,3 +315,195 @@
 
 
 @endsection
+
+
+<style>
+    body {
+        font-family: 'Tajawal', sans-serif; /* خط مناسب للغة العربية */
+        background-color: #f8f9fa; /* لون خلفية خفيف */
+        margin: 0;
+        padding: 0;
+    }
+
+    .container {
+        max-width: 800px;
+        margin: 40px auto;
+        padding: 20px;
+        background: #ffffff;
+        border-radius: 8px;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    h1 {
+        font-size: 24px;
+        text-align: center;
+        margin-bottom: 20px;
+        color: #333;
+    }
+
+    .form-group {
+        margin-bottom: 20px;
+    }
+
+    label {
+        display: block;
+        font-weight: bold;
+        margin-bottom: 8px;
+        color: #555;
+    }
+
+    input[type="text"],
+    input[type="number"],
+    input[type="file"],
+    select,
+    textarea {
+        width: 100%;
+        padding: 10px;
+        border: 1px solid #ced4da;
+        border-radius: 4px;
+        font-size: 14px;
+        background-color: #f9f9f9;
+    }
+
+    input:focus,
+    select:focus,
+    textarea:focus {
+        border-color: #007bff;
+        background-color: #fff;
+        outline: none;
+    }
+
+    button {
+        display: block;
+        width: 100%;
+        padding: 12px;
+        background-color: #007bff;
+        color: #fff;
+        border: none;
+        border-radius: 4px;
+        font-size: 16px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+    }
+
+    button:hover {
+        background-color: #0056b3;
+    }
+
+    .alert {
+        margin-bottom: 20px;
+        padding: 15px;
+        border-radius: 4px;
+    }
+
+    .alert-danger {
+        background-color: #f8d7da;
+        color: #842029;
+    }
+
+    #features-checkboxes {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+    }
+
+    #features-checkboxes div {
+        flex: 1 1 45%;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        font-size: 14px;
+    }
+
+    .form-control-file {
+        border: none;
+        padding: 5px;
+    }
+
+    #image-preview img {
+        border: 1px solid #ddd;
+        padding: 5px;
+        border-radius: 8px;
+    }
+
+    select {
+        -webkit-appearance: none;
+        -moz-appearance: none;
+        appearance: none;
+    }
+
+    select:invalid {
+        color: #6c757d;
+    }
+
+    .btn-primary {
+        background-color: #007bff;
+        border-color: #007bff;
+    }
+
+    .btn-primary:hover {
+        background-color: #0056b3;
+        border-color: #004085;
+    }
+
+    .form-group select,
+    .form-group input,
+    .form-group textarea {
+        margin-top: 5px;
+    }
+
+    .form-group label i {
+        color: #007bff;
+    }
+</style>
+
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+    // دالة عامة لمعاينة الصور
+    function previewImages(inputId, previewContainerId) {
+        const input = document.getElementById(inputId);
+        const previewContainer = document.getElementById(previewContainerId);
+
+        input.addEventListener('change', function (event) {
+            // تفريغ الصور القديمة لضمان عدم التكرار
+            previewContainer.innerHTML = '';
+
+            const files = event.target.files;
+
+            // التحقق إذا كانت هناك ملفات مرفوعة
+            if (files.length > 0) {
+                Array.from(files).forEach(file => {
+                    // التحقق من أن الملف صورة
+                    if (file.type.startsWith('image/')) {
+                        const reader = new FileReader();
+
+                        reader.onload = function (e) {
+                            const img = document.createElement('img');
+                            img.src = e.target.result;
+                            img.style.width = '100px';
+                            img.style.height = '100px';
+                            img.style.objectFit = 'cover';
+                            img.style.borderRadius = '8px';
+                            img.style.border = '1px solid #ddd';
+                            img.style.padding = '5px';
+                            previewContainer.appendChild(img);
+                        };
+
+                        reader.readAsDataURL(file);
+                    } else {
+                        alert('يرجى إضافة ملفات صور فقط!');
+                    }
+                });
+            }
+        });
+    }
+
+    // تطبيق المعاينة لكل حقل بشكل منفصل
+    previewImages('image', 'image-preview'); // الصورة الرئيسية
+    previewImages('images', 'images-preview'); // الصور الإضافية
+    previewImages('croquis', 'croquis-preview'); // الكروكي
+});
+
+
+</script>

@@ -74,7 +74,7 @@
             <div class="row">
                 <div class="col-lg-6 col-md-7">
                     <div class="heading-section">
-                        <h2 class="font-2 fw-8 ">نحن نقدم العقارات الأنسب والجودة.</h2>
+                        <h2 class="font-2 fw-8 ">نحن نقدم العقارات الأنسب .</h2>
                      </div>
                     <div class="wrap-info">
                         <div class="box-info flex align-center">
@@ -124,8 +124,8 @@
                             </div>
                             <div class="content">
                                 <h5 class="text-color-4">طلب مكالمة مرة أخرى</h5>
-                                <a href="tel:920020427">
-                                    <h4 class="fw-8 font-2 fs-30 text-color-3 lh-37">920020427</h4>
+                                <a href="tel:0559671459">
+                                    <h4 class="fw-8 font-2 fs-30 text-color-3 lh-37">0559671459</h4>
                                 </a>
                             </div>
                         </div>
@@ -167,7 +167,7 @@
                                 </svg>
                             </div>
                             <div class="content">
-                                <h5 class="text-color-4"> مراسلتي عبر البريد الإلكتروني</h5>
+                                <h5 class="text-color-4"> لمراسلتنا عبر البريد الإلكتروني</h5>
                                 <a href="info:hellosupport@gmail.com">
                                     <h4 class="fw-4 text-color-3">easyhome@gmail.com</h4>
                                 </a>

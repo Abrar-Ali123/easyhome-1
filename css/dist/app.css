@@ -25145,8 +25145,7 @@ html.light-mode .main-header {
 }
 
 .video-container iframe {
-    width: max-content;
+    width: 100%;
     height: 100%;
-    object-fit: cover;
-    transform: scale(2.1);
+    object-fit: contain;
 }

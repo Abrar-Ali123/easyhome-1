@@ -1,0 +1,106 @@
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Model;
+
+class Product extends Model
+{
+    // تحديد الحقول القابلة للتحديث عبر الواجهة
+    protected $fillable = [
+        'title',
+        'description',
+        'location',
+        'price',
+        'bedrooms',
+        'bathrooms',
+        'area',
+        'features',
+        'category',
+        'image',
+        'images',
+        'city_id',
+        'neighborhood_id',
+        'monthly_installment',
+        'ad_number',
+        'property_usage',
+        'property_facade',
+        'profile_project',
+        'croquis',
+    ];
+
+    const CATEGORIES = [
+        'شقة',
+        'منزل',
+        'فيلا',
+        'مكتب',
+        // أضف التصنيفات الأخرى هنا
+    ];
+
+    const CATEGORY_ICONS = [
+        'شقة' => 'fa-building',  // اسم الأيقونة في Font Awesome
+        'منزل' => 'fa-home',
+        'فيلا' => 'fa-landmark',
+        'مكتب' => 'fa-briefcase',
+        // أضف أيقونات التصنيفات الأخرى هنا
+    ];
+
+    public static $featuresList = [
+        'مرآب' => 'fas fa-car',
+        'مسبح' => 'fas fa-swimming-pool',
+        'حديقة' => 'fas fa-tree',
+        'أمن' => 'fas fa-shield-alt',
+    ];
+
+    // دالة لإرجاع الأيقونة الخاصة بكل ميزة
+    public function getFeatureIcon($feature)
+    {
+        $icons = [
+            'مرآب' => 'fas fa-car',
+            'مسبح' => 'fas fa-swimming-pool',
+            'حديقة' => 'fas fa-tree',
+            'أمن' => 'fas fa-shield-alt',
+            // أضف أيقونات المميزات الأخرى هنا
+        ];
+
+        // التحقق من وجود الأيقونة وإرجاعها، أو إرجاع أيقونة افتراضية
+        return $icons[$feature] ?? 'fas fa-question';
+    }
+
+    // دالة لإرجاع الأيقونة الخاصة بالتصنيف
+    public function getCategoryIcon()
+    {
+        return self::CATEGORY_ICONS[$this->category] ?? 'fa-question';
+    }
+
+    // داخل Product.php
+    public function comments()
+    {
+        return $this->hasMany(Comment::class);
+    }
+
+    public function parent()
+    {
+        return $this->belongsTo(City::class, 'parent_id');
+    }
+
+    public function children()
+    {
+        return $this->hasMany(City::class, 'parent_id');
+    }
+
+    public function city()
+    {
+        return $this->belongsTo(City::class);
+    }
+
+    public function neighborhood()
+    {
+        return $this->belongsTo(City::class, 'neighborhood_id');
+    }
+
+    public function getFeaturesAttribute($value)
+    {
+        return explode(',', $value); // تحويل النص إلى مصفوفة بناءً على الفواصل
+    }
+}

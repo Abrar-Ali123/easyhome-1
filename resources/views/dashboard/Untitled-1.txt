@@ -1,0 +1,315 @@
+<!---
+
+        <h2>Table Example</h2>
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Name</th>
+                    <th>Email</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>1</td>
+                    <td>John Doe</td>
+                    <td>john.doe@example.com</td>
+                </tr>
+                <tr>
+                    <td>2</td>
+                    <td>Jane Smith</td>
+                    <td>jane.smith@example.com</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h2>Form Example</h2>
+        <div class="container mt-5">
+    <h1 class="mb-4">Professional and Diverse Input Designs</h1>
+    <form>
+         <div class="form-section">
+            <h3>Basic Inputs</h3>
+            <div class="mb-3">
+                <label for="basicText" class="form-label">Text Input</label>
+                <input type="text" class="form-control" id="basicText" placeholder="Enter text here">
+            </div>
+            <div class="mb-3">
+                <label for="email" class="form-label">Email Input</label>
+                <input type="email" class="form-control" id="email" placeholder="Enter your email">
+            </div>
+            <div class="mb-3">
+                <label for="password" class="form-label">Password Input</label>
+                <input type="password" class="form-control" id="password" placeholder="Enter password">
+            </div>
+        </div>
+
+         <div class="form-section">
+            <h3>Advanced Inputs</h3>
+            <div class="mb-3">
+                <label for="number" class="form-label">Number Input</label>
+                <input type="number" class="form-control" id="number" placeholder="Enter a number">
+            </div>
+            <div class="mb-3">
+                <label for="url" class="form-label">URL Input</label>
+                <input type="url" class="form-control" id="url" placeholder="https://example.com">
+            </div>
+            <div class="mb-3">
+                <label for="tel" class="form-label">Telephone Input</label>
+                <input type="tel" class="form-control" id="tel" placeholder="Enter your phone number">
+            </div>
+        </div>
+
+         <div class="form-section">
+            <h3>Dropdowns and Multi-select</h3>
+            <div class="mb-3">
+                <label for="dropdown" class="form-label">Dropdown</label>
+                <select class="form-select" id="dropdown">
+                    <option selected>Choose an option</option>
+                    <option value="1">Option 1</option>
+                    <option value="2">Option 2</option>
+                </select>
+            </div>
+            <div class="mb-3">
+                <label for="multiSelect" class="form-label">Multi-select</label>
+                <select class="form-select" id="multiSelect" multiple>
+                    <option value="1">Option 1</option>
+                    <option value="2">Option 2</option>
+                    <option value="3">Option 3</option>
+                </select>
+            </div>
+        </div>
+
+         <div class="form-section">
+            <h3>File Upload</h3>
+            <div class="mb-3">
+                <label for="singleFile" class="form-label">Single File Upload</label>
+                <input type="file" class="form-control" id="singleFile">
+            </div>
+            <div class="mb-3">
+                <label for="multipleFiles" class="form-label">Multiple File Upload</label>
+                <input type="file" class="form-control" id="multipleFiles" multiple>
+            </div>
+        </div>
+
+         <div class="form-section">
+            <h3>Date and Time Inputs</h3>
+            <div class="mb-3">
+                <label for="date" class="form-label">Date</label>
+                <input type="date" class="form-control" id="date">
+            </div>
+            <div class="mb-3">
+                <label for="datetime" class="form-label">Date and Time</label>
+                <input type="datetime-local" class="form-control" id="datetime">
+            </div>
+            <div class="mb-3">
+                <label for="time" class="form-label">Time</label>
+                <input type="time" class="form-control" id="time">
+            </div>
+        </div>
+
+         <div class="form-section">
+            <h3>Sliders and Color Pickers</h3>
+            <div class="mb-3">
+                <label for="range" class="form-label">Range Slider</label>
+                <input type="range" class="form-range" id="range">
+            </div>
+            <div class="mb-3">
+                <label for="color" class="form-label">Color Picker</label>
+                <input type="color" class="form-control form-control-color" id="color">
+            </div>
+        </div>
+
+ <div class="form-section">
+    <h3>Toggles and Switches</h3>
+    <div class="form-check form-switch mb-3">
+        <input class="form-check-input" type="checkbox" id="toggleSwitch1">
+        <label class="form-check-label" for="toggleSwitch1">Enable Feature</label>
+    </div>
+    <div class="form-check form-switch">
+        <input class="form-check-input" type="checkbox" id="toggleSwitch2" checked>
+        <label class="form-check-label" for="toggleSwitch2">Activate Mode</label>
+    </div>
+</div>
+
+ <div class="form-section">
+    <h3>Star Ratings</h3>
+    <div class="rating">
+        <label>
+            <input type="radio" name="stars" value="1">
+            <i class="fas fa-star"></i>
+        </label>
+        <label>
+            <input type="radio" name="stars" value="2">
+            <i class="fas fa-star"></i>
+        </label>
+        <label>
+            <input type="radio" name="stars" value="3">
+            <i class="fas fa-star"></i>
+        </label>
+        <label>
+            <input type="radio" name="stars" value="4">
+            <i class="fas fa-star"></i>
+        </label>
+        <label>
+            <input type="radio" name="stars" value="5">
+            <i class="fas fa-star"></i>
+        </label>
+    </div>
+</div>
+
+ <div class="form-section">
+    <h3>Progress Bars</h3>
+    <div class="progress mb-3">
+        <div class="progress-bar" role="progressbar" style="width: 25%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">25%</div>
+    </div>
+    <div class="progress">
+        <div class="progress-bar bg-success" role="progressbar" style="width: 50%;" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100">50%</div>
+    </div>
+</div>
+
+ <div class="form-section">
+    <h3>File Upload with Preview</h3>
+    <div class="mb-3">
+        <label for="fileWithPreview" class="form-label">Upload Image</label>
+        <input type="file" class="form-control" id="fileWithPreview" onchange="previewFile()">
+        <img id="preview" src="" alt="Preview" style="max-width: 100%; margin-top: 10px; display: none;">
+    </div>
+</div>
+
+ <div class="form-section">
+    <h3>Toggle Buttons</h3>
+    <div class="btn-group" role="group" aria-label="Toggle button group">
+        <input type="radio" class="btn-check" name="btnradio" id="btnradio1" autocomplete="off" checked>
+        <label class="btn btn-outline-primary" for="btnradio1">Left</label>
+
+        <input type="radio" class="btn-check" name="btnradio" id="btnradio2" autocomplete="off">
+        <label class="btn btn-outline-primary" for="btnradio2">Middle</label>
+
+        <input type="radio" class="btn-check" name="btnradio" id="btnradio3" autocomplete="off">
+        <label class="btn btn-outline-primary" for="btnradio3">Right</label>
+    </div>
+</div>
+
+ <div class="form-section">
+    <h3>Sliders with Labels</h3>
+    <label for="customRange1" class="form-label">Volume</label>
+    <input type="range" class="form-range" id="customRange1">
+</div>
+
+ <div class="form-section">
+    <h3>Time Picker</h3>
+    <div class="mb-3">
+        <label for="timePicker" class="form-label">Select Time</label>
+        <input type="time" class="form-control" id="timePicker">
+    </div>
+</div>
+
+ <div class="form-section">
+    <h3>Rich Text Editor</h3>
+    <div class="mb-3">
+        <textarea class="form-control" id="richTextEditor" rows="5" placeholder="Write something..."></textarea>
+    </div>
+</div>
+
+ <div class="form-section">
+    <h3>Search Bar</h3>
+    <div class="input-group mb-3">
+        <input type="text" class="form-control" placeholder="Search..." aria-label="Search" aria-describedby="search-button">
+        <button class="btn btn-primary" type="button" id="search-button">Search</button>
+    </div>
+</div>
+
+ <div class="form-section">
+    <h3>Tags Input</h3>
+    <div class="mb-3">
+        <label for="tagsInput" class="form-label">Add Tags</label>
+        <input type="text" class="form-control" id="tagsInput" placeholder="Enter tags separated by commas">
+    </div>
+</div>
+
+ <div class="form-section">
+    <h3>Password Strength Meter</h3>
+    <div class="mb-3">
+        <label for="passwordMeter" class="form-label">Password</label>
+        <input type="password" class="form-control" id="passwordMeter">
+        <div class="progress mt-2">
+            <div class="progress-bar bg-danger" role="progressbar" id="passwordStrengthBar" style="width: 0%;" aria-valuemin="0" aria-valuemax="100"></div>
+        </div>
+    </div>
+</div>
+<div class="form-section">
+    <h3>Signature Input</h3>
+    <div class="mb-3">
+        <label class="form-label">Draw Your Signature</label>
+        <canvas id="signaturePad" style="border: 1px solid #ccc; width: 100%; height: 150px;"></canvas>
+        <button type="button" class="btn btn-secondary mt-2" onclick="clearSignature()">Clear</button>
+    </div>
+</div>
+<script>
+    const canvas = document.getElementById('signaturePad');
+    const ctx = canvas.getContext('2d');
+    let drawing = false;
+
+    canvas.addEventListener('mousedown', () => drawing = true);
+    canvas.addEventListener('mouseup', () => drawing = false);
+    canvas.addEventListener('mousemove', e => {
+        if (!drawing) return;
+        ctx.lineTo(e.offsetX, e.offsetY);
+        ctx.stroke();
+    });
+
+    function clearSignature() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+    }
+</script>
+<div class="form-section">
+    <h3>Dynamic Text Input</h3>
+    <div class="input-group mb-3">
+        <span class="input-group-text"><i class="fas fa-user"></i></span>
+        <input type="text" class="form-control" placeholder="Your Name">
+        <span class="input-group-text"><i class="fas fa-check-circle text-success"></i></span>
+    </div>
+</div>
+<div class="form-section">
+    <h3>Star Rating</h3>
+    <div class="rating mb-3">
+        <span onclick="rate(1)" class="fa fa-star" id="star1"></span>
+        <span onclick="rate(2)" class="fa fa-star" id="star2"></span>
+        <span onclick="rate(3)" class="fa fa-star" id="star3"></span>
+        <span onclick="rate(4)" class="fa fa-star" id="star4"></span>
+        <span onclick="rate(5)" class="fa fa-star" id="star5"></span>
+    </div>
+    <p id="ratingMessage" class="text-muted"></p>
+</div>
+<script>
+    function rate(stars) {
+        const message = ['Very Bad', 'Bad', 'Average', 'Good', 'Excellent'];
+        for (let i = 1; i <= 5; i++) {
+            document.getElementById('star' + i).classList.remove('checked');
+        }
+        for (let i = 1; i <= stars; i++) {
+            document.getElementById('star' + i).classList.add('checked');
+        }
+        document.getElementById('ratingMessage').textContent = message[stars - 1];
+    }
+</script>
+<style>
+    .fa-star {
+        font-size: 2rem;
+        color: #ccc;
+        cursor: pointer;
+    }
+    .fa-star.checked {
+        color: gold;
+    }
+</style>
+<div class="container mt-5">
+    <h2>Professional Image Gallery</h2>
+    <div id="galleryContainer" class="d-flex flex-wrap gap-3 mt-3"></div>
+    <div class="mt-4">
+        <label for="uploadImages" class="form-label btn btn-primary">
+            Upload Images
+            <input type="file" id="uploadImages" class="d-none" multiple accept="image/*" onchange="addImages(event)">
+        </label>
+    </div>
+</div>

@@ -75,15 +75,15 @@ class ProductController extends Controller
         $request->validate([
             'title' => 'required|string|max:255',
             'description' => 'required|string',
-            'location' => 'required|string',
-            'video' => 'required|string',
-            'city_id' => 'required|exists:cities,id',
+            'location' => 'nullable|string',
+            'video' => 'nullable|string',
+            'city_id' => 'nullable|exists:cities,id',
             'neighborhood_id' => 'nullable|exists:cities,id',
-            'price' => 'required|numeric',
-            'bedrooms' => 'required|integer',
-            'bathrooms' => 'required|integer',
-            'area' => 'required|integer',
-            'category' => 'required|string',
+            'price' => 'nullable|numeric',
+            'bedrooms' => 'nullable|integer',
+            'bathrooms' => 'nullable|integer',
+            'area' => 'nullable|integer',
+            'category' => 'nullable|string',
             'image' => 'nullable|image|mimes:jpeg,png,jpg,gif',
             'images.*' => 'nullable|image|mimes:jpeg,png,jpg,gif',
             'croquis' => 'nullable|image|mimes:jpeg,png,jpg,gif',
@@ -92,6 +92,29 @@ class ProductController extends Controller
             'property_usage' => 'nullable|string',
             'property_facade' => 'nullable|string',
             'profile_project' => 'nullable|file|mimes:pdf,doc,docx,zip',
+        ], [
+            'title.required' => 'العنوان مطلوب.',
+            'title.string' => 'العنوان يجب أن يكون نصًا.',
+            'title.max' => 'العنوان لا يمكن أن يتجاوز 255 حرفًا.',
+            'description.required' => 'الوصف مطلوب.',
+            'description.string' => 'الوصف يجب أن يكون نصًا.',
+            'location.string' => 'الموقع يجب أن يكون نصًا.',
+            'video.string' => 'الفيديو يجب أن يكون نصًا.',
+            'city_id.exists' => 'المدينة المختارة غير موجودة.',
+            'neighborhood_id.exists' => 'الحي المختار غير موجود.',
+            'price.numeric' => 'السعر يجب أن يكون رقمًا.',
+            'bedrooms.integer' => 'عدد الغرف يجب أن يكون رقمًا صحيحًا.',
+            'bathrooms.integer' => 'عدد الحمامات يجب أن يكون رقمًا صحيحًا.',
+            'area.integer' => 'المساحة يجب أن تكون رقمًا صحيحًا.',
+            'category.string' => 'الفئة يجب أن تكون نصًا.',
+            'image.image' => 'الصورة يجب أن تكون من نوع صورة.',
+            'images.*.image' => 'الصور يجب أن تكون من نوع صورة.',
+            'croquis.image' => 'الخريطة يجب أن تكون من نوع صورة.',
+            'monthly_installment.string' => 'القسط الشهري يجب أن يكون نصًا.',
+            'ad_number.string' => 'رقم الإعلان يجب أن يكون نصًا.',
+            'property_usage.string' => 'استخدام العقار يجب أن يكون نصًا.',
+            'property_facade.string' => 'واجهة العقار يجب أن تكون نصًا.',
+            'profile_project.file' => 'ملف المشروع يجب أن يكون من نوع ملف.',
         ]);
 
         $images = [];
@@ -152,7 +175,7 @@ class ProductController extends Controller
         $product->save();
 
         return redirect()->route('products.index')
-            ->with('success', 'Product created successfully.');
+            ->with('success', 'تم إنشاء المنتج بنجاح.');
     }
 
     public function show($id)

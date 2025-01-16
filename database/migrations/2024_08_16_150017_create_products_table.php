@@ -15,16 +15,16 @@ return new class extends Migration
             $table->id();
             $table->string('title');
             $table->text('description');
-            $table->string('location');
-            $table->decimal('price', 10, 2);
-            $table->integer('bedrooms');
-            $table->integer('bathrooms');
-            $table->integer('area');
-            $table->string('video');
-            $table->string('features');
-            $table->string('category');
-            $table->text('image');
-            $table->text('images');
+            $table->string('location')->nullable();
+            $table->decimal('price', 10, 2)->nullable();
+            $table->integer('bedrooms')->nullable();
+            $table->integer('bathrooms')->nullable();
+            $table->integer('area')->nullable();
+            $table->string('video')->nullable();
+            $table->string('features')->nullable();
+            $table->string('category')->nullable();
+            $table->text('image')->nullable();
+            $table->text('images')->nullable();
             $table->string('monthly_installment')->nullable();
             $table->string('ad_number')->nullable();
             $table->string('property_usage')->nullable();
@@ -34,7 +34,7 @@ return new class extends Migration
 
             $table->unsignedBigInteger('city_id')->nullable();
             $table->unsignedBigInteger('neighborhood_id')->nullable();
-            $table->unsignedBigInteger('created_by');
+            $table->unsignedBigInteger('created_by')->nullable();
 
             $table->foreign('city_id')->references('id')->on('cities')->onDelete('set null');
             $table->foreign('neighborhood_id')->references('id')->on('cities')->onDelete('set null');

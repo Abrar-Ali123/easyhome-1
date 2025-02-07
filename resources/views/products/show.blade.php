@@ -185,24 +185,37 @@
                         </div>
                         <div class="wrap-featured wrap-style tf-amenities">
                             <h3 class="titles">المميزات</h3>
-
+                        
+                            {{-- مميزات العقار --}}
                             <div class="box-featured flex">
-                                @foreach ($product->features as $feature)
+                                <h4 class="sub-title">مميزات العقار</h4>
+                                @foreach ($product->property_features ?? [] as $feature)
                                     <div class="inner-1">
                                         <label class="flex align-items-center">
-                                            <span class="btn-checkbox"><i
-                                                    class="{{ $product->getFeatureIcon($feature) }} text-4xl text-primary mb-4"></i></span>
-
-
-
+                                            <span class="btn-checkbox">
+                                                <i class="{{ $product->getFeatureIcon($feature) }} text-4xl text-primary mb-4"></i>
+                                            </span>
+                                            <span class="fs-13">{{ trim($feature) }}</span>
+                                        </label>
+                                    </div>
+                                @endforeach
+                            </div>
+                        
+                            {{-- مميزات الموقع --}}
+                            <div class="box-featured flex">
+                                <h4 class="sub-title">مميزات الموقع</h4>
+                                @foreach ($product->location_features ?? [] as $feature)
+                                    <div class="inner-1">
+                                        <label class="flex align-items-center">
+                                            <span class="btn-checkbox">
+                                                <i class="{{ $product->getFeatureIcon($feature) }} text-4xl text-primary mb-4"></i>
+                                            </span>
                                             <span class="fs-13">{{ trim($feature) }}</span>
                                         </label>
                                     </div>
                                 @endforeach
                             </div>
                         </div>
-
-
                         @if ($product->croquis)
                             <div class="wrap-virtual wrap-style">
                                 <h3 class="titles"> كروكي</h3>
@@ -256,36 +269,60 @@
                                 </h3>
                                 <div class="comments">
                                     <div class="comment-form">
-                                        <form method="post">
-                                            <div class="wd-find-select ">
-                                                <fieldset>
-                                                    <label class="fw-6">اسمك *</label>
-                                                    <input type="text" class="my-input" name="name"
-                                                        value="{{ old('name') }}" placeholder="اسمك" required="">
-                                                </fieldset>
-                                                <fieldset>
-                                                    <label class="fw-6">رقم التليفون</label>
-                                                    <input type="text" class="my-input2" value="{{ old('phone') }}"
-                                                        name="phone" placeholder="هاتفك" required="">
-                                                </fieldset>
-                                                <fieldset>
-                                                    <label class="fw-6">الرسالة</label>
-                                                    <textarea name="message" rows="4" tabindex="4" placeholder="رسالتك " aria-required="true"></textarea>
-                                                </fieldset>
-                                                <div class="button-box sc-btn-top center flex justify-space">
-                                                    <button class="sc-button btn-svg">
-                                                        <span>أرسل رسالة</span>
-                                                        <svg width="18" height="18" viewBox="0 0 18 18"
-                                                            fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <form method="POST" class="comment-form form-submit"
+                                            action="{{ route('contacts.store') }}">
+                                            @csrf
+                                            <input type="hidden" name="source" value="page1">
+                                            <input type="hidden" name="product_id" value="{{ $product->id }}">
+
+
+                                            <fieldset class="">
+                                                <label class="fw-6">اسمك</label>
+                                                <input type="text" class="tb-my-input" name="name"
+                                                    value="{{ old('name') }}" placeholder="اسمك" required="">
+                                                @error('name')
+                                                    <span class="text-danger">{{ $message }}</span>
+                                                @enderror
+
+                                            </fieldset>
+                                            <fieldset class="">
+                                                <label class="fw-6">رقم الهاتف</label>
+                                                <input type="text" class="tb-my-input" name="phone"
+                                                    placeholder=" رقم الهاتف" required=""
+                                                    value="{{ old('phone') }}">
+                                                @error('phone')
+                                                    <span class="text-danger">{{ $message }}</span>
+                                                @enderror
+
+                                            </fieldset>
+
+                                            <fieldset class="message-wrap">
+                                                <label class="fw-6">رسالة</label>
+                                                <textarea id="comment-message" name="message" rows="4" tabindex="4" placeholder="رسالتك"
+                                                    aria-required="true">{{ old('message') }}</textarea>
+                                                @error('message')
+                                                    <span class="text-danger">{{ $message }}</span>
+                                                @enderror
+
+                                            </fieldset>
+                                            <div class="button-boxs">
+                                                <button class="sc-button btn-icon" name="submit" type="submit">
+                                                    <svg width="19" height="18" viewBox="0 0 19 18"
+                                                        fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                        <g clip-path="url(#clip0_1505_28737)">
                                                             <path
-                                                                d="M1.125 6.5025V12.9375C1.125 13.5342 1.36205 14.1065 1.78401 14.5285C2.20597 14.9504 2.77826 15.1875 3.375 15.1875H14.625C15.2217 15.1875 15.794 14.9504 16.216 14.5285C16.6379 14.1065 16.875 13.5342 16.875 12.9375V6.5025L10.179 10.6223C9.82443 10.8404 9.4163 10.9559 9 10.9559C8.5837 10.9559 8.17557 10.8404 7.821 10.6223L1.125 6.5025Z"
+                                                                d="M17.7381 0.0295345L0.899726 5.53166C0.424186 5.68706 0.355417 6.33388 0.788208 6.58552L7.1516 10.2857C7.24979 10.3428 7.36258 10.3699 7.47599 10.3635C7.5894 10.3572 7.69846 10.3177 7.78965 10.2499L9.57844 8.92152L8.25002 10.7103C8.1823 10.8015 8.14281 10.9106 8.13645 11.024C8.13009 11.1374 8.15714 11.2502 8.21424 11.3484L11.9144 17.7118C12.1664 18.1449 12.813 18.0754 12.9683 17.6003L18.4705 0.76186C18.618 0.309727 18.1881 -0.117584 17.7381 0.0295345ZM12.2669 16.0078L9.41045 11.0954L12.8548 6.45741C12.9378 6.34558 12.9779 6.20763 12.9676 6.06873C12.9574 5.92984 12.8976 5.79924 12.7991 5.70076C12.7006 5.60228 12.57 5.54247 12.4311 5.53225C12.2923 5.52203 12.1543 5.56207 12.0425 5.64507L7.40447 9.08947L2.49215 6.233L17.0112 1.48874L12.2669 16.0078ZM6.59633 12.7247L2.74099 16.58C2.51425 16.8067 2.1466 16.8068 1.91987 16.58C1.69309 16.3533 1.69309 15.9856 1.91987 15.7589L5.77521 11.9036C6.00202 11.6769 6.36967 11.6768 6.59633 11.9036C6.82311 12.1303 6.82311 12.498 6.59633 12.7247ZM1.50311 12.8706C1.27634 12.6438 1.27634 12.2762 1.50311 12.0495L3.02438 10.5282C3.25112 10.3014 3.61877 10.3014 3.8455 10.5282C4.07228 10.7549 4.07228 11.1226 3.8455 11.3493L2.32424 12.8706C2.09754 13.0973 1.72985 13.0973 1.50311 12.8706ZM7.97175 14.6544C8.19852 14.8811 8.19852 15.2488 7.97175 15.4755L6.45045 16.9968C6.3966 17.0508 6.33261 17.0936 6.26215 17.1228C6.1917 17.152 6.11617 17.167 6.0399 17.1669C5.52724 17.1669 5.26254 16.5424 5.62936 16.1756L7.15066 14.6544C7.37736 14.4276 7.74501 14.4276 7.97175 14.6544Z"
                                                                 fill="white" />
-                                                            <path
-                                                                d="M16.875 5.181V5.0625C16.875 4.46576 16.6379 3.89347 16.216 3.47151C15.794 3.04955 15.2217 2.8125 14.625 2.8125H3.375C2.77826 2.8125 2.20597 3.04955 1.78401 3.47151C1.36205 3.89347 1.125 4.46576 1.125 5.0625V5.181L8.4105 9.6645C8.58778 9.77357 8.79185 9.83132 9 9.83132C9.20815 9.83132 9.41222 9.77357 9.5895 9.6645L16.875 5.181Z"
-                                                                fill="white" />
-                                                        </svg>
-                                                    </button>
-                                                </div>
+                                                        </g>
+                                                        <defs>
+                                                            <clipPath id="clip0_1505_28737">
+                                                                <rect width="18" height="18" fill="white"
+                                                                    transform="translate(0.5)" />
+                                                            </clipPath>
+                                                        </defs>
+                                                    </svg>
+                                                    <span>إرسال الطلب</span>
+                                                </button>
                                             </div>
                                         </form>
                                     </div>

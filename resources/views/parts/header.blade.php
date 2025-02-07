@@ -15,11 +15,28 @@
                             <nav class="main-menu show navbar-expand-md">
                                 <div class="navbar-collapse collapse clearfix" id="navbarSupportedContent">
                                     <ul class="navigation clearfix">
+
                                         <li><a href="{{ url('/') }}">الرئيسية</a></li>
-                                        <li><a href="{{ route('blog.index') }}">مدونتنا</a></li>
-                                        <li><a href="{{ route('contact.page2') }}">برنامج انجاز</a></li>
-                                        <li><a href="{{ route('contact.page1') }}">تواصل معنا</a></li>
+
+
+
+
+
                                         <li><a href="{{ route('about') }}">من نحن</a></li>
+
+
+                                        <li><a href="{{ url('/proprty') }}">عقاراتنا</a></li>
+
+
+
+                                        <li><a href="{{ route('contact.page2') }}">برنامج انجاز</a></li>
+
+
+                                        <li><a href="{{ route('blog.index') }}">مدونتنا</a></li>
+
+
+                                        <li><a href="{{ route('contact.page1') }}">تواصل معنا</a></li>
+
                                     </ul>
                                 </div>
                             </nav>
@@ -38,9 +55,14 @@
                                             href="{{ route('dashboard.index') }}">لوحة التحكم</a>
                                     @endif
 
-                                    <a class="sc-button btn-icon fa-regular fa-user" href="{{ route('logout') }}">
+                                    <a class="sc-button btn-icon fa-regular fa-user" href="#"
+                                        onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
                                         تسجيل الخروج
                                     </a>
+                                    <form id="logout-form" action="{{ route('logout') }}" method="POST"
+                                        style="display: none;">
+                                        @csrf
+                                    </form>
                                 @else
                                     <a class="sc-button btn-icon fa-regular fa-user" data-toggle="modal"
                                         data-target="#popup_bid" href="{{ route('login') }}">
@@ -66,8 +88,8 @@
     <div class="mobile-menu">
         <div class="menu-backdrop"></div>
         <nav class="menu-box">
-            <div class="nav-logo"><a href="{{ url('/') }}"><img src="assets/images/logo/logo@2x.png"
-                        alt="" width="197" height="48"></a></div>
+            <div class="nav-logo"><a href="{{ url('/') }}"><img src="{{ asset('/images/9.png') }}" alt=""
+                        height="18"></a></div>
             <div class="bottom-canvas">
                 <div class="login-box flex align-center">
                     <svg width="22" height="22" viewBox="0 0 22 22" fill="none"
@@ -82,11 +104,11 @@
                             d="M16.4835 15.5998C16.3877 15.5083 16.3111 15.3984 16.2583 15.2768C16.2055 15.1552 16.1775 15.0243 16.1761 14.8917C16.1746 14.7592 16.1996 14.6276 16.2497 14.5049C16.2998 14.3822 16.374 14.2707 16.4678 14.177C16.5616 14.0833 16.6732 14.0093 16.796 13.9594C16.9188 13.9095 17.0503 13.8846 17.1829 13.8862C17.3154 13.8879 17.4463 13.916 17.5679 13.9689C17.6894 14.0219 17.7991 14.0986 17.8906 14.1946C18.0698 14.3826 18.1683 14.6333 18.1651 14.893C18.1619 15.1527 18.0572 15.4009 17.8734 15.5845C17.6896 15.768 17.4413 15.8724 17.1816 15.8752C16.9219 15.8781 16.6713 15.7793 16.4835 15.5998Z"
                             fill="#b38f39" />
                     </svg>
-                    <a href="#" data-toggle="modal" data-target="#popup_bid" class="fw-7 font-2">Login</a>
+                    <a href="#" data-toggle="modal" data-target="#popup_bid" class="fw-7 font-2">تسجيل الدخول</a>
                 </div>
                 <div class="menu-outer"></div>
                 <div class="mobi-icon-box">
-                    <h3>Contact</h3>
+                    <h3>اتصال</h3>
                     <div class="box flex">
                         <div class="icon">
                             <svg width="40" height="41" viewBox="0 0 50 51" fill="none"
@@ -111,8 +133,8 @@
                             </svg>
                         </div>
                         <div class="content fs-13">
-                            Call us:
-                            <h5>(201) 555-0124</h5>
+                            اتصل بنا:
+                            <h5>0559671459</h5>
                         </div>
                     </div>
                     <div class="box flex">
@@ -146,8 +168,8 @@
                             </svg>
                         </div>
                         <div class="content fs-13 lh-16">
-                            Email:
-                            <h5>themesflat@gmail.com</h5>
+                            بريد إلكتروني:
+                            <h5>easyhome@gmail.com</h5>
                         </div>
                     </div>
                 </div>

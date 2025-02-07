@@ -15,7 +15,6 @@ class Product extends Model
         'bedrooms',
         'bathrooms',
         'area',
-        'features',
         'category',
         'image',
         'images',
@@ -27,6 +26,8 @@ class Product extends Model
         'property_facade',
         'profile_project',
         'croquis',
+        'property_features', 
+        'location_features',
     ];
 
     const CATEGORIES = [
@@ -34,59 +35,80 @@ class Product extends Model
         'منزل',
         'فيلا',
         'مكتب',
-        // أضف التصنيفات الأخرى هنا
     ];
 
     const CATEGORY_ICONS = [
-        'شقة' => 'fa-building',  // اسم الأيقونة في Font Awesome
+        'شقة' => 'fa-building',
         'منزل' => 'fa-home',
         'فيلا' => 'fa-landmark',
         'مكتب' => 'fa-briefcase',
-        // أضف أيقونات التصنيفات الأخرى هنا
     ];
-
+    
     public static $featuresList = [
         'مرآب' => 'fas fa-car',
         'مسبح' => 'fas fa-swimming-pool',
         'حديقة' => 'fas fa-tree',
         'أمن' => 'fas fa-shield-alt',
+        'مصعد' => 'fas fa-elevator',
+        'كميرات مراقبة' => 'fas fa-video',
+        'سمارت هوم' => 'fas fa-home',
+        'دخول ذكي' => 'fas fa-key',
+        'غاز مركزي' => 'fas fa-gas-pump',
+        'مدخلين' => 'fas fa-door-open',
+        'مدخل خاص' => 'fas fa-door-closed',
+        'مكنسة كهربائية' => 'fas fa-broom',
+        'مساجد وحدائق عامة' => 'fas fa-mosque',
+        'تشطيبات مدودن' => 'fas fa-paint-roller',
+        'اسقف مرتفع' => 'fas fa-building',
+        'انتركوم' => 'fas fa-phone',
+        'مواقف' => 'fas fa-parking',
+        'واجهات عصرية' => 'fas fa-building',
+        'واجهات بنورامية' => 'fas fa-mountain',
+        'لاندسكير' => 'fas fa-tree',
+        'لاونج' => 'fas fa-couch',
+        'سينماء' => 'fas fa-film',
+        'منطقة أطفال' => 'fas fa-child',
+        'نادي رياضي' => 'fas fa-dumbbell',
+        'مواقف ذكية' => 'fas fa-car-side',
+    ];
+    
+    public static $locationFeaturesList = [
+        'قريب من المترو' => 'fas fa-subway',
+        'بالقرب من المدرسة' => 'fas fa-school',
+        'قريب من المطار' => 'fas fa-plane-departure',
+        'إطلالة على البحر' => 'fas fa-water',
+        'مناطق ترفيهية' => 'fas fa-smile',
+        'مصعد' => 'fas fa-elevator',
+        'كميرات مراقبة' => 'fas fa-video',
+        'سمارت هوم' => 'fas fa-home',
+        'دخول ذكي' => 'fas fa-key',
+        'غاز مركزي' => 'fas fa-gas-pump',
+        'مدخلين' => 'fas fa-door-open',
+        'مدخل خاص' => 'fas fa-door-closed',
+        'مكنسة كهربائية' => 'fas fa-broom',
+        'مساجد وحدائق عامة' => 'fas fa-mosque',
+        'تشطيبات مدودن' => 'fas fa-paint-roller',
+        'اسقف مرتفع' => 'fas fa-building',
+        'انتركوم' => 'fas fa-phone',
+        'مواقف' => 'fas fa-parking',
+        'واجهات عصرية' => 'fas fa-building',
+        'واجهات بنورامية' => 'fas fa-mountain',
+        'لاندسكير' => 'fas fa-tree',
+        'لاونج' => 'fas fa-couch',
+        'سينماء' => 'fas fa-film',
+        'منطقة أطفال' => 'fas fa-child',
+        'نادي رياضي' => 'fas fa-dumbbell',
+        'مواقف ذكية' => 'fas fa-car-side',
     ];
 
-    // دالة لإرجاع الأيقونة الخاصة بكل ميزة
-    public function getFeatureIcon($feature)
-    {
-        $icons = [
-            'مرآب' => 'fas fa-car',
-            'مسبح' => 'fas fa-swimming-pool',
-            'حديقة' => 'fas fa-tree',
-            'أمن' => 'fas fa-shield-alt',
-            // أضف أيقونات المميزات الأخرى هنا
-        ];
-
-        // التحقق من وجود الأيقونة وإرجاعها، أو إرجاع أيقونة افتراضية
-        return $icons[$feature] ?? 'fas fa-question';
-    }
-
-    // دالة لإرجاع الأيقونة الخاصة بالتصنيف
     public function getCategoryIcon()
     {
         return self::CATEGORY_ICONS[$this->category] ?? 'fa-question';
     }
 
-    // داخل Product.php
     public function comments()
     {
         return $this->hasMany(Comment::class);
-    }
-
-    public function parent()
-    {
-        return $this->belongsTo(City::class, 'parent_id');
-    }
-
-    public function children()
-    {
-        return $this->hasMany(City::class, 'parent_id');
     }
 
     public function city()
@@ -99,8 +121,23 @@ class Product extends Model
         return $this->belongsTo(City::class, 'neighborhood_id');
     }
 
-    public function getFeaturesAttribute($value)
+    public function getPropertyFeaturesAttribute($value)
     {
-        return explode(',', $value); // تحويل النص إلى مصفوفة بناءً على الفواصل
+        return explode(',', $value);
+    }
+
+    public function getLocationFeaturesAttribute($value)
+    {
+        return explode(',', $value);
+    }
+
+    public function setPropertyFeaturesAttribute($value)
+    {
+        $this->attributes['property_features'] = is_array($value) ? implode(',', $value) : $value;
+    }
+
+    public function setLocationFeaturesAttribute($value)
+    {
+        $this->attributes['location_features'] = is_array($value) ? implode(',', $value) : $value;
     }
 }

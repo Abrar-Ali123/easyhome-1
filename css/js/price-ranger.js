@@ -9,7 +9,7 @@ $(document).ready(function() {
     var moneyFormat = wNumb({
         decimals: 0,
         thousand: ',',
-        prefix: '$'
+        prefix: ''
     });
     noUiSlider.create(rangeSlider, {
         start: [0, 1000000],
@@ -434,7 +434,7 @@ $(document).ready(function() {
       - The provided value for the option;
       - A reference to the options object;
       - The name for the option;
-  
+
     The testing function returns false when an error is detected,
     or true when everything is OK. It can also modify the option
     object, to make sure all values can be correctly looped elsewhere. */

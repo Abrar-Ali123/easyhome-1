@@ -36,6 +36,9 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::get('/proprty', [ProductController::class, 'properties'])->name('properties.index');
+
+
 Route::get('/contact/page1', [ContactController::class, 'createPage1'])->name('contact.page1');
 Route::get('/contact/page2', [ContactController::class, 'createPage2'])->name('contact.page2');
 Route::post('/contact/store', [ContactController::class, 'store'])->name('contact.store');
@@ -58,9 +61,14 @@ Route::middleware(['check.employee' => \App\Http\Middleware\CheckEmployeeRole::c
     Route::post('/admin/contacts/{id}/update', [ContactController::class, 'adminUpdate'])->name('admin.contacts.update');
     Route::resource('category_blog', CategoryBlogController::class);
 
-    Route::get('/products', [ProductController::class, 'index1'])->name('products.index');
+    Route::get('/products', [ProductController::class, 'index'])->name('products.index');
     Route::get('/products/create', [ProductController::class, 'create'])->name('products.create');
     Route::post('/products', [ProductController::class, 'store'])->name('products.store');
+    Route::post('/upload/images', [ProductController::class, 'store'])->name('upload.images'); // رفع الصور المجزأة
+
+    Route::post('/delete-upload', [ProductController::class, 'deleteUpload'])->name('delete.upload');
+
+
     Route::get('/products/{product}', [ProductController::class, 'show'])->name('dashboard.products.show');
     Route::get('/products/{product}/edit', [ProductController::class, 'edit'])->name('products.edit');
     Route::put('/products/{product}', [ProductController::class, 'update'])->name('products.update');
@@ -106,9 +114,7 @@ Route::get('/1', function () {
     return view('dashboard');
 });
 
-Route::get('/2', function () {
-    return view('pproprty');
-});
+
 
 Auth::routes();
 

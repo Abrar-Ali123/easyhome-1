@@ -11215,7 +11215,7 @@ path {
 
 .search-form .search-field {
     background: #0c1515;
-    color: #000 !important;
+    color: #fff;
     width: 100%;
     border: 1px solid #0c1515;
     line-height: 24px;
@@ -11224,14 +11224,14 @@ path {
 }
 
 .search-form .search-field::placeholder {
-    color: #fff !important;
+    color: #fff;
     line-height: 19px;
     font-size: 14px !important;
     font-weight: 400;
 }
 
 .search-form .search-field:focus {
-    color: #120a21;
+    color: #fff;
     border: 1px solid #b38f39;
 }
 
@@ -12227,7 +12227,7 @@ input::placeholder {
 
 @media only screen and (max-width: 600px) {
     .main-header .logo-box {
-        margin: auto;
+        margin-right: auto;
     }
 }
 
@@ -12297,7 +12297,7 @@ a.profile-proj-btn.sc-button.btn-svg {
 }
 
 .light-mode input.search-field::placeholder {
-    color: #000 !important;
+    color: #fff;
 }
 
 .box {
@@ -12644,7 +12644,7 @@ html.light-mode .main-header {
 .main-header .logo-box {
     position: relative;
     z-index: 10;
-    text-align: center;
+    text-align: left;
 }
 
 .main-header .logo-box .logo img {
@@ -13317,7 +13317,8 @@ html.light-mode .main-header {
 }
 
 .mobile-menu .nav-logo img {
-    max-width: 200px;
+    max-width: 70px;
+    height: auto;
 }
 
 .mobile-menu .bottom-canvas {
@@ -14472,7 +14473,7 @@ html.light-mode .main-header {
 }
 
 .wg-dream .icons {
-    margin-right: 18px;
+    margin-left: 18px;
 }
 
 .wg-dream .icons::before {
@@ -20527,7 +20528,7 @@ html.light-mode .main-header {
     color: #fff;
 }
 
-.button-search a {
+.button-search .sc-button {
     padding: 16px 21.5px;
     background: #b38f39;
     border-radius: 5px;
@@ -22824,7 +22825,7 @@ html {
 }
 
 body {
-    font-family: "Poppins", sans-serif;
+    font-family: "El Messiri", sans-serif !important;
     font-size: 14px;
     line-height: 21px;
     font-weight: 400;
@@ -23637,7 +23638,7 @@ path {
 
 .search-form .search-field {
     background: #0c1515;
-    color: #000 !important;
+    color: #fff;
     width: 100%;
     border: 1px solid #0c1515;
     line-height: 24px;
@@ -23653,7 +23654,7 @@ path {
 }
 
 .search-form .search-field:focus {
-    color: #120a21;
+    color: #fff;
     border: 1px solid #b38f39;
 }
 
@@ -23667,7 +23668,7 @@ path {
     width: 100%;
     box-shadow: 0px 3px 9px rgba(0, 0, 0, 0.05);
     z-index: 9999;
-    background: #fff;
+    background: transparent;
     border: none;
     opacity: 1;
     -webkit-transition: all 0.5s ease;
@@ -24649,7 +24650,7 @@ input::placeholder {
 
 @media only screen and (max-width: 600px) {
     .main-header .logo-box {
-        margin: auto;
+        margin-right: auto;
     }
 }
 
@@ -24719,7 +24720,7 @@ a.profile-proj-btn.sc-button.btn-svg {
 }
 
 .light-mode input.search-field::placeholder {
-    color: #000 !important;
+    color: #fff;
 }
 
 .box {

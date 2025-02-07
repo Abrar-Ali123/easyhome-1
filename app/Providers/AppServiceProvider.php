@@ -6,7 +6,7 @@ use App\Models\City;
 use App\Models\Post;
 use App\Models\Product;
 use Illuminate\Support\Facades\View;
-use Illuminate\Support\ServiceProvider; // أضف هذا السطر
+use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -23,19 +23,17 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        // تمرير البيانات بشكل تلقائي إلى جميع الصفحات التي تحتوي على parts.search-filter
-        View::composer(['parts.search-filter', 'parts.property-list', 'welcome'], function ($view) {
-            // إحضار العقارات
-            $products = Product::paginate(9);
-            $posts = Post::latest()->take(6)->get();
+        // تمرير البيانات إلى أجزاء العرض المحددة
+        View::composer(['parts.search-filter', 'proprty','parts.property-list', 'welcome'], function ($view) {
+            // إحضار البيانات المطلوبة
+            $mainCities = City::whereNull('parent_id')->get(); // المدن الرئيسية
+            $subCities = City::whereNotNull('parent_id')->get(); // الأحياء أو المدن التابعة
+            $products = Product::paginate(100); // العقارات
+            $posts = Post::latest()->take(6)->get(); // آخر المنشورات
+            $cities = City::all(); // جميع المدن
 
-            // إحضار قائمة المدن
-            $cities = City::all();
-
-            // تمرير البيانات إلى الـ View
-            $view->with('posts', $posts);
-
-            $view->with(compact('products', 'cities', 'posts'));
+            // تمرير البيانات إلى العرض
+            $view->with(compact('mainCities', 'subCities', 'products', 'posts', 'cities'));
         });
     }
 }

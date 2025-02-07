@@ -2241,6 +2241,7 @@
     .header-account {
         margin-right: 37px;
         margin-left: 7px;
+        display: none !important;
     }
     .flat-property-detail .wrap-property .box {
         display: block;

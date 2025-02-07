@@ -25,11 +25,11 @@
         <i class="fab fa-whatsapp"></i>
     </div>
 
-    <div class="toggle-container">
+    {{-- <div class="toggle-container">
         <button id="toggleMode" class="toggle-btn">
             <i id="modeIcon" class="fa-regular fa-sun"></i>
         </button>
-    </div>
+    </div> --}}
 
     <!-- Javascript -->
     <script src="{{ asset('css/js/jquery.min.js') }}"></script>

@@ -1,28 +1,36 @@
 @php
-    $features = App\Models\Product::$featuresList;
+    $categories = App\Models\Product::CATEGORIES;
+    $propertyFeatures = App\Models\Product::$featuresList;
+    $locationFeatures = App\Models\Product::$locationFeaturesList;
+
 @endphp
 
+
 <div class="flat-tabs themesflat-tabs">
-    <div class="box-tab center">
-    </div>
     <div class="content-tab">
         <div class="content-inner tab-content">
             <div class="form-sl">
-                <form id="searchForm" method="GET" action="{{ route('products.index') }}">
+                
+                                
+                @if(session('error'))
+                    <div class="alert alert-danger">
+                        {{ session('error') }}
+                    </div>
+                @endif
+
+                <form method="GET" action="{{ route('properties.index') }}">
+                    @csrf
+
                     <div class="wd-find-select flex">
                         <div class="inner-group">
-                            <div class="form-group-1 search-form form-style">
-                                <input type="text" class="search-field" placeholder="ابحث عن عقار" name="search"
-                                    value="{{ request()->input('search') }}" required>
-                            </div>
-
                             <div class="form-group-2 form-style">
                                 <div class="group-select">
                                     <div class="tf-select">
-                                        <select class="nice-select" name="city_id" id="parent_city" required>
-                                            <option value="" disabled {{ old('city_id') ? '' : 'selected' }}>اختر
-                                                المدينة الرئيسية</option>
-                                            @foreach ($cities as $city)
+                                        <select class="nice-select" name="city_id" id="parent_city">
+                                            <option value="" disabled {{ old('city_id') ? '' : 'selected' }}>
+                                                اختر المدينة الرئيسية
+                                            </option>
+                                            @foreach ($mainCities as $city)
                                                 <option value="{{ $city->id }}"
                                                     {{ old('city_id') == $city->id ? 'selected' : '' }}>
                                                     {{ $city->name }}
@@ -42,6 +50,25 @@
                                     </div>
                                 </div>
                             </div>
+
+                            <div class="form-group-2 form-style">
+                                <div class="group-select">
+                                    <div class="tf-select">
+                                        <select class="nice-select" name="category" id="category">
+                                            <option value="" disabled
+                                                {{ request()->input('category') ? '' : 'selected' }}>
+                                                نوع العقار
+                                            </option>
+                                            @foreach ($categories as $category)
+                                                <option value="{{ $category }}"
+                                                    {{ request()->input('category') == $category ? 'selected' : '' }}>
+                                                    {{ $category }}
+                                                </option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                         <div class="form-group-4 form-style">
                             <a class="icon-filter pull-right ">
@@ -54,22 +81,31 @@
                                 </svg>
                             </a>
                         </div>
+                        
+                        
+
 
                         <div class="button-search sc-btn-top">
-                            <a class="sc-button" href="#">
-                                <span>ابحث الان</span>
+                            <button type="submit" class="sc-button">
+                                <span>ابحث الآن</span>
                                 <i class="fas fa-search text-color-1"></i>
-                            </a>
+                            </button>
                         </div>
                     </div>
 
-                    <div class="wd-find-select wd-search-form ">
+                    <div class="wd-find-select wd-search-form">
                         <div class="box1 flex flex-wrap form-wg">
+                            <div class="form-group search-form form-style">
+                                <input type="text" class="search-field" placeholder="البحث المتقدم" name="search"
+                                    value="{{ request()->input('search') }}">
+                            </div>
+
                             <div class="form-group wg-box3">
                                 <div class="group-select">
                                     <div class="tf-select">
                                         <select class="nice-select" name="bedrooms" id="bedrooms">
-                                            <option value="" {{ request()->input('bedrooms') ? '' : 'selected' }}>
+                                            <option value=""
+                                                {{ request()->input('bedrooms') ? '' : 'selected' }}>
                                                 حدد عدد الغرف</option>
                                             @foreach (range(1, 10) as $room)
                                                 <option value="{{ $room }}"
@@ -118,21 +154,46 @@
                                     </div>
                                 </div>
                             </div>
+
                         </div>
 
+
+
                         <div class="boder-wg"></div>
-                        <div class="box2 flex flex-wrap form-wg">
-                            @foreach ($features as $key => $icon)
+
+                        <h3 class="mb-3" style="margin-bottom: 10px;">مميزات العقار</h3>
+                        <div class="box2 flex flex-wrap form-wg" style="margin-bottom: 20px;">
+                            @foreach ($propertyFeatures as $key => $icon)
                                 <div class="form-group wg-box3">
                                     <div class="tf-amenities bg-white">
                                         <label class="flex align-items-center">
-                                            <input name="features[]" type="checkbox" value="{{ $key }}"
-                                                {{ in_array($key, request()->input('features', [])) ? 'checked' : '' }}>
+                                            <input name="property_features[]" type="checkbox"
+                                                value="{{ $key }}"
+                                                {{ in_array($key, request()->input('property_features', [])) ? 'checked' : '' }}>
                                             <span class="btn-checkbox"></span>
                                             <div class="d-flex align-items-center" style="gap:5px;">
                                                 <i class="{{ $icon }}"></i>
                                                 <span class="fs-16">{{ $key }}</span>
+                                            </div>
+                                        </label>
+                                    </div>
+                                </div>
+                            @endforeach
+                        </div>
 
+                        <h3 class="mt-4 mb-3" style="margin-bottom: 10px;">مميزات الموقع</h3>
+                        <div class="box2 flex flex-wrap form-wg">
+                            @foreach ($locationFeatures as $key => $icon)
+                                <div class="form-group wg-box3">
+                                    <div class="tf-amenities bg-white">
+                                        <label class="flex align-items-center">
+                                            <input name="location_features[]" type="checkbox"
+                                                value="{{ $key }}"
+                                                {{ in_array($key, request()->input('location_features', [])) ? 'checked' : '' }}>
+                                            <span class="btn-checkbox"></span>
+                                            <div class="d-flex align-items-center" style="gap:5px;">
+                                                <i class="{{ $icon }}"></i>
+                                                <span class="fs-16">{{ $key }}</span>
                                             </div>
                                         </label>
                                     </div>
@@ -168,38 +229,6 @@
                     }
                 })
                 .catch(error => console.error('Error fetching subcities:', error));
-        });
-    });
-</script>
-
-
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script>
-    $(document).ready(function () {
-        $('#searchForm').on('submit', function (e) {
-            e.preventDefault(); // منع تحديث الصفحة الافتراضي
-
-            // الحصول على بيانات النموذج
-            let formData = $(this).serialize();
-
-            // إرسال طلب AJAX
-            $.ajax({
-                url: $(this).attr('action'), // الرابط الموجود في form
-                method: 'GET', // طريقة الإرسال
-                data: formData,
-                beforeSend: function () {
-                    // يمكنك هنا إضافة مؤشر تحميل
-                    $('#searchResults').html('<p>جاري البحث...</p>');
-                },
-                success: function (response) {
-                    // عرض النتائج في div
-                    $('#searchResults').html(response);
-                },
-                error: function (xhr, status, error) {
-                    console.error('حدث خطأ:', error);
-                    $('#searchResults').html('<p>حدث خطأ أثناء البحث. الرجاء المحاولة مرة أخرى.</p>');
-                }
-            });
         });
     });
 </script>

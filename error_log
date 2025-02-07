@@ -1,0 +1,42 @@
+[16-Sep-2024 20:10:46 UTC] PHP Warning:  require(/home/x6mpdfpor7p8/public_html/vendor/autoload.php): Failed to open stream: No such file or directory in /home/x6mpdfpor7p8/public_html/index.php on line 13
+[16-Sep-2024 20:10:46 UTC] PHP Fatal error:  Uncaught Error: Failed opening required '/home/x6mpdfpor7p8/public_html/vendor/autoload.php' (include_path='.:/opt/alt/php82/usr/share/pear:/opt/alt/php82/usr/share/php:/usr/share/pear:/usr/share/php') in /home/x6mpdfpor7p8/public_html/index.php:13
+Stack trace:
+#0 {main}
+  thrown in /home/x6mpdfpor7p8/public_html/index.php on line 13
+[16-Sep-2024 20:10:49 UTC] PHP Warning:  require(/home/x6mpdfpor7p8/public_html/vendor/autoload.php): Failed to open stream: No such file or directory in /home/x6mpdfpor7p8/public_html/index.php on line 13
+[16-Sep-2024 20:10:49 UTC] PHP Fatal error:  Uncaught Error: Failed opening required '/home/x6mpdfpor7p8/public_html/vendor/autoload.php' (include_path='.:/opt/alt/php82/usr/share/pear:/opt/alt/php82/usr/share/php:/usr/share/pear:/usr/share/php') in /home/x6mpdfpor7p8/public_html/index.php:13
+Stack trace:
+#0 {main}
+  thrown in /home/x6mpdfpor7p8/public_html/index.php on line 13
+[16-Sep-2024 20:10:49 UTC] PHP Warning:  require(/home/x6mpdfpor7p8/public_html/vendor/autoload.php): Failed to open stream: No such file or directory in /home/x6mpdfpor7p8/public_html/index.php on line 13
+[16-Sep-2024 20:10:49 UTC] PHP Fatal error:  Uncaught Error: Failed opening required '/home/x6mpdfpor7p8/public_html/vendor/autoload.php' (include_path='.:/opt/alt/php82/usr/share/pear:/opt/alt/php82/usr/share/php:/usr/share/pear:/usr/share/php') in /home/x6mpdfpor7p8/public_html/index.php:13
+Stack trace:
+#0 {main}
+  thrown in /home/x6mpdfpor7p8/public_html/index.php on line 13
+[16-Sep-2024 20:10:49 UTC] PHP Warning:  require(/home/x6mpdfpor7p8/public_html/vendor/autoload.php): Failed to open stream: No such file or directory in /home/x6mpdfpor7p8/public_html/index.php on line 13
+[16-Sep-2024 20:10:49 UTC] PHP Fatal error:  Uncaught Error: Failed opening required '/home/x6mpdfpor7p8/public_html/vendor/autoload.php' (include_path='.:/opt/alt/php82/usr/share/pear:/opt/alt/php82/usr/share/php:/usr/share/pear:/usr/share/php') in /home/x6mpdfpor7p8/public_html/index.php:13
+Stack trace:
+#0 {main}
+  thrown in /home/x6mpdfpor7p8/public_html/index.php on line 13
+[16-Sep-2024 20:10:49 UTC] PHP Warning:  require(/home/x6mpdfpor7p8/public_html/vendor/autoload.php): Failed to open stream: No such file or directory in /home/x6mpdfpor7p8/public_html/index.php on line 13
+[16-Sep-2024 20:10:49 UTC] PHP Fatal error:  Uncaught Error: Failed opening required '/home/x6mpdfpor7p8/public_html/vendor/autoload.php' (include_path='.:/opt/alt/php82/usr/share/pear:/opt/alt/php82/usr/share/php:/usr/share/pear:/usr/share/php') in /home/x6mpdfpor7p8/public_html/index.php:13
+Stack trace:
+#0 {main}
+  thrown in /home/x6mpdfpor7p8/public_html/index.php on line 13
+[16-Sep-2024 20:10:51 UTC] PHP Warning:  require(/home/x6mpdfpor7p8/public_html/vendor/autoload.php): Failed to open stream: No such file or directory in /home/x6mpdfpor7p8/public_html/index.php on line 13
+[16-Sep-2024 20:10:51 UTC] PHP Fatal error:  Uncaught Error: Failed opening required '/home/x6mpdfpor7p8/public_html/vendor/autoload.php' (include_path='.:/opt/alt/php82/usr/share/pear:/opt/alt/php82/usr/share/php:/usr/share/pear:/usr/share/php') in /home/x6mpdfpor7p8/public_html/index.php:13
+Stack trace:
+#0 {main}
+  thrown in /home/x6mpdfpor7p8/public_html/index.php on line 13
+[16-Sep-2024 20:10:51 UTC] PHP Warning:  require(/home/x6mpdfpor7p8/public_html/vendor/autoload.php): Failed to open stream: No such file or directory in /home/x6mpdfpor7p8/public_html/index.php on line 13
+[16-Sep-2024 20:10:51 UTC] PHP Fatal error:  Uncaught Error: Failed opening required '/home/x6mpdfpor7p8/public_html/vendor/autoload.php' (include_path='.:/opt/alt/php82/usr/share/pear:/opt/alt/php82/usr/share/php:/usr/share/pear:/usr/share/php') in /home/x6mpdfpor7p8/public_html/index.php:13
+Stack trace:
+#0 {main}
+  thrown in /home/x6mpdfpor7p8/public_html/index.php on line 13
+[16-Sep-2024 20:12:09 UTC] PHP Warning:  require(/home/x6mpdfpor7p8/public_html/vendor/autoload.php): Failed to open stream: No such file or directory in /home/x6mpdfpor7p8/public_html/index.php on line 13
+[16-Sep-2024 20:12:09 UTC] PHP Fatal error:  Uncaught Error: Failed opening required '/home/x6mpdfpor7p8/public_html/vendor/autoload.php' (include_path='.:/opt/alt/php82/usr/share/pear:/opt/alt/php82/usr/share/php:/usr/share/pear:/usr/share/php') in /home/x6mpdfpor7p8/public_html/index.php:13
+Stack trace:
+#0 {main}
+  thrown in /home/x6mpdfpor7p8/public_html/index.php on line 13
+[16-Sep-2024 20:26:10 UTC] PHP Fatal error:  Cannot declare class CreateFavoritesTable, because the name is already in use in /home/x6mpdfpor7p8/public_html/database/migrations/2024_08_31_062251_create_likes_table.php on line 7
+[16-Sep-2024 20:26:28 UTC] PHP Fatal error:  Cannot declare class CreateFavoritesTable, because the name is already in use in /home/x6mpdfpor7p8/public_html/database/migrations/2024_08_31_062251_create_likes_table.php on line 7

@@ -31,7 +31,11 @@ return new class extends Migration
             $table->string('property_facade')->nullable();
             $table->string('profile_project')->nullable();
             $table->text('croquis')->nullable(); // الكروكي
-
+            
+                $table->string('property_features')->nullable(); 
+        $table->string('location_features')->nullable();    
+        
+        
             $table->unsignedBigInteger('city_id')->nullable();
             $table->unsignedBigInteger('neighborhood_id')->nullable();
             $table->unsignedBigInteger('created_by')->nullable();

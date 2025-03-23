@@ -9,41 +9,177 @@ use Illuminate\Support\Facades\Storage;
 
 class ProductController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth')->except(['index', 'show', 'search', 'getNeighborhoods', 'properties']);
+    }
+
     public function index(Request $request)
     {
-        $query = Product::query();
+        try {
+            $query = Product::query();
 
-        if ($request->has('search')) {
-            $query->where('name', 'LIKE', '%'.$request->input('search').'%');
+            if ($request->has('search') && $request->input('search') !== '') {
+                $query->where('title', 'LIKE', '%'.$request->input('search').'%');
+            }
+
+            if ($request->has('city_id') && $request->input('city_id') !== '') {
+                $query->where('city_id', $request->input('city_id'));
+            }
+
+            if ($request->has('neighborhood_id') && $request->input('neighborhood_id') !== '') {
+                $query->where('neighborhood_id', $request->input('neighborhood_id'));
+            }
+
+            if ($request->has('min_price') && $request->input('min_price') !== '') {
+                $query->where('price', '>=', $request->input('min_price'));
+            }
+
+            if ($request->has('max_price') && $request->input('max_price') !== '') {
+                $query->where('price', '<=', $request->input('max_price'));
+            }
+
+            if ($request->has('bedrooms') && $request->input('bedrooms') !== '') {
+                $query->where('bedrooms', $request->input('bedrooms'));
+            }
+
+            if ($request->has('bathrooms') && $request->input('bathrooms') !== '') {
+                $query->where('bathrooms', $request->input('bathrooms'));
+            }
+
+            if ($request->has('features') && !empty($request->input('features'))) {
+                $features = (array)$request->input('features');
+                foreach ($features as $feature) {
+                    $query->whereJsonContains('features', $feature);
+                }
+            }
+
+            $products = $query->with(['city', 'neighborhood'])->get();
+
+            if ($request->ajax()) {
+                return view('products.search-results', compact('products'))->render();
+            }
+
+            return view('products.search-results', compact('products'));
+        } catch (\Exception $e) {
+            \Log::error('خطأ في البحث: ' . $e->getMessage());
+            if ($request->ajax()) {
+                return response()->json(['error' => 'حدث خطأ أثناء البحث. الرجاء المحاولة مرة أخرى.'], 500);
+            }
+            return back()->with('error', 'حدث خطأ أثناء البحث. الرجاء المحاولة مرة أخرى.');
         }
+    }
 
-        if ($request->has('city_id')) {
-            $query->where('city_id', $request->input('city_id'));
+    public function search(Request $request)
+    {
+        try {
+            \Log::info('بيانات البحث:', $request->all());
+
+            $query = Product::query();
+
+            // تطبيق المعايير فقط إذا تم تحديدها
+            if ($request->filled('category')) {
+                $query->where('category', $request->input('category'));
+            }
+
+            if ($request->filled('search')) {
+                $query->where('title', 'LIKE', '%'.$request->input('search').'%');
+            }
+
+            if ($request->filled('city_id')) {
+                $query->where('city_id', $request->input('city_id'));
+            }
+
+            if ($request->filled('neighborhood_id')) {
+                $query->where('neighborhood_id', $request->input('neighborhood_id'));
+            }
+
+            if ($request->filled('min_price') && $request->input('min_price') > 0) {
+                $query->where('price', '>=', $request->input('min_price'));
+            }
+
+            if ($request->filled('max_price') && $request->input('max_price') < 1000000) {
+                $query->where('price', '<=', $request->input('max_price'));
+            }
+
+            if ($request->filled('bedrooms') && $request->input('bedrooms') != '') {
+                $query->where('bedrooms', $request->input('bedrooms'));
+            }
+
+            if ($request->filled('bathrooms') && $request->input('bathrooms') != '') {
+                $query->where('bathrooms', $request->input('bathrooms'));
+            }
+
+            if ($request->filled('features') && !empty($request->input('features'))) {
+                $features = (array)$request->input('features');
+                foreach ($features as $feature) {
+                    if (!empty($feature)) {
+                        $query->whereJsonContains('features', $feature);
+                    }
+                }
+            }
+
+            // معالجة مميزات العقار
+            if ($request->has('property_features')) {
+                $propertyFeatures = $request->input('property_features');
+                foreach ($propertyFeatures as $feature) {
+                    $query->where('features', 'LIKE', '%'.$feature.'%');
+                }
+            }
+
+            // معالجة مميزات الموقع
+            if ($request->has('location_features')) {
+                $locationFeatures = $request->input('location_features');
+                foreach ($locationFeatures as $feature) {
+                    $query->where('features', 'LIKE', '%'.$feature.'%');
+                }
+            }
+
+            // تسجيل الاستعلام النهائي
+            \Log::info('SQL Query:', [
+                'sql' => $query->toSql(),
+                'bindings' => $query->getBindings()
+            ]);
+
+            // تحميل العلاقات وتنفيذ الاستعلام
+            $products = $query->with(['city', 'neighborhood'])->latest()->paginate(12);
+
+            // تسجيل عدد النتائج
+            \Log::info('عدد النتائج:', ['count' => $products->count()]);
+
+            // التحقق من وجود نتائج
+            if ($products->isEmpty()) {
+                if ($request->ajax()) {
+                    return response()->json([
+                        'html' => view('products.search-results', compact('products'))->render(),
+                        'message' => 'لا توجد نتائج للبحث'
+                    ]);
+                }
+                return view('products.search-results', compact('products'))->with('message', 'لا توجد نتائج للبحث');
+            }
+
+            // إرجاع النتائج
+            if ($request->ajax()) {
+                return response()->json([
+                    'html' => view('products.search-results', compact('products'))->render()
+                ]);
+            }
+
+            return view('products.search-results', compact('products'));
+
+        } catch (\Exception $e) {
+            \Log::error('خطأ في البحث: ' . $e->getMessage());
+            \Log::error('Stack trace: ' . $e->getTraceAsString());
+            
+            if ($request->ajax()) {
+                return response()->json([
+                    'error' => 'حدث خطأ أثناء البحث. الرجاء المحاولة مرة أخرى.',
+                    'details' => $e->getMessage()
+                ], 500);
+            }
+
+            return back()->with('error', 'حدث خطأ أثناء البحث. الرجاء المحاولة مرة أخرى.');
         }
-
-        if ($request->has('neighborhood_id')) {
-            $query->where('neighborhood_id', $request->input('neighborhood_id'));
-        }
-
-        if ($request->has('min_price')) {
-            $query->where('price', '>=', $request->input('min_price'));
-        }
-
-        if ($request->has('max_price')) {
-            $query->where('price', '<=', $request->input('max_price'));
-        }
-
-        if ($request->has('features')) {
-            $query->whereJsonContains('features', $request->input('features'));
-        }
-
-        $products = $query->get();
-
-        if ($request->ajax()) {
-            return view('partials.search-results', compact('products'))->render();
-        }
-
-        return view('products.index', compact('products'));
     }
 
     public function single()
@@ -51,13 +187,6 @@ class ProductController extends Controller
         $products = Product::all();
 
         return view('single', compact('products'));
-    }
-
-    public function index1()
-    {
-        $products = Product::all();
-
-        return view('products.index', compact('products'));
     }
 
     public function create()
@@ -299,5 +428,22 @@ class ProductController extends Controller
 
         return redirect()->route('products.index')
             ->with('success', 'Product deleted successfully.');
+    }
+
+    public function properties()
+    {
+        $products = Product::all();
+        return view('products.properties', compact('products'));
+    }
+
+    public function getNeighborhoods($cityId)
+    {
+        try {
+            $neighborhoods = City::where('parent_id', $cityId)->get();
+            return response()->json($neighborhoods);
+        } catch (\Exception $e) {
+            \Log::error('خطأ في جلب الأحياء: ' . $e->getMessage());
+            return response()->json(['error' => 'حدث خطأ أثناء جلب الأحياء'], 500);
+        }
     }
 }

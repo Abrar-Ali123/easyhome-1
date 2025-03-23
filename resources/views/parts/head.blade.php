@@ -5,9 +5,7 @@
 
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/wow/1.1.2/wow.min.js"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
-        integrity="sha512-1ycn6IcaQQ40/JhBX9KZ7bXFOjT5x4bxGgAK3EBkIqzMeqK6F2F7Hz4abFTpXNolPqSHRAcAwdsjCHD8u1J9Xg=="
-        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" referrerpolicy="no-referrer" />
 
     <link href="{{ asset('css/dist/font-awesome.css') }}?v=60" rel="stylesheet">
     <link href="{{ asset('css/dist/app.css') }}?v=61" rel="stylesheet">

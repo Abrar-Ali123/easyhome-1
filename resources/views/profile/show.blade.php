@@ -3,185 +3,270 @@
 @section('title', 'الملف الشخصي')
 
 @section('content')
-<!-- إضافة روابط Font Awesome و GLightbox CSS -->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/glightbox/dist/css/glightbox.min.css">
 <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap" rel="stylesheet">
 
-<!-- إضافة CSS -->
 <style>
-    :root {
-        --primary-color-light: #fff;
-        --primary_2-color-light: #fff6e0;
-        --secondary-color-light: #003e37;
-        --accent-color-light: #bb9339;
-
-        --primary-color-dark: #091716;
-        --primary_2-color-dark: #08201e;
-        --secondary-color-dark: #fff;
-        --accent-color-dark: #bb9339;
+    .profile-container {
+        max-width: 1200px;
+        margin: 40px auto;
+        padding: 20px;
     }
 
-    body {
-        font-family: 'Cairo', sans-serif;
-        margin: 0;
-        padding: 0;
-        background-color: var(--primary-color-light);
-        color: var(--secondary-color-light);
-        transition: background-color 0.3s, color 0.3s;
+    .profile-header {
+        background: linear-gradient(135deg, #003e37 0%, #006d5b 100%);
+        color: white;
+        border-radius: 15px;
+        padding: 30px;
+        margin-bottom: 30px;
+        display: flex;
+        align-items: center;
+        gap: 30px;
     }
 
-    body.dark-mode {
-        background-color: var(--primary-color-dark);
-        color: var(--secondary-color-dark);
-    }
-
-    .container {
-        width: 85%;
-        margin: auto;
-        overflow: hidden;
-    }
-
-    .header {
-        background: var(--secondary-color-light);
-        color: var(--primary-color-light);
-        padding: 20px 0;
-        text-align: center;
-        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-        transition: background 0.3s, color 0.3s;
-    }
-
-    body.dark-mode .header {
-        background: var(--secondary-color-dark);
-        color: var(--primary-color-dark);
-    }
-
-    .profile-main img {
+    .profile-avatar {
         width: 150px;
         height: 150px;
         border-radius: 50%;
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        border: 5px solid white;
+        object-fit: cover;
+    }
+
+    .profile-header-info h1 {
+        margin: 0;
+        font-size: 2em;
+    }
+
+    .profile-role {
+        display: inline-block;
+        background: #bb9339;
+        padding: 5px 15px;
+        border-radius: 20px;
+        font-size: 0.9em;
+        margin-top: 10px;
+    }
+
+    .profile-sections {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 20px;
+    }
+
+    .profile-section {
+        background: white;
+        border-radius: 15px;
+        padding: 25px;
+        box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    }
+
+    .section-title {
+        color: #003e37;
+        border-bottom: 2px solid #bb9339;
+        padding-bottom: 10px;
         margin-bottom: 20px;
+        display: flex;
+        align-items: center;
+        gap: 10px;
     }
 
-    .profile-info {
-        padding: 30px;
-        background: var(--primary-color-light);
-        border-radius: 12px;
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-        margin-bottom: 30px;
-        transition: background 0.3s, color 0.3s;
+    .section-title i {
+        color: #bb9339;
     }
 
-    body.dark-mode .profile-info {
-        background: var(--primary-color-dark);
-        color: var(--secondary-color-dark);
-    }
-
-    .profile-info h2 {
-        margin-top: 0;
-        font-size: 2.5em;
-        color: var(--secondary-color-light);
-        transition: color 0.3s;
-    }
-
-    body.dark-mode .profile-info h2 {
-        color: var(--secondary-color-dark);
-    }
-
-    .profile-info p {
-        margin: 15px 0;
-        line-height: 1.6;
-    }
-
-    .profile-info .label {
-        font-weight: bold;
-        margin-right: 10px;
-        color: var(--accent-color-light);
-        transition: color 0.3s;
-    }
-
-    body.dark-mode .profile-info .label {
-        color: var(--accent-color-dark);
-    }
-
-    .profile-info .value {
-        color: var(--secondary-color-light);
-        transition: color 0.3s;
-    }
-
-    body.dark-mode .profile-info .value {
-        color: var(--secondary-color-dark);
-    }
-
-    .edit-button {
-        background: var(--secondary-color-light);
-        color: var(--primary-color-light);
-        border: none;
-        padding: 12px 25px;
-        font-size: 1.1em;
-        cursor: pointer;
+    .info-item {
+        margin-bottom: 15px;
+        padding: 10px;
         border-radius: 8px;
-        transition: background 0.3s ease, color 0.3s ease;
-        display: block;
-        width: 100%;
+        transition: background-color 0.3s;
+    }
+
+    .info-item:hover {
+        background-color: #f8f9fa;
+    }
+
+    .info-label {
+        color: #666;
+        font-size: 0.9em;
+        margin-bottom: 5px;
+    }
+
+    .info-value {
+        color: #333;
+        font-weight: 500;
+    }
+
+    .permissions-list {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+    }
+
+    .permissions-list li {
+        padding: 8px 0;
+        border-bottom: 1px solid #eee;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }
+
+    .permissions-list i {
+        color: #28a745;
+    }
+
+    .action-buttons {
+        display: flex;
+        gap: 15px;
+        margin-top: 30px;
+    }
+
+    .btn {
+        padding: 12px 25px;
+        border-radius: 8px;
+        border: none;
+        cursor: pointer;
+        font-weight: 500;
+        transition: all 0.3s;
+        text-decoration: none;
         text-align: center;
-        margin-top: 20px;
     }
 
-    .edit-button:hover {
-        background: var(--accent-color-light);
+    .btn-primary {
+        background: #003e37;
+        color: white;
     }
 
-    body.dark-mode .edit-button {
-        background: var(--secondary-color-dark);
-        color: var(--primary-color-dark);
+    .btn-secondary {
+        background: #bb9339;
+        color: white;
+    }
+
+    .btn:hover {
+        opacity: 0.9;
+        transform: translateY(-2px);
     }
 </style>
 
-<!-- إضافة محتوى الصفحة -->
-<div class="container">
-    <header class="header">
-        <h1>الملف الشخصي</h1>
-    </header>
+<div class="profile-container">
+    <div class="profile-header">
+        <img src="{{ asset('storage/' . ($user->avatar ?? 'avatars/default.png')) }}" 
+             alt="الصورة الشخصية" 
+             class="profile-avatar">
+        <div class="profile-header-info">
+            <h1>{{ $user->name }}</h1>
+            <div class="profile-role">
+                @foreach($user->roles as $role)
+                    {{ $role->display_name }}
+                    @if(!$loop->last), @endif
+                @endforeach
+            </div>
+        </div>
+    </div>
 
-    <section class="profile-main">
-        <img src="{{ asset('storage/' . $user->avatar) }}" alt="الصورة الرمزية">
-    </section>
+    <div class="profile-sections">
+        <div class="profile-section">
+            <h2 class="section-title">
+                <i class="fas fa-user"></i>
+                المعلومات الشخصية
+            </h2>
+            <div class="info-item">
+                <div class="info-label">البريد الإلكتروني</div>
+                <div class="info-value">{{ $user->email }}</div>
+            </div>
+            <div class="info-item">
+                <div class="info-label">رقم الهاتف</div>
+                <div class="info-value">{{ $user->phone ?? 'غير محدد' }}</div>
+            </div>
+            <div class="info-item">
+                <div class="info-label">المدينة</div>
+                <div class="info-value">{{ $user->city ?? 'غير محدد' }}</div>
+            </div>
+            <div class="info-item">
+                <div class="info-label">العمر</div>
+                <div class="info-value">{{ $user->age ?? 'غير محدد' }}</div>
+            </div>
+        </div>
 
-    <section class="profile-info text-center">
-        <h2>{{ $user->name }}</h2>
+        <div class="profile-section">
+            <h2 class="section-title">
+                <i class="fas fa-shield-alt"></i>
+                الصلاحيات
+            </h2>
+            <ul class="permissions-list">
+                @foreach($user->roles as $role)
+                    @foreach($role->permissions as $permission)
+                        <li>
+                            <i class="fas fa-check-circle"></i>
+                            {{ $permission->display_name }}
+                        </li>
+                    @endforeach
+                @endforeach
+            </ul>
+        </div>
 
-        <p><span class="label ">البريد الإلكتروني:</span><br> <span class="value ">{{ $user->email }}</span></p><hr>
+        @if($user->license_number || $user->bio || $user->salary || $user->bank)
+        <div class="profile-section">
+            <h2 class="section-title">
+                <i class="fas fa-briefcase"></i>
+                المعلومات المهنية
+            </h2>
+            @if($user->license_number)
+            <div class="info-item">
+                <div class="info-label">رقم الرخصة</div>
+                <div class="info-value">{{ $user->license_number }}</div>
+            </div>
+            @endif
+            @if($user->bio)
+            <div class="info-item">
+                <div class="info-label">نبذة تعريفية</div>
+                <div class="info-value">{{ $user->bio }}</div>
+            </div>
+            @endif
+            @if($user->salary)
+            <div class="info-item">
+                <div class="info-label">الراتب</div>
+                <div class="info-value">{{ $user->salary }}</div>
+            </div>
+            @endif
+            @if($user->bank)
+            <div class="info-item">
+                <div class="info-label">البنك</div>
+                <div class="info-value">{{ $user->bank }}</div>
+            </div>
+            @endif
+        </div>
+        @endif
 
-        <p><span class="label">الهاتف:</span> <br><span class="value ">{{ $user->phone }}</span></p><hr>
+        @if($user->preferred_neighborhoods)
+        <div class="profile-section">
+            <h2 class="section-title">
+                <i class="fas fa-map-marker-alt"></i>
+                الأحياء المفضلة
+            </h2>
+            <ul class="permissions-list">
+                @foreach(json_decode($user->preferred_neighborhoods) as $neighborhood)
+                    <li>
+                        <i class="fas fa-map-pin"></i>
+                        {{ $neighborhood }}
+                    </li>
+                @endforeach
+            </ul>
+        </div>
+        @endif
+    </div>
 
-        <p><span class="label">الدور:</span> <br><span class="value ">{{ $user->role }}</span></p><hr>
-
-        <p><span class="label ">رقم الرخصة:</span> <br><span class="value ">{{ $user->license_number }}</span></p><hr>
-        <p><span class="label ">الوصف:</span> <br><span class="value ">{{ $user->bio }}</span></p><hr>
-        <p><span class="label ">مدعوم:</span> <br><span class="value ">{{ $user->is_supported ? 'نعم' : 'لا' }}</span></p><hr>
-        <p><span class="label ">الراتب:</span><br> <span class="value ">{{ $user->salary }}</span></p><hr>
-        <p><span class="label ">البنك:</span> <br><span class="value ">{{ $user->bank }}</span></p><hr>
-        <p><span class="label ">المدينة:</span> <br><span class="value ">{{ $user->city }}</span></p><hr>
-        <p><span class="label ">الأحياء المفضلة:</span>
-            <span class="value ">
-                @if($user->preferred_neighborhoods)
-                    <ul>
-                        @foreach(json_decode($user->preferred_neighborhoods) as $neighborhood)
-                            <li>{{ $neighborhood }}</li>
-                        @endforeach
-                    </ul>
-                @else
-                    لا توجد أحياء مفضلة مسجلة.
-                @endif
-            </span>
-        </p>
-
-
-        <a href="{{ route('profile.edit') }}" class="edit-button">تعديل الملف الشخصي</a>
-        <a href="{{ route('profile.edit') }}" class="edit-button">تعديل الملف الشخصي</a>
-
-        <p><span class="label ">العمر:</span> <span class="value ">{{ $user->age }}</span></p>
-     </section>
+    <div class="action-buttons">
+        <a href="{{ route('profile.edit') }}" class="btn btn-primary">
+            <i class="fas fa-edit"></i>
+            تعديل الملف الشخصي
+        </a>
+        <a href="#" class="btn btn-secondary" onclick="event.preventDefault(); document.getElementById('change-password-form').submit();">
+            <i class="fas fa-key"></i>
+            تغيير كلمة المرور
+        </a>
+    </div>
 </div>
+
+<form id="change-password-form" action="{{ route('profile.password.change') }}" method="POST" style="display: none;">
+    @csrf
+</form>
+@endsection

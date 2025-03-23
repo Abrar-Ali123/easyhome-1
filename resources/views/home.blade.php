@@ -10,9 +10,6 @@
     @include('parts.header')
     @include('parts.login_popup')
 
-
-
-
     <div id="wrapper">
         <div id="pagee" class="clearfix">
             @yield('content')
@@ -31,48 +28,24 @@
         </button>
     </div>
 
-    <!-- Javascript -->
-    <script src="{{ asset('css/js/jquery.min.js') }}"></script>
-
-    <script src="{{ asset('css/js/jquery.easing.js') }}"></script>
-
-    <script src="{{ asset('css/js/jquery.nice-select.min.js') }}"></script>
-
-    <script src="{{ asset('css/js/bootstrap.min.js') }}"></script>
-
-    <script src="{{ asset('css/js/swiper-bundle.min.js') }}"></script>
-
-    <script src="{{ asset('css/js/owl.js') }}"></script>
-
-    <script src="{{ asset('css/js/swiper.js') }}"></script>
-
-    <script src="{{ asset('css/js/price-ranger.js') }}"></script>
-
-    <script src="{{ asset('css/js/curved.js') }}"></script>
-
-    <script src="{{ asset('css/js/main.js') }}"></script>
-
-    <script src="{{ asset('css/js/shortcodes.js') }}"></script>
-
-    <script src="{{ asset('css/js/plugin.js') }}"></script>
-
-    <script src="{{ asset('css/js/countto.js') }}"></script>
-
-    <script src="{{ asset('css/js/jquery-validate.js') }}"></script>
-
     <script>
-        document.getElementById('toggleMode').addEventListener('click', function() {
+        document.addEventListener('DOMContentLoaded', function() {
             const html = document.documentElement;
             const icon = document.getElementById('modeIcon');
+            const toggleMode = document.getElementById('toggleMode');
 
-            if (html.classList.contains('light-mode')) {
-                html.classList.remove('light-mode');
-                icon.classList.remove('fa-moon');
-                icon.classList.add('fa-sun');
-            } else {
-                html.classList.add('light-mode');
-                icon.classList.remove('fa-sun');
-                icon.classList.add('fa-moon');
+            if (toggleMode) {
+                toggleMode.addEventListener('click', function() {
+                    if (html.classList.contains('light-mode')) {
+                        html.classList.remove('light-mode');
+                        icon.classList.remove('fa-moon');
+                        icon.classList.add('fa-sun');
+                    } else {
+                        html.classList.add('light-mode');
+                        icon.classList.remove('fa-sun');
+                        icon.classList.add('fa-moon');
+                    }
+                });
             }
         });
 
@@ -80,7 +53,6 @@
             const phoneNumber = "+966551421008";
             const message = encodeURIComponent("Hello, I would like to get in touch with you.");
             const whatsappUrl = `https://wa.me/${phoneNumber}?text=${message}`;
-
             window.open(whatsappUrl, '_blank');
         }
     </script>

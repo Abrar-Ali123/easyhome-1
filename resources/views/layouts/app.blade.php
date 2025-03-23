@@ -6,15 +6,25 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>{{ config('app.name', 'Laravel') }}</title>
 
+    <!-- jQuery and jQuery UI -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.min.js"></script>
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
+
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@200;400;600;800&display=swap" rel="stylesheet">
+    
     <!-- Styles -->
-    <link href="{{ asset('css/app.css') }}" rel="stylesheet"> <!-- مسار ملف CSS الأساسي -->
-    <link href="{{ asset('css/home.css') }}" rel="stylesheet"> <!-- مسار ملف CSS الأساسي -->
+    <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/home.css') }}" rel="stylesheet">
+    <link rel="stylesheet" href="{{ asset('css/swiper-bundle.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/style.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/responsive.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 
     <!-- Additional CSS -->
-    @stack('styles') <!-- يمكن استخدام هذه لإضافة CSS إضافي في الصفحات الأخرى -->
+    @stack('styles')
 
 </head>
 <body>
@@ -66,15 +76,17 @@
 
         <!-- Main Content -->
         <main class="py-4">
-            @yield('content') <!-- سيتم تضمين محتوى الصفحة هنا -->
+            @yield('content')
         </main>
     </div>
 
     <!-- Scripts -->
-    <script src="{{ asset('js/app.js') }}" defer></script> <!-- مسار ملف JavaScript الأساسي -->
-
+    <script src="{{ asset('js/app.js') }}" defer></script>
+    <script src="{{ asset('js/swiper-bundle.min.js') }}"></script>
+    <script src="{{ asset('js/main.js') }}"></script>
+    
     <!-- Additional Scripts -->
-    @stack('scripts') <!-- يمكن استخدام هذه لإضافة JavaScript إضافي في الصفحات الأخرى -->
+    @stack('scripts')
 
     <script>
         // Script for toggling the user menu

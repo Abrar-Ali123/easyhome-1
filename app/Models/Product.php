@@ -27,6 +27,12 @@ class Product extends Model
         'property_facade',
         'profile_project',
         'croquis',
+        'is_for_rent', // إضافة حقل للإيجار
+        'rent_price', // سعر الإيجار الشهري
+        'rent_deposit', // مبلغ التأمين
+        'rent_period', // مدة الإيجار (بالأشهر)
+        'rent_terms', // شروط الإيجار
+        'property_type', // نوع العقار
     ];
 
     const CATEGORIES = [
@@ -45,26 +51,62 @@ class Product extends Model
         // أضف أيقونات التصنيفات الأخرى هنا
     ];
 
-    public static $featuresList = [
+    const PROPERTY_USAGE = [
+        'بيع',
+        'إيجار',
+        'بيع وإيجار'
+    ];
+
+    const PROPERTY_TYPES = [
+        'سكني',
+        'تجاري',
+        'صناعي',
+        'زراعي',
+        'استثماري'
+    ];
+
+    const RENTAL_PERIODS = [
+        3 => '3 أشهر',
+        6 => '6 أشهر',
+        12 => 'سنة',
+        24 => 'سنتين'
+    ];
+
+    // مميزات العقار
+    public static $propertyFeatures = [
         'مرآب' => 'fas fa-car',
         'مسبح' => 'fas fa-swimming-pool',
         'حديقة' => 'fas fa-tree',
-        'أمن' => 'fas fa-shield-alt',
+        'مصعد' => 'fas fa-elevator',
+        'تكييف مركزي' => 'fas fa-snowflake',
+        'مطبخ مجهز' => 'fas fa-utensils',
+        'غرفة خادمة' => 'fas fa-person-booth',
+        'غرفة حارس' => 'fas fa-user-shield',
+        'غرفة غسيل' => 'fas fa-tshirt',
+        'مدخل سيارات' => 'fas fa-car-side',
+        'نظام إنذار' => 'fas fa-bell',
+        'خزان مياه' => 'fas fa-water'
+    ];
+
+    // مميزات الموقع
+    public static $locationFeatures = [
+        'قريب من المسجد' => 'fas fa-mosque',
+        'قريب من المدارس' => 'fas fa-school',
+        'قريب من الأسواق' => 'fas fa-shopping-cart',
+        'قريب من المستشفيات' => 'fas fa-hospital',
+        'قريب من الحدائق' => 'fas fa-tree',
+        'قريب من المواصلات' => 'fas fa-bus',
+        'شارع رئيسي' => 'fas fa-road',
+        'منطقة هادئة' => 'fas fa-volume-mute',
+        'أمن وحراسة' => 'fas fa-shield-alt',
+        'خدمات بلدية' => 'fas fa-city'
     ];
 
     // دالة لإرجاع الأيقونة الخاصة بكل ميزة
     public function getFeatureIcon($feature)
     {
-        $icons = [
-            'مرآب' => 'fas fa-car',
-            'مسبح' => 'fas fa-swimming-pool',
-            'حديقة' => 'fas fa-tree',
-            'أمن' => 'fas fa-shield-alt',
-            // أضف أيقونات المميزات الأخرى هنا
-        ];
-
-        // التحقق من وجود الأيقونة وإرجاعها، أو إرجاع أيقونة افتراضية
-        return $icons[$feature] ?? 'fas fa-question';
+        $allFeatures = array_merge(self::$propertyFeatures, self::$locationFeatures);
+        return $allFeatures[$feature] ?? 'fas fa-question';
     }
 
     // دالة لإرجاع الأيقونة الخاصة بالتصنيف
@@ -89,18 +131,35 @@ class Product extends Model
         return $this->hasMany(City::class, 'parent_id');
     }
 
+    // العلاقة مع المدينة
     public function city()
     {
-        return $this->belongsTo(City::class);
+        return $this->belongsTo(City::class, 'city_id')->whereNull('parent_id');
     }
 
+    // العلاقة مع الحي
     public function neighborhood()
     {
-        return $this->belongsTo(City::class, 'neighborhood_id');
+        return $this->belongsTo(City::class, 'neighborhood_id')->whereNotNull('parent_id');
     }
 
     public function getFeaturesAttribute($value)
     {
         return explode(',', $value); // تحويل النص إلى مصفوفة بناءً على الفواصل
+    }
+
+    // دالة للتحقق من توفر العقار للإيجار
+    public function isAvailableForRent()
+    {
+        return $this->is_for_rent && $this->property_usage != 'بيع';
+    }
+
+    // دالة لحساب إجمالي تكلفة الإيجار
+    public function calculateTotalRent($months)
+    {
+        if (!$this->isAvailableForRent()) {
+            return 0;
+        }
+        return ($this->rent_price * $months) + $this->rent_deposit;
     }
 }

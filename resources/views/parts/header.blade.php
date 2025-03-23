@@ -16,6 +16,8 @@
                                 <div class="navbar-collapse collapse clearfix" id="navbarSupportedContent">
                                     <ul class="navigation clearfix">
                                         <li><a href="{{ url('/') }}">الرئيسية</a></li>
+                                        <li><a href="{{ route('products.properties') }}">العقارات</a></li>
+                                        <li><a href="{{ route('lands.index') }}">الأراضي</a></li>
                                         <li><a href="{{ route('blog.index') }}">مدونتنا</a></li>
                                         <li><a href="{{ route('contact.page2') }}">برنامج انجاز</a></li>
                                         <li><a href="{{ route('contact.page1') }}">تواصل معنا</a></li>

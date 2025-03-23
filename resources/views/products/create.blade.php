@@ -39,22 +39,20 @@
             </div>
 
             <div class="form-group mb-3">
-    <label for="title">العنوان</label>
-    <input type="text" name="title" id="title" class="form-control" value="{{ old('title') }}" required>
-    @error('title')
-        <small class="text-danger">{{ $message }}</small>
-    @enderror
-</div>
+                <label for="title">العنوان</label>
+                <input type="text" name="title" id="title" class="form-control" value="{{ old('title') }}" required>
+                @error('title')
+                    <small class="text-danger">{{ $message }}</small>
+                @enderror
+            </div>
 
-
-<div class="form-group mb-3">
-    <label for="description">وصف</label>
-    <textarea name="description" id="description" class="form-control" rows="4" required>{{ old('description') }}</textarea>
-    @error('description')
-        <small class="text-danger">{{ $message }}</small>
-    @enderror
-</div>
-
+            <div class="form-group mb-3">
+                <label for="description">وصف</label>
+                <textarea name="description" id="description" class="form-control" rows="4" required>{{ old('description') }}</textarea>
+                @error('description')
+                    <small class="text-danger">{{ $message }}</small>
+                @enderror
+            </div>
 
             <div class="form-group mb-3">
                 <label for="location">الموقع</label>
@@ -115,6 +113,41 @@
             <br>
 
             <div class="form-group mb-3">
+                <label for="property_usage">استخدام العقار</label>
+                <select name="property_usage" id="property_usage" class="form-control">
+                    <option value="" disabled {{ old('property_usage') ? '' : 'selected' }}>اختر نوع الاستخدام</option>
+                    @foreach (App\Models\Product::PROPERTY_USAGE as $usage)
+                        <option value="{{ $usage }}" {{ old('property_usage') == $usage ? 'selected' : '' }}>
+                            {{ $usage }}
+                        </option>
+                    @endforeach
+                </select>
+            </div>
+
+            <div class="form-group mb-3">
+                <label for="property_type">نوع العقار</label>
+                <select name="property_type" id="property_type" class="form-control">
+                    <option value="" disabled {{ old('property_type') ? '' : 'selected' }}>اختر نوع العقار</option>
+                    @foreach (App\Models\Product::PROPERTY_TYPES as $type)
+                        <option value="{{ $type }}" {{ old('property_type') == $type ? 'selected' : '' }}>
+                            {{ $type }}
+                        </option>
+                    @endforeach
+                </select>
+            </div>
+
+            <div class="form-group mb-3">
+                <label for="property_facade">واجهة العقار</label>
+                <select name="property_facade" class="form-control" id="property_facade">
+                    <option value="" disabled {{ old('property_facade') ? '' : 'selected' }}>اختر واجهة العقار</option>
+                    <option value="شرق" {{ old('property_facade') == 'شرق' ? 'selected' : '' }}>شرق</option>
+                    <option value="غرب" {{ old('property_facade') == 'غرب' ? 'selected' : '' }}>غرب</option>
+                    <option value="شمال" {{ old('property_facade') == 'شمال' ? 'selected' : '' }}>شمال</option>
+                    <option value="جنوب" {{ old('property_facade') == 'جنوب' ? 'selected' : '' }}>جنوب</option>
+                </select>
+            </div>
+
+            <div class="form-group mb-3">
                 <label for="image">الصورة الرئيسية</label>
                 <input type="file" name="image" id="image" class="form-control" accept="image/*">
                 <div id="image-preview" style="display: flex; flex-wrap: wrap; gap: 10px; margin-top: 10px;"></div>
@@ -147,26 +180,6 @@
                 <label for="ad_number">رقم الاعلان </label>
                 <input type="number" name="ad_number" id="ad_number" class="form-control"
                     value="{{ old('ad_number') }}">
-            </div>
-
-            <div class="form-group mb-3">
-                <label for="property_usage">استخدام العقار</label>
-                <select name="property_usage" id="property_usage" class="form-control">
-                    <option value="" disabled {{ old('property_usage') ? '' : 'selected' }}>اختر نوع الاستخدام
-                    </option>
-                    <option value="سكني" {{ old('property_usage') == 'سكني' ? 'selected' : '' }}>سكني </option>
-                    <option value="تجاري" {{ old('property_usage') == 'تجاري' ? 'selected' : '' }}>تجاري </option>
-                </select>
-            </div>
-
-            <div class="form-group mb-3">
-                <label for="property_facade">واجهة العقار</label>
-                <select name="property_facade" class="form-control" id="property_facade">
-                    <option value="شرق">شرق </option>
-                    <option value="غرب">الغرب</option>
-                    <option value="شمال">شمال </option>
-                    <option value="جنوب">جنوب </option>
-                </select>
             </div>
 
             <div class="form-group mb-3">

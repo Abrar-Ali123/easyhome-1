@@ -4,27 +4,31 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreatePostsTable extends Migration
+return new class extends Migration
 {
-    public function up()
+    /**
+     * Run the migrations.
+     */
+    public function up(): void
     {
         Schema::create('posts', function (Blueprint $table) {
             $table->id();
             $table->string('title');
             $table->string('slug')->unique();
             $table->text('content');
-            $table->string('meta_description')->nullable();
-            $table->string('keywords')->nullable();
             $table->string('image')->nullable();
-            $table->unsignedBigInteger('category_blog_id');
-            $table->foreign('category_blog_id')->references('id')->on('category_blogs')->onDelete('cascade');
-
+            $table->foreignId('category_blog_id')->constrained('category_blogs')->onDelete('cascade');
+            $table->boolean('is_active')->default(true);
+            $table->integer('views')->default(0);
             $table->timestamps();
         });
     }
 
-    public function down()
+    /**
+     * Reverse the migrations.
+     */
+    public function down(): void
     {
         Schema::dropIfExists('posts');
     }
-}
+};

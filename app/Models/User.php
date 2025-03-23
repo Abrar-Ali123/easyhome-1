@@ -6,6 +6,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use App\Models\Role;
 
 class User extends Authenticatable
 {
@@ -20,10 +21,7 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
-        'name',
-        'email',
         'phone',
-        'role',
         'license_number',
         'bio',
         'salary',
@@ -49,11 +47,45 @@ class User extends Authenticatable
      *
      * @return array<string, string>
      */
-    protected function casts(): array
+    protected $casts = [
+        'email_verified_at' => 'datetime',
+        'preferred_neighborhoods' => 'array'
+    ];
+
+    public function roles()
     {
-        return [
-            'email_verified_at' => 'datetime',
-            'password' => 'hashed',
-        ];
+        return $this->belongsToMany(Role::class, 'user_roles');
+    }
+
+    public function hasRole($roleName)
+    {
+        return $this->roles()->where('name', $roleName)->exists();
+    }
+
+    public function hasPermission($permissionName)
+    {
+        return $this->roles()->whereHas('permissions', function($query) use ($permissionName) {
+            $query->where('name', $permissionName);
+        })->exists();
+    }
+
+    public function isAdmin()
+    {
+        return $this->hasRole('admin');
+    }
+
+    public function isSuperAdmin()
+    {
+        return $this->hasRole('super_admin');
+    }
+
+    public function isPropertyManager()
+    {
+        return $this->hasRole('property_manager');
+    }
+
+    public function isContentManager()
+    {
+        return $this->hasRole('content_manager');
     }
 }

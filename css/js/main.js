@@ -55,6 +55,13 @@
     // Start things up
     themesflatTheme.init();
 
+    var retinaLogos = function() {
+        var retina = window.devicePixelRatio > 1 ? true : false;
+        if(retina) {
+            $('#site-logo').find('img').attr( {src:'images/logo@2x.png',width:'150',height:'50'} );
+        }
+    };
+
     // var retinaLogos = function() {
     //     var retina = window.devicePixelRatio > 1 ? true : false;
     //     if (retina) {
@@ -234,7 +241,7 @@
                 $(this).parent('li').removeClass('open');
                 $(targetInner).slideUp(500);
                 $(this).parents('.navigation > ul').find('li.dropdown2').removeClass('open');
-                $(this).parents('.navigation > ul').find('li.dropdown > ul').slideUp(500);
+                $(this).parents('.navigation > ul').find('li.dropdown2 > ul').slideUp(500);
                 return false;
             } else {
                 $(this).parents('.navigation > ul').find('li.dropdown2').removeClass('open');
@@ -361,12 +368,16 @@
     // Dom Ready
     $(function() {
         $(window).on('load resize', function() {
-            retinaLogos();
+            if (typeof retinaLogos === "function") {
+                retinaLogos();
+            }
         });
         headerFixed();
         // mobileNav();
         ajaxContactForm();
-        ajaxSubscribe.eventLoad();
+        if (typeof ajaxSubscribe !== "undefined" && typeof ajaxSubscribe.eventLoad === "function") {
+            ajaxSubscribe.eventLoad();
+        }
         alertBox();
 
     });

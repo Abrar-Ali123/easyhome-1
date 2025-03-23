@@ -92,6 +92,41 @@
             </div>
 
             <div class="form-group mb-3">
+                <label for="property_usage">نوع الاستخدام</label>
+                <select name="property_usage" id="property_usage" class="form-control">
+                    <option value="" disabled>اختر نوع الاستخدام</option>
+                    @foreach (App\Models\Product::PROPERTY_USAGE as $usage)
+                        <option value="{{ $usage }}" {{ old('property_usage', $product->property_usage) == $usage ? 'selected' : '' }}>
+                            {{ $usage }}
+                        </option>
+                    @endforeach
+                </select>
+            </div>
+
+            <div class="form-group mb-3">
+                <label for="property_type">نوع العقار</label>
+                <select name="property_type" id="property_type" class="form-control">
+                    <option value="" disabled>اختر نوع العقار</option>
+                    @foreach (App\Models\Product::PROPERTY_TYPES as $type)
+                        <option value="{{ $type }}" {{ old('property_type', $product->property_type) == $type ? 'selected' : '' }}>
+                            {{ $type }}
+                        </option>
+                    @endforeach
+                </select>
+            </div>
+
+            <div class="form-group mb-3">
+                <label for="property_facade">واجهة العقار</label>
+                <select name="property_facade" id="property_facade" class="form-control">
+                    <option value="" disabled>اختر واجهة العقار</option>
+                    <option value="شرق" {{ old('property_facade', $product->property_facade) == 'شرق' ? 'selected' : '' }}>شرق</option>
+                    <option value="غرب" {{ old('property_facade', $product->property_facade) == 'غرب' ? 'selected' : '' }}>غرب</option>
+                    <option value="شمال" {{ old('property_facade', $product->property_facade) == 'شمال' ? 'selected' : '' }}>شمال</option>
+                    <option value="جنوب" {{ old('property_facade', $product->property_facade) == 'جنوب' ? 'selected' : '' }}>جنوب</option>
+                </select>
+            </div>
+
+            <div class="form-group mb-3">
                 <label for="image">Main image</label>
                 <input type="file" name="image" id="image" class="form-control">
                 @if ($product->image)
@@ -132,27 +167,6 @@
             </div>
 
             <div class="form-group mb-3">
-                <label for="property_usage">The use of the property</label>
-                <input type="text" name="property_usage" id="property_usage" class="form-control"
-                    value="{{ old('property_usage', $product->property_usage) }}" required>
-            </div>
-
-            <div class="form-group mb-3">
-                <label for="property_facade">Real estate interface</label>
-                <select name="property_facade" id="property_facade" class="form-control">
-                    <option value="شرق"
-                        {{ old('property_facade', $product->property_facade) == 'شرق' ? 'selected' : '' }}>East</option>
-                    <option value="غرب"
-                        {{ old('property_facade', $product->property_facade) == 'غرب' ? 'selected' : '' }}>West</option>
-                    <option value="شمال"
-                        {{ old('property_facade', $product->property_facade) == 'شمال' ? 'selected' : '' }}>North</option>
-                    <option value="جنوب"
-                        {{ old('property_facade', $product->property_facade) == 'جنوب' ? 'selected' : '' }}>south</option>
-                </select>
-            </div>
-
-            <div class="form-group mb-3">
-
                 <button type="submit" class="btn btn-primary">Save changes</button>
             </div>
         </form>

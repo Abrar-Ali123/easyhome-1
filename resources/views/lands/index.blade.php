@@ -2,7 +2,7 @@
 @section('content')
 <div class="properties-page">
     <!-- قسم البحث -->
-    @include('parts.search-filter')
+    @include('parts.land-search-filter')
 
     <!-- قسم النتائج -->
     <section class="flat-featured wg-dream home">
@@ -20,7 +20,7 @@
                                         <!-- col 1 -->
                                         <div class="box box-dream hv-one">
                                             <div class="image-group relative">
-                                                <span class="featured fs-12 fw-6">{{ $land->status }}</span>
+                                                <span class="featured fs-12 fw-6">{{ $land->property_type }}</span>
                                                 <span class="icon-bookmark"><i class="far fa-bookmark"></i></span>
                                                 <div class="swiper-container carousel-2 img-style">
                                                     <div class="swiper-wrapper">
@@ -39,7 +39,7 @@
                                                 </h3>
                                                 <div class="text-address">
                                                     <p class="p-12">
-                                                        {{ $land->location }}
+                                                        {{ optional($land->city)->name }} - {{ optional($land->neighborhood)->name }}
                                                     </p>
                                                 </div>
                                                 <div class="money fs-18 fw-6 text-color-3">
@@ -51,6 +51,13 @@
                                                         <span class="fw-6">{{ $land->area }} م²</span>
                                                     </div>
                                                 </div>
+                                                @if($land->features)
+                                                <div class="features mt-2">
+                                                    @foreach(json_decode($land->features) as $feature)
+                                                        <span class="badge bg-light text-dark me-1">{{ $feature }}</span>
+                                                    @endforeach
+                                                </div>
+                                                @endif
                                             </div>
                                         </div>
                                     @empty
@@ -60,6 +67,11 @@
                                             </div>
                                         </div>
                                     @endforelse
+                                </div>
+                                
+                                <!-- Pagination -->
+                                <div class="themesflat-pagination clearfix mt-4">
+                                    {{ $lands->links() }}
                                 </div>
                             </div>
                         </div>

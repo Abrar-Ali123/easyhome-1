@@ -72,6 +72,7 @@ Route::get('/get-neighborhoods/{cityId}', [ProductRequestController::class, 'get
 
 // مسارات الأراضي
 Route::get('/lands', [LandController::class, 'index'])->name('lands.index');
+Route::get('/lands/search', [LandController::class, 'search'])->name('lands.search');
 Route::get('/lands/create', [LandController::class, 'create'])->name('lands.create');
 Route::post('/lands', [LandController::class, 'store'])->name('lands.store');
 Route::get('/lands/{land}', [LandController::class, 'show'])->name('lands.show');

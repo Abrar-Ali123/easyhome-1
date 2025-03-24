@@ -21,7 +21,7 @@ return new class extends Migration
             $table->integer('bathrooms')->nullable();
             $table->integer('area')->nullable();
             $table->string('video')->nullable();
-            $table->string('features')->nullable();
+            // حذف سطر المميزات
             $table->string('category')->nullable();
             $table->text('image')->nullable();
             $table->text('images')->nullable();

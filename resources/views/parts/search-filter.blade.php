@@ -185,24 +185,9 @@
 
 <style>
     .flat-tabs {
-        margin-top: 20px;
-    }
-
-    .flat-tabs .box-tab {
-        background: #f8f9fa;
-        padding: 15px;
-        border-radius: 8px 8px 0 0;
-    }
-
-    .flat-tabs .box-tab.center {
-        text-align: center;
-    }
-
-    .flat-tabs .content-tab {
-        background: #fff;
-        padding: 20px;
-        border-radius: 0 0 8px 8px;
-        box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        padding: 25px;
+        border-radius: 10px;
+        margin-bottom: 30px;
     }
 
     .flat-tabs .content-inner {
@@ -214,10 +199,8 @@
     }
 
     .form-sl {
-        background: #fff;
         padding: 20px;
         border-radius: 8px;
-        box-shadow: 0 2px 10px rgba(0,0,0,0.1);
     }
 
     .wd-find-select {
@@ -278,7 +261,7 @@
         width: 40px;
         height: 40px;
         background: #FFA920;
-        color: white;
+        color: #fff;
         border-radius: 8px;
         transition: all 0.3s ease;
     }
@@ -296,11 +279,9 @@
     }
 
     .advanced-search {
-        display: none;
-        margin-top: 20px;
         padding: 20px;
         border-radius: 8px;
-        box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        margin-top: 15px;
     }
 
     .advanced-search.active {
@@ -357,11 +338,9 @@
 
     /* تنسيقات البحث المتقدم */
     .advanced-search {
-        display: none;
-        margin-top: 20px;
         padding: 20px;
-         border-radius: 8px;
-        box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        border-radius: 8px;
+        margin-top: 15px;
     }
 
     .advanced-search.active {
@@ -386,7 +365,7 @@
         width: 40px;
         height: 40px;
         background: #FFA920;
-        color: white;
+        color: #fff;
         border-radius: 8px;
         transition: all 0.3s ease;
     }
@@ -406,17 +385,16 @@
     }
 
     .widget-features {
-        padding: 15px;
+        padding: 20px;
         border-radius: 8px;
+        margin-bottom: 20px;
     }
 
     .title-features {
-        font-size: 16px;
-        font-weight: 600;
-        margin-bottom: 20px;
         color: #333;
-        position: relative;
-        padding-right: 15px;
+        font-size: 18px;
+        margin-bottom: 15px;
+        font-weight: 600;
     }
 
     .title-features::before {
@@ -434,7 +412,7 @@
     .features-list {
         display: grid;
         grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
-        gap: 15px;
+        gap: 10px;
     }
 
     .feature-item {
@@ -446,7 +424,7 @@
         align-items: center;
         cursor: pointer;
         font-size: 14px;
-        transition: all 0.3s ease;
+        color: #555;
     }
 
     .checkbox-item:hover {
@@ -478,7 +456,7 @@
         top: 2px;
         width: 5px;
         height: 10px;
-        border: solid white;
+        border: solid #fff;
         border-width: 0 2px 2px 0;
         transform: rotate(45deg);
     }
@@ -488,6 +466,37 @@
         width: 20px;
         text-align: center;
         margin-left: 5px;
+    }
+
+    .flat-tabs {
+        padding: 25px;
+        border-radius: 10px;
+        margin-bottom: 30px;
+    }
+
+    .form-sl {
+        padding: 20px;
+        border-radius: 8px;
+    }
+
+    .advanced-search {
+        padding: 20px;
+        border-radius: 8px;
+        margin-top: 15px;
+    }
+
+    .sc-button {
+        background: #2756FF;
+        color: #fff;
+        border: none;
+        padding: 12px 25px;
+        border-radius: 6px;
+        font-weight: 600;
+        transition: all 0.3s ease;
+    }
+
+    .sc-button:hover {
+        background: #1a41d8;
     }
 </style>
 

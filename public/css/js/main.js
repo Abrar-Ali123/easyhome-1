@@ -1,5 +1,17 @@
-; // IIFE - Immediately Invoked Function Expression
-(function($, window, document) {
+/**
+ * Header Connect
+ * retinaLogo
+ * ajaxContactForm
+ * headerFixed
+ * select js
+ * mobileNav
+ * ajaxSubscribe
+ * alertBox
+ * loadmore
+ */
+
+;
+(function($) {
     "use strict";
 
     var themesflatTheme = {
@@ -25,6 +37,11 @@
             // Run on document ready
             self.config.$document.on('ready', function() {
 
+
+                // Retina Logos
+                self.retinaLogo();
+
+
             });
 
             // Run on Window Load
@@ -37,6 +54,28 @@
 
     // Start things up
     themesflatTheme.init();
+
+    // var retinaLogos = function() {
+    //     var retina = window.devicePixelRatio > 1 ? true : false;
+    //     if (retina) {
+    //         $('#site-logo-inner').find('img').attr({
+    //             src: 'assets/images/logo/logo@2x.png',
+    //             width: '197',
+    //             height: '48'
+    //         });
+
+    //         $('#logo-footer.style').find('img').attr({
+    //             src: 'assets/images/logo/logo-footer@2x.png',
+    //             width: '197',
+    //             height: '48'
+    //         });
+    //         $('#logo-footer.style2').find('img').attr({
+    //             src: 'assets/images/logo/logo@2x.png',
+    //             width: '197',
+    //             height: '48'
+    //         });
+    //     }
+    // };
 
     var ajaxContactForm = function() {
         $('#contactform,#commentform').each(function() {
@@ -85,6 +124,7 @@
         }); // each contactform
     };
 
+
     var headerFixed = function() {
         if ($("header").hasClass("header-fixed")) {
             var nav = $("#header");
@@ -121,6 +161,8 @@
             }
         }
     };
+
+
 
     //  show logo home2
     $('#showlogo').prepend('<a href="{{ url('/') }}"><img id="theImg" src="assets/images/logo/logo2.png" /></a>');
@@ -192,7 +234,7 @@
                 $(this).parent('li').removeClass('open');
                 $(targetInner).slideUp(500);
                 $(this).parents('.navigation > ul').find('li.dropdown2').removeClass('open');
-                $(this).parents('.navigation > ul').find('li.dropdown2 > ul').slideUp(500);
+                $(this).parents('.navigation > ul').find('li.dropdown > ul').slideUp(500);
                 return false;
             } else {
                 $(this).parents('.navigation > ul').find('li.dropdown2').removeClass('open');
@@ -306,6 +348,8 @@
         }
     };
 
+
+
     var alertBox = function() {
         $(document).on('click', '.close', function(e) {
             $(this).closest('.flat-alert').remove();
@@ -313,45 +357,18 @@
         })
     };
 
-    // تعريف الدالة في النطاق العام
-    window.retinaLogos = function() {
-        var retina = window.devicePixelRatio > 1 ? true : false;
-        if(retina) {
-            $('#site-logo').find('img').attr({
-                src: function() {
-                    return $(this).attr('src').replace(".png", "@2x.png");
-                },
-                width: function() {
-                    return $(this).data('width') || '150';
-                },
-                height: function() {
-                    return $(this).data('height') || '50';
-                }
-            });
-        }
-    };
 
     // Dom Ready
     $(function() {
-        // تنفيذ الدالة عند تحميل الصفحة وعند تغيير حجم النافذة
-        retinaLogos();
-        $(window).on('load resize', retinaLogos);
+        $(window).on('load resize', function() {
+            retinaLogos();
+        });
+        headerFixed();
+        // mobileNav();
+        ajaxContactForm();
+        ajaxSubscribe.eventLoad();
+        alertBox();
 
-        if (typeof headerFixed === "function") {
-            headerFixed();
-        }
-
-        if (typeof ajaxContactForm === "function") {
-            ajaxContactForm();
-        }
-
-        if (typeof ajaxSubscribe !== "undefined" && typeof ajaxSubscribe.eventLoad === "function") {
-            ajaxSubscribe.eventLoad();
-        }
-
-        if (typeof alertBox === "function") {
-            alertBox();
-        }
     });
 
-}(jQuery, window, document));
+})(jQuery);

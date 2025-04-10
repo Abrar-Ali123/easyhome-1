@@ -119,19 +119,19 @@ class ProductController extends Controller
                 }
             }
 
-            // معالجة مميزات العقار
-            if ($request->has('property_features')) {
+            // البحث حسب مميزات العقار
+            if ($request->filled('property_features')) {
                 $propertyFeatures = $request->input('property_features');
                 foreach ($propertyFeatures as $feature) {
-                    $query->where('features', 'LIKE', '%'.$feature.'%');
+                    $query->where('property_features', 'LIKE', '%'.$feature.'%');
                 }
             }
 
-            // معالجة مميزات الموقع
-            if ($request->has('location_features')) {
+            // البحث حسب مميزات الموقع
+            if ($request->filled('location_features')) {
                 $locationFeatures = $request->input('location_features');
                 foreach ($locationFeatures as $feature) {
-                    $query->where('features', 'LIKE', '%'.$feature.'%');
+                    $query->where('location_features', 'LIKE', '%'.$feature.'%');
                 }
             }
 
@@ -199,52 +199,36 @@ class ProductController extends Controller
 
     public function store(Request $request)
     {
-        $user = \Illuminate\Support\Facades\Auth::user();
-
         $request->validate([
             'title' => 'required|string|max:255',
             'description' => 'required|string',
             'location' => 'nullable|string',
-            'video' => 'nullable|string',
-            'city_id' => 'nullable|exists:cities,id',
-            'neighborhood_id' => 'nullable|exists:cities,id',
             'price' => 'nullable|numeric',
             'bedrooms' => 'nullable|integer',
             'bathrooms' => 'nullable|integer',
             'area' => 'nullable|integer',
+            'video' => 'nullable|string',
+            'property_features' => 'nullable|array',
+            'location_features' => 'nullable|array',
             'category' => 'nullable|string',
             'image' => 'nullable|image|mimes:jpeg,png,jpg,gif',
             'images.*' => 'nullable|image|mimes:jpeg,png,jpg,gif',
-            'croquis' => 'nullable|image|mimes:jpeg,png,jpg,gif',
-            'monthly_installment' => 'nullable|string',
-            'ad_number' => 'nullable|string',
+            'monthly_installment' => 'nullable|numeric',
+            'ad_number' => 'nullable|integer',
             'property_usage' => 'nullable|string',
             'property_facade' => 'nullable|string',
-            'profile_project' => 'nullable|file|mimes:pdf,doc,docx,zip',
-        ], [
-            'title.required' => 'العنوان مطلوب.',
-            'title.string' => 'العنوان يجب أن يكون نصًا.',
-            'title.max' => 'العنوان لا يمكن أن يتجاوز 255 حرفًا.',
-            'description.required' => 'الوصف مطلوب.',
-            'description.string' => 'الوصف يجب أن يكون نصًا.',
-            'location.string' => 'الموقع يجب أن يكون نصًا.',
-            'video.string' => 'الفيديو يجب أن يكون نصًا.',
-            'city_id.exists' => 'المدينة المختارة غير موجودة.',
-            'neighborhood_id.exists' => 'الحي المختار غير موجود.',
-            'price.numeric' => 'السعر يجب أن يكون رقمًا.',
-            'bedrooms.integer' => 'عدد الغرف يجب أن يكون رقمًا صحيحًا.',
-            'bathrooms.integer' => 'عدد الحمامات يجب أن يكون رقمًا صحيحًا.',
-            'area.integer' => 'المساحة يجب أن تكون رقمًا صحيحًا.',
-            'category.string' => 'الفئة يجب أن تكون نصًا.',
-            'image.image' => 'الصورة يجب أن تكون من نوع صورة.',
-            'images.*.image' => 'الصور يجب أن تكون من نوع صورة.',
-            'croquis.image' => 'الخريطة يجب أن تكون من نوع صورة.',
-            'monthly_installment.string' => 'القسط الشهري يجب أن يكون نصًا.',
-            'ad_number.string' => 'رقم الإعلان يجب أن يكون نصًا.',
-            'property_usage.string' => 'استخدام العقار يجب أن يكون نصًا.',
-            'property_facade.string' => 'واجهة العقار يجب أن تكون نصًا.',
-            'profile_project.file' => 'ملف المشروع يجب أن يكون من نوع ملف.',
+            'profile_project' => 'nullable|file|mimes:pdf,doc,docx',
+            'croquis' => 'nullable|image|mimes:jpeg,png,jpg,gif',
         ]);
+
+        $product = new Product();
+
+        if ($request->hasFile('image')) {
+            $image = $request->file('image');
+            $imageName = time().'_'.$image->getClientOriginalName();
+            $path = $image->storeAs('public/images', $imageName);
+            $product->image = str_replace('public/', '', $path);
+        }
 
         $images = [];
         if ($request->hasfile('images')) {
@@ -255,65 +239,50 @@ class ProductController extends Controller
             }
         }
 
-        $profileProjectPath = null;
-        if ($request->hasFile('profile_project')) {
-            $profileProject = $request->file('profile_project');
-            $fileName = time().'_'.$profileProject->getClientOriginalName();
-            $path = $profileProject->storeAs('public/projects', $fileName);
-            $profileProjectPath = str_replace('public/', '', $path);
-        }
-
-        $croquisPath = null;
         if ($request->hasFile('croquis')) {
             $croquis = $request->file('croquis');
             $croquisName = time().'_'.$croquis->getClientOriginalName();
             $path = $croquis->storeAs('public/croquis', $croquisName);
-            $croquisPath = str_replace('public/', '', $path);
+            $product->croquis = str_replace('public/', '', $path);
         }
 
-        $product = new Product;
         $product->title = $request->title;
-        $product->city_id = $request->city_id;
-        $product->neighborhood_id = $request->neighborhood_id;
-        $product->video = $request->video;
         $product->description = $request->description;
+        $product->video = $request->video;
         $product->location = $request->location;
         $product->price = $request->price;
         $product->bedrooms = $request->bedrooms;
         $product->bathrooms = $request->bathrooms;
         $product->area = $request->area;
-        $product->features = $request->features;
         $product->category = $request->category;
+        $product->city_id = $request->city_id;
+        $product->neighborhood_id = $request->neighborhood_id;
         $product->monthly_installment = $request->monthly_installment;
         $product->ad_number = $request->ad_number;
         $product->property_usage = $request->property_usage;
         $product->property_facade = $request->property_facade;
-        $product->profile_project = $profileProjectPath;
-        $product->croquis = $croquisPath;
-        $product->created_by = $user->id;
-
-        if ($request->hasFile('image')) {
-            $image = $request->file('image');
-            $imageName = time().'_'.$image->getClientOriginalName();
-            $path = $image->storeAs('public/images', $imageName);
-            $product->image = str_replace('public/', '', $path);
-        }
-
         $product->images = json_encode($images);
+        
+        // حفظ المميزات كسلسلة نصية مفصولة بفواصل
+        $product->property_features = $request->has('property_features') ? implode(',', $request->property_features) : null;
+        $product->location_features = $request->has('location_features') ? implode(',', $request->location_features) : null;
 
         $product->save();
 
         return redirect()->route('products.index')
-            ->with('success', 'تم إنشاء المنتج بنجاح.');
+            ->with('success', 'تم إضافة العقار بنجاح.');
     }
 
     public function show($id)
     {
-        $cities = City::all();
-        $product = Product::with('comments.likes')->findOrFail($id);
-        $products = Product::where('id', '!=', $id)->paginate(10);
+        $product = Product::with(['city', 'neighborhood'])
+            ->findOrFail($id);
 
-        return view('products.show', compact('product', 'cities', 'products'));
+        $products = Product::where('id', '!=', $id)
+            ->where('category', $product->category)
+            ->paginate(10);
+
+        return view('products.show', compact('product', 'products'));
     }
 
     public function edit($id)
@@ -335,22 +304,23 @@ class ProductController extends Controller
         $request->validate([
             'title' => 'required|string|max:255',
             'description' => 'required|string',
-            'location' => 'required|string',
-            'video' => 'required|string',
-            'price' => 'required|numeric',
-            'bedrooms' => 'required|integer',
-            'bathrooms' => 'required|integer',
-            'area' => 'required|integer',
-            'features' => 'nullable|string',
-            'category' => 'required|string',
+            'location' => 'nullable|string',
+            'price' => 'nullable|numeric',
+            'bedrooms' => 'nullable|integer',
+            'bathrooms' => 'nullable|integer',
+            'area' => 'nullable|integer',
+            'video' => 'nullable|string',
+            'property_features' => 'nullable|array',
+            'location_features' => 'nullable|array',
+            'category' => 'nullable|string',
             'image' => 'nullable|image|mimes:jpeg,png,jpg,gif',
             'images.*' => 'nullable|image|mimes:jpeg,png,jpg,gif',
-            'profile_project' => 'nullable|file|mimes:pdf,doc,docx',
-            'croquis' => 'nullable|image|mimes:jpeg,png,jpg,gif',
             'monthly_installment' => 'nullable|numeric',
             'ad_number' => 'nullable|integer',
             'property_usage' => 'nullable|string',
             'property_facade' => 'nullable|string',
+            'profile_project' => 'nullable|file|mimes:pdf,doc,docx',
+            'croquis' => 'nullable|image|mimes:jpeg,png,jpg,gif',
         ]);
 
         $images = json_decode($product->images, true) ?? [];
@@ -391,19 +361,21 @@ class ProductController extends Controller
         $product->bedrooms = $request->bedrooms;
         $product->bathrooms = $request->bathrooms;
         $product->area = $request->area;
-        $product->features = $request->features;
         $product->category = $request->category;
         $product->monthly_installment = $request->monthly_installment;
         $product->ad_number = $request->ad_number;
         $product->property_usage = $request->property_usage;
         $product->property_facade = $request->property_facade;
-
         $product->images = json_encode($images);
+
+        // تحديث المميزات
+        $product->property_features = $request->has('property_features') ? implode(',', $request->property_features) : null;
+        $product->location_features = $request->has('location_features') ? implode(',', $request->location_features) : null;
 
         $product->save();
 
         return redirect()->route('products.index')
-            ->with('success', 'Product updated successfully.');
+            ->with('success', 'تم تحديث العقار بنجاح.');
     }
 
     public function destroy(Product $product)

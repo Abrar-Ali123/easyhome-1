@@ -26,8 +26,8 @@ class ProductSeeder extends Seeder
                 'bathrooms' => 6,
                 'area' => 450,
                 'category' => 'فيلا',
-                'image' => 'images/products/villa1.jpg',
-                'images' => 'images/products/villa1_1.jpg,images/products/villa1_2.jpg,images/products/villa1_3.jpg',
+                'image' => 'images/luxury_villa.jpg',
+                'images' => 'images/villa_kitchen1.jpg,images/interior_bedroom2.jpg,images/interior_bathroom2.jpg,images/interior_kitchen2.jpg,images/interior_dining2.jpg,images/interior_living3.jpg,images/interior_garden.jpg,images/interior_entrance.jpg,images/villa_interior.jpg,images/villa_pool.jpg',
                 'monthly_installment' => '8000',
                 'ad_number' => 'AD001',
                 'property_usage' => 'سكني',
@@ -36,7 +36,10 @@ class ProductSeeder extends Seeder
                 'profile_project' => 'مشروع النرجس السكني',
                 'city_id' => $cities->where('name', 'الرياض')->first()->id,
                 'neighborhood_id' => $neighborhoods->where('name', 'النرجس')->first()->id,
-                'created_by' => $admin->id
+                'created_by' => $admin->id,
+                'propertyFeatures' => ['مكيف مركزي', 'مطبخ مجهز', 'غرفة خادمة', 'مسبح خاص', 'موقف خاص', 'مصعد'],
+                'locationFeatures' => ['قريب من المدارس', 'قريب من المستشفيات', 'قريب من المسجد', 'قريب من الأسواق'],
+                'croquis' => 'croquis/villa_croquis_1.jpg'
             ],
             [
                 'title' => 'شقة مميزة في حي الروضة',
@@ -47,8 +50,8 @@ class ProductSeeder extends Seeder
                 'bathrooms' => 3,
                 'area' => 180,
                 'category' => 'شقة',
-                'image' => 'images/products/apartment1.jpg',
-                'images' => 'images/products/apartment1_1.jpg,images/products/apartment1_2.jpg,images/products/apartment1_3.jpg',
+                'image' => 'images/modern_apartment.jpg',
+                'images' => 'images/apartment_kitchen1.jpg,images/apartment_bathroom1.jpg,images/apartment_bedroom1.jpg,images/apartment_living1.jpg,images/interior_bedroom2.jpg,images/interior_bathroom2.jpg,images/interior_kitchen2.jpg,images/interior_dining2.jpg,images/interior_living3.jpg,images/interior_entrance.jpg',
                 'monthly_installment' => '3000',
                 'ad_number' => 'AD002',
                 'property_usage' => 'سكني',
@@ -57,7 +60,10 @@ class ProductSeeder extends Seeder
                 'profile_project' => 'برج الروضة السكني',
                 'city_id' => $cities->where('name', 'جدة')->first()->id,
                 'neighborhood_id' => $neighborhoods->where('name', 'الروضة')->first()->id,
-                'created_by' => $admin->id
+                'created_by' => $admin->id,
+                'propertyFeatures' => ['مكيف سبليت', 'مطبخ مجهز', 'غرفة غسيل', 'شرفة', 'موقف خاص'],
+                'locationFeatures' => ['قريب من المدارس', 'قريب من المسجد', 'قريب من الأسواق', 'قريب من المنتزهات'],
+                'croquis' => 'croquis/apartment_croquis_1.jpg'
             ],
             [
                 'title' => 'دور أرضي للبيع في حي الشاطئ',
@@ -68,8 +74,8 @@ class ProductSeeder extends Seeder
                 'bathrooms' => 3,
                 'area' => 250,
                 'category' => 'دور',
-                'image' => 'images/products/floor1.jpg',
-                'images' => 'images/products/floor1_1.jpg,images/products/floor1_2.jpg,images/products/floor1_3.jpg',
+                'image' => 'images/ground_floor.jpg',
+                'images' => 'images/interior_bedroom2.jpg,images/interior_bathroom2.jpg,images/interior_kitchen2.jpg,images/interior_dining2.jpg,images/interior_living3.jpg,images/interior_garden.jpg,images/interior_entrance.jpg,images/house_front.jpg,images/house_garden.jpg,images/apartment_living1.jpg',
                 'monthly_installment' => '4000',
                 'ad_number' => 'AD003',
                 'property_usage' => 'سكني',
@@ -78,7 +84,10 @@ class ProductSeeder extends Seeder
                 'profile_project' => 'مجمع الشاطئ السكني',
                 'city_id' => $cities->where('name', 'الدمام')->first()->id,
                 'neighborhood_id' => $neighborhoods->where('name', 'الشاطئ')->first()->id,
-                'created_by' => $admin->id
+                'created_by' => $admin->id,
+                'propertyFeatures' => ['مكيف مركزي', 'مطبخ مجهز', 'غرفة خادمة', 'مسبح خاص', 'موقف خاص', 'مصعد'],
+                'locationFeatures' => ['قريب من المدارس', 'قريب من المستشفيات', 'قريب من المسجد', 'قريب من الأسواق'],
+                'croquis' => 'croquis/ground_floor_croquis_1.jpg'
             ],
             [
                 'title' => 'عمارة استثمارية في حي العزيزية',
@@ -89,8 +98,8 @@ class ProductSeeder extends Seeder
                 'bathrooms' => 24,
                 'area' => 800,
                 'category' => 'عمارة',
-                'image' => 'images/products/building1.jpg',
-                'images' => 'images/products/building1_1.jpg,images/products/building1_2.jpg,images/products/building1_3.jpg',
+                'image' => 'images/modern_building.jpg',
+                'images' => 'images/apartment_kitchen1.jpg,images/apartment_bathroom1.jpg,images/apartment_bedroom1.jpg,images/apartment_living1.jpg,images/interior_bedroom2.jpg,images/interior_bathroom2.jpg,images/interior_kitchen2.jpg,images/interior_dining2.jpg,images/interior_living3.jpg,images/building_facade.jpg',
                 'monthly_installment' => '15000',
                 'ad_number' => 'AD004',
                 'property_usage' => 'استثماري',
@@ -99,9 +108,11 @@ class ProductSeeder extends Seeder
                 'profile_project' => 'مشروع العزيزية الاستثماري',
                 'city_id' => $cities->where('name', 'مكة المكرمة')->first()->id,
                 'neighborhood_id' => $neighborhoods->where('name', 'العزيزية')->first()->id,
-                'created_by' => $admin->id
+                'created_by' => $admin->id,
+                'propertyFeatures' => ['مكيف مركزي', 'مطبخ مجهز', 'غرفة خادمة', 'مسبح خاص', 'موقف خاص', 'مصعد'],
+                'locationFeatures' => ['قريب من المدارس', 'قريب من المستشفيات', 'قريب من المسجد', 'قريب من الأسواق'],
+                'croquis' => 'croquis/building_croquis_1.jpg'
             ],
-            // عقارات جديدة للبيع
             [
                 'title' => 'فيلا مودرن في حي الياسمين',
                 'description' => 'فيلا بتصميم عصري مميز، تشطيب سوبر لوكس مع حديقة واسعة ومسبح خاص. موقع مثالي للعائلات.',
@@ -111,8 +122,8 @@ class ProductSeeder extends Seeder
                 'bathrooms' => 7,
                 'area' => 550,
                 'category' => 'فيلا',
-                'image' => 'images/products/villa2.jpg',
-                'images' => 'images/products/villa2_1.jpg,images/products/villa2_2.jpg,images/products/villa2_3.jpg',
+                'image' => 'images/luxury_villa.jpg',
+                'images' => 'images/villa_kitchen1.jpg,images/interior_bedroom2.jpg,images/interior_bathroom2.jpg,images/interior_kitchen2.jpg,images/interior_dining2.jpg,images/interior_living3.jpg,images/interior_garden.jpg,images/interior_entrance.jpg,images/villa_interior.jpg,images/villa_pool.jpg',
                 'monthly_installment' => '10000',
                 'ad_number' => 'AD005',
                 'property_usage' => 'سكني',
@@ -121,7 +132,10 @@ class ProductSeeder extends Seeder
                 'profile_project' => 'مشروع الياسمين السكني',
                 'city_id' => $cities->where('name', 'الرياض')->first()->id,
                 'neighborhood_id' => $neighborhoods->where('name', 'الياسمين')->first()->id,
-                'created_by' => $admin->id
+                'created_by' => $admin->id,
+                'propertyFeatures' => ['مكيف مركزي', 'مطبخ مجهز', 'غرفة خادمة', 'مسبح خاص', 'موقف خاص', 'مصعد'],
+                'locationFeatures' => ['قريب من المدارس', 'قريب من المستشفيات', 'قريب من المسجد', 'قريب من الأسواق'],
+                'croquis' => 'croquis/villa_croquis_2.jpg'
             ],
             [
                 'title' => 'مجمع تجاري في حي العليا',
@@ -130,8 +144,8 @@ class ProductSeeder extends Seeder
                 'price' => 8500000.00,
                 'area' => 2000,
                 'category' => 'تجاري',
-                'image' => 'images/products/commercial1.jpg',
-                'images' => 'images/products/commercial1_1.jpg,images/products/commercial1_2.jpg,images/products/commercial1_3.jpg',
+                'image' => 'images/modern_building.jpg',
+                'images' => 'images/apartment_kitchen1.jpg,images/apartment_bathroom1.jpg,images/apartment_bedroom1.jpg,images/apartment_living1.jpg,images/interior_bedroom2.jpg,images/interior_bathroom2.jpg,images/interior_kitchen2.jpg,images/interior_dining2.jpg,images/interior_living3.jpg,images/building_facade.jpg',
                 'monthly_installment' => '25000',
                 'ad_number' => 'AD006',
                 'property_usage' => 'تجاري',
@@ -140,7 +154,10 @@ class ProductSeeder extends Seeder
                 'profile_project' => 'مشروع العليا التجاري',
                 'city_id' => $cities->where('name', 'الرياض')->first()->id,
                 'neighborhood_id' => $neighborhoods->where('name', 'العليا')->first()->id,
-                'created_by' => $admin->id
+                'created_by' => $admin->id,
+                'propertyFeatures' => ['مكيف مركزي', 'مواقف متعددة', 'مصاعد', 'نظام أمني', 'واجهات زجاجية'],
+                'locationFeatures' => ['على الشارع الرئيسي', 'قريب من المترو', 'منطقة حيوية', 'سهولة الوصول'],
+                'croquis' => 'croquis/building_croquis_2.jpg'
             ],
             // عقارات للإيجار
             [
@@ -152,8 +169,8 @@ class ProductSeeder extends Seeder
                 'bathrooms' => 2,
                 'area' => 140,
                 'category' => 'شقة',
-                'image' => 'images/products/apartment2.jpg',
-                'images' => 'images/products/apartment2_1.jpg,images/products/apartment2_2.jpg,images/products/apartment2_3.jpg',
+                'image' => 'images/modern_apartment.jpg',
+                'images' => 'images/apartment_kitchen1.jpg,images/apartment_bathroom1.jpg,images/apartment_bedroom1.jpg,images/apartment_living1.jpg,images/interior_bedroom2.jpg,images/interior_bathroom2.jpg,images/interior_kitchen2.jpg,images/interior_dining2.jpg,images/interior_living3.jpg,images/interior_entrance.jpg',
                 'monthly_installment' => null,
                 'ad_number' => 'AD007',
                 'property_usage' => 'سكني',
@@ -162,7 +179,10 @@ class ProductSeeder extends Seeder
                 'profile_project' => 'برج السلامة السكني',
                 'city_id' => $cities->where('name', 'جدة')->first()->id,
                 'neighborhood_id' => $neighborhoods->where('name', 'السلامة')->first()->id,
-                'created_by' => $admin->id
+                'created_by' => $admin->id,
+                'propertyFeatures' => ['مكيف سبليت', 'مفروش بالكامل', 'خدمة تنظيف', 'انترنت', 'موقف خاص'],
+                'locationFeatures' => ['قريب من البحر', 'قريب من المطاعم', 'قريب من المولات', 'منطقة راقية'],
+                'croquis' => 'croquis/apartment_croquis_2.jpg'
             ],
             [
                 'title' => 'مكتب تجاري للإيجار في حي الخبر الشمالية',
@@ -171,8 +191,8 @@ class ProductSeeder extends Seeder
                 'price' => 65000.00, // سنوياً
                 'area' => 200,
                 'category' => 'مكتب',
-                'image' => 'images/products/office1.jpg',
-                'images' => 'images/products/office1_1.jpg,images/products/office1_2.jpg,images/products/office1_3.jpg',
+                'image' => 'images/modern_building.jpg',
+                'images' => 'images/apartment_kitchen1.jpg,images/apartment_bathroom1.jpg,images/apartment_bedroom1.jpg,images/apartment_living1.jpg,images/interior_bedroom2.jpg,images/interior_bathroom2.jpg,images/interior_kitchen2.jpg,images/interior_dining2.jpg,images/interior_living3.jpg,images/building_facade.jpg',
                 'monthly_installment' => null,
                 'ad_number' => 'AD008',
                 'property_usage' => 'تجاري',
@@ -181,7 +201,10 @@ class ProductSeeder extends Seeder
                 'profile_project' => 'برج الأعمال التجاري',
                 'city_id' => $cities->where('name', 'الخبر')->first()->id,
                 'neighborhood_id' => $neighborhoods->where('name', 'الخبر الشمالية')->first()->id,
-                'created_by' => $admin->id
+                'created_by' => $admin->id,
+                'propertyFeatures' => ['مكيف سبليت', 'مفروش بالكامل', 'خدمة تنظيف', 'انترنت', 'موقف خاص'],
+                'locationFeatures' => ['قريب من البحر', 'قريب من المطاعم', 'قريب من المولات', 'منطقة راقية'],
+                'croquis' => 'croquis/office_croquis_1.jpg'
             ],
             [
                 'title' => 'استراحة للإيجار اليومي في حي النخيل',
@@ -192,8 +215,8 @@ class ProductSeeder extends Seeder
                 'bathrooms' => 5,
                 'area' => 1000,
                 'category' => 'استراحة',
-                'image' => 'images/products/chalet1.jpg',
-                'images' => 'images/products/chalet1_1.jpg,images/products/chalet1_2.jpg,images/products/chalet1_3.jpg',
+                'image' => 'images/luxury_villa.jpg',
+                'images' => 'images/villa_kitchen1.jpg,images/interior_bedroom2.jpg,images/interior_bathroom2.jpg,images/interior_kitchen2.jpg,images/interior_dining2.jpg,images/interior_living3.jpg,images/interior_garden.jpg,images/interior_entrance.jpg,images/villa_interior.jpg,images/villa_pool.jpg',
                 'monthly_installment' => null,
                 'ad_number' => 'AD009',
                 'property_usage' => 'سكني',
@@ -202,7 +225,10 @@ class ProductSeeder extends Seeder
                 'profile_project' => 'منتجع النخيل',
                 'city_id' => $cities->where('name', 'الرياض')->first()->id,
                 'neighborhood_id' => $neighborhoods->where('name', 'النخيل')->first()->id,
-                'created_by' => $admin->id
+                'created_by' => $admin->id,
+                'propertyFeatures' => ['مكيف سبليت', 'مفروش بالكامل', 'خدمة تنظيف', 'انترنت', 'موقف خاص'],
+                'locationFeatures' => ['قريب من البحر', 'قريب من المطاعم', 'قريب من المولات', 'منطقة راقية'],
+                'croquis' => 'croquis/villa_croquis_3.jpg'
             ],
             // العقارات الجديدة
             [
@@ -214,8 +240,8 @@ class ProductSeeder extends Seeder
                 'bathrooms' => 120,
                 'area' => 5000,
                 'category' => 'برج',
-                'image' => 'images/products/tower1.jpg',
-                'images' => 'images/products/tower1_1.jpg,images/products/tower1_2.jpg,images/products/tower1_3.jpg',
+                'image' => 'images/modern_building.jpg',
+                'images' => 'images/apartment_kitchen1.jpg,images/apartment_bathroom1.jpg,images/apartment_bedroom1.jpg,images/apartment_living1.jpg,images/interior_bedroom2.jpg,images/interior_bathroom2.jpg,images/interior_kitchen2.jpg,images/interior_dining2.jpg,images/interior_living3.jpg,images/building_facade.jpg',
                 'monthly_installment' => '80000',
                 'ad_number' => 'AD010',
                 'property_usage' => 'استثماري',
@@ -224,7 +250,10 @@ class ProductSeeder extends Seeder
                 'profile_project' => 'أبراج العليا',
                 'city_id' => $cities->where('name', 'الرياض')->first()->id,
                 'neighborhood_id' => $neighborhoods->where('name', 'العليا')->first()->id,
-                'created_by' => $admin->id
+                'created_by' => $admin->id,
+                'propertyFeatures' => ['مكيف مركزي', 'مواقف متعددة', 'مصاعد', 'نظام أمني', 'واجهات زجاجية'],
+                'locationFeatures' => ['على الشارع الرئيسي', 'قريب من المترو', 'منطقة حيوية', 'سهولة الوصول'],
+                'croquis' => 'croquis/building_croquis_3.jpg'
             ],
             [
                 'title' => 'مجمع فلل فاخرة للإيجار في النخيل',
@@ -235,8 +264,8 @@ class ProductSeeder extends Seeder
                 'bathrooms' => 6,
                 'area' => 400,
                 'category' => 'فيلا',
-                'image' => 'images/products/villa3.jpg',
-                'images' => 'images/products/villa3_1.jpg,images/products/villa3_2.jpg,images/products/villa3_3.jpg',
+                'image' => 'images/luxury_villa.jpg',
+                'images' => 'images/villa_kitchen1.jpg,images/interior_bedroom2.jpg,images/interior_bathroom2.jpg,images/interior_kitchen2.jpg,images/interior_dining2.jpg,images/interior_living3.jpg,images/interior_garden.jpg,images/interior_entrance.jpg,images/villa_interior.jpg,images/villa_pool.jpg',
                 'monthly_installment' => null,
                 'ad_number' => 'AD011',
                 'property_usage' => 'سكني',
@@ -245,7 +274,10 @@ class ProductSeeder extends Seeder
                 'profile_project' => 'مجمع النخيل السكني',
                 'city_id' => $cities->where('name', 'الرياض')->first()->id,
                 'neighborhood_id' => $neighborhoods->where('name', 'النخيل')->first()->id,
-                'created_by' => $admin->id
+                'created_by' => $admin->id,
+                'propertyFeatures' => ['مكيف سبليت', 'مفروش بالكامل', 'خدمة تنظيف', 'انترنت', 'موقف خاص'],
+                'locationFeatures' => ['قريب من البحر', 'قريب من المطاعم', 'قريب من المولات', 'منطقة راقية'],
+                'croquis' => 'croquis/villa_croquis_4.jpg'
             ],
             [
                 'title' => 'مجمع تجاري للإيجار في الفيصلية',
@@ -254,8 +286,8 @@ class ProductSeeder extends Seeder
                 'price' => 150000.00, // سنوياً للمحل
                 'area' => 3000,
                 'category' => 'تجاري',
-                'image' => 'images/products/mall1.jpg',
-                'images' => 'images/products/mall1_1.jpg,images/products/mall1_2.jpg,images/products/mall1_3.jpg',
+                'image' => 'images/modern_building.jpg',
+                'images' => 'images/apartment_kitchen1.jpg,images/apartment_bathroom1.jpg,images/apartment_bedroom1.jpg,images/apartment_living1.jpg,images/interior_bedroom2.jpg,images/interior_bathroom2.jpg,images/interior_kitchen2.jpg,images/interior_dining2.jpg,images/interior_living3.jpg,images/building_facade.jpg',
                 'monthly_installment' => null,
                 'ad_number' => 'AD012',
                 'property_usage' => 'تجاري',
@@ -264,7 +296,10 @@ class ProductSeeder extends Seeder
                 'profile_project' => 'الفيصلية مول',
                 'city_id' => $cities->where('name', 'الدمام')->first()->id,
                 'neighborhood_id' => $neighborhoods->where('name', 'الفيصلية')->first()->id,
-                'created_by' => $admin->id
+                'created_by' => $admin->id,
+                'propertyFeatures' => ['مكيف مركزي', 'مواقف متعددة', 'مصاعد', 'نظام أمني', 'واجهات زجاجية'],
+                'locationFeatures' => ['على الشارع الرئيسي', 'قريب من المترو', 'منطقة حيوية', 'سهولة الوصول'],
+                'croquis' => 'croquis/building_croquis_4.jpg'
             ],
             [
                 'title' => 'شقق مفروشة للإيجار الشهري في الراكة',
@@ -275,8 +310,8 @@ class ProductSeeder extends Seeder
                 'bathrooms' => 2,
                 'area' => 120,
                 'category' => 'شقة',
-                'image' => 'images/products/apartment3.jpg',
-                'images' => 'images/products/apartment3_1.jpg,images/products/apartment3_2.jpg,images/products/apartment3_3.jpg',
+                'image' => 'images/modern_apartment.jpg',
+                'images' => 'images/apartment_kitchen1.jpg,images/apartment_bathroom1.jpg,images/apartment_bedroom1.jpg,images/apartment_living1.jpg,images/interior_bedroom2.jpg,images/interior_bathroom2.jpg,images/interior_kitchen2.jpg,images/interior_dining2.jpg,images/interior_living3.jpg,images/interior_entrance.jpg',
                 'monthly_installment' => null,
                 'ad_number' => 'AD013',
                 'property_usage' => 'سكني',
@@ -285,7 +320,10 @@ class ProductSeeder extends Seeder
                 'profile_project' => 'الراكة للشقق الفندقية',
                 'city_id' => $cities->where('name', 'الخبر')->first()->id,
                 'neighborhood_id' => $neighborhoods->where('name', 'الراكة')->first()->id,
-                'created_by' => $admin->id
+                'created_by' => $admin->id,
+                'propertyFeatures' => ['مكيف سبليت', 'مفروش بالكامل', 'خدمة تنظيف', 'انترنت', 'موقف خاص'],
+                'locationFeatures' => ['قريب من البحر', 'قريب من المطاعم', 'قريب من المولات', 'منطقة راقية'],
+                'croquis' => 'croquis/apartment_croquis_3.jpg'
             ],
             [
                 'title' => 'مستودعات للإيجار في المدينة الصناعية',
@@ -294,8 +332,8 @@ class ProductSeeder extends Seeder
                 'price' => 80000.00, // سنوياً
                 'area' => 1000,
                 'category' => 'مستودع',
-                'image' => 'images/products/warehouse1.jpg',
-                'images' => 'images/products/warehouse1_1.jpg,images/products/warehouse1_2.jpg,images/products/warehouse1_3.jpg',
+                'image' => 'images/modern_building.jpg',
+                'images' => 'images/apartment_kitchen1.jpg,images/apartment_bathroom1.jpg,images/apartment_bedroom1.jpg,images/apartment_living1.jpg,images/interior_bedroom2.jpg,images/interior_bathroom2.jpg,images/interior_kitchen2.jpg,images/interior_dining2.jpg,images/interior_living3.jpg,images/building_facade.jpg',
                 'monthly_installment' => null,
                 'ad_number' => 'AD014',
                 'property_usage' => 'صناعي',
@@ -304,12 +342,24 @@ class ProductSeeder extends Seeder
                 'profile_project' => 'مستودعات الصناعية',
                 'city_id' => $cities->where('name', 'الرياض')->first()->id,
                 'neighborhood_id' => $neighborhoods->where('name', 'المدينة الصناعية')->first()->id,
-                'created_by' => $admin->id
+                'created_by' => $admin->id,
+                'propertyFeatures' => ['أبواب كبيرة', 'ارتفاع عالي', 'نظام إطفاء', 'نظام مراقبة', 'تكييف صناعي'],
+                'locationFeatures' => ['منطقة صناعية', 'قرب الطرق السريعة', 'خدمات لوجستية', 'أمن على مدار الساعة'],
+                'croquis' => 'croquis/warehouse_croquis_1.jpg'
             ]
         ];
 
         foreach ($products as $product) {
-            Product::create($product);
+            $features = [
+                'propertyFeatures' => json_encode($product['propertyFeatures'] ?? [], JSON_UNESCAPED_UNICODE),
+                'locationFeatures' => json_encode($product['locationFeatures'] ?? [], JSON_UNESCAPED_UNICODE)
+            ];
+            unset($product['propertyFeatures'], $product['locationFeatures']);
+            
+            $newProduct = Product::create($product);
+            $newProduct->propertyFeatures = $features['propertyFeatures'];
+            $newProduct->locationFeatures = $features['locationFeatures'];
+            $newProduct->save();
         }
     }
 }

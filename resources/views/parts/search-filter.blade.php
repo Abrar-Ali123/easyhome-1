@@ -1,732 +1,556 @@
 @php
-    $propertyFeatures = App\Models\Product::$propertyFeatures;
-    $locationFeatures = App\Models\Product::$locationFeatures;
     $mainCities = App\Models\City::whereNull('parent_id')->get();
     $categories = App\Models\Product::CATEGORIES;
 @endphp
 
-<div class="flat-tabs themesflat-tabs">
-    <div class="box-tab center">
-    </div>
-    <div class="content-tab">
-        <div class="content-inner tab-content">
-            <div class="form-sl">
-                <form id="searchForm" method="GET" action="{{ route('products.search') }}">
-                    <div class="wd-find-select flex">
-                        <div class="inner-group">
-                            <div class="form-group-1 search-form form-style">
-                                <div class="group-select">
-                                    <div class="tf-select">
-                                        <select class="nice-select" name="category" id="category">
-                                            <option value="">اختر نوع العقار</option>
-                                            @foreach ($categories as $category)
-                                                <option value="{{ $category }}"
-                                                    {{ request()->input('category') == $category ? 'selected' : '' }}>
-                                                    {{ $category }}
-                                                </option>
-                                            @endforeach
-                                        </select>
-                                    </div>
-                                </div>
-                            </div>
-<!--
-                            <div class="form-group-1 search-form form-style">
-                                <input type="text" class="search-field" placeholder="ابحث عن عقار" name="search"
-                                    value="{{ request()->input('search') }}">
-                            </div>
--->
-                            <div class="form-group-2 form-style">
-                                <div class="group-select">
-                                    <div class="tf-select">
-                                        <select class="nice-select" name="city_id" id="parent_city">
-                                            <option value="">اختر المدينة الرئيسية</option>
-                                            @foreach ($mainCities as $city)
-                                                <option value="{{ $city->id }}"
-                                                    {{ request()->input('city_id') == $city->id ? 'selected' : '' }}>
-                                                    {{ $city->name }}
-                                                </option>
-                                            @endforeach
-                                        </select>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="form-group-3 form-style">
-                                <div class="group-select">
-                                    <div class="tf-select">
-                                        <select class="nice-select" name="neighborhood_id" id="sub_cities">
-                                            <option value="">اختر الحي</option>
-                                        </select>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="form-group-5 form-style">
-                            <a href="#" class="icon-filter pull-right">
-                                <i class="fas fa-sliders-h"></i>
-                            </a>
-                        </div>
-
-                        <div class="button-search sc-btn-top">
-                            <button type="submit" class="sc-button">
-                                <span>ابحث الان</span>
-                                <i class="fas fa-search text-color-1"></i>
-                            </button>
-                        </div>
+<div class="search-section">
+    <div class="container">
+        <form id="searchForm" method="GET" action="{{ route('products.search') }}">
+            <!-- البحث الرئيسي -->
+            <div class="main-search">
+                <div class="search-row">
+                    <!-- حقل البحث -->
+                    <div class="search-input">
+                        <i class="fas fa-search input-icon"></i>
+                        <input type="text" name="search" value="{{ request()->input('search') }}"
+                            placeholder="ابحث عن عقار..." class="form-control">
                     </div>
 
-                    <div class="advanced-search {{ request()->has('search') || request()->has('city_id') || request()->has('neighborhood_id') || request()->has('bedrooms') || request()->has('bathrooms') || request()->has('min_price') || request()->has('max_price') || request()->has('property_features') || request()->has('location_features') || request()->has('category') ? 'active' : '' }}">
-                        <div class="box1 flex flex-wrap form-wg">
-                            <div class="form-group wg-box3">
-                                <div class="widget widget-price">
-                                    <div class="caption flex-two">
-                                        <div>
-                                            <span class="fw-6">نطاق السعر:</span>
-                                            <span id="slider-range-value1">{{ number_format(request('min_price', 0)) }}</span>
-                                            <span> - </span>
-                                            <span id="slider-range-value2">{{ number_format(request('max_price', 1000000)) }}</span>
-                                            <span> ريال </span>
-                                        </div>
-                                    </div>
-                                    <div id="slider-range" class="mt-2"></div>
-                                    <input type="hidden" name="min_price" id="min_price" value="{{ request('min_price', 0) }}">
-                                    <input type="hidden" name="max_price" id="max_price" value="{{ request('max_price', 1000000) }}">
-                                </div>
-                            </div>
-
-                            <div class="form-group wg-box3">
-                                <div class="group-select">
-                                    <div class="tf-select">
-                                        <select class="nice-select" name="bedrooms" id="bedrooms">
-                                            <option value="">حدد عدد الغرف</option>
-                                            @foreach (range(1, 10) as $room)
-                                                <option value="{{ $room }}"
-                                                    {{ request()->input('bedrooms') == $room ? 'selected' : '' }}>
-                                                    {{ $room }}
-                                                </option>
-                                            @endforeach
-                                        </select>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="form-group wg-box3">
-                                <div class="group-select">
-                                    <div class="tf-select">
-                                        <select class="nice-select" name="bathrooms" id="bathrooms">
-                                            <option value="">حدد عدد دورات المياه</option>
-                                            @foreach (range(1, 10) as $bath)
-                                                <option value="{{ $bath }}"
-                                                    {{ request()->input('bathrooms') == $bath ? 'selected' : '' }}>
-                                                    {{ $bath }}
-                                                </option>
-                                            @endforeach
-                                        </select>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- قسم المميزات -->
-                        <div class="features-section mt-4">
-                            <div class="row">
-                                <!-- مميزات العقار -->
-                                <div class="col-md-6 mb-4">
-                                    <div class="widget-features">
-                                        <h4 class="title-features">مميزات العقار</h4>
-                                        <div class="features-list">
-                                            @foreach ($propertyFeatures as $feature => $icon)
-                                                <div class="feature-item">
-                                                    <label class="checkbox-item">
-                                                        <input type="checkbox" name="property_features[]" value="{{ $feature }}"
-                                                            {{ in_array($feature, (array)request('property_features')) ? 'checked' : '' }}>
-                                                        <span class="custom-checkbox"></span>
-                                                        <i class="{{ $icon }} ml-2"></i>
-                                                        {{ $feature }}
-                                                    </label>
-                                                </div>
-                                            @endforeach
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <!-- مميزات الموقع -->
-                                <div class="col-md-6 mb-4">
-                                    <div class="widget-features">
-                                        <h4 class="title-features">مميزات الموقع</h4>
-                                        <div class="features-list">
-                                            @foreach ($locationFeatures as $feature => $icon)
-                                                <div class="feature-item">
-                                                    <label class="checkbox-item">
-                                                        <input type="checkbox" name="location_features[]" value="{{ $feature }}"
-                                                            {{ in_array($feature, (array)request('location_features')) ? 'checked' : '' }}>
-                                                        <span class="custom-checkbox"></span>
-                                                        <i class="{{ $icon }} ml-2"></i>
-                                                        {{ $feature }}
-                                                    </label>
-                                                </div>
-                                            @endforeach
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="boder-wg"></div>
-                        <div class="box2 flex flex-wrap form-wg">
-                        </div>
-
+                    <!-- نوع العقار -->
+                    <div class="select-group">
+                        <i class="fas fa-home input-icon"></i>
+                        <select class="form-select" name="category" id="category">
+                            <option value="">نوع العقار</option>
+                            @foreach ($categories as $category)
+                                <option value="{{ $category }}"
+                                    {{ request()->input('category') == $category ? 'selected' : '' }}>
+                                    {{ $category }}
+                                </option>
+                            @endforeach
+                        </select>
                     </div>
-                </form>
+
+                    <!-- المدينة -->
+                    <div class="select-group">
+                        <i class="fas fa-map-marker-alt input-icon"></i>
+                        <select class="form-select" name="city_id" id="city">
+                            <option value="">المدينة</option>
+                            @foreach ($mainCities as $city)
+                                <option value="{{ $city->id }}"
+                                    {{ request()->input('city_id') == $city->id ? 'selected' : '' }}>
+                                    {{ $city->name }}
+                                </option>
+                            @endforeach
+                        </select>
+                    </div>
+
+                    <!-- الحي -->
+                    <div class="select-group">
+                        <i class="fas fa-map input-icon"></i>
+                        <select class="form-select" name="neighborhood_id" id="neighborhood" disabled>
+                            <option value="">الحي</option>
+                        </select>
+                    </div>
+
+                    <!-- زر البحث -->
+                    <button type="submit" class="search-btn">
+                        <i class="fas fa-search"></i>
+                        <span>ابحث</span>
+                    </button>
+
+                    <!-- زر الفلتر -->
+                    <button type="button" class="filter-btn" id="filterToggle">
+                        <i class="fas fa-sliders-h"></i>
+                    </button>
+                </div>
             </div>
-        </div>
+
+            <!-- البحث المتقدم -->
+            <div class="advanced-search" id="advancedSearch">
+                <div class="filter-grid">
+                    <!-- نوع العرض -->
+                    <div class="filter-group">
+                        <label>نوع العرض</label>
+                        <div class="btn-group">
+                            <input type="radio" name="property_type" value="sale" id="sale" 
+                                {{ request()->input('property_type') == 'sale' ? 'checked' : '' }}>
+                            <label for="sale" class="btn-option">للبيع</label>
+                            
+                            <input type="radio" name="property_type" value="rent" id="rent"
+                                {{ request()->input('property_type') == 'rent' ? 'checked' : '' }}>
+                            <label for="rent" class="btn-option">للإيجار</label>
+                        </div>
+                    </div>
+
+                    <!-- حالة العقار -->
+                    <div class="filter-group">
+                        <label>حالة العقار</label>
+                        <div class="btn-group">
+                            <input type="radio" name="property_status" value="new" id="new"
+                                {{ request()->input('property_status') == 'new' ? 'checked' : '' }}>
+                            <label for="new" class="btn-option">جديد</label>
+                            
+                            <input type="radio" name="property_status" value="used" id="used"
+                                {{ request()->input('property_status') == 'used' ? 'checked' : '' }}>
+                            <label for="used" class="btn-option">مستعمل</label>
+                        </div>
+                    </div>
+
+                    <!-- عدد الغرف -->
+                    <div class="filter-group">
+                        <label>عدد الغرف</label>
+                        <div class="number-input">
+                            <select name="bedrooms" class="form-select">
+                                <option value="">الكل</option>
+                                @for($i = 1; $i <= 10; $i++)
+                                    <option value="{{ $i }}" {{ request()->input('bedrooms') == $i ? 'selected' : '' }}>
+                                        {{ $i }} {{ $i == 1 ? 'غرفة' : 'غرف' }}
+                                    </option>
+                                @endfor
+                            </select>
+                        </div>
+                    </div>
+
+                    <!-- عدد دورات المياه -->
+                    <div class="filter-group">
+                        <label>دورات المياه</label>
+                        <div class="number-input">
+                            <select name="bathrooms" class="form-select">
+                                <option value="">الكل</option>
+                                @for($i = 1; $i <= 7; $i++)
+                                    <option value="{{ $i }}" {{ request()->input('bathrooms') == $i ? 'selected' : '' }}>
+                                        {{ $i }} {{ $i == 1 ? 'دورة مياه' : 'دورات مياه' }}
+                                    </option>
+                                @endfor
+                            </select>
+                        </div>
+                    </div>
+
+                    <!-- المساحة -->
+                    <div class="filter-group">
+                        <label>المساحة (متر مربع)</label>
+                        <div class="range-group">
+                            <input type="number" name="min_area" value="{{ request()->input('min_area') }}"
+                                placeholder="من" class="form-control">
+                            <span class="range-separator">-</span>
+                            <input type="number" name="max_area" value="{{ request()->input('max_area') }}"
+                                placeholder="إلى" class="form-control">
+                        </div>
+                    </div>
+
+                    <!-- السعر -->
+                    <div class="filter-group">
+                        <label>السعر</label>
+                        <div class="range-group">
+                            <input type="number" name="min_price" value="{{ request()->input('min_price') }}"
+                                placeholder="من" class="form-control">
+                            <span class="range-separator">-</span>
+                            <input type="number" name="max_price" value="{{ request()->input('max_price') }}"
+                                placeholder="إلى" class="form-control">
+                        </div>
+                    </div>
+
+                    <!-- مميزات العقار -->
+                    <div class="filter-group features-section">
+                        <label class="section-title">
+                            <i class="fas fa-home me-2"></i>
+                            مميزات العقار
+                        </label>
+                        <div class="features-grid">
+                            @foreach(App\Models\Product::$propertyFeatures as $key => $feature)
+                                <div class="feature-item">
+                                    <input type="checkbox" name="property_features[]" value="{{ $key }}" id="pf_{{ $key }}"
+                                        {{ in_array($key, (array)request()->input('property_features', [])) ? 'checked' : '' }}>
+                                    <label for="pf_{{ $key }}" class="feature-label">
+                                        <i class="{{ $feature['icon'] }}"></i>
+                                        <span>{{ $feature['name'] }}</span>
+                                    </label>
+                                </div>
+                            @endforeach
+                        </div>
+                    </div>
+
+                    <!-- مميزات الموقع -->
+                    <div class="filter-group features-section">
+                        <label class="section-title">
+                            <i class="fas fa-map-marker-alt me-2"></i>
+                            مميزات الموقع
+                        </label>
+                        <div class="features-grid">
+                            @foreach(App\Models\Product::$locationFeatures as $key => $feature)
+                                <div class="feature-item">
+                                    <input type="checkbox" name="location_features[]" value="{{ $key }}" id="lf_{{ $key }}"
+                                        {{ in_array($key, (array)request()->input('location_features', [])) ? 'checked' : '' }}>
+                                    <label for="lf_{{ $key }}" class="feature-label">
+                                        <i class="{{ $feature['icon'] }}"></i>
+                                        <span>{{ $feature['name'] }}</span>
+                                    </label>
+                                </div>
+                            @endforeach
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
     </div>
 </div>
 
 <style>
-    .flat-tabs {
-        padding: 25px;
-        border-radius: 10px;
-        margin-bottom: 30px;
-    }
+/* القسم الرئيسي */
+.search-section {
+    background: rgba(0, 0, 0, 0.7);
+    backdrop-filter: blur(10px);
+    padding: 30px 0;
+    border-radius: 20px;
+    z-index: 1000;
 
-    .flat-tabs .content-inner {
-        padding: 20px;
-    }
+    top: 50%;
+    
+     width: 90%;
+    max-width: 1400px;
+}
 
-    .flat-tabs .tab-content {
-        padding: 20px;
-    }
-
-    .form-sl {
-        padding: 20px;
-        border-radius: 8px;
-    }
-
-    .wd-find-select {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        padding: 15px;
-        border-bottom: 1px solid rgba(0,0,0,0.1);
-    }
-
-    .inner-group {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 15px;
-    }
-
-    .form-group-1, .form-group-2, .form-group-3, .form-group-4 {
-        flex: 1;
-        min-width: 200px;
-    }
-
-    .form-group-1.search-form {
-        padding: 10px;
-        border: 1px solid rgba(0,0,0,0.1);
-        border-radius: 8px;
-    }
-
-    .form-group-1.search-form input {
-        width: 100%;
-        padding: 10px;
-        border: none;
-        border-radius: 8px;
-    }
-
-    .form-group-2, .form-group-3 {
-        padding: 10px;
-        border: 1px solid rgba(0,0,0,0.1);
-        border-radius: 8px;
-    }
-
-    .form-group-2 select, .form-group-3 select {
-        width: 100%;
-        padding: 10px;
-        border: none;
-        border-radius: 8px;
-    }
-
-    .form-group-4 {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-    }
-
-    .icon-filter {
-        display: inline-flex;
-        align-items: center;
-        justify-content: center;
-        width: 40px;
-        height: 40px;
-        background: #FFA920;
-        color: #fff;
-        border-radius: 8px;
-        transition: all 0.3s ease;
-    }
-
-    .icon-filter:hover {
-        background: #ff9900;
-    }
-
-    .icon-filter i {
-        font-size: 18px;
-    }
-
-    .button-search {
-        margin-top: 15px;
-    }
-
-    .advanced-search {
-        padding: 20px;
-        border-radius: 8px;
-        margin-top: 15px;
-    }
-
-    .advanced-search.active {
-        display: block;
-    }
-
-    .form-wg {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 15px;
-    }
-
-    .form-group {
-        flex: 1;
-        min-width: 200px;
-    }
-
-    .widget-price .ui-slider-horizontal {
-        height: 4px;
-        background: #e5e5e5;
-        border: none;
-        border-radius: 2px;
-    }
-
-    .widget-price .ui-slider-horizontal .ui-slider-range {
-        background: #FFA920;
-        border-radius: 2px;
-    }
-
-    .widget-price .ui-slider .ui-slider-handle {
-        width: 15px;
-        height: 15px;
-        background: #FFA920;
-        border: 2px solid;
-        border-radius: 50%;
-        cursor: pointer;
-        top: -6px;
-        outline: none;
-        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-    }
-
-    .widget-price .caption {
-        margin-bottom: 15px;
-    }
-
-    .widget-price .caption span {
-        font-size: 14px;
-    }
-
-    .widget-price .caption .fw-6 {
-        font-weight: 600;
-        margin-left: 5px;
-    }
-
-    /* تنسيقات البحث المتقدم */
-    .advanced-search {
-        padding: 20px;
-        border-radius: 8px;
-        margin-top: 15px;
-    }
-
-    .advanced-search.active {
-        display: block;
-    }
-
-    .form-wg {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 15px;
-    }
-
-    .form-group {
-        flex: 1;
-        min-width: 200px;
-    }
-
-    .icon-filter {
-        display: inline-flex;
-        align-items: center;
-        justify-content: center;
-        width: 40px;
-        height: 40px;
-        background: #FFA920;
-        color: #fff;
-        border-radius: 8px;
-        transition: all 0.3s ease;
-    }
-
-    .icon-filter:hover {
-        background: #ff9900;
-    }
-
-    .icon-filter i {
-        font-size: 18px;
-    }
-
-    /* تنسيقات قسم المميزات */
-    .features-section {
-        padding: 20px 0;
-        border-top: 1px solid rgba(0,0,0,0.1);
-    }
-
-    .widget-features {
-        padding: 20px;
-        border-radius: 8px;
-        margin-bottom: 20px;
-    }
-
-    .title-features {
-        color: #333;
-        font-size: 18px;
-        margin-bottom: 15px;
-        font-weight: 600;
-    }
-
-    .title-features::before {
-        content: '';
-        position: absolute;
-        right: 0;
-        top: 50%;
-        transform: translateY(-50%);
-        width: 4px;
-        height: 20px;
-        background: #FFA920;
-        border-radius: 2px;
-    }
-
-    .features-list {
-        display: grid;
-        grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
-        gap: 10px;
-    }
-
-    .feature-item {
-        margin-bottom: 10px;
-    }
-
-    .checkbox-item {
-        display: flex;
-        align-items: center;
-        cursor: pointer;
-        font-size: 14px;
-        color: #555;
-    }
-
-    .checkbox-item:hover {
-        color: #FFA920;
-    }
-
-    .checkbox-item input[type="checkbox"] {
-        display: none;
-    }
-
-    .custom-checkbox {
-        width: 18px;
-        height: 18px;
-        border: 2px solid #FFA920;
-        border-radius: 4px;
-        margin-left: 8px;
+/* تحسين تجاوب العرض على الشاشات الصغيرة */
+@media (max-width: 768px) {
+    .search-section {
         position: relative;
-        transition: all 0.3s ease;
+        transform: none;
+        top: 0;
+        left: 0;
+        width: 95%;
+        margin: 20px auto;
+        padding: 15px;
+    }
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 15px;
+}
+
+/* البحث الرئيسي */
+.main-search {
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 15px;
+    padding: 20px;
+    margin-bottom: 20px;
+}
+
+.search-row {
+    display: grid;
+    grid-template-columns: 1.5fr repeat(3, 1fr) auto auto;
+    gap: 15px;
+    align-items: center;
+}
+
+/* حقول الإدخال */
+.search-input,
+.select-group {
+    position: relative;
+}
+
+.input-icon {
+    position: absolute;
+    right: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #DAA520;
+    font-size: 16px;
+    z-index: 1;
+}
+
+.form-control,
+.form-select {
+    width: 100%;
+    height: 50px;
+    padding: 0 45px 0 15px;
+    border-radius: 10px;
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    color: #fff;
+    font-size: 14px;
+    transition: all 0.3s ease;
+}
+
+.form-control:focus,
+.form-select:focus {
+    background: rgba(255, 255, 255, 0.15);
+    border-color: #DAA520;
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(218, 165, 32, 0.1);
+}
+
+/* الأزرار */
+.search-btn,
+.filter-btn {
+    height: 50px;
+    border-radius: 10px;
+    border: none;
+    padding: 0 20px;
+    font-size: 14px;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.search-btn {
+    background: #DAA520;
+    color: #fff;
+}
+
+.search-btn:hover {
+    background: #c99412;
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(218, 165, 32, 0.2);
+}
+
+.filter-btn {
+    background: rgba(255, 255, 255, 0.1);
+    color: #fff;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.filter-btn:hover {
+    background: rgba(255, 255, 255, 0.2);
+    border-color: #DAA520;
+}
+
+.filter-btn.active {
+    background: #DAA520;
+    border-color: #DAA520;
+}
+
+/* البحث المتقدم */
+.advanced-search {
+    display: none;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 15px;
+    padding: 20px;
+    margin-top: 20px;
+    animation: slideDown 0.3s ease;
+}
+
+.advanced-search.active {
+    display: block;
+}
+
+/* الفلاتر */
+.filter-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+    margin-bottom: 30px;
+}
+
+.filter-group {
+    background: rgba(0, 0, 0, 0.2);
+    padding: 20px;
+    border-radius: 10px;
+}
+
+.filter-group label {
+    display: block;
+    color: #fff;
+    margin-bottom: 10px;
+    font-size: 14px;
+    font-weight: 500;
+}
+
+/* مجموعة الأزرار */
+.btn-group {
+    display: flex;
+    gap: 10px;
+}
+
+.btn-group input[type="radio"] {
+    display: none;
+}
+
+.btn-option {
+    flex: 1;
+    padding: 10px;
+    text-align: center;
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 8px;
+    color: #fff;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+input[type="radio"]:checked + .btn-option {
+    background: #DAA520;
+    border-color: #DAA520;
+}
+
+/* حقول المدى */
+.range-group {
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    gap: 10px;
+    align-items: center;
+}
+
+.range-separator {
+    color: #fff;
+    font-weight: bold;
+}
+
+.features-section {
+    padding: 20px !important;
+}
+
+.section-title {
+    font-size: 18px;
+    margin-bottom: 15px;
+    color: #fff;
+    display: flex;
+    align-items: center;
+}
+
+.features-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+    gap: 12px;
+}
+
+.feature-item {
+    position: relative;
+}
+
+.feature-item input[type="checkbox"] {
+    display: none;
+}
+
+.feature-label {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px;
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 8px;
+    color: #fff;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    margin: 0;
+    height: 100%;
+}
+
+.feature-label i {
+    font-size: 16px;
+    min-width: 20px;
+    text-align: center;
+    margin-left: 8px; /* إضافة مسافة على يمين الأيقونة */
+}
+
+.feature-label span {
+    font-size: 13px;
+    line-height: 1.2;
+}
+
+.feature-item input[type="checkbox"]:checked + .feature-label {
+    background: #DAA520;
+    border-color: #DAA520;
+}
+
+/* التجاوب */
+@media (max-width: 1200px) {
+    .search-row {
+        grid-template-columns: 1fr 1fr 1fr;
+    }
+    
+    .search-input {
+        grid-column: 1 / -1;
+    }
+}
+
+@media (max-width: 768px) {
+    .search-section {
+        padding: 15px;
     }
 
-    .checkbox-item input[type="checkbox"]:checked + .custom-checkbox {
-        background: #FFA920;
+    .search-row {
+        grid-template-columns: 1fr;
     }
 
-    .checkbox-item input[type="checkbox"]:checked + .custom-checkbox::after {
-        content: '';
-        position: absolute;
-        left: 5px;
-        top: 2px;
-        width: 5px;
-        height: 10px;
-        border: solid #fff;
-        border-width: 0 2px 2px 0;
-        transform: rotate(45deg);
+    .search-btn,
+    .filter-btn {
+        width: 100%;
+        justify-content: center;
     }
 
-    .checkbox-item i {
-        color: #FFA920;
-        width: 20px;
-        text-align: center;
-        margin-left: 5px;
+    .filter-grid {
+        grid-template-columns: 1fr;
     }
+}
 
-    .flat-tabs {
-        padding: 25px;
-        border-radius: 10px;
-        margin-bottom: 30px;
+@media (max-width: 768px) {
+    .features-grid {
+        grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
     }
+}
 
-    .form-sl {
-        padding: 20px;
-        border-radius: 8px;
-    }
-
-    .advanced-search {
-        padding: 20px;
-        border-radius: 8px;
-        margin-top: 15px;
-    }
-
-    .sc-button {
-        background: #2756FF;
-        color: #fff;
-        border: none;
-        padding: 12px 25px;
-        border-radius: 6px;
-        font-weight: 600;
-        transition: all 0.3s ease;
-    }
-
-    .sc-button:hover {
-        background: #1a41d8;
-    }
+.images.po-content-one {
+    z-index: -1;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
 </style>
 
 <script>
-    document.addEventListener('DOMContentLoaded', function() {
-        const parentCitySelect = document.getElementById('parent_city');
-        const subCitiesSelect = document.getElementById('sub_cities');
-        const searchForm = document.getElementById('searchForm');
-        
-        if (parentCitySelect && subCitiesSelect) {
-            // تحميل الأحياء عند تحميل الصفحة إذا كانت هناك مدينة محددة
-            if (parentCitySelect.value) {
-                loadNeighborhoods(parentCitySelect.value);
-            }
-
-            parentCitySelect.addEventListener('change', function() {
-                loadNeighborhoods(this.value);
-            });
-
-            function loadNeighborhoods(cityId) {
-                if (!cityId) {
-                    subCitiesSelect.innerHTML = '<option value="">اختر الحي</option>';
-                    return;
-                }
-
-                fetch(`{{ url('/get-neighborhoods') }}/${cityId}`)
-                    .then(response => {
-                        if (!response.ok) {
-                            throw new Error('Network response was not ok');
-                        }
-                        return response.json();
-                    })
+document.addEventListener('DOMContentLoaded', function() {
+    const citySelect = document.getElementById('city');
+    const neighborhoodSelect = document.getElementById('neighborhood');
+    const filterBtn = document.querySelector('.filter-btn');
+    const advancedSearch = document.querySelector('.advanced-search');
+    
+    // تحميل الأحياء عند تغيير المدينة
+    if (citySelect) {
+        citySelect.addEventListener('change', function() {
+            const cityId = this.value;
+            neighborhoodSelect.innerHTML = '<option value="">اختر الحي</option>';
+            neighborhoodSelect.disabled = true;
+            
+            if (cityId) {
+                fetch(`/neighborhoods/${cityId}`)
+                    .then(response => response.json())
                     .then(data => {
                         let options = '<option value="">اختر الحي</option>';
-                        const currentNeighborhoodId = '{{ request()->input("neighborhood_id") }}';
-                        if (Array.isArray(data)) {
-                            data.forEach(city => {
-                                const selected = currentNeighborhoodId && currentNeighborhoodId == city.id ? 'selected' : '';
-                                options += `<option value="${city.id}" ${selected}>${city.name}</option>`;
-                            });
-                        }
-                        subCitiesSelect.innerHTML = options;
+                        data.forEach(neighborhood => {
+                            const selected = neighborhood.id == {{ request()->input('neighborhood_id', 'null') }} ? 'selected' : '';
+                            options += `<option value="${neighborhood.id}" ${selected}>${neighborhood.name}</option>`;
+                        });
+                        neighborhoodSelect.innerHTML = options;
+                        neighborhoodSelect.disabled = false;
                     })
                     .catch(error => {
                         console.error('Error:', error);
-                        subCitiesSelect.innerHTML = '<option value="">حدث خطأ في تحميل الأحياء</option>';
+                        neighborhoodSelect.innerHTML = '<option value="">حدث خطأ في تحميل الأحياء</option>';
                     });
             }
-        }
-
-        // معالجة نطاق السعر
-        const minPriceInput = document.getElementById('min_price');
-        const maxPriceInput = document.getElementById('max_price');
-        const sliderRangeValue1 = document.getElementById('slider-range-value1');
-        const sliderRangeValue2 = document.getElementById('slider-range-value2');
-        
-        if (minPriceInput && maxPriceInput && sliderRangeValue1 && sliderRangeValue2) {
-            const initialMinPrice = parseInt(minPriceInput.value) || 0;
-            const initialMaxPrice = parseInt(maxPriceInput.value) || 1000000;
-
-            sliderRangeValue1.textContent = initialMinPrice.toLocaleString();
-            sliderRangeValue2.textContent = initialMaxPrice.toLocaleString();
-
-            try {
-                $("#slider-range").slider({
-                    range: true,
-                    min: 0,
-                    max: 1000000,
-                    step: 1000,
-                    values: [initialMinPrice, initialMaxPrice],
-                    slide: function(event, ui) {
-                        minPriceInput.value = ui.values[0];
-                        maxPriceInput.value = ui.values[1];
-                        sliderRangeValue1.textContent = ui.values[0].toLocaleString();
-                        sliderRangeValue2.textContent = ui.values[1].toLocaleString();
-                    }
-                });
-            } catch (error) {
-                console.error('Error initializing slider:', error);
-            }
-        }
-
-        // معالجة تقديم النموذج
-        if (searchForm) {
-            searchForm.addEventListener('submit', function(e) {
-                // لا نمنع السلوك الافتراضي للنموذج
-                // نقوم فقط بتعطيل الحقول الفارغة
-                const formData = new FormData(this);
-                for (const pair of formData.entries()) {
-                    if (!pair[1]) {
-                        const input = this.querySelector(`[name="${pair[0]}"]`);
-                        if (input) {
-                            input.disabled = true;
-                        }
-                    }
-                }
-            });
-        }
-    });
-</script>
-
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script>
-    $(document).ready(function () {
-        // معالجة زر الفلترة
-        $('.icon-filter').on('click', function(e) {
-            e.preventDefault(); // منع السلوك الافتراضي للرابط
-            console.log('تم النقر على زر الفلترة'); // للتأكد من عمل الحدث
-            $('.advanced-search').slideToggle('fast', function() {
-                console.log('اكتمل التبديل'); // للتأكد من اكتمال التأثير
-            });
         });
 
-        // تهيئة باقي الوظائف
-        const parentCitySelect = document.getElementById('parent_city');
-        const subCitiesSelect = document.getElementById('sub_cities');
-
-        if (parentCitySelect && subCitiesSelect) {
-            // تحميل الأحياء عند تحميل الصفحة إذا كانت هناك مدينة محددة
-            if (parentCitySelect.value) {
-                loadNeighborhoods(parentCitySelect.value);
-            }
-
-            parentCitySelect.addEventListener('change', function() {
-                loadNeighborhoods(this.value);
-            });
-
-            function loadNeighborhoods(cityId) {
-                if (!cityId) {
-                    subCitiesSelect.innerHTML = '<option value="">اختر الحي</option>';
-                    return;
-                }
-
-                fetch(`{{ url('/get-neighborhoods') }}/${cityId}`)
-                    .then(response => {
-                        if (!response.ok) {
-                            throw new Error('Network response was not ok');
-                        }
-                        return response.json();
-                    })
-                    .then(data => {
-                        let options = '<option value="">اختر الحي</option>';
-                        const currentNeighborhoodId = '{{ request()->input("neighborhood_id") }}';
-                        if (Array.isArray(data)) {
-                            data.forEach(city => {
-                                const selected = currentNeighborhoodId && currentNeighborhoodId == city.id ? 'selected' : '';
-                                options += `<option value="${city.id}" ${selected}>${city.name}</option>`;
-                            });
-                        }
-                        subCitiesSelect.innerHTML = options;
-                    })
-                    .catch(error => {
-                        console.error('Error:', error);
-                        subCitiesSelect.innerHTML = '<option value="">حدث خطأ في تحميل الأحياء</option>';
-                    });
-            }
+        // تحميل الأحياء عند تحميل الصفحة إذا كانت هناك مدينة محددة
+        if (citySelect.value) {
+            citySelect.dispatchEvent(new Event('change'));
         }
+    }
 
-        // معالجة نطاق السعر
-        const minPriceInput = document.getElementById('min_price');
-        const maxPriceInput = document.getElementById('max_price');
-        const sliderRangeValue1 = document.getElementById('slider-range-value1');
-        const sliderRangeValue2 = document.getElementById('slider-range-value2');
-        
-        if (minPriceInput && maxPriceInput && sliderRangeValue1 && sliderRangeValue2) {
-            const initialMinPrice = parseInt(minPriceInput.value) || 0;
-            const initialMaxPrice = parseInt(maxPriceInput.value) || 1000000;
-
-            sliderRangeValue1.textContent = initialMinPrice.toLocaleString();
-            sliderRangeValue2.textContent = initialMaxPrice.toLocaleString();
-
-            try {
-                $("#slider-range").slider({
-                    range: true,
-                    min: 0,
-                    max: 1000000,
-                    step: 1000,
-                    values: [initialMinPrice, initialMaxPrice],
-                    slide: function(event, ui) {
-                        minPriceInput.value = ui.values[0];
-                        maxPriceInput.value = ui.values[1];
-                        sliderRangeValue1.textContent = ui.values[0].toLocaleString();
-                        sliderRangeValue2.textContent = ui.values[1].toLocaleString();
-                    }
-                });
-            } catch (error) {
-                console.error('Error initializing slider:', error);
-            }
-        }
-
-        // معالجة تقديم النموذج
-        const searchForm = document.getElementById('searchForm');
-        if (searchForm) {
-            searchForm.addEventListener('submit', function(e) {
-                // لا نمنع السلوك الافتراضي للنموذج
-                // نقوم فقط بتعطيل الحقول الفارغة
-                const formData = new FormData(this);
-                for (const pair of formData.entries()) {
-                    if (!pair[1]) {
-                        const input = this.querySelector(`[name="${pair[0]}"]`);
-                        if (input) {
-                            input.disabled = true;
-                        }
-                    }
-                }
-            });
-        }
-
-        $('#searchForm').on('submit', function (e) {
-            // لا نمنع السلوك الافتراضي للنموذج
-            // نقوم فقط بإرسال طلب AJAX
-            let formData = $(this).serialize();
-
-            $.ajax({
-                url: $(this).attr('action'), // الرابط الموجود في form
-                method: 'GET', // طريقة الإرسال
-                data: formData,
-                beforeSend: function () {
-                    // يمكنك هنا إضافة مؤشر تحميل
-                    $('#searchResults').html('<p>جاري البحث...</p>');
-                },
-                success: function (response) {
-                    // عرض النتائج في div
-                    $('#searchResults').html(response);
-                },
-                error: function (xhr, status, error) {
-                    console.error('حدث خطأ:', error);
-                    $('#searchResults').html('<p>حدث خطأ أثناء البحث. الرجاء المحاولة مرة أخرى.</p>');
-                }
-            });
+    // تبديل البحث المتقدم
+    if (filterBtn && advancedSearch) {
+        filterBtn.addEventListener('click', function() {
+            advancedSearch.classList.toggle('active');
+            this.classList.toggle('active');
         });
-    });
+    }
+});
 </script>

@@ -6,7 +6,6 @@ use Illuminate\Database\Eloquent\Model;
 
 class Product extends Model
 {
-    // تحديد الحقول القابلة للتحديث عبر الواجهة
     protected $fillable = [
         'title',
         'description',
@@ -15,40 +14,90 @@ class Product extends Model
         'bedrooms',
         'bathrooms',
         'area',
-        'features',
         'category',
         'image',
         'images',
-        'city_id',
-        'neighborhood_id',
         'monthly_installment',
         'ad_number',
         'property_usage',
         'property_facade',
+        'property_type',
         'profile_project',
-        'croquis',
-        'is_for_rent', // إضافة حقل للإيجار
-        'rent_price', // سعر الإيجار الشهري
-        'rent_deposit', // مبلغ التأمين
-        'rent_period', // مدة الإيجار (بالأشهر)
-        'rent_terms', // شروط الإيجار
-        'property_type', // نوع العقار
+        'city_id',
+        'neighborhood_id',
+        'created_by',
+        'propertyFeatures',
+        'locationFeatures',
+        'is_for_rent',
+        'rent_price',
+        'rent_deposit',
+        'rent_period',
+        'rent_terms',
     ];
+
+    protected $casts = [
+        'propertyFeatures' => 'array',
+        'locationFeatures' => 'array'
+    ];
+
+    public function getFeatureIcon($feature)
+    {
+        $icons = [
+            // مميزات العقار
+            'مكيف مركزي' => 'fas fa-snowflake',
+            'مطبخ مجهز' => 'fas fa-utensils',
+            'غرفة خادمة' => 'fas fa-person-booth',
+            'مسبح خاص' => 'fas fa-swimming-pool',
+            'موقف خاص' => 'fas fa-car',
+            'مصعد' => 'fas fa-elevator',
+            'مفروش بالكامل' => 'fas fa-couch',
+            'خدمة تنظيف' => 'fas fa-broom',
+            'انترنت' => 'fas fa-wifi',
+            'شرفة' => 'fas fa-door-open',
+            'غرفة غسيل' => 'fas fa-tshirt',
+            'نظام أمني' => 'fas fa-shield-alt',
+            'واجهات زجاجية' => 'fas fa-building',
+            'أبواب كبيرة' => 'fas fa-door-open',
+            'ارتفاع عالي' => 'fas fa-arrows-alt-v',
+            'نظام إطفاء' => 'fas fa-fire-extinguisher',
+            'نظام مراقبة' => 'fas fa-video',
+            'تكييف صناعي' => 'fas fa-fan',
+
+            // مميزات الموقع
+            'قريب من المدارس' => 'fas fa-school',
+            'قريب من المستشفيات' => 'fas fa-hospital',
+            'قريب من المسجد' => 'fas fa-mosque',
+            'قريب من الأسواق' => 'fas fa-shopping-cart',
+            'قريب من المنتزهات' => 'fas fa-tree',
+            'قريب من البحر' => 'fas fa-water',
+            'قريب من المطاعم' => 'fas fa-utensils',
+            'قريب من المولات' => 'fas fa-shopping-bag',
+            'منطقة راقية' => 'fas fa-star',
+            'على الشارع الرئيسي' => 'fas fa-road',
+            'قريب من المترو' => 'fas fa-subway',
+            'منطقة حيوية' => 'fas fa-city',
+            'سهولة الوصول' => 'fas fa-map-marked-alt',
+            'منطقة صناعية' => 'fas fa-industry',
+            'قرب الطرق السريعة' => 'fas fa-road',
+            'خدمات لوجستية' => 'fas fa-truck',
+            'أمن على مدار الساعة' => 'fas fa-shield-alt'
+        ];
+
+        return $icons[$feature] ?? 'fas fa-check';
+    }
 
     const CATEGORIES = [
         'شقة',
         'منزل',
         'فيلا',
         'مكتب',
-        // أضف التصنيفات الأخرى هنا
     ];
 
     const CATEGORY_ICONS = [
-        'شقة' => 'fa-building',  // اسم الأيقونة في Font Awesome
+        'شقة' => 'fa-building',
         'منزل' => 'fa-home',
         'فيلا' => 'fa-landmark',
         'مكتب' => 'fa-briefcase',
-        // أضف أيقونات التصنيفات الأخرى هنا
     ];
 
     const PROPERTY_USAGE = [
@@ -72,50 +121,11 @@ class Product extends Model
         24 => 'سنتين'
     ];
 
-    // مميزات العقار
-    public static $propertyFeatures = [
-        'مرآب' => 'fas fa-car',
-        'مسبح' => 'fas fa-swimming-pool',
-        'حديقة' => 'fas fa-tree',
-        'مصعد' => 'fas fa-elevator',
-        'تكييف مركزي' => 'fas fa-snowflake',
-        'مطبخ مجهز' => 'fas fa-utensils',
-        'غرفة خادمة' => 'fas fa-person-booth',
-        'غرفة حارس' => 'fas fa-user-shield',
-        'غرفة غسيل' => 'fas fa-tshirt',
-        'مدخل سيارات' => 'fas fa-car-side',
-        'نظام إنذار' => 'fas fa-bell',
-        'خزان مياه' => 'fas fa-water'
-    ];
-
-    // مميزات الموقع
-    public static $locationFeatures = [
-        'قريب من المسجد' => 'fas fa-mosque',
-        'قريب من المدارس' => 'fas fa-school',
-        'قريب من الأسواق' => 'fas fa-shopping-cart',
-        'قريب من المستشفيات' => 'fas fa-hospital',
-        'قريب من الحدائق' => 'fas fa-tree',
-        'قريب من المواصلات' => 'fas fa-bus',
-        'شارع رئيسي' => 'fas fa-road',
-        'منطقة هادئة' => 'fas fa-volume-mute',
-        'أمن وحراسة' => 'fas fa-shield-alt',
-        'خدمات بلدية' => 'fas fa-city'
-    ];
-
-    // دالة لإرجاع الأيقونة الخاصة بكل ميزة
-    public function getFeatureIcon($feature)
-    {
-        $allFeatures = array_merge(self::$propertyFeatures, self::$locationFeatures);
-        return $allFeatures[$feature] ?? 'fas fa-question';
-    }
-
-    // دالة لإرجاع الأيقونة الخاصة بالتصنيف
     public function getCategoryIcon()
     {
         return self::CATEGORY_ICONS[$this->category] ?? 'fa-question';
     }
 
-    // داخل Product.php
     public function comments()
     {
         return $this->hasMany(Comment::class);
@@ -131,30 +141,21 @@ class Product extends Model
         return $this->hasMany(City::class, 'parent_id');
     }
 
-    // العلاقة مع المدينة
     public function city()
     {
         return $this->belongsTo(City::class, 'city_id')->whereNull('parent_id');
     }
 
-    // العلاقة مع الحي
     public function neighborhood()
     {
         return $this->belongsTo(City::class, 'neighborhood_id')->whereNotNull('parent_id');
     }
 
-    public function getFeaturesAttribute($value)
-    {
-        return explode(',', $value); // تحويل النص إلى مصفوفة بناءً على الفواصل
-    }
-
-    // دالة للتحقق من توفر العقار للإيجار
     public function isAvailableForRent()
     {
         return $this->is_for_rent && $this->property_usage != 'بيع';
     }
 
-    // دالة لحساب إجمالي تكلفة الإيجار
     public function calculateTotalRent($months)
     {
         if (!$this->isAvailableForRent()) {

@@ -116,6 +116,13 @@ class CityController extends Controller
         return redirect()->route('cities.index')->with('success', 'تم تعديل المدينة بنجاح');
     }
 
+    public function neighborhoods($cityId)
+    {
+        $city = City::findOrFail($cityId);
+        $neighborhoods = $city->children;
+        return response()->json($neighborhoods);
+    }
+
     public function destroy(City $city)
     {
         if ($city->image) {

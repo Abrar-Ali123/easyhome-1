@@ -36,7 +36,7 @@ Route::post('/password/confirm', [ConfirmPasswordController::class, 'confirm']);
 
 // مسارات البحث العامة (متاحة للجميع)
 Route::get('/search', [ProductController::class, 'search'])->name('products.search');
-Route::get('/get-neighborhoods/{cityId}', [ProductController::class, 'getNeighborhoods'])->name('neighborhoods.get');
+Route::get('/neighborhoods/{cityId}', [CityController::class, 'neighborhoods'])->name('neighborhoods.get');
 Route::get('/products', [ProductController::class, 'index'])->name('products.index');
 Route::get('/products/{product}', [ProductController::class, 'show'])->name('products.show');
 Route::get('/properties', [ProductController::class, 'properties'])->name('products.properties');

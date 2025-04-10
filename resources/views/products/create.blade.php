@@ -84,6 +84,109 @@
                 <input type="number" name="area" id="area" class="form-control" value="{{ old('area') }}">
             </div>
 
+            <!-- مميزات العقار -->
+            <div class="form-group mb-4">
+                <label class="mb-3">مميزات العقار</label>
+                <div class="features-grid">
+                    @foreach (App\Models\Product::$propertyFeatures as $key => $feature)
+                        <label class="feature-item">
+                            <input type="checkbox" name="property_features[]" value="{{ $key }}"
+                                {{ in_array($key, old('property_features', [])) ? 'checked' : '' }}>
+                            <span class="checkmark"></span>
+                            <i class="{{ $feature['icon'] }} feature-icon"></i>
+                            <span class="feature-name">{{ $feature['name'] }}</span>
+                        </label>
+                    @endforeach
+                </div>
+            </div>
+
+            <!-- مميزات الموقع -->
+            <div class="form-group mb-4">
+                <label class="mb-3">مميزات الموقع</label>
+                <div class="features-grid">
+                    @foreach (App\Models\Product::$locationFeatures as $key => $feature)
+                        <label class="feature-item">
+                            <input type="checkbox" name="location_features[]" value="{{ $key }}"
+                                {{ in_array($key, old('location_features', [])) ? 'checked' : '' }}>
+                            <span class="checkmark"></span>
+                            <i class="{{ $feature['icon'] }} feature-icon"></i>
+                            <span class="feature-name">{{ $feature['name'] }}</span>
+                        </label>
+                    @endforeach
+                </div>
+            </div>
+
+            <style>
+                .features-grid {
+                    display: grid;
+                    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+                    gap: 15px;
+                    background: #f8f9fa;
+                    padding: 20px;
+                    border-radius: 10px;
+                }
+
+                .feature-item {
+                    display: flex;
+                    align-items: center;
+                    gap: 10px;
+                    padding: 10px;
+                    background: white;
+                    border-radius: 8px;
+                    cursor: pointer;
+                    transition: all 0.3s ease;
+                    margin: 0;
+                }
+
+                .feature-item:hover {
+                    background: #e9ecef;
+                }
+
+                .feature-icon {
+                    color: #0d6efd;
+                    width: 20px;
+                    text-align: center;
+                }
+
+                .feature-name {
+                    flex: 1;
+                }
+
+                .feature-item input[type="checkbox"] {
+                    display: none;
+                }
+
+                .checkmark {
+                    width: 18px;
+                    height: 18px;
+                    border: 2px solid #dee2e6;
+                    border-radius: 4px;
+                    position: relative;
+                    transition: all 0.3s ease;
+                }
+
+                .feature-item:hover .checkmark {
+                    border-color: #0d6efd;
+                }
+
+                .feature-item input[type="checkbox"]:checked + .checkmark {
+                    background: #0d6efd;
+                    border-color: #0d6efd;
+                }
+
+                .feature-item input[type="checkbox"]:checked + .checkmark::after {
+                    content: '';
+                    position: absolute;
+                    left: 5px;
+                    top: 2px;
+                    width: 5px;
+                    height: 10px;
+                    border: solid white;
+                    border-width: 0 2px 2px 0;
+                    transform: rotate(45deg);
+                }
+            </style>
+
             <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
 
             <div id="features-checkboxes">

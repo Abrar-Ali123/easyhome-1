@@ -14,7 +14,7 @@ class HeroSliderSeeder extends Seeder
                 'title' => 'ايزي هوم للتسويق العقاري',
                 'subtitle' => 'نقدم لك خدمات التسويق العقاري بكل احترافية ومصداقية',
                 'description' => 'نحن نقدم لك خدمات التسويق العقاري بكل احترافية ومصداقية',
-                'image' => 'sliders/hero-1.jpg',
+                'image' => '/images/slider/hero-1.jpg',
                 'button_text' => 'تواصل معنا',
                 'button_link' => '/contact',
                 'order' => 1,

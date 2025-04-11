@@ -1,6 +1,46 @@
 @php
     $mainCities = App\Models\City::whereNull('parent_id')->get();
     $categories = App\Models\Product::CATEGORIES;
+    $propertyFeatures = [
+        'مكيف مركزي',
+        'مطبخ مجهز',
+        'غرفة خادمة',
+        'مسبح خاص',
+        'موقف خاص',
+        'مصعد',
+        'مفروش بالكامل',
+        'خدمة تنظيف',
+        'انترنت',
+        'شرفة',
+        'غرفة غسيل',
+        'نظام أمني',
+        'واجهات زجاجية',
+        'أبواب كبيرة',
+        'ارتفاع عالي',
+        'نظام إطفاء',
+        'نظام مراقبة',
+        'تكييف صناعي'
+    ];
+    
+    $locationFeatures = [
+        'قريب من المدارس',
+        'قريب من المستشفيات',
+        'قريب من المسجد',
+        'قريب من الأسواق',
+        'قريب من المنتزهات',
+        'قريب من البحر',
+        'قريب من المطاعم',
+        'قريب من المولات',
+        'منطقة راقية',
+        'على الشارع الرئيسي',
+        'قريب من المترو',
+        'منطقة حيوية',
+        'سهولة الوصول',
+        'منطقة صناعية',
+        'قرب الطرق السريعة',
+        'خدمات لوجستية',
+        'أمن على مدار الساعة'
+    ];
 @endphp
 
 <div class="search-section">
@@ -157,13 +197,13 @@
                             مميزات العقار
                         </label>
                         <div class="features-grid">
-                            @foreach(App\Models\Product::$propertyFeatures as $key => $feature)
+                            @foreach ($propertyFeatures as $feature)
                                 <div class="feature-item">
-                                    <input type="checkbox" name="property_features[]" value="{{ $key }}" id="pf_{{ $key }}"
-                                        {{ in_array($key, (array)request()->input('property_features', [])) ? 'checked' : '' }}>
-                                    <label for="pf_{{ $key }}" class="feature-label">
-                                        <i class="{{ $feature['icon'] }}"></i>
-                                        <span>{{ $feature['name'] }}</span>
+                                    <input type="checkbox" name="property_features[]" value="{{ $feature }}" id="pf_{{ $loop->index }}"
+                                        {{ in_array($feature, (array)request()->input('property_features', [])) ? 'checked' : '' }}>
+                                    <label for="pf_{{ $loop->index }}" class="feature-label">
+                                        <i class="{{ (new App\Models\Product)->getFeatureIcon($feature) }}"></i>
+                                        <span>{{ $feature }}</span>
                                     </label>
                                 </div>
                             @endforeach
@@ -177,13 +217,13 @@
                             مميزات الموقع
                         </label>
                         <div class="features-grid">
-                            @foreach(App\Models\Product::$locationFeatures as $key => $feature)
+                            @foreach ($locationFeatures as $feature)
                                 <div class="feature-item">
-                                    <input type="checkbox" name="location_features[]" value="{{ $key }}" id="lf_{{ $key }}"
-                                        {{ in_array($key, (array)request()->input('location_features', [])) ? 'checked' : '' }}>
-                                    <label for="lf_{{ $key }}" class="feature-label">
-                                        <i class="{{ $feature['icon'] }}"></i>
-                                        <span>{{ $feature['name'] }}</span>
+                                    <input type="checkbox" name="location_features[]" value="{{ $feature }}" id="lf_{{ $loop->index }}"
+                                        {{ in_array($feature, (array)request()->input('location_features', [])) ? 'checked' : '' }}>
+                                    <label for="lf_{{ $loop->index }}" class="feature-label">
+                                        <i class="{{ (new App\Models\Product)->getFeatureIcon($feature) }}"></i>
+                                        <span>{{ $feature }}</span>
                                     </label>
                                 </div>
                             @endforeach
@@ -414,8 +454,8 @@ input[type="radio"]:checked + .btn-option {
 
 .features-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
-    gap: 12px;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 8px;
 }
 
 .feature-item {
@@ -429,33 +469,32 @@ input[type="radio"]:checked + .btn-option {
 .feature-label {
     display: flex;
     align-items: center;
-    gap: 8px;
-    padding: 10px;
+    gap: 6px;
+    padding: 6px 8px;
     background: rgba(255, 255, 255, 0.1);
     border: 1px solid rgba(255, 255, 255, 0.2);
-    border-radius: 8px;
+    border-radius: 6px;
     color: #fff;
     cursor: pointer;
     transition: all 0.3s ease;
     margin: 0;
     height: 100%;
+    font-size: 12px;
 }
 
 .feature-label i {
-    font-size: 16px;
-    min-width: 20px;
+    font-size: 14px;
+    min-width: 16px;
     text-align: center;
-    margin-left: 8px; /* إضافة مسافة على يمين الأيقونة */
+    margin-left: 6px;
 }
 
 .feature-label span {
-    font-size: 13px;
+    font-size: 12px;
     line-height: 1.2;
-}
-
-.feature-item input[type="checkbox"]:checked + .feature-label {
-    background: #DAA520;
-    border-color: #DAA520;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 /* التجاوب */
@@ -491,7 +530,13 @@ input[type="radio"]:checked + .btn-option {
 
 @media (max-width: 768px) {
     .features-grid {
-        grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 480px) {
+    .features-grid {
+        grid-template-columns: 1fr;
     }
 }
 

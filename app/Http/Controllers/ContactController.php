@@ -30,19 +30,23 @@ class ContactController extends Controller
 
     public function store(Request $request)
     {
+        try {
+            $validatedData = $request->validate([
+                'name' => 'required|string|max:255',
+                'phone' => 'required|string|max:15',
+                'message' => 'required|string',
+                'source' => 'required|string',
+                'product_id' => 'nullable|exists:products,id',
+            ]);
 
-        $validatedData = $request->validate([
-            'name' => 'required|string|max:255',
-            'phone' => 'required|string|max:15',
-            'message' => 'required|string',
-            'source' => 'required|string',
-            'product_id' => 'nullable|exists:products,id',
+            Contact::create($validatedData);
 
-        ]);
-
-        Contact::create($validatedData);
-
-        return redirect()->back()->with('success', 'تم إرسال رسالتك بنجاح.');
+            return redirect()->back()->with('success', 'شكراً لك! تم إرسال رسالتك بنجاح وسنتواصل معك قريباً.');
+        } catch (\Exception $e) {
+            return redirect()->back()
+                ->withInput()
+                ->withErrors(['error' => 'عذراً، حدث خطأ أثناء إرسال الرسالة. الرجاء المحاولة مرة أخرى.']);
+        }
     }
 
     public function adminUpdate(Request $request, $id)
